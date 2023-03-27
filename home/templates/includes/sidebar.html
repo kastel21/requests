@@ -26,6 +26,16 @@
             <span class="pc-mtext">Dashboard</span></a>
         </li>
 
+        <li class="pc-item">
+          {% if request.user.is_superuser %}
+          <a href="{% url 'purchase_request' %}" class="pc-link">
+          {% else %}
+          <a href="{% url 'purchase_request' %}" class="pc-link">
+          {% endif %}
+            <span class="pc-micon"><i class="ti ti-shopping-cart"></i></span>
+            <span>Purchase Request</span></a>
+        </li>
+
         {% admin_get_menu as app_list %}
         {% if app_list %}
           {% for app in app_list %}
