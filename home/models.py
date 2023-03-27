@@ -1,33 +1,34 @@
 from django.db import models
 
 # Create your models here.
+# <<<<<<< HEAD
 
 
 
-# class PuchaseRequest(models.Model):
-#     request_id = models.CharField(max_length=30, default="username")
-#     requester = models.CharField(max_length=30, default="username")
-#     date_of_request = models.CharField(max_length=15, default="2023")
-#     requesting_dpt = models.CharField(max_length=150, default="takaengwa@gmail.com")
-#     request_justification = models.CharField(max_length=450, default="takaengwa@gmail.com")
-#     name_address_of_supplier = models.CharField(max_length=550, default="takaengwa@gmail.com")
-#     budget_line_item = models.CharField(max_length=150, default="takaengwa@gmail.com")
+class PuchaseRequest(models.Model):
+    request_id = models.CharField(max_length=30, default="username")
+    requester = models.CharField(max_length=30, default="username")
+    date_of_request = models.CharField(max_length=15, default="2023")
+    requesting_dpt = models.CharField(max_length=150, default="takaengwa@gmail.com")
+    request_justification = models.CharField(max_length=450, default="takaengwa@gmail.com")
+    name_address_of_supplier = models.CharField(max_length=550, default="takaengwa@gmail.com")
+    budget_line_item = models.CharField(max_length=150, default="takaengwa@gmail.com")
    
    
-#     qnty = models.CharField(max_length=150, default="takaengwa@gmail.com")
-#     item_number = models.CharField(max_length=150, default="takaengwa@gmail.com")
-#     description = models.CharField(max_length=150, default="takaengwa@gmail.com")
-#     unit_price = models.CharField(max_length=150, default="takaengwa@gmail.com")
-#     total = models.CharField(max_length=150, default="takaengwa@gmail.com")
+    qnty = models.CharField(max_length=150, default="takaengwa@gmail.com")
+    item_number = models.CharField(max_length=150, default="takaengwa@gmail.com")
+    description = models.CharField(max_length=150, default="takaengwa@gmail.com")
+    unit_price = models.CharField(max_length=150, default="takaengwa@gmail.com")
+    total = models.CharField(max_length=150, default="takaengwa@gmail.com")
    
    
    
    
    
-#     supervisor_approved = models.CharField(max_length=150, default=".")
-#     supervisor_approved_date= models.CharField(max_length=150, default=".")
-#     accounts_clerk_approved= models.CharField(max_length=150, default=".")
-#     accounts_clerk_approved_date= models.CharField(max_length=150, default=".")
+    supervisor_approved = models.CharField(max_length=150, default=".")
+    supervisor_approved_date= models.CharField(max_length=150, default=".")
+    accounts_clerk_approved= models.CharField(max_length=150, default=".")
+    accounts_clerk_approved_date= models.CharField(max_length=150, default=".")
 
 
 
@@ -151,3 +152,25 @@ class ComparativeSchedule(models.Model):
     approved_by= models.CharField(max_length=150, default=".")
     approved_by_date= models.CharField(max_length=150, default=".")
 
+# =======
+# class Purchase_Requisition(models.Model):
+#     requesting_department = models.CharField(max_length=220)
+#     request_justification = models.CharField(max_length=120)
+#     name_of_supplier = models.CharField(max_length=220)
+#     name_address_of_supplier = models.DateField(auto_now_add=True)
+#     budget_line_item = models.CharField(max_length=220)
+#     qty = models.CharField(max_length=220)
+#     item_no = models.CharField(max_length=220)
+#     description = models.CharField(max_length=220)
+#     unit_price = models.CharField(max_length=220)
+#     total = models.CharField(max_length=220)
+#     signature_of_requestor =models.CharField(max_length=220)
+#     date_requestor = models.DateField(auto_now_add=True)
+#     signature_of_supervisor_pi = models.CharField(max_length=220)
+#     date_supervisor_pi = models.DateField(auto_now_add=True)
+#     Signature_of_accounts_cleck = models.CharField(max_length=220)
+#     date_accounts_cleck = models.DateField(auto_now_add=True)
+
+#     def __str__(self):
+#         return self.requesting_department
+# >>>>>>> 4db80039bb00407c8d8198d042496bf317a9bc6e
