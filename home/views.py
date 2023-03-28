@@ -17,6 +17,11 @@ from django.contrib.auth import views as auth_views
 def index(request):
   return render(request, 'pages/index.html')
 
+
+def payment_request(request):
+    return render(request, 'pages/payment_requests/payment_requests.html')
+
+
 def typography(request):
   return render(request, 'pages/typography.html')
 

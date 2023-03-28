@@ -55,9 +55,9 @@
 
         <li class="pc-item">
           {% if request.user.is_superuser %}
-          <a href="{% url 'admin:index' %}" class="pc-link">
+          <a href="{% url 'payment_request' %}" class="pc-link">
           {% else %}
-          <a href="/" class="pc-link">
+          <a href="{% url 'payment_request' %}" class="pc-link">
           {% endif %}
             <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
 
