@@ -63,18 +63,13 @@ class UserPasswordChangeView(auth_views.PasswordChangeView):
   template_name = 'accounts/password_change.html'
   form_class = UserPasswordChangeForm
 
-<<<<<<< HEAD
 def user_logout_view(request):
   logout(request)
   return redirect('/accounts/login/')
     
-=======
-    # Page from the theme 
-    return render(request, 'pages/index.html')
 
 
 def purchase_request(request):
-    form = Purchase_Requisition.objects.all
+    form = PuchaseRequest.objects.all()
     context = {'form':form}
     return render(request, 'pages/purchase_request.html', context)
->>>>>>> 4db80039bb00407c8d8198d042496bf317a9bc6e
