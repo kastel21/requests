@@ -1,11 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
-
-# Create your views here.
-
-
-
 from django.shortcuts import render, redirect
 from admin_berry.forms import LoginForm, RegistrationForm, UserPasswordResetForm, UserSetPasswordForm, UserPasswordChangeForm
 from django.contrib.auth import logout
@@ -69,8 +64,20 @@ def user_logout_view(request):
     
     # Page from the theme 
 
-
+# purchase request
 def purchase_request(request):
     form = PuchaseRequest.objects.all()
     context = {'form':form}
     return render(request, 'pages/purchase_request.html', context)
+
+# comparative schedule
+def comparative_schedule(request):
+    form = ComparativeSchedule.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/comparative_schedule.html', context)
+
+# payment request
+def payment_request(request):
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_request.html', context)

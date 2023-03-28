@@ -14,16 +14,11 @@ class PuchaseRequest(models.Model):
     name_address_of_supplier = models.CharField(max_length=550, default="takaengwa@gmail.com")
     budget_line_item = models.CharField(max_length=150, default="takaengwa@gmail.com")
    
-   
     qnty = models.CharField(max_length=150, default="takaengwa@gmail.com")
     item_number = models.CharField(max_length=150, default="takaengwa@gmail.com")
     description = models.CharField(max_length=150, default="takaengwa@gmail.com")
     unit_price = models.CharField(max_length=150, default="takaengwa@gmail.com")
     total = models.CharField(max_length=150, default="takaengwa@gmail.com")
-   
-   
-   
-   
    
     supervisor_approved = models.CharField(max_length=150, default=".")
     supervisor_approved_date= models.CharField(max_length=150, default=".")
@@ -41,7 +36,6 @@ class PaymentRequest(models.Model):
     payment_type = models.CharField(max_length=450, default="takaengwa@gmail.com")
     amount = models.CharField(max_length=550, default="takaengwa@gmail.com")
     project_number = models.CharField(max_length=150, default="takaengwa@gmail.com")
-   
    
     account_code = models.CharField(max_length=150, default="takaengwa@gmail.com")
     details = models.CharField(max_length=150, default="takaengwa@gmail.com")
@@ -62,19 +56,9 @@ class PaymentRequest(models.Model):
     approved_by_date= models.CharField(max_length=150, default=".")
 
 
-
-
-
-
-
-
-
-
 class ComparativeSchedule(models.Model):
     request_id = models.CharField(max_length=30, default="username")
     payee = models.CharField(max_length=150, default="takaengwa@gmail.com")
-
-   
    
     company_name_supplier1 = models.CharField(max_length=450, default="takaengwa@gmail.com")
     company_name_supplier2 = models.CharField(max_length=450, default="takaengwa@gmail.com")
@@ -130,27 +114,7 @@ class ComparativeSchedule(models.Model):
     approved_by_sig = models.CharField(max_length=30, default="username")
     approved_date = models.CharField(max_length=30, default="username")
 
-
     project_number = models.CharField(max_length=150, default="takaengwa@gmail.com")
-   
-   
-    account_code = models.CharField(max_length=150, default="takaengwa@gmail.com")
-    details = models.CharField(max_length=150, default="takaengwa@gmail.com")
-    amount = models.CharField(max_length=150, default="takaengwa@gmail.com")
-    # unit_price = models.CharField(max_length=150, default="takaengwa@gmail.com")
-    total = models.CharField(max_length=150, default="takaengwa@gmail.com")
-   
-    certified_by = models.CharField(max_length=150, default=".")
-    certified_by_date = models.CharField(max_length=150, default=".")
-
-    cleared_by_fin_man= models.CharField(max_length=150, default=".")
-    cleared_by_fin_man_date= models.CharField(max_length=150, default=".")
-
-    approved_by_project_man= models.CharField(max_length=150, default=".")
-    approved_by_project_man_date= models.CharField(max_length=150, default=".")
-
-    approved_by= models.CharField(max_length=150, default=".")
-    approved_by_date= models.CharField(max_length=150, default=".")
 
 # =======
 # class Purchase_Requisition(models.Model):

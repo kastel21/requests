@@ -30,39 +30,24 @@
 
         <li class="pc-item">
           {% if request.user.is_superuser %}
-          <a href="{% url 'admin:index' %}" class="pc-link">
+          <a href="{% url 'payment_request' %}" class="pc-link">
           {% else %}
-          <a href="/" class="pc-link">
+          <a href="{% url 'payment_request' %}" class="pc-link">
           {% endif %}
-            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
-            <span class="pc-mtext">Comparative Schedule</span></a>
-
-
-        </li>
-
-        <li class="pc-item">
-          {% if request.user.is_superuser %}
-          <a href="{% url 'admin:index' %}" class="pc-link">
-          {% else %}
-          <a href="/" class="pc-link">
-          {% endif %}
-            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
-            <span class="pc-mtext">Purchase Request</span></a>
-
-
-        </li>
-
-
-        <li class="pc-item">
-          {% if request.user.is_superuser %}
-          <a href="{% url 'admin:index' %}" class="pc-link">
-          {% else %}
-          <a href="/" class="pc-link">
-          {% endif %}
-            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+            <span class="pc-micon"><i class="ti ti-wallet"></i></span>
 
             <span class="pc-mtext">Payment Request</span></a>
 
+        </li>
+
+        <li class="pc-item">
+          {% if request.user.is_superuser %}
+          <a href="{% url 'comparative_schedule' %}" class="pc-link">
+          {% else %}
+          <a href="{% url 'comparative_schedule' %}" class="pc-link">
+          {% endif %}
+            <span class="pc-micon"><i class="ti ti-files"></i></span>
+            <span class="pc-mtext">Comparative Schedule</span></a>
         </li>
 
         <li class="pc-item">
