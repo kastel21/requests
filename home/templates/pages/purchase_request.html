@@ -10,72 +10,108 @@
       <div class="row">
         <!-- [ sample-page ] start -->
        
-        <form>
-            <div class="row">
-                <div class="col-lg-6">
+        <form class="row g-3">
 
-            <label for="fname">request_id:</label><br>
-            <input type="text" id="request_id" name="request_id" value=""><br>
-</div>
-<div class="col-lg-6">
-            <label for="fname">Requestor:</label><br>
-            <input type="text" id="requester" name="requester" value=""><br>
-            </div>
+            <div class="col-md-6">
+                <label for="fname" class="form-label">request_id:</label>
+                <input type="text" class="form-control" id="request_id" name="request_id" value="">
             </div>
 
-            <label for="fname">Date:</label><br>
-            <input type="text" id="date_of_request" name="date_of_request" value=""><br>
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Requestor:</label>
+                <input type="text" class="form-control" id="requester" name="requester" value="">
+            </div>
 
-            <label for="fname">Requesting Department:</label><br>
-            <input type="text" id="requesting_dpt" name="requesting_dpt" value=""><br>
-            
-            <label for="lname">Request Justification:</label><br>
-            <input type="text" id="request_justification" name="request_justification" value=""><br>
-            
-            <label for="fname">Name and address of Supplier:</label><br>
-            <input type="text" id="name_address_of_supplier" name="name_address_of_supplier" value=""><br>
-            
-            <label for="fname">Budget Line Item (Where applicable):</label><br>
-            <input type="text" id="budget_line_item" name="budget_line_item" value=""><br>
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Date:</label>
+                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="">
+            </div>
+            <p></p>
 
-            <br>
-            <br>
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Requesting Department:</label>
+                <input type="text" class="form-control" id="requesting_dpt" name="requesting_dpt" value="">
+            </div>
 
-            <p>Purchase Request Must be Approved by the DH/PI before a purchase Order is to be issued.</p>
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Budget Line Item (Where applicable):</label>
+                <input type="text" class="form-control" id="budget_line_item" name="budget_line_item" value="">
+            </div>
 
-            <label for="fname">QTY:</label><br>
-            <input type="text" id="qnty" name="qnty" value=""><br>
-            
-            <label for="lname">Item No.</label><br>
-            <input type="text" id="item_number" name="item_number" value=""><br>
-            
-            <label for="fname">Description og item to be purchased:</label><br>
-            <textarea type="text" id="description" name="description" value=""></textarea>
-            
-            
-            <label for="lname">Unit Price</label><br>
-            <input type="text" id="unit_price" name="unit_price" value=""><br>
-            
-            <label for="fname">Total Price:</label><br>
-            <input type="text" id="total" name="total" value=""><br>
+            <div class="col-md-6">
+                <label for="lname" class="form-label">Request Justification:</label>
+                <input type="text" class="form-control" id="request_justification" name="request_justification" value="">
+            </div>
 
-            <label for="fname">Signature of Requestor:</label><br>
-            <input type="text" id="fname" name="fname" value="John"><br>
-            
-            <label for="lname">Date:</label><br>
-            <input type="text" id="lname" name="lname" value="Doe"><br>
-            
-            <label for="fname">Signature of PI/Supervisor:</label><br>
-            <input type="text" id="supervisor_approved" name="supervisor_approved" value=""><br>
-            
-            <label for="lname">Date:</label><br>
-            <input type="text" id="supervisor_approved_date" name="supervisor_approved_date" value=""><br>
-            
-            <label for="fname">Signature of Accounts Clerk</label><br>
-            <input type="text" id="accounts_clerk_approved" name="accounts_clerk_approved" value=""><br>
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Name and address of Supplier:</label>
+                <input type="text" class="form-control" id="name_address_of_supplier" name="name_address_of_supplier" value="">
+            </div>
 
-            <label for="fname">Date</label><br>
-            <input type="text" id="accounts_clerk_approved_date" name="accounts_clerk_approved_date" value=""><br>
+            <p></p>
+
+            <center><p style="color:red;">Purchase Request Must be Approved by the DH/PI before a purchase Order is to be issued.</p></center>
+
+            <p></p>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">QTY:</label>
+                <input type="text" class="form-control" id="qnty" name="qnty" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="lname" class="form-label">Item No.</label>
+                <input type="text" class="form-control" id="item_number" name="item_number" value="">
+            </div>
+
+            <div class="col-md-12">
+                <label for="fname" class="form-label">Description of item to be purchased:</label>
+                <textarea type="text" class="form-control" id="description" name="description" value=""></textarea>
+            </div>
+
+            <p></p>
+
+            <div class="col-md-6">
+                <label for="lname" class="form-label">Unit Price</label>
+                <input type="text" class="form-control" id="unit_price" name="unit_price" value="">
+            </div>
+            
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Total Price:</label>
+                <input type="text" class="form-control" id="total" name="total" value="">
+            </div>
+
+            <p></p>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Signature of Requestor:</label>
+                <input type="text" class="form-control" id="fname" name="fname" value="John">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Date:</label>
+                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Signature of PI/Supervisor:</label>
+                <input type="text" class="form-control" id="supervisor_approved" name="supervisor_approved" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="lname" class="form-label">Date:</label>
+                <input type="text" class="form-control" id="supervisor_approved_date" name="supervisor_approved_date" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Signature of Accounts Clerk</label>
+                <input type="text" class="form-control" id="accounts_clerk_approved" name="accounts_clerk_approved" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Date</label>
+                <input type="text" class="form-control" id="accounts_clerk_approved_date" name="accounts_clerk_approved_date" value="">
+            </div>
 
           </form>
 
