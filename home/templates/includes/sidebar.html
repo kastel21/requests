@@ -42,11 +42,8 @@
 
         <li class="pc-item">
           {% if request.user.is_superuser %}
-          <a href="{% url 'payment_request' %}" class="pc-link">
-          {% else %}
-          <a href="{% url 'payment_request' %}" class="pc-link">
           <a href="{% url 'comparative_schedule' %}" class="pc-link">
-          {% else %}
+            {% else %}
           <a href="{% url 'comparative_schedule' %}" class="pc-link">
           {% endif %}
             <span class="pc-micon"><i class="ti ti-files"></i></span>
