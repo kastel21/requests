@@ -4,6 +4,7 @@
 {% block title %} Dashboard {% endblock title %}
 {% block content %}
 
+
 <!-- [ Main Content ] start -->
 <div class="pc-container">
     <div class="pc-content">
@@ -30,7 +31,7 @@
 
             <div class="col-md-4">
                 <label  class="form-label"> CHEQUE/CASH/TRANSFER:</label>
-                <input type="text" class="form-control" id="payment_type " name="payment_type " value="">
+                <input type="text" class="form-control" id="payment_type" name="payment_type" value="">
             </div>
 
             <div class="col-md-4">
@@ -119,26 +120,30 @@
                 <label  class="form-label">Date:</label>
                 <input type="text" class="form-control" id="approved_by_date" name="approved_by_date" value="">
             </div>
+
             <hr>
           </form> 
 
+            <div class="col-md-12">
+            <a onclick="sendEdit();" class="btn btn-primary"> SUBMIT</a>
+</div>
 
 
 
 
 
 
-<script>
+<script  language="JavaScript" type="text/javascript">
 
 
 // populating the already existing records
 
             current_url = window.location.href;
-                        arr = current_url.split("/");
+                        arr = current_url.split("_");
                         case_id = arr.at(-1);
                     console.log(case_id);
                     if (case_id == "add"){}else{
-                    const url = "http://lorkas.co.zw:8001/get_record"
+                    const url = "http://localhost:8000/payment_request_get_record"
                     const data = {
                       'id':case_id,
                     }
@@ -158,7 +163,7 @@
     $("#account_code").val(data['account_code']); 
     $("#details ").val(data['details']);
     // $("#amount ").val(data['pat_name']);
-     $("#unit_price ").val(data['unit_price']);
+    //  $("#unit_price ").val(data['unit_price']);
     $("#total").val(data['total']);
    
     $("#certified_by").val(data['certified_by']);
@@ -179,7 +184,7 @@
                 
         }else{
             console.log(data['message'])
-            window.location.href="/records/add/"+case_id;
+            window.location.href="/payment_request_all";
 
         }
 
@@ -205,7 +210,7 @@
         var account_code= document.getElementById('account_code').value; 
         var details = document.getElementById('details').value;
         // var amount = document.getElementById('pat_name').value;
-        var unit_price = document.getElementById('unit_price').value;
+        // var unit_price = document.getElementById('unit_price').value;
         var total= document.getElementById('total').value;
 
         var certified_by= document.getElementById('certified_by').value;
@@ -228,12 +233,12 @@
 
 
             current_url = window.location.href;
-            arr = current_url.split("/");
+            arr = current_url.split("_");
             case_id = arr.at(-1);
         console.log(case_id);
         if (case_id == "add"){
 
-        const url = "http://lorkas.co.zw:8001/send_record/";
+        const url = "http://localhost:8000/payment_request_send_record";
         // current_url = window.location.href;
         // arr = current_url.split("/");
         // case_id = arr.at(-1);
@@ -248,7 +253,7 @@
                             "account_code": account_code, 
                             "details": details,
                             "case_id": case_id,
-                            "unit_price ": unit_price,
+                            // "unit_price ": unit_price,
                             "total": total,
 
                             "certified_by": certified_by,
@@ -267,10 +272,10 @@
         $.post(url,data, function(data,status){
         if (data['message']=="success"){
             console.log("success")
-            window.location.href="/records";
+            window.location.href="localhost:8000/payment_requests_all";
         }else{
             console.log(data['message'])
-            window.location.href="/records";
+            window.location.href="localhost:8000/payment_requests_all";
 
         }
 
@@ -278,7 +283,7 @@
         // alert("stop hee");
     }else{
 
-        const url = "http://localhost/edit_record/";
+        const url = "http://localhost:8000/payment_request_edit_record/";
         // current_url = window.location.href;
         // arr = current_url.split("/");
         // case_id = arr.at(-1);
@@ -295,7 +300,7 @@
                             "account_code": account_code, 
                             "details": details,
                             "case_id": case_id,
-                            "unit_price ": unit_price,
+                            // "unit_price ": unit_price,
                             "total": total,
 
                             "certified_by": certified_by,
@@ -318,15 +323,15 @@
       
 
         $.post(url,data, function(data,status){
-          window.location.replace("http://lorkas.co.zw:8001/view_record/"+case_id);
+          window.location.replace("http://localhost:8000/payment_request_view/"+case_id);
 
         console.log(data);
         if (data['message']=="success"){
             alert("success");
-            window.location.replace("http://lorkas.co.zw:8001/view_record/"+case_id);
+            window.location.replace("http://localhost:8000/payment_request_view/"+case_id);
         }else{
             alert(data['message']);
-            window.location.replace("http://lorkas.co.zw:8001/view_record/"+case_id);
+            window.location.replace("http://localhost:8000/payment_request_view/"+case_id);
 
             // window.location.href="/view_record/"+case_id;
 

@@ -88,9 +88,9 @@ def comp_schedule(request):
 
 # payment request
 def payment_request_all(request):
-    form = PaymentRequest.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/payment_request.html', context)
+    records = PaymentRequest.objects.all()
+    context = {'records':records}
+    return render(request, 'pages/payment_requests/list.html', context)
 
 
 def payment_request(request):
@@ -101,19 +101,22 @@ def payment_request(request):
 def payment_request_view(request):
     if request.method == "POST":
       
-      _id = request.POST.get('case_id',default=None)
+      _id = request.POST.get('id',default=None)
 
         # objs = Record.objects.get(id=_id)
-      record = PaymentRequest.objects.get(id==_id)
+      record = PaymentRequest.objects.get(id=_id)
       context = {'record':record}
       return render(request, 'pages/payment_requests/view.html', context)
+    else:
+      return render(request, 'pages/payment_requests/list.html', {})
+
 
 
 
 def payment_request_print(request):
     if request.method == "POST":
       _id = ""
-      record = PaymentRequest.objects.filter(id==_id)
+      record = PaymentRequest.objects.filter(id=_id)
       context = {'record':record}
       return render(request, 'pages/payment_requests/view.html', context)
 
@@ -127,7 +130,7 @@ def payment_request_super(request):
 def payment_request_edit(request):
     form = PaymentRequest.objects.all()
     context = {'form':form}
-    return render(request, 'pages/payment_request/add.html', context)
+    return render(request, 'pages/payment_requests/add.html', context)
 
 def payment_request_pending(request):
     form = PaymentRequest.objects.all()
@@ -143,13 +146,13 @@ def payment_request_add(request):
     
     form = PaymentRequest.objects.all()
     context = {'form':form}
-    return render(request, 'pages/payment_request.html', context)
+    return render(request, 'pages/payment_requests/add.html', context)
 
 @csrf_exempt
 def payment_request_get_record(request):
     context={}
     if request.method == "POST":
-        _id = request.POST.get('case_id',default=None)
+        _id = request.POST.get('id',default=None)
 
         record = PaymentRequest.objects.get(id=_id)
         dic = {
@@ -163,7 +166,7 @@ def payment_request_get_record(request):
           "account_code": record.account_code, 
           "details ": record.details,
           # // "amount ": record.pat_name,
-          "unit_price ": record.unit_price,
+          # "unit_price ": record.unit_price,
           "total": record.total,
 
           "certified_by": record.certified_by,
@@ -176,7 +179,8 @@ def payment_request_get_record(request):
           "approved_by_project_man_date": record.approved_by_project_man_date,
 
           "approved_by": record.approved_by,
-          "approved_by_date": record.approved_by_date
+          "approved_by_date": record.approved_by_date,
+          "message":"success",
         }
         context = {'addTabActive': True, "record":""}
         return JsonResponse(dic)
@@ -201,7 +205,7 @@ def payment_request_send_record(request):
           account_code= request.POST.get('account_code',default=None) 
           details = request.POST.get('details',default=None)
           # // amount = request.POST.get('pat_name',default=None)
-          unit_price = request.POST.get('unit_price',default=None)
+          # unit_price = request.POST.get('unit_price',default=None)
           total= request.POST.get('total',default=None)
 
           certified_by= request.POST.get('certified_by',default=None)
@@ -238,7 +242,7 @@ def payment_request_send_record(request):
           record.account_code= account_code 
           record.details = details
           # // record.amount = pat_name
-          record.unit_price = unit_price
+          # record.unit_price = unit_price
           record.total= total
 
           record.certified_by= certified_by
@@ -274,10 +278,8 @@ def payment_request_send_record(request):
 
 
 @csrf_exempt
-@app.route("/send_record")
 def payment_request_edit_record(request):
 
-    with app.app_context():
         try:
            
 
@@ -291,7 +293,7 @@ def payment_request_edit_record(request):
           account_code= request.POST.get('account_code',default=None) 
           details = request.POST.get('details',default=None)
           # // amount = request.POST.get('pat_name',default=None)
-          unit_price = request.POST.get('unit_price',default=None)
+          # unit_price = request.POST.get('unit_price',default=None)
           total= request.POST.get('total',default=None)
 
           certified_by= request.POST.get('certified_by',default=None)
@@ -333,7 +335,7 @@ def payment_request_edit_record(request):
           record.account_code= account_code 
           record.details = details
           # // record.amount = pat_name
-          record.unit_price = unit_price
+          # record.unit_price = unit_price
           record.total= total
 
           record.certified_by= certified_by

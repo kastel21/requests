@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,  re_path
 
 from . import views
 from django.contrib.auth import views as auth_views
@@ -38,10 +38,13 @@ urlpatterns = [
     path('payment_request_pending', views.payment_request_pending, name='payment_request_pending'),
     path('payment_request_super', views.payment_request_super, name='payment_request_super'),
     path('payment_request_add', views.payment_request_add, name='payment_request_add'),
-    path('payment_request_view', views.payment_request_view, name='payment_request_view'),
+    re_path('payment_request_view/', views.payment_request_view, name='payment_request_view'),
     path('payment_request_print', views.payment_request_print, name='payment_request_print'),
-    path('payment_request_edit', views.payment_request_edit, name='payment_request_edit'),
+    re_path('payment_request_edit', views.payment_request_edit, name='payment_request_edit'),
 
+    path('payment_request_edit_record', views.payment_request_edit_record, name='payment_request_edit_record'),
+    path('payment_request_send_record', views.payment_request_send_record, name='payment_request_send_record'),
+    path('payment_request_get_record', views.payment_request_get_record, name='payment_request_get_record'),
 
 
 
