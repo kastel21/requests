@@ -80,7 +80,7 @@
 
                                 {% for record in records %}
                                     <tr>
-                                        <form action="">
+                                        <form method="POST" action="payment_request_view/{{record.id}}">
                                             <input type="text" name="id" id="id" value="{{record.id}}" />
                                             <td> <input type="submit" value="{{record.requester}}" /> </td>
 

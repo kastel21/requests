@@ -121,6 +121,259 @@
             </div>
             <hr>
           </form> 
+
+
+
+
+
+
+
+<script>
+
+
+// populating the already existing records
+
+            current_url = window.location.href;
+                        arr = current_url.split("/");
+                        case_id = arr.at(-1);
+                    console.log(case_id);
+                    if (case_id == "add"){}else{
+                    const url = "http://lorkas.co.zw:8001/get_record"
+                    const data = {
+                      'id':case_id,
+                    }
+            
+                      $.post(url,data, function(data,status){
+            
+            if (data['message']=="success"){
+
+
+
+    $("#date_of_request").val(data['date_of_request']);
+    $("#payee").val(data['payee']);
+    $("#payment_type").val(data['payment_type']);
+    $("#amount").val(data['amount']);
+    $("#project_number").val(data['project_number']);
+   
+    $("#account_code").val(data['account_code']); 
+    $("#details ").val(data['details']);
+    // $("#amount ").val(data['pat_name']);
+     $("#unit_price ").val(data['unit_price']);
+    $("#total").val(data['total']);
+   
+    $("#certified_by").val(data['certified_by']);
+    $("#certified_by_date").val(data['certified_by_date']);
+
+    $("#cleared_by_fin_man").val(data['cleared_by_fin_man']);
+    $("#cleared_by_fin_man_date").val(data['cleared_by_fin_man_date']);
+
+    $("#approved_by_project_man").val(data['approved_by_project_man']);
+    $("#approved_by_project_man_date").val(data['approved_by_project_man_date']);
+
+   $("#approved_by").val(data['approved_by']);
+    $("#approved_by_date").val(data['approved_by_date']);
+
+            
+  
+    
+                
+        }else{
+            console.log(data['message'])
+            window.location.href="/records/add/"+case_id;
+
+        }
+
+        });
+
+    }
+
+
+
+
+
+
+    function sendEdit(){
+
+
+
+        var date_of_request= document.getElementById('date_of_request').value;
+        var payee= document.getElementById('payee').value;
+        var payment_type= document.getElementById('payment_type').value;
+        var amount= document.getElementById('amount').value;
+        var project_number= document.getElementById('project_number').value;
+
+        var account_code= document.getElementById('account_code').value; 
+        var details = document.getElementById('details').value;
+        // var amount = document.getElementById('pat_name').value;
+        var unit_price = document.getElementById('unit_price').value;
+        var total= document.getElementById('total').value;
+
+        var certified_by= document.getElementById('certified_by').value;
+        var certified_by_date= document.getElementById('certified_by_date').value;
+
+        var cleared_by_fin_man= document.getElementById('cleared_by_fin_man').value;
+        var cleared_by_fin_man_date= document.getElementById('cleared_by_fin_man_date').value;
+
+        var approved_by_project_man= document.getElementById('approved_by_project_man').value;
+        var approved_by_project_man_date= document.getElementById('approved_by_project_man_date').value;
+
+        var approved_by= document.getElementById('approved_by').value;
+        var approved_by_date= document.getElementById('approved_by_date').value;
+
+
+
+
+
+
+
+
+            current_url = window.location.href;
+            arr = current_url.split("/");
+            case_id = arr.at(-1);
+        console.log(case_id);
+        if (case_id == "add"){
+
+        const url = "http://lorkas.co.zw:8001/send_record/";
+        // current_url = window.location.href;
+        // arr = current_url.split("/");
+        // case_id = arr.at(-1);
+        // month_id =arr[arr.length - 2];
+        console.log("after url");
+        const data = {"date_of_request": date_of_request,
+                            "payee": payee,
+                            "payment_type": payment_type,
+                            "amount": amount,
+                            "project_number": project_number,
+
+                            "account_code": account_code, 
+                            "details": details,
+                            "case_id": case_id,
+                            "unit_price ": unit_price,
+                            "total": total,
+
+                            "certified_by": certified_by,
+                            "certified_by_date": certified_by_date,
+
+                            "cleared_by_fin_man": cleared_by_fin_man,
+                            "cleared_by_fin_man_date": cleared_by_fin_man_date,
+
+                            "approved_by_project_man": approved_by_project_man,
+                            "approved_by_project_man_date": approved_by_project_man_date,
+
+                            "approved_by": approved_by,
+                            "approved_by_date": approved_by_date}
+
+                console.log("after dict");
+        $.post(url,data, function(data,status){
+        if (data['message']=="success"){
+            console.log("success")
+            window.location.href="/records";
+        }else{
+            console.log(data['message'])
+            window.location.href="/records";
+
+        }
+
+        });
+        // alert("stop hee");
+    }else{
+
+        const url = "http://localhost/edit_record/";
+        // current_url = window.location.href;
+        // arr = current_url.split("/");
+        // case_id = arr.at(-1);
+        // month_id =arr[arr.length - 2];
+
+
+
+        const data = {"date_of_request": date_of_request,
+                            "payee": payee,
+                            "payment_type": payment_type,
+                            "amount": amount,
+                            "project_number": project_number,
+
+                            "account_code": account_code, 
+                            "details": details,
+                            "case_id": case_id,
+                            "unit_price ": unit_price,
+                            "total": total,
+
+                            "certified_by": certified_by,
+                            "certified_by_date": certified_by_date,
+
+                            "cleared_by_fin_man": cleared_by_fin_man,
+                            "cleared_by_fin_man_date": cleared_by_fin_man_date,
+
+                            "approved_by_project_man": approved_by_project_man,
+                            "approved_by_project_man_date": approved_by_project_man_date,
+
+                            "approved_by": approved_by,
+                            "approved_by_date": approved_by_date,
+                        };
+
+
+
+
+        
+      
+
+        $.post(url,data, function(data,status){
+          window.location.replace("http://lorkas.co.zw:8001/view_record/"+case_id);
+
+        console.log(data);
+        if (data['message']=="success"){
+            alert("success");
+            window.location.replace("http://lorkas.co.zw:8001/view_record/"+case_id);
+        }else{
+            alert(data['message']);
+            window.location.replace("http://lorkas.co.zw:8001/view_record/"+case_id);
+
+            // window.location.href="/view_record/"+case_id;
+
+        }
+
+        });
+
+
+
+
+
+    }
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+        </script>
+
+
+
+
 {% endblock content %} 
    
      

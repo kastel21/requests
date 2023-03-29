@@ -8,16 +8,16 @@ class PuchaseRequest(models.Model):
     request_id = models.CharField(max_length=30, default="username")
     requester = models.CharField(max_length=30, default="username")
     date_of_request = models.CharField(max_length=15, default="2023")
-    requesting_dpt = models.CharField(max_length=150, default="takaengwa@gmail.com")
-    request_justification = models.CharField(max_length=450, default="takaengwa@gmail.com")
-    name_address_of_supplier = models.CharField(max_length=550, default="takaengwa@gmail.com")
-    budget_line_item = models.CharField(max_length=150, default="takaengwa@gmail.com")
+    requesting_dpt = models.CharField(max_length=150, default=".")
+    request_justification = models.CharField(max_length=450, default=".")
+    name_address_of_supplier = models.CharField(max_length=550, default=".")
+    budget_line_item = models.CharField(max_length=150, default=".")
    
-    qnty = models.CharField(max_length=150, default="takaengwa@gmail.com")
-    item_number = models.CharField(max_length=150, default="takaengwa@gmail.com")
-    description = models.CharField(max_length=150, default="takaengwa@gmail.com")
-    unit_price = models.CharField(max_length=150, default="takaengwa@gmail.com")
-    total = models.CharField(max_length=150, default="takaengwa@gmail.com")
+    qnty = models.CharField(max_length=150, default=".")
+    item_number = models.CharField(max_length=150, default=".")
+    description = models.CharField(max_length=150, default=".")
+    unit_price = models.CharField(max_length=150, default=".")
+    total = models.CharField(max_length=150, default=".")
    
     supervisor_approved = models.CharField(max_length=150, default=".")
     supervisor_approved_date= models.CharField(max_length=150, default=".")
@@ -31,16 +31,16 @@ class PaymentRequest(models.Model):
     request_id = models.CharField(max_length=30, default="username")
     compiled_by = models.CharField(max_length=30, default="username")
     date_of_request = models.CharField(max_length=15, default="2023")
-    payee = models.CharField(max_length=150, default="takaengwa@gmail.com")
-    payment_type = models.CharField(max_length=450, default="takaengwa@gmail.com")
-    amount = models.CharField(max_length=550, default="takaengwa@gmail.com")
-    project_number = models.CharField(max_length=150, default="takaengwa@gmail.com")
+    payee = models.CharField(max_length=150, default=".")
+    payment_type = models.CharField(max_length=450, default=".")
+    amount = models.CharField(max_length=550, default=".")
+    project_number = models.CharField(max_length=150, default=".")
    
-    account_code = models.CharField(max_length=150, default="takaengwa@gmail.com")
-    details = models.CharField(max_length=150, default="takaengwa@gmail.com")
-    amount = models.CharField(max_length=150, default="takaengwa@gmail.com")
-    # unit_price = models.CharField(max_length=150, default="takaengwa@gmail.com")
-    total = models.CharField(max_length=150, default="takaengwa@gmail.com")
+    account_code = models.CharField(max_length=150, default=".")
+    details = models.CharField(max_length=150, default=".")
+    amount = models.CharField(max_length=150, default=".")
+    # unit_price = models.CharField(max_length=150, default=".")
+    total = models.CharField(max_length=150, default=".")
    
     certified_by = models.CharField(max_length=150, default=".")
     certified_by_date = models.CharField(max_length=150, default=".")
@@ -57,36 +57,36 @@ class PaymentRequest(models.Model):
 
 class ComparativeSchedule(models.Model):
     request_id = models.CharField(max_length=30, default="username")
-    payee = models.CharField(max_length=150, default="takaengwa@gmail.com")
+    payee = models.CharField(max_length=150, default=".")
    
-    company_name_supplier1 = models.CharField(max_length=450, default="takaengwa@gmail.com")
-    company_name_supplier2 = models.CharField(max_length=450, default="takaengwa@gmail.com")
-    company_name_supplier3 = models.CharField(max_length=450, default="takaengwa@gmail.com")
+    company_name_supplier1 = models.CharField(max_length=450, default=".")
+    company_name_supplier2 = models.CharField(max_length=450, default=".")
+    company_name_supplier3 = models.CharField(max_length=450, default=".")
     
-    item_number_supplier1 = models.CharField(max_length=450, default="takaengwa@gmail.com")
-    item_number_supplier2 = models.CharField(max_length=450, default="takaengwa@gmail.com")
-    item_number_supplier3 = models.CharField(max_length=450, default="takaengwa@gmail.com")
+    item_number_supplier1 = models.CharField(max_length=450, default=".")
+    item_number_supplier2 = models.CharField(max_length=450, default=".")
+    item_number_supplier3 = models.CharField(max_length=450, default=".")
 
-    desc_supplier1 = models.CharField(max_length=450, default="takaengwa@gmail.com")
-    desc_supplier2 = models.CharField(max_length=450, default="takaengwa@gmail.com")
-    desc_supplier3 = models.CharField(max_length=450, default="takaengwa@gmail.com")
-
-
-    qnty_supplier1 = models.CharField(max_length=450, default="takaengwa@gmail.com")
-    qnty_supplier2 = models.CharField(max_length=450, default="takaengwa@gmail.com")
-    qnty_supplier3 = models.CharField(max_length=450, default="takaengwa@gmail.com")
+    desc_supplier1 = models.CharField(max_length=450, default=".")
+    desc_supplier2 = models.CharField(max_length=450, default=".")
+    desc_supplier3 = models.CharField(max_length=450, default=".")
 
 
-    unit_price_supplier1 = models.CharField(max_length=450, default="takaengwa@gmail.com")
-    unit_price_supplier2 = models.CharField(max_length=450, default="takaengwa@gmail.com")
-    unit_price_supplier3 = models.CharField(max_length=450, default="takaengwa@gmail.com")
+    qnty_supplier1 = models.CharField(max_length=450, default=".")
+    qnty_supplier2 = models.CharField(max_length=450, default=".")
+    qnty_supplier3 = models.CharField(max_length=450, default=".")
 
-    total_price_supplier1 = models.CharField(max_length=450, default="takaengwa@gmail.com")
-    total_price_supplier2 = models.CharField(max_length=450, default="takaengwa@gmail.com")
-    total_price_supplier3 = models.CharField(max_length=450, default="takaengwa@gmail.com")
+
+    unit_price_supplier1 = models.CharField(max_length=450, default=".")
+    unit_price_supplier2 = models.CharField(max_length=450, default=".")
+    unit_price_supplier3 = models.CharField(max_length=450, default=".")
+
+    total_price_supplier1 = models.CharField(max_length=450, default=".")
+    total_price_supplier2 = models.CharField(max_length=450, default=".")
+    total_price_supplier3 = models.CharField(max_length=450, default=".")
 
     recommended_supplier = models.CharField(max_length=15, default="2023")
-    recommended_supplier_reason = models.CharField(max_length=150, default="takaengwa@gmail.com")
+    recommended_supplier_reason = models.CharField(max_length=150, default=".")
 
     
     dpt_project_requesting = models.CharField(max_length=15, default="2023")
@@ -113,7 +113,7 @@ class ComparativeSchedule(models.Model):
     approved_by_sig = models.CharField(max_length=30, default="username")
     approved_date = models.CharField(max_length=30, default="username")
 
-    project_number = models.CharField(max_length=150, default="takaengwa@gmail.com")
+    project_number = models.CharField(max_length=150, default=".")
 
 # =======
 # class Purchase_Requisition(models.Model):
