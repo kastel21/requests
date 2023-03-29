@@ -72,16 +72,116 @@ def user_logout_view(request):
 def purchase_request(request):
     form = PuchaseRequest.objects.all()
     context = {'form':form}
-    return render(request, 'pages/purchase_request.html', context)
+    return render(request, 'pages/purchase_requests/purchase_requests.html', context)
 
 # comparative schedule
-def comparative_schedule(request):
+def comp_schedule(request):
     form = ComparativeSchedule.objects.all()
     context = {'form':form}
-    return render(request, 'pages/comparative_schedule.html', context)
+    return render(request, 'pages/comparative_schedules/comparative_schedules.html', context)
 
 # payment request
-def payment_request(request):
+def payment_request_all(request):
     form = PaymentRequest.objects.all()
     context = {'form':form}
     return render(request, 'pages/payment_request.html', context)
+
+
+def payment_request(request):
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_requests/payment_requests.html', context)
+
+def payment_request_view(request):
+    if request.method == "POST":
+      _id = ""
+      record = PaymentRequest.objects.filter(id==_id)
+      context = {'record':record}
+      return render(request, 'pages/payment_requests/view.html', context)
+
+
+
+def payment_request_print(request):
+    if request.method == "POST":
+      _id = ""
+      record = PaymentRequest.objects.filter(id==_id)
+      context = {'record':record}
+      return render(request, 'pages/payment_requests/view.html', context)
+
+def payment_request_super(request):
+    records = PaymentRequest.objects.all()
+    context = {'records':records}
+    return render(request, 'pages/payment_requests/list.html', context)
+
+
+def payment_request_pending(request):
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_request.html', context)
+
+def payment_request_approved(request):
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_request.html', context)
+
+def payment_request_add(request):
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_request.html', context)
+
+
+#purchase request
+def purchase_request_all(request):
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_request.html', context)
+
+def purchase_request_super(request):
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_request.html', context)
+
+def purchase_request_pending(request):
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_request.html', context)
+
+def purchase_request_approved(request):
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_request.html', context)
+
+def purchase_request_add(request):
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_requests/add.html', context)
+
+
+#comp schedule
+
+def comp_schedule_all(request):
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_request.html', context)
+
+def comp_schedule_super(request):
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_request.html', context)
+
+def comp_schedule_pending(request):
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_request.html', context)
+
+def comp_schedule_approved(request):
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_request.html', context)
+
+
+
+def comp_schedule_add(request):
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/comparative_schedules/add.html', context)

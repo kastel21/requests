@@ -26,18 +26,42 @@ urlpatterns = [
     path('accounts/password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(
         template_name='accounts/password_reset_complete.html'
     ), name='password_reset_complete'),
-    path('purchase_request', views.purchase_request, name='purchase_request'),
-    path('payment_request', views.payment_request, name='payment_request'),
 
     path('accounts/password-reset-confirm/<uidb64>/<token>/', views.UserPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('accounts/password-reset-done/', auth_views.PasswordResetDoneView.as_view(template_name='accounts/password_reset_done.html'), name='password_reset_done'),
     path('accounts/password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='accounts/password_reset_complete.html'), name='password_reset_complete'),
 
     # forms
-    path('purchase_request', views.purchase_request, name='purchase_request'),
-    path('comparative_schedule', views.comparative_schedule, name='comparative_schedule'),
     path('payment_request', views.payment_request, name='payment_request'),
+    path('payment_request_all', views.payment_request_all, name='payment_request_all'),
+    path('payment_request_approved', views.payment_request_approved, name='payment_request_approved'),
+    path('payment_request_pending', views.payment_request_pending, name='payment_request_pending'),
+    path('payment_request_super', views.payment_request_super, name='payment_request_super'),
+    path('payment_request_add', views.payment_request_add, name='payment_request_add'),
+    path('payment_request_view', views.payment_request_view, name='payment_request_view'),
+    path('payment_request_print', views.payment_request_print, name='payment_request_print'),
 
-    
+
+
+
+    #comp schedule
+    path('comp_schedule', views.comp_schedule, name='comp_schedule'),
+    path('comp_schedule_all', views.comp_schedule_all, name='comp_schedule_all'),
+    path('comp_schedule_approved', views.comp_schedule_approved, name='comp_schedule_approved'),
+    path('comp_schedule_pending', views.comp_schedule_pending, name='comp_schedule_pending'),
+    path('comp_schedule_super', views.comp_schedule_super, name='comp_schedule_super'),
+    path('comp_schedule_add', views.comp_schedule_add, name='comp_schedule_add'),
+
+
+
+    #purchase request
+
+    path('purchase_request', views.purchase_request, name='purchase_request'),
+    path('purchase_request_all', views.purchase_request_all, name='purchase_request_all'),
+    path('purchase_request_approved', views.purchase_request_approved, name='purchase_request_approved'),
+    path('purchase_request_pending', views.purchase_request_pending, name='purchase_request_pending'),
+    path('purchase_request_super', views.purchase_request_super, name='purchase_request_super'),
+    path('purchase_request_add', views.purchase_request_add, name='purchase_request_add'),
+
     
 ]

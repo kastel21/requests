@@ -157,7 +157,7 @@
         <ul class="list-group list-group-horizontal">
 
           <li  class="list-group-item">
-            <a href="{% url 'payment_request_add' %}" class="pc-link">
+            <a href="{% url 'comp_schedule_add' %}" class="pc-link">
 
               <span class="pc-micon"><i class="ti ti-plus"></i></span>
         
@@ -167,7 +167,7 @@
 
 
           <li  class="list-group-item">
-            <a href="{% url 'payment_request_all' %}" class="pc-link">
+            <a href="{% url 'comp_schedule_all' %}" class="pc-link">
 
               <span class="pc-micon"><i class="ti ti-float-center"></i></span>
         
@@ -175,7 +175,7 @@
         
           </li>
           <li class="list-group-item">
-            <a href="{% url 'payment_request_pending' %}" class="pc-link">
+            <a href="{% url 'comp_schedule_pending' %}" class="pc-link">
 
               <span class="pc-micon"><i class="ti ti-refresh-alert"></i></span>
         
@@ -183,7 +183,7 @@
         
           </li> 
            <li class="list-group-item">
-            <a href="{% url 'payment_request_approved' %}" class="pc-link">
+            <a href="{% url 'comp_schedule_approved' %}" class="pc-link">
 
               <span class="pc-micon"><i class="ti ti-check"></i></span>
         
@@ -195,7 +195,7 @@
           {% if request.user.is_superuser %}
 
           <li class="list-group-item">
-            <a href="{% url 'payment_request_super' %}" class="pc-link">
+            <a href="{% url 'comp_schedule_super' %}" class="pc-link">
 
               <span class="pc-micon"><i class="ti ti-code"></i></span>
         
