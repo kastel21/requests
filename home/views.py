@@ -369,7 +369,7 @@ def purchase_request_all(request):
 def purchase_request_super(request):
     form = PaymentRequest.objects.all()
     context = {'form':form}
-    return render(request, 'pages/payment_request.html', context)
+    return render(request, 'pages/purchase_requests/list.html', context)
 
 def purchase_request_pending(request):
     form = PaymentRequest.objects.all()
