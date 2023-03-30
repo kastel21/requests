@@ -83,7 +83,7 @@
                                         <tr><td> payee </td>
                                     <td>{{record.payee }}</td></tr>
                                        <tr><td>  payment_type </td>
-                                       <td>{{record. payment_type  }}</td></tr>
+                                       <td>{{record.payment_type  }}</td></tr>
                                     
                                         <tr><td> amount </td>
                                     <td>{{record.amount }}</td></tr>
@@ -114,7 +114,7 @@
                                         <td>{{record.cleared_by_fin_man }}</td></tr>
                                     
                                         <tr><td> cleared_by_fin_man_date</td>
-                                       <td>{{record. cleared_by_fin_man_date }}</td></tr>
+                                       <td>{{record.cleared_by_fin_man_date }}</td></tr>
                                     
                                         <tr><td> approved_by_project_man</td>
                                         <td>{{record.approved_by_project_man }}</td></tr>
@@ -129,15 +129,15 @@
                                         <tr><td> approved_by_date</td>
                                         <td>{{record.approved_by_date }}</td></tr>
                                     
-                                    <form action="{% url 'payment_request_view' %}">
-
+                                    <form method="post" action='http://localhost:8000/payment_request_edit/_{{record.id}}'>
+                                        {% csrf_token %}
                                         <input type="text" name="id" id="id" value="{{record.id}}" />
                                         <input type="submit" value="Edit" />
 
                                     </form>
 
                                     <form action="{% url 'payment_request_print' %}">
-
+                                        {% csrf_token %}
                                         <input type="text" name="id" id="id" value="{{record.id}}" />
 
 
