@@ -66,11 +66,11 @@
   
                             <table style="margin: 2%;">
                                 <th>
+                                    <td>ID</td>
                                     <td>Requester</td>
-                                    <td>Request Date</td>
-                                    <td>Payee</td>
+                                    <td>Requesting Department</td>
+                                    <td>Request Justification</td>
                                     <td>Total</td>
-                                    <td>Project Number</td>
                                     <td>status</td>
 
                                 </th>
@@ -81,14 +81,15 @@
                                 {% for record in records %}
                                     <tr>
                                         <form method="POST" action="payment_request_view/{{record.id}}">
+                                            {% csrf_token %}
                                             <input type="text" name="id" id="id" value="{{record.id}}" />
                                             <td> <input type="submit" value="{{record.requester}}" /> </td>
 
                                         </form>
-                                    <td>{{record.request_date}}</td>
-                                    <td>{{record.payee}}</td>
+                                    <td>{{record.requester}}</td>
+                                    <td>{{record.requesting_dpt}}</td>
+                                    <td>{{record.request_justification}}</td>
                                     <td>{{record.total}}</td>
-                                    <td>{{record.project_number}}</td>
                                     <td>{{record.status}}</td>
 
                                     </tr>

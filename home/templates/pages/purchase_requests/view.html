@@ -73,30 +73,30 @@
                                 </th>
 
                                 <tr><td> request_id</td>
-                                    <td>{{record.requester }}</td></tr>
-                                       <tr><td>  compiled_by  </td>
-                                        <td>{{record.compiled_by   }}</td></tr>
+                                    <td>{{record.request_id }}</td></tr>
+                                       <tr><td>  Requestor  </td>
+                                        <td>{{record.requester   }}</td></tr>
                                     
-                                        <tr><td> date_of_request </td>
+                                        <tr><td> Date </td>
                                         <td>{{record.date_of_request  }}</td></tr>
                                     
-                                        <tr><td> payee </td>
-                                    <td>{{record.payee }}</td></tr>
-                                       <tr><td>  payment_type </td>
-                                       <td>{{record. payment_type  }}</td></tr>
+                                        <tr><td> requesting Department </td>
+                                    <td>{{record.requesting_dpt }}</td></tr>
+                                       <tr><td>  Request Justification </td>
+                                       <td>{{record.request_justification  }}</td></tr>
                                     
-                                        <tr><td> amount </td>
-                                    <td>{{record.amount }}</td></tr>
-                                        <tr><td> project_number </td>
-                                           <td>{{record.project_number  }}</td></tr>
+                                        <tr><td> NAme and address of Supplier </td>
+                                    <td>{{record.name_address_of_supplier }}</td></tr>
+                                        <tr><td> Budget Line Item </td>
+                                           <td>{{record.budget_line_item  }}</td></tr>
                                     
-                                        <tr><td> account_code </td>
-                                        <td>{{record.account_code  }}</td></tr>
+                                        <tr><td> qnty </td>
+                                        <td>{{record.qnty  }}</td></tr>
                                     
-                                        <tr><td> details </td>
-                                    <td>{{record.details }}</td></tr>
-                                        <tr><td> amount </td>
-                                    <td>{{record.amount }}</td></tr>
+                                        <tr><td> Item Number </td>
+                                    <td>{{record.item_number }}</td></tr>
+                                        <tr><td> description </td>
+                                    <td>{{record.description }}</td></tr>
                                         <tr><td> unit_price </td>
                                         <td>{{record.unit_price  }}</td></tr>
                                     
@@ -104,30 +104,18 @@
                                         <td>{{record.total  }}</td></tr>
                                     
                                        
-                                        <tr><td> certified_by </td>
-                                        <td>{{record.certified_by  }}</td></tr>
+                                        <tr><td> Signature of PI/Supervisor: </td>
+                                        <td>{{record.supervisor_approved}}</td></tr>
                                     
-                                        <tr><td> certified_by_date </td>
-                                        <td>{{record.certified_by_date  }}</td></tr>
+                                        <tr><td> Date </td>
+                                        <td>{{record.supervisor_approved_date  }}</td></tr>
                                     
-                                        <tr><td> cleared_by_fin_man</td>
-                                        <td>{{record.cleared_by_fin_man }}</td></tr>
+                                        <tr><td> Date</td>
+                                        <td>{{record.accounts_clerk_approved }}</td></tr>
                                     
-                                        <tr><td> cleared_by_fin_man_date</td>
-                                       <td>{{record. cleared_by_fin_man_date }}</td></tr>
-                                    
-                                        <tr><td> approved_by_project_man</td>
-                                        <td>{{record.approved_by_project_man }}</td></tr>
-                                    
-                                        <tr><td> approved_by_project_man_date</td>
-                                    
-                                        <td>{{record.approved_by_project_man_date }}</td></tr>
-                                    
-                                        <tr><td> approved_by</td>
-                                        <td>{{record.approved_by }}</td></tr>
-                                    
-                                        <tr><td> approved_by_date</td>
-                                        <td>{{record.approved_by_date }}</td></tr>
+                                        <tr><td> Date</td>
+                                       <td>{{record.accounts_clerk_approved_date }}</td></tr>
+                                
                                     
                                     <form action="{% url 'payment_request_view' %}">
 

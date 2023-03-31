@@ -81,9 +81,9 @@ def purchase_request(request):
     return render(request, 'pages/purchase_requests/purchase_requests.html', context)
 
 def purchase_request_all(request):
-    form = PuchaseRequest.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/payment_request.html', context)
+    records = PuchaseRequest.objects.all()
+    context = {'records':records}
+    return render(request, 'pages/purchase_requests/list.html', context)
 
 def purchase_request_super(request):
     form = PuchaseRequest.objects.all()

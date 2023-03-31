@@ -59,7 +59,6 @@ urlpatterns = [
 
 
     #purchase request
-
     path('purchase_request', views.purchase_request, name='purchase_request'),
     path('purchase_request_all', views.purchase_request_all, name='purchase_request_all'),
     path('purchase_request_approved', views.purchase_request_approved, name='purchase_request_approved'),
