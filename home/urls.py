@@ -59,13 +59,13 @@ urlpatterns = [
 
 
     #purchase request
-
     path('purchase_request', views.purchase_request, name='purchase_request'),
     path('purchase_request_all', views.purchase_request_all, name='purchase_request_all'),
     path('purchase_request_approved', views.purchase_request_approved, name='purchase_request_approved'),
     path('purchase_request_pending', views.purchase_request_pending, name='purchase_request_pending'),
     path('purchase_request_super', views.purchase_request_super, name='purchase_request_super'),
     path('purchase_request_add', views.purchase_request_add, name='purchase_request_add'),
+    path('purchase_request_send_record', views.purchase_request_send_record, name='purchase_request_send_record'),
 
     
 ]

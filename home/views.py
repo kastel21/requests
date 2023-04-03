@@ -73,12 +73,142 @@ def user_logout_view(request):
   logout(request)
   return redirect('/accounts/login/')
     
-
+# *************************************************************************************************************************
 # purchase request
 def purchase_request(request):
     form = PuchaseRequest.objects.all()
     context = {'form':form}
     return render(request, 'pages/purchase_requests/purchase_requests.html', context)
+
+def purchase_request_all(request):
+    records = PuchaseRequest.objects.all()
+    context = {'records':records}
+    return render(request, 'pages/purchase_requests/list.html', context)
+
+def purchase_request_super(request):
+    form = PuchaseRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/purchase_requests/list.html', context)
+
+def purchase_request_pending(request):
+    form = PuchaseRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/purchase_request.html', context)
+
+def purchase_request_approved(request):
+    form = PuchaseRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/purchase_request.html', context)
+
+def purchase_request_add(request):
+    form = PuchaseRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/purchase_requests/add.html', context)
+
+@csrf_exempt
+@app.route("/send_record")
+def purchase_request_send_record(request):
+
+    with app.app_context():
+        try:
+        
+          request_id= request.POST.get('request_id',default=None)
+          requester= request.POST.get('requester',default=None)
+          date_of_request= request.POST.get('date_of_request',default=None)
+          requesting_dpt= request.POST.get('requesting_dpt',default=None)
+
+          request_justification= request.POST.get('request_justification',default=None) 
+          name_address_of_supplier = request.POST.get('name_address_of_supplier',default=None)
+          budget_line_item= request.POST.get('budget_line_item',default=None)
+
+          qnty= request.POST.get('qnty',default=None)
+          item_number= request.POST.get('item_number',default=None)
+
+          description= request.POST.get('description',default=None)
+          unit_price=  request.POST.get('unit_price',default=None)
+
+          supervisor_approved= request.POST.get('supervisor_approved',default=None)
+          supervisor_approved_date= request.POST.get('supervisor_approved_date',default=None)
+
+          accounts_clerk_approved= request.POST.get('accounts_clerk_approved',default=None)
+          accounts_clerk_approved_date= request.POST.get('accounts_clerk_approved_date',default=None)
+
+          record = PuchaseRequest()
+
+        #   record.compiled_by = request.user.username
+          record.request_id= request_id
+          record.requester= requester
+          record.date_of_request= date_of_request
+          record.requesting_dpt= requesting_dpt
+
+          record.request_justification= request_justification 
+          record.name_address_of_supplier = name_address_of_supplier
+          record.budget_line_item= budget_line_item
+
+          record.qnty= qnty
+          record.item_number= item_number
+
+          record.description= description
+          record.unit_price= unit_price
+
+          record.supervisor_approved= supervisor_approved
+          record.supervisor_approved_date= supervisor_approved_date
+
+          record.accounts_clerk_approved= accounts_clerk_approved
+        #   d = datetime.datetime.now()
+        #   record.date_of_request = "{:%B %d, %Y}".format(d)
+          record.accounts_clerk_approved_date= accounts_clerk_approved_date
+
+          record.save()
+
+          return JsonResponse( {'message':"success"})
+
+        except Exception as e  :
+            f= open("service1.txt","w")
+            f.write(str(e))
+            f.close()
+            print(str(e))
+            return JsonResponse({'message':(str(e))})
+
+def purchase_request_get_record(request):
+    context={}
+    if request.method == "POST":
+        _id = request.POST.get('id',default=None)
+
+        record = PuchaseRequest.objects.get(id=_id)
+        dic = {
+           
+        "date_of_request": record.date_of_request,
+          "payee": record.payee,
+          "payment_type": record.payment_type,
+          "amount": record.amount,
+          "project_number": record.project_number,
+
+          "account_code": record.account_code, 
+          "details ": record.details,
+          # // "amount ": record.pat_name,
+          # "unit_price ": record.unit_price,
+          "total": record.total,
+
+          "certified_by": record.certified_by,
+          "certified_by_date": record.certified_by_date,
+
+          "cleared_by_fin_man": record.cleared_by_fin_man,
+          "cleared_by_fin_man_date": record.cleared_by_fin_man_date,
+
+          "approved_by_project_man": record.approved_by_project_man,
+          "approved_by_project_man_date": record.approved_by_project_man_date,
+
+          "approved_by": record.approved_by,
+          "approved_by_date": record.approved_by_date,
+          "message":"success",
+        }
+        context = {'addTabActive': True, "record":""}
+        return JsonResponse(dic)
+    else:
+        return redirect('/payment_requests')
+# ***********************************************************************************************************************
+
 
 # comparative schedule
 def comp_schedule(request):
@@ -109,9 +239,6 @@ def payment_request_view(request):
       return render(request, 'pages/payment_requests/view.html', context)
     else:
       return render(request, 'pages/payment_requests/list.html', {})
-
-
-
 
 def payment_request_print(request):
     if request.method == "POST":
@@ -362,31 +489,7 @@ def payment_request_edit_record(request):
             f.close()
             return JsonResponse({'message':"failed"})
 
-#purchase request
-def purchase_request_all(request):
-    form = PaymentRequest.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/payment_request.html', context)
 
-def purchase_request_super(request):
-    form = PaymentRequest.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/payment_request.html', context)
-
-def purchase_request_pending(request):
-    form = PaymentRequest.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/payment_request.html', context)
-
-def purchase_request_approved(request):
-    form = PaymentRequest.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/payment_request.html', context)
-
-def purchase_request_add(request):
-    form = PaymentRequest.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/payment_requests/add.html', context)
 
 
 #comp schedule
