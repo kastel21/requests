@@ -69,7 +69,7 @@
                                     <td>Requester</td>
                                     <td>Request Date</td>
                                     <td>Payee</td>
-                                    <td>Total</td>
+                                    <td>supplier</td>
                                     <td>Project Number</td>
                                     <td>status</td>
 
@@ -81,15 +81,28 @@
                                 {% for record in records %}
                                     <tr>
                                         <form method="POST" action="payment_request_view/{{record.id}}">
+                                            {% csrf_token %}
                                             <input type="text" name="id" id="id" value="{{record.id}}" />
-                                            <td> <input type="submit" value="{{record.requester}}" /> </td>
+                                            <td> <input type="submit" value="{{record.requested_by}}" /> </td>
 
                                         </form>
-                                    <td>{{record.request_date}}</td>
-                                    <td>{{record.payee}}</td>
-                                    <td>{{record.total}}</td>
-                                    <td>{{record.project_number}}</td>
-                                    <td>{{record.status}}</td>
+                                    <td>{{record.company_name_supplier1}}</td>
+                                    <td>{{record.company_name_supplier2}}</td>
+                                    <td>{{record.company_name_supplier3}}</td>
+
+                                    <td>{{record.unit_price_supplier1}}</td>
+                                    <td>{{record.unit_price_supplier2}}</td>
+                                    <td>{{record.unit_price_supplier3}}</td>
+
+                                    <td>{{record.total_price_supplier1}}</td>
+                                    <td>{{record.total_price_supplier2}}</td>
+                                    <td>{{record.total_price_supplier3}}</td>
+
+                                    <td>{{record.recommended_supplier}}</td>
+                                    <td>{{record.recommended_supplier_reason}}</td>
+                                    <td>{{record.dpt_project_requesting}}</td>
+                                    <td>{{record.requested_by}}</td>
+
 
                                     </tr>
 

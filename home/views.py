@@ -209,13 +209,197 @@ def purchase_request_get_record(request):
         return redirect('/payment_requests')
 # ***********************************************************************************************************************
 
-
+# ***********************************************************************************************************************
 # comparative schedule
 def comp_schedule(request):
     form = ComparativeSchedule.objects.all()
     context = {'form':form}
     return render(request, 'pages/comparative_schedules/comparative_schedules.html', context)
 
+def comp_schedule_all(request):
+    records = ComparativeSchedule.objects.all()
+    context = {'records':records}
+    return render(request, 'pages/comparative_schedules/list.html', context)
+
+def comp_schedule_super(request):
+    form = ComparativeSchedule.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_request.html', context)
+
+def comp_schedule_pending(request):
+    form = ComparativeSchedule.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_request.html', context)
+
+def comp_schedule_approved(request):
+    form = ComparativeSchedule.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/payment_request.html', context)
+
+def comp_schedule_add(request):
+    form = ComparativeSchedule.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/comparative_schedules/add.html', context)
+
+@csrf_exempt
+@app.route("/send_record")
+def comp_schedule_send_record(request):
+
+    with app.app_context():
+        try:
+          request_id= request.POST.get('request_id',default=None)
+          payee= request.POST.get('payee',default=None)
+
+          company_name_supplier1= request.POST.get('company_name_supplier1',default=None)
+          item_number_supplier1= request.POST.get('item_number_supplier1',default=None)
+          desc_supplier1= request.POST.get('desc_supplier1',default=None)
+          qnty_supplier1= request.POST.get('qnty_supplier1',default=None) 
+          unit_price_supplier1 = request.POST.get('unit_price_supplier1',default=None)
+          total_price_supplier1 = request.POST.get('total_price_supplier1',default=None)
+
+          company_name_supplier2= request.POST.get('company_name_supplier2',default=None)
+          item_number_supplier2= request.POST.get('item_number_supplier2',default=None)
+          desc_supplier2= request.POST.get('desc_supplier2',default=None)
+          qnty_supplier2= request.POST.get('qnty_supplier2',default=None) 
+          unit_price_supplier2 = request.POST.get('unit_price_supplier2',default=None)
+          total_price_supplier2 = request.POST.get('total_price_supplier2',default=None)
+
+          company_name_supplier3= request.POST.get('company_name_supplier3',default=None)
+          item_number_supplier3= request.POST.get('item_number_supplier3',default=None)
+          desc_supplier3= request.POST.get('desc_supplier3',default=None)
+          qnty_supplier3= request.POST.get('qnty_supplier3',default=None) 
+          unit_price_supplier3 = request.POST.get('unit_price_supplier3',default=None)
+          total_price_supplier3 = request.POST.get('total_price_supplier3',default=None)
+
+          recommended_supplier= request.POST.get('recommended_supplier',default=None)
+          recommended_supplier_reason= request.POST.get('recommended_supplier_reason',default=None)
+          dpt_project_requesting= request.POST.get('dpt_project_requesting',default=None)
+
+          requested_by= request.POST.get('requested_by',default=None)
+          requested_by_sig= request.POST.get('requested_by_sig',default=None)
+          requested_by_date= request.POST.get('requested_by_date',default=None)
+
+          tech_person_by= request.POST.get('tech_person_by',default=None)
+          tech_person_by_sig= request.POST.get('tech_person_by_sig',default=None)
+          tech_person_date= request.POST.get('tech_person_date',default=None)
+
+          dpt_head_by= request.POST.get('dpt_head_by',default=None)
+          dpt_head_by_sig= request.POST.get('dpt_head_by_sig',default=None)
+          dpt_head_date= request.POST.get('dpt_head_date',default=None)
+
+          team_lead_by= request.POST.get('team_lead_by',default=None)
+          team_lead_by_sig= request.POST.get('team_lead_by_sig',default=None)
+          team_lead_date= request.POST.get('team_lead_date',default=None)
+
+          approved_by= request.POST.get('approved_by',default=None)
+          approved_by_sig= request.POST.get('approved_by_sig',default=None)
+          approved_date= request.POST.get('approved_date',default=None)
+
+          record = ComparativeSchedule()
+
+        #   record.compiled_by = request.user.username
+          record.request_id= request_id
+          record.payee= payee
+
+          record.company_name_supplier1= company_name_supplier1
+          record.item_number_supplier1= item_number_supplier1
+          record.desc_supplier1= desc_supplier1
+          record.qnty_supplier1= qnty_supplier1 
+          record.unit_price_supplier1 = unit_price_supplier1
+          record.total_price_supplier1= total_price_supplier1
+
+          record.company_name_supplier2= company_name_supplier2
+          record.item_number_supplier2= item_number_supplier2
+          record.desc_supplier2= desc_supplier2
+          record.qnty_supplier2= qnty_supplier2 
+          record.unit_price_supplier2 = unit_price_supplier2
+          record.total_price_supplier2= total_price_supplier2
+        
+          record.company_name_supplier3= company_name_supplier3
+          record.item_number_supplier3= item_number_supplier3
+          record.desc_supplier3= desc_supplier3
+          record.qnty_supplier3= qnty_supplier3 
+          record.unit_price_supplier3 = unit_price_supplier3
+          record.total_price_supplier3= total_price_supplier3
+
+          record.recommended_supplier= recommended_supplier
+          record.recommended_supplier_reason= recommended_supplier_reason
+          record.dpt_project_requesting= dpt_project_requesting
+
+          record.requested_by= requested_by 
+          record.requested_by_sig = requested_by_sig
+          record.requested_by_date= requested_by_date
+        
+          record.tech_person_by= tech_person_by
+          record.tech_person_by_sig= tech_person_by_sig
+          record.tech_person_date= tech_person_date
+
+          record.dpt_head_by= dpt_head_by 
+          record.dpt_head_by_sig = dpt_head_by_sig
+          record.dpt_head_date= dpt_head_date
+
+          record.team_lead_by= team_lead_by 
+          record.team_lead_by_sig = team_lead_by_sig
+          record.team_lead_date= team_lead_date
+
+          record.approved_by= approved_by
+          record.approved_by_sig= approved_by_sig
+          record.approved_date= approved_date
+
+          d = datetime.datetime.now()
+        #   record.date_of_request = "{:%B %d, %Y}".format(d)
+        #   record.approved_by_date= approved_by_date
+
+          record.save()
+
+          return JsonResponse( {'message':"success"})
+
+        except Exception as e  :
+            f= open("service1.txt","w")
+            f.write(str(e))
+            f.close()
+            return JsonResponse({'message':"failed"})
+
+def comp_schedule_get_record(request):
+    context={}
+    if request.method == "POST":
+        _id = request.POST.get('id',default=None)
+
+        record = ComparativeSchedule.objects.get(id=_id)
+        dic = {
+           
+        # "date_of_request": record.date_of_request,
+          "payee": record.payee,
+
+          "company_name_supplier1": record.company_name_supplier1,
+          "amount": record.amount,
+          "project_number": record.project_number,
+
+          "account_code": record.account_code, 
+          "details ": record.details,
+          "total": record.total,
+
+          "certified_by": record.certified_by,
+          "certified_by_date": record.certified_by_date,
+
+          "cleared_by_fin_man": record.cleared_by_fin_man,
+          "cleared_by_fin_man_date": record.cleared_by_fin_man_date,
+
+          "approved_by_project_man": record.approved_by_project_man,
+          "approved_by_project_man_date": record.approved_by_project_man_date,
+
+          "approved_by": record.approved_by,
+          "approved_by_date": record.approved_by_date,
+          "message":"success",
+        }
+        context = {'addTabActive': True, "record":""}
+        return JsonResponse(dic)
+    else:
+        return redirect('/payment_requests')
+
+# ***********************************************************************************************************************
+
+# ***********************************************************************************************************************
 # payment request
 def payment_request_all(request):
     records = PaymentRequest.objects.all()
@@ -251,8 +435,6 @@ def payment_request_super(request):
     records = PaymentRequest.objects.all()
     context = {'records':records}
     return render(request, 'pages/payment_requests/list.html', context)
-
-
 
 def payment_request_edit(request):
     form = PaymentRequest.objects.all()
@@ -314,8 +496,6 @@ def payment_request_get_record(request):
     else:
         return redirect('/payment_requests')
 
-
-
 @csrf_exempt
 @app.route("/send_record")
 def payment_request_send_record(request):
@@ -347,17 +527,6 @@ def payment_request_send_record(request):
           approved_by= request.POST.get('approved_by',default=None)
           approved_by_date= request.POST.get('approved_by_date',default=None)
 
-
-
-
-
-
-
-
-
-
-
-
           record = PaymentRequest()
 
           record.compiled_by = request.user.username
@@ -388,9 +557,6 @@ def payment_request_send_record(request):
 
           record.save()
 
-
-
-
           return JsonResponse( {'message':"success"})
 
         except Exception as e  :
@@ -399,17 +565,10 @@ def payment_request_send_record(request):
             f.close()
             return JsonResponse({'message':"failed"})
 
-
-
-
-
-
 @csrf_exempt
 def payment_request_edit_record(request):
 
         try:
-           
-
           _id= request.POST.get('case_id',default=None)
 
           payee= request.POST.get('payee',default=None)
@@ -435,25 +594,12 @@ def payment_request_edit_record(request):
           approved_by= request.POST.get('approved_by',default=None)
           approved_by_date= request.POST.get('approved_by_date',default=None)
 
-
-
-
-
-
-
-
-
-
-
-
           record = PaymentRequest.objects.get(id=_id)
 
           record.compiled_by = request.user.username
           record.payee= payee
           d = datetime.datetime.now()
           record.date_of_request = "{:%B %d, %Y}".format(d)
-
-
 
           record.payment_type= payment_type
           record.amount= amount
@@ -488,35 +634,6 @@ def payment_request_edit_record(request):
             f.write(str(e))
             f.close()
             return JsonResponse({'message':"failed"})
+# ***********************************************************************************************************************
 
 
-
-
-#comp schedule
-
-def comp_schedule_all(request):
-    form = PaymentRequest.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/payment_request.html', context)
-
-def comp_schedule_super(request):
-    form = PaymentRequest.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/payment_request.html', context)
-
-def comp_schedule_pending(request):
-    form = PaymentRequest.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/payment_request.html', context)
-
-def comp_schedule_approved(request):
-    form = PaymentRequest.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/payment_request.html', context)
-
-
-
-def comp_schedule_add(request):
-    form = PaymentRequest.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/comparative_schedules/add.html', context)

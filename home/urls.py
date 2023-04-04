@@ -55,6 +55,7 @@ urlpatterns = [
     path('comp_schedule_pending', views.comp_schedule_pending, name='comp_schedule_pending'),
     path('comp_schedule_super', views.comp_schedule_super, name='comp_schedule_super'),
     path('comp_schedule_add', views.comp_schedule_add, name='comp_schedule_add'),
+    path('comp_schedule_send_record', views.comp_schedule_send_record, name='comp_schedule_send_record'),
 
 
 
