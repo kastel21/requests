@@ -8,6 +8,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from flask import Flask
 import datetime
+from django.db.models import Q
+from django.contrib.auth import get_user_model
 
 app = Flask(__name__)
 
@@ -218,7 +220,9 @@ def comp_schedule(request):
 
 # payment request
 def payment_request_all(request):
-    records = PaymentRequest.objects.all()
+    username = request.user.username
+    user_id = request.user.id
+    records = PaymentRequest.objects.filter( Q(compiled_by=username) | Q(certified_by= username) | Q(approved_by=username))
     context = {'records':records}
     return render(request, 'pages/payment_requests/list.html', context)
 
@@ -236,7 +240,7 @@ def payment_request_view(request):
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
       context = {'record':record}
-      return render(request, 'pages/payment_requests/view.html', context)
+      return render(request, 'pages/payment_requests/view2.html', context)
     else:
       return render(request, 'pages/payment_requests/list.html', {})
 
@@ -245,7 +249,7 @@ def payment_request_print(request):
       _id = ""
       record = PaymentRequest.objects.filter(id=_id)
       context = {'record':record}
-      return render(request, 'pages/payment_requests/view.html', context)
+      return render(request, 'pages/payment_requests/print.html', context)
 
 def payment_request_super(request):
     records = PaymentRequest.objects.all()
@@ -259,10 +263,146 @@ def payment_request_edit(request):
     context = {'form':form}
     return render(request, 'pages/payment_requests/add.html', context)
 
+def payment_request_pending_certification(request):
+    records = PaymentRequest.objects.filter(certified_by="None")
+    context = {'records':records}
+    return render(request, 'pages/payment_requests/list.html', context)
+
+
+def payment_request_certification(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PaymentRequest.objects.get(id=_id)
+      context = {'record':record}
+      return render(request, 'pages/payment_requests/view.html', context)
+    else:
+      return render(request, 'pages/payment_requests/list.html', {})
+
+def payment_request_certify(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PaymentRequest.objects.get(id=_id)
+      record.certified_by = request.user.username
+      # record.certified_by_date = request.user.username
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y}".format(d)
+      record.certified_by_date= "{:%B %d, %Y}".format(d)
+
+      record.save()
+
+
+
+
+      return JsonResponse( {'message':"success"})
+
+    else:
+      return render(request, 'pages/payment_requests/list.html', {})
+
+
+
+
+def payment_request_pending_clearance(request):
+    records = PaymentRequest.objects.filter(cleared_by_fin_man="None")
+    context = {'records':records}
+    return render(request, 'pages/payment_requests/list.html', context)
+
+
+
+
+def payment_request_clearance(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PaymentRequest.objects.get(id=_id)
+      context = {'record':record}
+      return render(request, 'pages/payment_requests/view.html', context)
+    else:
+      return render(request, 'pages/payment_requests/list.html', {})
+
+def payment_request_clear(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PaymentRequest.objects.get(id=_id)
+      record.cleared_by_fin_man = request.user.username
+      # record.certified_by_date = request.user.username
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y}".format(d)
+      record.cleared_by_fin_man_date= "{:%B %d, %Y}".format(d)
+
+      record.save()
+
+
+
+
+      return JsonResponse( {'message':"success"})
+
+    else:
+      return render(request, 'pages/payment_requests/list.html', {})
+
+
+
+
+def payment_request_pending_approval(request):
+    records = PaymentRequest.objects.filter(approved_by="None")
+    context = {'records':records}
+    return render(request, 'pages/payment_requests/list.html', context)
+
+
+
+def payment_request_approval(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PaymentRequest.objects.get(id=_id)
+      context = {'record':record}
+      return render(request, 'pages/payment_requests/view.html', context)
+    else:
+      return render(request, 'pages/payment_requests/list.html', {})
+
+def payment_request_approve(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PaymentRequest.objects.get(id=_id)
+      record.approved_by = request.user.username
+      # record.certified_by_date = request.user.username
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y}".format(d)
+      record.approved_by_date= "{:%B %d, %Y}".format(d)
+
+      record.save()
+
+
+
+
+      return JsonResponse( {'message':"success"})
+
+    else:
+      return render(request, 'pages/payment_requests/list.html', {})
+
+
+
 def payment_request_pending(request):
     form = PaymentRequest.objects.all()
     context = {'form':form}
-    return render(request, 'pages/payment_request.html', context)
+    return render(request, 'pages/payment_requests/list.html', context)
+
+
 
 def payment_request_approved(request):
     form = PaymentRequest.objects.all()
@@ -274,6 +414,24 @@ def payment_request_add(request):
     form = PaymentRequest.objects.all()
     context = {'form':form}
     return render(request, 'pages/payment_requests/add.html', context)
+
+
+
+@csrf_exempt
+def get_users(request):
+   try:
+      dic = {}
+      User = get_user_model()
+      users = User.objects.all()
+
+      for user in users: 
+          dic[user.username]= user.username
+      return JsonResponse(dic)
+   except Exception as e:
+          return JsonResponse(str(e))
+
+    
+
 
 @csrf_exempt
 def payment_request_get_record(request):
@@ -336,16 +494,16 @@ def payment_request_send_record(request):
           total= request.POST.get('total',default=None)
 
           certified_by= request.POST.get('certified_by',default=None)
-          certified_by_date= request.POST.get('certified_by_date',default=None)
+          # certified_by_date= request.POST.get('certified_by_date',default=None)
 
-          cleared_by_fin_man= request.POST.get('cleared_by_fin_man',default=None)
-          cleared_by_fin_man_date= request.POST.get('cleared_by_fin_man_date',default=None)
+          # cleared_by_fin_man= request.POST.get('cleared_by_fin_man',default=None)
+          # cleared_by_fin_man_date= request.POST.get('cleared_by_fin_man_date',default=None)
 
-          approved_by_project_man= request.POST.get('approved_by_project_man',default=None)
-          approved_by_project_man_date= request.POST.get('approved_by_project_man_date',default=None)
+          # approved_by_project_man= request.POST.get('approved_by_project_man',default=None)
+          # approved_by_project_man_date= request.POST.get('approved_by_project_man_date',default=None)
 
-          approved_by= request.POST.get('approved_by',default=None)
-          approved_by_date= request.POST.get('approved_by_date',default=None)
+          # approved_by= request.POST.get('approved_by',default=None)
+          # approved_by_date= request.POST.get('approved_by_date',default=None)
 
 
 
@@ -373,18 +531,18 @@ def payment_request_send_record(request):
           record.total= total
 
           record.certified_by= certified_by
-          record.certified_by_date= certified_by_date
+          # record.certified_by_date= certified_by_date
 
-          record.cleared_by_fin_man= cleared_by_fin_man
-          record.cleared_by_fin_man_date= cleared_by_fin_man_date
+          # record.cleared_by_fin_man= cleared_by_fin_man
+          # record.cleared_by_fin_man_date= cleared_by_fin_man_date
 
-          record.approved_by_project_man= approved_by_project_man
-          record.approved_by_project_man_date= approved_by_project_man_date
+          # record.approved_by_project_man= approved_by_project_man
+          # record.approved_by_project_man_date= approved_by_project_man_date
 
-          record.approved_by= approved_by
+          # record.approved_by= approved_by
           d = datetime.datetime.now()
           record.date_of_request = "{:%B %d, %Y}".format(d)
-          record.approved_by_date= approved_by_date
+          # record.approved_by_date= approved_by_date
 
           record.save()
 
@@ -424,16 +582,16 @@ def payment_request_edit_record(request):
           total= request.POST.get('total',default=None)
 
           certified_by= request.POST.get('certified_by',default=None)
-          certified_by_date= request.POST.get('certified_by_date',default=None)
+          # certified_by_date= request.POST.get('certified_by_date',default=None)
 
-          cleared_by_fin_man= request.POST.get('cleared_by_fin_man',default=None)
-          cleared_by_fin_man_date= request.POST.get('cleared_by_fin_man_date',default=None)
+          # cleared_by_fin_man= request.POST.get('cleared_by_fin_man',default=None)
+          # cleared_by_fin_man_date= request.POST.get('cleared_by_fin_man_date',default=None)
 
-          approved_by_project_man= request.POST.get('approved_by_project_man',default=None)
-          approved_by_project_man_date= request.POST.get('approved_by_project_man_date',default=None)
+          # approved_by_project_man= request.POST.get('approved_by_project_man',default=None)
+          # approved_by_project_man_date= request.POST.get('approved_by_project_man_date',default=None)
 
-          approved_by= request.POST.get('approved_by',default=None)
-          approved_by_date= request.POST.get('approved_by_date',default=None)
+          # approved_by= request.POST.get('approved_by',default=None)
+          # approved_by_date= request.POST.get('approved_by_date',default=None)
 
 
 
@@ -466,16 +624,16 @@ def payment_request_edit_record(request):
           record.total= total
 
           record.certified_by= certified_by
-          record.certified_by_date= certified_by_date
+          # record.certified_by_date= certified_by_date
 
-          record.cleared_by_fin_man= cleared_by_fin_man
-          record.cleared_by_fin_man_date= cleared_by_fin_man_date
+          # record.cleared_by_fin_man= cleared_by_fin_man
+          # record.cleared_by_fin_man_date= cleared_by_fin_man_date
 
-          record.approved_by_project_man= approved_by_project_man
-          record.approved_by_project_man_date= approved_by_project_man_date
+          # record.approved_by_project_man= approved_by_project_man
+          # record.approved_by_project_man_date= approved_by_project_man_date
 
-          record.approved_by= approved_by
-          record.approved_by_date= approved_by_date
+          # record.approved_by= approved_by
+          # record.approved_by_date= approved_by_date
 
           record.save()
 

@@ -46,7 +46,8 @@ urlpatterns = [
     path('payment_request_send_record', views.payment_request_send_record, name='payment_request_send_record'),
     path('payment_request_get_record', views.payment_request_get_record, name='payment_request_get_record'),
 
-
+    path('get_users', views.get_users, name='get_users'),
+    path('print', views.payment_request_print, name='print'),
 
     #comp schedule
     path('comp_schedule', views.comp_schedule, name='comp_schedule'),

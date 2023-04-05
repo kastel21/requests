@@ -21,22 +21,19 @@
 
             <div class="col-md-6">
                 <label  class="form-label">Payee:</label>
-                <input type="text" class="form-control" id="payee" name="payee" value="">
+                <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
             </div>
             <div class="col-md-6">
                 <label  class="form-label">Account Code:</label>
-                <input type="text" class="form-control" id="account_code" name="account_code" value="">
+                <input type="text" class="form-control" id="account_code" name="account_code" value="" readonly>
             </div>
 
-            <!-- <div class="col-md-4">
-                <label  class="form-label">Date:</label>
-                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="">
-            </div> -->
+
 
             <div class="col-md-6">
                 <label  class="form-label"> Payment Type</label>
                 <!-- <input type="text" class="form-control" id="payment_type" name="payment_type" value=""> -->
-                <select class="form-control" name="payment_type" id="payment_type">
+                <select class="form-control" name="payment_type" id="payment_type" disabled>
                     <option value="TRANSFER">TRANSFER</option>
 
                     <option value="CHEQUE">CHEQUE</option>
@@ -50,42 +47,45 @@
 
             <div class="col-md-6">
                 <label  class="form-label">Project Number:</label>
-                <input type="text" class="form-control" id="project_number" name="project_number" value="">
+                <input type="text" class="form-control" id="project_number" name="project_number" value="" readonly>
             </div>
 
 
 
             <div class="col-md-12">
                 <label  class="form-label">Details of Expenditure:</label>
-                <textarea type="text" class="form-control" id="details" name="details" value=""></textarea>
+                <textarea type="text" class="form-control" id="details" name="details" value="" readonly></textarea>
             </div>
 
 
             <div class="col-md-6">
                 <label  class="form-label">Quantity:</label>
-                <input type="text" class="form-control" id="amount" name="amount" value="">
+                <input type="text" class="form-control" id="amount" name="amount" value="" readonly>
             </div>
 
             <hr>
             <div class="col-md-6">
                 <label  class="form-label">Unit Amount:</label>
-                <input type="text" class="form-control" id="amount" name="amount" value="">
+                <input type="text" class="form-control" id="amount" name="amount" value="" readonly>
             </div>
 
             <div class="col-md-6">
                 <label  class="form-label">Total:</label>
-                <input type="text" class="form-control" id="total" name="total" value="">
+                <input type="text" class="form-control" id="total" name="total" value="" readonly>
             </div>
 
             <hr>
 
-            <!-- <div class="col-md-6">
+            <div class="col-md-6">
                 <label  class="form-label">Compiled By:</label>
-                <input type="text" class="form-control" id="compiled_by" name="compiled_by" value="">
-            </div> -->
+                <input type="text" class="form-control" id="compiled_by" name="compiled_by" value="" readonly>
+            </div>
 
-            <hr>
-
+            
+            <div class="col-md-6">
+                <label  class="form-label">Date:</label>
+                <input type="text" class="form-control" id="compiled_by_date" name="compiled_by_date" value="" readonly>
+            </div>
 
                 <!-- <label  class="form-label">Certified By:</label>
                 <input type="text" class="form-control" id="certified_by" name="certified_by" value=""> -->
@@ -94,7 +94,7 @@
 
             <div class="col-md-12">
                 <label for="certifier" class="form-label">Select Certifier</label>
-                <select class="form-control" name="certified_by" id="certified_by">
+                <select class="form-control" name="certified_by" id="certified_by" disabled>
                 <option value="None">..</option>
 
                 </select>
@@ -145,7 +145,9 @@
           </form> 
 
             <div style="margin-top: 2%;" class="col-md-12">
-                <a onclick="sendEdit();" class="btn btn-primary"> SUBMIT</a>
+                <a onclick="" class="btn btn-primary"> Edit</a>
+                <a onclick="print()" class="btn btn-success"> Print</a>
+
             </div>
 
 
@@ -194,7 +196,7 @@ console.log(data)
 // populating the already existing records
 
             current_url = window.location.href;
-                        arr = current_url.split("_");
+                        arr = current_url.split("/");
                         case_id = arr.at(-1);
                     console.log(case_id);
                     if (case_id == "add"){}else{
@@ -248,7 +250,14 @@ console.log(data)
     }
 
 
+function print(){
 
+
+    window.location.href="http://localhost:8000/print";
+
+
+
+}
 
 
 

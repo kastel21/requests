@@ -8,21 +8,21 @@ class PuchaseRequest(models.Model):
     request_id = models.CharField(max_length=30, default="username")
     requester = models.CharField(max_length=30, default="username")
     date_of_request = models.CharField(max_length=15, default="2023")
-    requesting_dpt = models.CharField(max_length=150, default=".")
-    request_justification = models.CharField(max_length=450, default=".")
-    name_address_of_supplier = models.CharField(max_length=550, default=".")
-    budget_line_item = models.CharField(max_length=150, default=".")
+    requesting_dpt = models.CharField(max_length=150, default="None")
+    request_justification = models.CharField(max_length=450, default="None")
+    name_address_of_supplier = models.CharField(max_length=550, default="None")
+    budget_line_item = models.CharField(max_length=150, default="None")
    
-    qnty = models.CharField(max_length=150, default=".")
-    item_number = models.CharField(max_length=150, default=".")
-    description = models.CharField(max_length=150, default=".")
-    unit_price = models.CharField(max_length=150, default=".")
-    total = models.CharField(max_length=150, default=".")
+    qnty = models.CharField(max_length=150, default="None")
+    item_number = models.CharField(max_length=150, default="None")
+    description = models.CharField(max_length=150, default="None")
+    unit_price = models.CharField(max_length=150, default="None")
+    total = models.CharField(max_length=150, default="None")
    
-    supervisor_approved = models.CharField(max_length=150, default=".")
-    supervisor_approved_date= models.CharField(max_length=150, default=".")
-    accounts_clerk_approved= models.CharField(max_length=150, default=".")
-    accounts_clerk_approved_date= models.CharField(max_length=150, default=".")
+    supervisor_approved = models.CharField(max_length=150, default="None")
+    supervisor_approved_date= models.CharField(max_length=150, default="None")
+    accounts_clerk_approved= models.CharField(max_length=150, default="None")
+    accounts_clerk_approved_date= models.CharField(max_length=150, default="None")
 
 
 
@@ -31,62 +31,62 @@ class PaymentRequest(models.Model):
     request_id = models.CharField(max_length=30, default="username")
     compiled_by = models.CharField(max_length=30, default="username")
     date_of_request = models.CharField(max_length=15, default="2023")
-    payee = models.CharField(max_length=150, default=".")
-    payment_type = models.CharField(max_length=450, default=".")
-    amount = models.CharField(max_length=550, default=".")
-    project_number = models.CharField(max_length=150, default=".")
+    payee = models.CharField(max_length=150, default="None")
+    payment_type = models.CharField(max_length=450, default="None")
+    # amount = models.CharField(max_length=550, default="None")
+    project_number = models.CharField(max_length=150, default="None")
    
-    account_code = models.CharField(max_length=150, default=".")
-    details = models.CharField(max_length=150, default=".")
-    amount = models.CharField(max_length=150, default=".")
-    # unit_price = models.CharField(max_length=150, default=".")
-    total = models.CharField(max_length=150, default=".")
+    account_code = models.CharField(max_length=150, default="None")
+    details = models.CharField(max_length=150, default="None")
+    amount = models.CharField(max_length=150, default="None")
+    # unit_price = models.CharField(max_length=150, default="None")
+    total = models.CharField(max_length=150, default="None")
    
-    certified_by = models.CharField(max_length=150, default=".")
-    certified_by_date = models.CharField(max_length=150, default=".")
+    certified_by = models.CharField(max_length=150, default="None")
+    certified_by_date = models.CharField(max_length=150, default="None")
 
-    cleared_by_fin_man= models.CharField(max_length=150, default=".")
-    cleared_by_fin_man_date= models.CharField(max_length=150, default=".")
+    cleared_by_fin_man= models.CharField(max_length=150, default="None")
+    cleared_by_fin_man_date= models.CharField(max_length=150, default="None")
 
-    approved_by_project_man= models.CharField(max_length=150, default=".")
-    approved_by_project_man_date= models.CharField(max_length=150, default=".")
+    approved_by_project_man= models.CharField(max_length=150, default="None")
+    approved_by_project_man_date= models.CharField(max_length=150, default="None")
 
-    approved_by= models.CharField(max_length=150, default=".")
-    approved_by_date= models.CharField(max_length=150, default=".")
+    approved_by= models.CharField(max_length=150, default="None")
+    approved_by_date= models.CharField(max_length=150, default="None")
 
 
 class ComparativeSchedule(models.Model):
     request_id = models.CharField(max_length=30, default="username")
-    payee = models.CharField(max_length=150, default=".")
+    payee = models.CharField(max_length=150, default="None")
    
-    company_name_supplier1 = models.CharField(max_length=450, default=".")
-    company_name_supplier2 = models.CharField(max_length=450, default=".")
-    company_name_supplier3 = models.CharField(max_length=450, default=".")
+    company_name_supplier1 = models.CharField(max_length=450, default="None")
+    company_name_supplier2 = models.CharField(max_length=450, default="None")
+    company_name_supplier3 = models.CharField(max_length=450, default="None")
     
-    item_number_supplier1 = models.CharField(max_length=450, default=".")
-    item_number_supplier2 = models.CharField(max_length=450, default=".")
-    item_number_supplier3 = models.CharField(max_length=450, default=".")
+    item_number_supplier1 = models.CharField(max_length=450, default="None")
+    item_number_supplier2 = models.CharField(max_length=450, default="None")
+    item_number_supplier3 = models.CharField(max_length=450, default="None")
 
-    desc_supplier1 = models.CharField(max_length=450, default=".")
-    desc_supplier2 = models.CharField(max_length=450, default=".")
-    desc_supplier3 = models.CharField(max_length=450, default=".")
-
-
-    qnty_supplier1 = models.CharField(max_length=450, default=".")
-    qnty_supplier2 = models.CharField(max_length=450, default=".")
-    qnty_supplier3 = models.CharField(max_length=450, default=".")
+    desc_supplier1 = models.CharField(max_length=450, default="None")
+    desc_supplier2 = models.CharField(max_length=450, default="None")
+    desc_supplier3 = models.CharField(max_length=450, default="None")
 
 
-    unit_price_supplier1 = models.CharField(max_length=450, default=".")
-    unit_price_supplier2 = models.CharField(max_length=450, default=".")
-    unit_price_supplier3 = models.CharField(max_length=450, default=".")
+    qnty_supplier1 = models.CharField(max_length=450, default="None")
+    qnty_supplier2 = models.CharField(max_length=450, default="None")
+    qnty_supplier3 = models.CharField(max_length=450, default="None")
 
-    total_price_supplier1 = models.CharField(max_length=450, default=".")
-    total_price_supplier2 = models.CharField(max_length=450, default=".")
-    total_price_supplier3 = models.CharField(max_length=450, default=".")
+
+    unit_price_supplier1 = models.CharField(max_length=450, default="None")
+    unit_price_supplier2 = models.CharField(max_length=450, default="None")
+    unit_price_supplier3 = models.CharField(max_length=450, default="None")
+
+    total_price_supplier1 = models.CharField(max_length=450, default="None")
+    total_price_supplier2 = models.CharField(max_length=450, default="None")
+    total_price_supplier3 = models.CharField(max_length=450, default="None")
 
     recommended_supplier = models.CharField(max_length=15, default="2023")
-    recommended_supplier_reason = models.CharField(max_length=150, default=".")
+    recommended_supplier_reason = models.CharField(max_length=150, default="None")
 
     
     dpt_project_requesting = models.CharField(max_length=15, default="2023")
@@ -113,7 +113,7 @@ class ComparativeSchedule(models.Model):
     approved_by_sig = models.CharField(max_length=30, default="username")
     approved_date = models.CharField(max_length=30, default="username")
 
-    project_number = models.CharField(max_length=150, default=".")
+    project_number = models.CharField(max_length=150, default="None")
 
 # =======
 # class Purchase_Requisition(models.Model):
