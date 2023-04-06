@@ -10,11 +10,8 @@ from flask import Flask
 import datetime
 from django.db.models import Q
 from django.contrib.auth import get_user_model
-from django.http import HttpResponse
-from django.views.generic import View
-
+from django.shortcuts import redirect
 from .utils import *
-from .utils import render_to_pdf
 
 
 app = Flask(__name__)
@@ -430,10 +427,49 @@ def payment_request_view(request):
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
       context = {'record':record}
-      return render(request, 'pages/payment_requests/view2.html', context)
-    else:
-      return render(request, 'pages/payment_requests/list.html', {})
-    
+      print("IN POST")
+      if record.certified_by_date == "None":
+         print("certified")
+         return render(request, 'pages/payment_requests/certify.html', context)
+      elif record.cleared_by_fin_man_date == "None":
+         print("cleared")
+
+         return render(request, 'pages/payment_requests/clear.html', context)
+      elif record.approved_by_date == "None":
+         print("approved")
+
+         return render(request, 'pages/payment_requests/approve.html', context)
+      else:
+         return redirect("payment_request_pending")
+
+
+def payment_request_pending_view(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PaymentRequest.objects.get(id=_id)
+      context = {'record':record}
+
+      print("IN POST")
+      if record.certified_by_date == "None":
+         print("certified")
+         return render(request, 'pages/payment_requests/certify.html', context)
+      elif record.cleared_by_fin_man_date == "None":
+         print("cleared")
+
+         return render(request, 'pages/payment_requests/clear.html', context)
+      elif record.approved_by_date == "None":
+         print("approved")
+
+         return render(request, 'pages/payment_requests/approve.html', context)
+      else:
+         return redirect("payment_request_pending")
+
+    # else:
+    #   return render(request, 'pages/payment_requests/list.html', {})
+
 
 
 @csrf_exempt
@@ -498,7 +534,7 @@ def payment_request_edit(request):
     return render(request, 'pages/payment_requests/add.html', context)
 
 def payment_request_pending_certification(request):
-    records = PaymentRequest.objects.filter(certified_by="None")
+    records = PaymentRequest.objects.filter(Q (certified_by="None") & Q(certified_by_date="None"))
     context = {'records':records}
     return render(request, 'pages/payment_requests/list.html', context)
 
@@ -542,7 +578,8 @@ def payment_request_certify(request):
 
 
 def payment_request_pending_clearance(request):
-    records = PaymentRequest.objects.filter(cleared_by_fin_man="None")
+    username = request.user.username
+    records = PaymentRequest.objects.filter(Q (cleared_by_fin_man=username)  & Q(cleared_by_fin_man_date="None") )
     context = {'records':records}
     return render(request, 'pages/payment_requests/list.html', context)
 
@@ -629,12 +666,90 @@ def payment_request_approve(request):
     else:
       return render(request, 'pages/payment_requests/list.html', {})
 
+@csrf_exempt
+def payment_request_certify(request):
+    
+    try:
+      if request.method == "POST":
+        
+        _id = request.POST.get('id',default=None)
+        clear = request.POST.get('clear',default=None)
 
+          # objs = Record.objects.get(id=_id)
+        record = PaymentRequest.objects.get(id=_id)
+        record.certified_by = request.user.username
+        record.cleared_by_fin_man = clear
+        d = datetime.datetime.now()
+            # record.date_of_request = "{:%B %d, %Y}".format(d)
+        record.certified_by_date= "{:%B %d, %Y}".format(d)
+        record.save()
+
+        return JsonResponse( {'message':"success"})
+      else:
+        return render(request, 'pages/payment_requests/list.html', {})
+
+    except:
+       return JsonResponse( {'message':"failed"})
+
+@csrf_exempt
+def payment_request_clear(request):
+    
+    try:
+      if request.method == "POST":
+        
+        _id = request.POST.get('id',default=None)
+        approver = request.POST.get('approver',default=None)
+
+          # objs = Record.objects.get(id=_id)
+        record = PaymentRequest.objects.get(id=_id)
+        record.cleared_by_fin_man = request.user.username
+        record.approved_by = approver
+        d = datetime.datetime.now()
+            # record.date_of_request = "{:%B %d, %Y}".format(d)
+        record.cleared_by_fin_man_date= "{:%B %d, %Y}".format(d)
+
+        record.save()
+
+        return JsonResponse( {'message':"success"})
+      else:
+        return render(request, 'pages/payment_requests/list.html', {})
+
+
+    except:
+       return JsonResponse( {'message':"failed"})
+
+
+@csrf_exempt
+def payment_request_approve(request):
+    
+    try:
+      if request.method == "POST":
+        
+        _id = request.POST.get('id',default=None)
+
+          # objs = Record.objects.get(id=_id)
+        record = PaymentRequest.objects.get(id=_id)
+        record.approved_by = request.user.username
+        # record.certified_by_date = request.user.username
+        d = datetime.datetime.now()
+            # record.date_of_request = "{:%B %d, %Y}".format(d)
+        record.approved_by_date= "{:%B %d, %Y}".format(d)
+
+        record.save()
+
+        return JsonResponse( {'message':"success"})
+      else:
+        return render(request, 'pages/payment_requests/list.html', {})
+
+
+    except:
+       return JsonResponse( {'message':"failed"})
 
 def payment_request_pending(request):
-    form = PaymentRequest.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/payment_requests/list.html', context)
+    username = request.user.username
+    records = PaymentRequest.objects.filter((Q(approved_by=username) & Q (approved_by_date="None")) | (Q(certified_by=username) & Q (certified_by_date="None")) | (Q(cleared_by_fin_man=username) & Q (cleared_by_fin_man_date="None")))
+    context = {'records':records}
+    return render(request, 'pages/payment_requests/list_pending.html', context)
 
 
 
@@ -681,10 +796,12 @@ def payment_request_get_record(request):
           "payment_type": record.payment_type,
           "amount": record.amount,
           "project_number": record.project_number,
+          "compiled_by": record.compiled_by,
+          "compiled_by_date": record.date_of_request,
 
           "account_code": record.account_code, 
           "details ": record.details,
-          # // "amount ": record.pat_name,
+          "qnty ": record.qnty,
           # "unit_price ": record.unit_price,
           "total": record.total,
 
@@ -721,7 +838,7 @@ def payment_request_send_record(request):
 
           account_code= request.POST.get('account_code',default=None) 
           details = request.POST.get('details',default=None)
-          # // amount = request.POST.get('pat_name',default=None)
+          qnty = request.POST.get('qnty',default=None)
           # unit_price = request.POST.get('unit_price',default=None)
           total= request.POST.get('total',default=None)
 
@@ -748,7 +865,7 @@ def payment_request_send_record(request):
           record.account_code= account_code 
           record.details = details
           # // record.amount = pat_name
-          # record.unit_price = unit_price
+          record.qnty = qnty
           record.total= total
 
           record.certified_by= certified_by
@@ -789,7 +906,7 @@ def payment_request_edit_record(request):
           account_code= request.POST.get('account_code',default=None) 
           details = request.POST.get('details',default=None)
           # // amount = request.POST.get('pat_name',default=None)
-          # unit_price = request.POST.get('unit_price',default=None)
+          qnty = request.POST.get('qnty',default=None)
           total= request.POST.get('total',default=None)
 
           certified_by= request.POST.get('certified_by',default=None)
@@ -818,7 +935,7 @@ def payment_request_edit_record(request):
           record.account_code= account_code 
           record.details = details
           # // record.amount = pat_name
-          # record.unit_price = unit_price
+          record.qnty = qnty
           record.total= total
 
           record.certified_by= certified_by

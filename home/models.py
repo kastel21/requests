@@ -39,7 +39,7 @@ class PaymentRequest(models.Model):
     account_code = models.CharField(max_length=150, default="None")
     details = models.CharField(max_length=150, default="None")
     amount = models.CharField(max_length=150, default="None")
-    # unit_price = models.CharField(max_length=150, default="None")
+    qnty = models.CharField(max_length=150, default="None")
     total = models.CharField(max_length=150, default="None")
    
     certified_by = models.CharField(max_length=150, default="None")
