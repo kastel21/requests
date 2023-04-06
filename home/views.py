@@ -10,6 +10,12 @@ from flask import Flask
 import datetime
 from django.db.models import Q
 from django.contrib.auth import get_user_model
+from django.http import HttpResponse
+from django.views.generic import View
+
+from .utils import *
+from .utils import render_to_pdf
+
 
 app = Flask(__name__)
 
@@ -427,13 +433,59 @@ def payment_request_view(request):
       return render(request, 'pages/payment_requests/view2.html', context)
     else:
       return render(request, 'pages/payment_requests/list.html', {})
+    
 
+
+@csrf_exempt
 def payment_request_print(request):
-    if request.method == "POST":
-      _id = ""
-      record = PaymentRequest.objects.filter(id=_id)
-      context = {'record':record}
-      return render(request, 'pages/payment_requests/print.html', context)
+    # if request.method == "POST":
+        current_url = request.path
+        x= current_url.split("/")[-1]
+        print(x)
+
+        # _id = request.POST.get(x)
+        # print(_id)
+
+        record = PaymentRequest.objects.get(id=x)
+        
+        data = {"payee": record.payee,
+        "compiled_by": record.compiled_by,
+        "date_of_request": record.date_of_request,
+        "payment_type": record.payment_type,
+        "project_number": record.project_number,
+        "account_code": record.account_code,
+        "details": record.details,
+        "amount": record.amount,
+        "total": record.total,
+        "certified_by": record.certified_by,
+        "certified_by_date": record.certified_by_date,
+        "cleared_by_fin_man": record.cleared_by_fin_man,
+        "cleared_by_fin_man_date": record.cleared_by_fin_man_date,
+        "approved_by_project_man": record.approved_by_project_man,
+        "approved_by_project_man_date": record.approved_by_project_man_date,
+        "approved_by": record.approved_by,
+        "approved_by_date": record.approved_by_date,
+        
+        "message":"success"}   
+
+
+        pdf = render_to_pdf('pages/payment_requests/print.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
+
+    # if request.method == "POST":
+    #   _id = request.POST.get('id',default=None)
+
+      
+    #   print(current_url)
+
+    #   l = current_url.split('/')
+    #   print(l)
+
+      
+
+    #   record = PaymentRequest.objects.filter(id=x)
+    #   context = {'record':record}
+    #   return render(request, 'pages/payment_requests/print.html', context)
 
 def payment_request_super(request):
     records = PaymentRequest.objects.all()

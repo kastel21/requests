@@ -39,7 +39,7 @@ urlpatterns = [
     path('payment_request_super', views.payment_request_super, name='payment_request_super'),
     path('payment_request_add', views.payment_request_add, name='payment_request_add'),
     re_path('payment_request_view/', views.payment_request_view, name='payment_request_view'),
-    path('payment_request_print', views.payment_request_print, name='payment_request_print'),
+    re_path('payment_request_print', views.payment_request_print, name='payment_request_print'),
     re_path('payment_request_edit', views.payment_request_edit, name='payment_request_edit'),
 
     path('payment_request_edit_record', views.payment_request_edit_record, name='payment_request_edit_record'),
@@ -47,7 +47,7 @@ urlpatterns = [
     path('payment_request_get_record', views.payment_request_get_record, name='payment_request_get_record'),
 
     path('get_users', views.get_users, name='get_users'),
-    path('print', views.payment_request_print, name='print'),
+    # path('print', views.payment_request_print, name='print'),
 
     #comp schedule
     path('comp_schedule', views.comp_schedule, name='comp_schedule'),

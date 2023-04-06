@@ -252,8 +252,11 @@ console.log(data)
 
 function print(){
 
+    current_url = window.location.href;
+                        arr = current_url.split("/");
+                        case_id = arr.at(-1);
 
-    window.location.href="http://localhost:8000/print";
+    window.location.href="http://localhost:8000/payment_request_print/"+case_id;
 
 
 
