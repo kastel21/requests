@@ -145,7 +145,7 @@
           </form> 
 
             <div style="margin-top: 2%;" class="col-md-12">
-                <a onclick="" class="btn btn-primary"> Edit</a>
+                <a onclick="edit()" class="btn btn-primary"> Edit</a>
                 <a onclick="print()" class="btn btn-success"> Print</a>
 
             </div>
@@ -170,7 +170,7 @@ const url = "http://localhost:8000/get_users"
                       $.post(url,data, function(data,status){
             
 
-console.log(data)
+// console.log(data)
 
 
                         $.each(data, function(val, text) {
@@ -259,7 +259,16 @@ function print(){
 
 }
 
+function edit(){
 
+    current_url = window.location.href;
+                        arr = current_url.split("/");
+                        case_id = arr.at(-1);
+window.location.href="http://localhost:8000/payment_request_view/"+case_id;
+
+
+
+}
 
     function sendEdit(){
 

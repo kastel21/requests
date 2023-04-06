@@ -35,16 +35,26 @@ urlpatterns = [
     path('payment_request', views.payment_request, name='payment_request'),
     path('payment_request_all', views.payment_request_all, name='payment_request_all'),
     path('payment_request_approved', views.payment_request_approved, name='payment_request_approved'),
-    path('payment_request_pending', views.payment_request_pending, name='payment_request_pending'),
+    re_path('payment_request_pending', views.payment_request_pending, name='payment_request_pending'),
+    path('payment_request_pending_view', views.payment_request_pending_view, name='payment_request_pending_view'),
+
     path('payment_request_super', views.payment_request_super, name='payment_request_super'),
     path('payment_request_add', views.payment_request_add, name='payment_request_add'),
-    re_path('payment_request_view/', views.payment_request_view, name='payment_request_view'),
+    re_path('payment_request_view', views.payment_request_view, name='payment_request_view'),
     path('payment_request_print', views.payment_request_print, name='payment_request_print'),
     re_path('payment_request_edit', views.payment_request_edit, name='payment_request_edit'),
 
     path('payment_request_edit_record', views.payment_request_edit_record, name='payment_request_edit_record'),
     path('payment_request_send_record', views.payment_request_send_record, name='payment_request_send_record'),
     path('payment_request_get_record', views.payment_request_get_record, name='payment_request_get_record'),
+
+
+    path('payment_request_certify', views.payment_request_certify, name='payment_request_certify'),
+    path('payment_request_clear', views.payment_request_clear, name='payment_request_clear'),
+    path('payment_request_approve', views.payment_request_approve, name='payment_request_approve'),
+    # path('payment_request_certify', views.payment_request_certify, name='payment_request_certify'),
+
+
 
     path('get_users', views.get_users, name='get_users'),
     path('print', views.payment_request_print, name='print'),
