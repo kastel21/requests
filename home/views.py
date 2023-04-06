@@ -12,6 +12,7 @@ from django.db.models import Q
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
 from .utils import *
+from django.contrib.auth.decorators import login_required
 
 
 app = Flask(__name__)
@@ -80,36 +81,43 @@ def user_logout_view(request):
     
 # *************************************************************************************************************************
 # purchase request
+@login_required(login_url='login')
 def purchase_request(request):
     form = PuchaseRequest.objects.all()
     context = {'form':form}
     return render(request, 'pages/purchase_requests/purchase_requests.html', context)
 
+@login_required(login_url='login')
 def purchase_request_all(request):
     records = PuchaseRequest.objects.all()
     context = {'records':records}
     return render(request, 'pages/purchase_requests/list.html', context)
 
+@login_required(login_url='login')
 def purchase_request_super(request):
     form = PuchaseRequest.objects.all()
     context = {'form':form}
     return render(request, 'pages/purchase_requests/list.html', context)
 
+@login_required(login_url='login')
 def purchase_request_pending(request):
     form = PuchaseRequest.objects.all()
     context = {'form':form}
     return render(request, 'pages/purchase_request.html', context)
 
+@login_required(login_url='login')
 def purchase_request_approved(request):
     form = PuchaseRequest.objects.all()
     context = {'form':form}
     return render(request, 'pages/purchase_request.html', context)
 
+@login_required(login_url='login')
 def purchase_request_add(request):
     form = PuchaseRequest.objects.all()
     context = {'form':form}
     return render(request, 'pages/purchase_requests/add.html', context)
 
+@login_required(login_url='login')
 @csrf_exempt
 @app.route("/send_record")
 def purchase_request_send_record(request):
@@ -175,6 +183,7 @@ def purchase_request_send_record(request):
             print(str(e))
             return JsonResponse({'message':(str(e))})
 
+@login_required(login_url='login')
 def purchase_request_get_record(request):
     context={}
     if request.method == "POST":
@@ -216,36 +225,43 @@ def purchase_request_get_record(request):
 
 # ***********************************************************************************************************************
 # comparative schedule
+@login_required(login_url='login')
 def comp_schedule(request):
     form = ComparativeSchedule.objects.all()
     context = {'form':form}
     return render(request, 'pages/comparative_schedules/comparative_schedules.html', context)
 
+@login_required(login_url='login')
 def comp_schedule_all(request):
     records = ComparativeSchedule.objects.all()
     context = {'records':records}
     return render(request, 'pages/comparative_schedules/list.html', context)
 
+@login_required(login_url='login')
 def comp_schedule_super(request):
     form = ComparativeSchedule.objects.all()
     context = {'form':form}
     return render(request, 'pages/payment_request.html', context)
 
+@login_required(login_url='login')
 def comp_schedule_pending(request):
     form = ComparativeSchedule.objects.all()
     context = {'form':form}
     return render(request, 'pages/payment_request.html', context)
 
+@login_required(login_url='login')
 def comp_schedule_approved(request):
     form = ComparativeSchedule.objects.all()
     context = {'form':form}
     return render(request, 'pages/payment_request.html', context)
 
+@login_required(login_url='login')
 def comp_schedule_add(request):
     form = ComparativeSchedule.objects.all()
     context = {'form':form}
     return render(request, 'pages/comparative_schedules/add.html', context)
 
+@login_required(login_url='login')
 @csrf_exempt
 @app.route("/send_record")
 def comp_schedule_send_record(request):
@@ -365,6 +381,7 @@ def comp_schedule_send_record(request):
             f.close()
             return JsonResponse({'message':"failed"})
 
+@login_required(login_url='login')
 def comp_schedule_get_record(request):
     context={}
     if request.method == "POST":
@@ -406,6 +423,7 @@ def comp_schedule_get_record(request):
 
 # ***********************************************************************************************************************
 # payment request
+@login_required(login_url='login')
 def payment_request_all(request):
     username = request.user.username
     user_id = request.user.id
@@ -413,12 +431,13 @@ def payment_request_all(request):
     context = {'records':records}
     return render(request, 'pages/payment_requests/list.html', context)
 
-
+@login_required(login_url='login')
 def payment_request(request):
     form = PaymentRequest.objects.all()
     context = {'form':form}
     return render(request, 'pages/payment_requests/payment_requests.html', context)
 
+@login_required(login_url='login')
 def payment_request_view(request):
     if request.method == "POST":
       
@@ -442,7 +461,7 @@ def payment_request_view(request):
       else:
          return redirect("payment_request_pending")
 
-
+@login_required(login_url='login')
 def payment_request_pending_view(request):
     if request.method == "POST":
       
@@ -471,7 +490,7 @@ def payment_request_pending_view(request):
     #   return render(request, 'pages/payment_requests/list.html', {})
 
 
-
+@login_required(login_url='login')
 @csrf_exempt
 def payment_request_print(request):
     # if request.method == "POST":
@@ -522,23 +541,25 @@ def payment_request_print(request):
     #   record = PaymentRequest.objects.filter(id=x)
     #   context = {'record':record}
     #   return render(request, 'pages/payment_requests/print.html', context)
-
+@login_required(login_url='login')
 def payment_request_super(request):
     records = PaymentRequest.objects.all()
     context = {'records':records}
     return render(request, 'pages/payment_requests/list.html', context)
 
+@login_required(login_url='login')
 def payment_request_edit(request):
     form = PaymentRequest.objects.all()
     context = {'form':form}
     return render(request, 'pages/payment_requests/add.html', context)
 
+@login_required(login_url='login')
 def payment_request_pending_certification(request):
     records = PaymentRequest.objects.filter(Q (certified_by="None") & Q(certified_by_date="None"))
     context = {'records':records}
     return render(request, 'pages/payment_requests/list.html', context)
 
-
+@login_required(login_url='login')
 def payment_request_certification(request):
     if request.method == "POST":
       
@@ -551,6 +572,7 @@ def payment_request_certification(request):
     else:
       return render(request, 'pages/payment_requests/list.html', {})
 
+@login_required(login_url='login')
 def payment_request_certify(request):
     if request.method == "POST":
       
@@ -576,7 +598,7 @@ def payment_request_certify(request):
 
 
 
-
+@login_required(login_url='login')
 def payment_request_pending_clearance(request):
     username = request.user.username
     records = PaymentRequest.objects.filter(Q (cleared_by_fin_man=username)  & Q(cleared_by_fin_man_date="None") )
@@ -585,7 +607,7 @@ def payment_request_pending_clearance(request):
 
 
 
-
+@login_required(login_url='login')
 def payment_request_clearance(request):
     if request.method == "POST":
       
@@ -598,6 +620,7 @@ def payment_request_clearance(request):
     else:
       return render(request, 'pages/payment_requests/list.html', {})
 
+@login_required(login_url='login')
 def payment_request_clear(request):
     if request.method == "POST":
       
@@ -623,14 +646,14 @@ def payment_request_clear(request):
 
 
 
-
+@login_required(login_url='login')
 def payment_request_pending_approval(request):
     records = PaymentRequest.objects.filter(approved_by="None")
     context = {'records':records}
     return render(request, 'pages/payment_requests/list.html', context)
 
 
-
+@login_required(login_url='login')
 def payment_request_approval(request):
     if request.method == "POST":
       
@@ -643,6 +666,7 @@ def payment_request_approval(request):
     else:
       return render(request, 'pages/payment_requests/list.html', {})
 
+@login_required(login_url='login')
 def payment_request_approve(request):
     if request.method == "POST":
       
@@ -666,6 +690,7 @@ def payment_request_approve(request):
     else:
       return render(request, 'pages/payment_requests/list.html', {})
 
+@login_required(login_url='login')
 @csrf_exempt
 def payment_request_certify(request):
     
@@ -691,6 +716,7 @@ def payment_request_certify(request):
     except:
        return JsonResponse( {'message':"failed"})
 
+@login_required(login_url='login')
 @csrf_exempt
 def payment_request_clear(request):
     
@@ -719,6 +745,7 @@ def payment_request_clear(request):
        return JsonResponse( {'message':"failed"})
 
 
+@login_required(login_url='login')
 @csrf_exempt
 def payment_request_approve(request):
     
@@ -745,6 +772,7 @@ def payment_request_approve(request):
     except:
        return JsonResponse( {'message':"failed"})
 
+@login_required(login_url='login')
 def payment_request_pending(request):
     username = request.user.username
     records = PaymentRequest.objects.filter((Q(approved_by=username) & Q (approved_by_date="None")) | (Q(certified_by=username) & Q (certified_by_date="None")) | (Q(cleared_by_fin_man=username) & Q (cleared_by_fin_man_date="None")))
@@ -752,12 +780,13 @@ def payment_request_pending(request):
     return render(request, 'pages/payment_requests/list_pending.html', context)
 
 
-
+@login_required(login_url='login')
 def payment_request_approved(request):
     form = PaymentRequest.objects.all()
     context = {'form':form}
     return render(request, 'pages/payment_request.html', context)
 
+@login_required(login_url='login')
 def payment_request_add(request):
     
     form = PaymentRequest.objects.all()
@@ -765,7 +794,7 @@ def payment_request_add(request):
     return render(request, 'pages/payment_requests/add.html', context)
 
 
-
+@login_required(login_url='login')
 @csrf_exempt
 def get_users(request):
    try:
@@ -781,7 +810,7 @@ def get_users(request):
 
     
 
-
+@login_required(login_url='login')
 @csrf_exempt
 def payment_request_get_record(request):
     context={}
@@ -823,6 +852,7 @@ def payment_request_get_record(request):
     else:
         return redirect('/payment_requests')
 
+@login_required(login_url='login')
 @csrf_exempt
 @app.route("/send_record")
 def payment_request_send_record(request):
@@ -892,6 +922,7 @@ def payment_request_send_record(request):
             f.close()
             return JsonResponse({'message':"failed"})
 
+@login_required(login_url='login')
 @csrf_exempt
 def payment_request_edit_record(request):
 
