@@ -65,7 +65,6 @@
                 <input type="text" class="form-control" id="qnty" name="qnty" value="" readonly>
             </div>
 
-            <hr>
             <div class="col-md-4">
                 <label  class="form-label">Unit Amount:</label>
                 <input type="text" class="form-control" id="amount" name="amount" value="" readonly>
@@ -263,7 +262,7 @@ const url = "http://localhost:8000/get_users"
             console.log(case_id);
 
         const url = "http://localhost:8000/payment_request_approve";
-            data={
+        const data={
                 // "clear":document.getElementById('cleared_by').value,
                 "id":case_id,
 

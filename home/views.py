@@ -410,7 +410,7 @@ def payment_request_all(request):
     user_id = request.user.id
     records = PaymentRequest.objects.filter( Q(compiled_by=username) | Q(certified_by= username) | Q(approved_by=username))
     context = {'records':records}
-    return render(request, 'pages/payment_requests/list.html', context)
+    return render(request, 'pages/payment_requests/list2.html', context)
 
 
 def payment_request(request):
@@ -441,6 +441,18 @@ def payment_request_view(request):
       else:
          return redirect("payment_request_pending")
 
+def payment_request_view2(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PaymentRequest.objects.get(id=_id)
+      context = {'record':record}
+      print("IN POST")
+      return render(request, 'pages/payment_requests/view2.html', context)
+    else:
+       redirect("payment_request_all")
 
 def payment_request_pending_view(request):
     if request.method == "POST":
@@ -463,8 +475,7 @@ def payment_request_pending_view(request):
          print("approved")
 
          return render(request, 'pages/payment_requests/approve.html', context)
-      else:
-         return redirect("payment_request_pending")
+
 
     # else:
     #   return render(request, 'pages/payment_requests/list.html', {})
