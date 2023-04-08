@@ -13,7 +13,12 @@
         <!-- [ sample-page ] start -->
        
         <form class="row g-3">
+            <!-- <div id='loader'><img src="{% static 'assets/images/dribbble-progress-bar.gif' %}"/></div> -->
 
+            <div id="overlay">
+                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
+                Loading...
+           </div>
             <!-- <div class="col-md-6">
                 <label  class="form-label">request_id:</label>
                 <input type="text" class="form-control" id="request_id" name="request_id" value="">
@@ -144,7 +149,7 @@
           </form> 
 
             <div style="margin-top: 2%;" class="col-md-12">
-                <a onclick="sendEdit();" class="btn btn-primary"> SUBMIT</a>
+                <a onclick="sendEdit();" id="add" class="btn btn-primary"> SUBMIT</a>
             </div>
 
 
@@ -155,7 +160,11 @@
 <script  language="JavaScript" type="text/javascript">
 
 
-
+// $(window).load(function(){
+//    // PAGE IS FULLY LOADED  
+//    // FADE OUT YOUR OVERLAYING DIV
+//    $('#overlay').fadeOut();
+// });
 
 // populate the users dropdown
 
@@ -177,6 +186,7 @@ console.log(data)
             
   
     
+                        $('#overlay').fadeOut();
 
 
         });
@@ -253,7 +263,8 @@ console.log(data)
 
     function sendEdit(){
 
-
+    $('#add').prop('disabled', true);
+   $('#overlay').fadeIn();
 
         // var date_of_request= document.getElementById('date_of_request').value;
         var payee= document.getElementById('payee').value;
@@ -326,6 +337,8 @@ console.log(data)
 
                 console.log("after dict");
         $.post(url,data, function(data,status){
+               $('#overlay').fadeOut();
+
         if (data['message']=="success"){
             console.log("success")
             window.location.href="http://localhost:8000/payment_request_all";

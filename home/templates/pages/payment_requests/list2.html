@@ -80,7 +80,7 @@
 
                                 {% for record in records %}
 
-                                <form method="POST" action="payment_request_view2/{{record.id}}">
+                                <form method="POST" action="payment_request_open_record/{{record.id}}">
 
                                     <tr>
                                             {% csrf_token %}

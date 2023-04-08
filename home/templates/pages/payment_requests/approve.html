@@ -151,7 +151,7 @@
           </form> 
 
             <div style="margin-top: 2%;" class="col-md-12">
-                <a onclick="sendEdit();" class="btn btn-primary"> Approve </a>
+                <a onclick="sendEdit();" id="approve" class="btn btn-primary"> Approve </a>
             </div>
 
 
@@ -254,6 +254,7 @@ const url = "http://localhost:8000/get_users"
 
 
     function sendEdit(){
+        $('#approve').prop('disabled', true);
 
 
             current_url = window.location.href;

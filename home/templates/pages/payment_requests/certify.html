@@ -149,7 +149,7 @@
           </form> 
 
             <div style="margin-top: 2%;" class="col-md-12">
-                <a onclick="sendEdit();" class="btn btn-primary"> Certify </a>
+                <a onclick="sendEdit();" id="certify" class="btn btn-primary"> Certify </a>
             </div>
 
 
@@ -252,6 +252,7 @@ const url = "http://localhost:8000/get_users"
 
     function sendEdit(){
 
+        $('#certify').prop('disabled', true);
 
             current_url = window.location.href;
             arr = current_url.split("/");
