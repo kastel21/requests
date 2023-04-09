@@ -1,0 +1,394 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock title %}
+{% block content %}
+
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    <div class="pc-content">
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+       
+        <form class="row g-3">
+
+            <!-- <div class="col-md-6">
+                <label  class="form-label">request_id:</label>
+                <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly>
+            </div> -->
+
+            <div class="col-md-12">
+                <label  class="form-label">payee:</label>
+                <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
+            </div>
+
+            <hr>
+
+            <legend>Supplier 1</legend>
+            
+            <div class="col-md-6">
+                <label  class="form-label">Supplier 1 (Company Name):</label>
+                <input type="text" class="form-control" id="company_name_supplier1" name="company_name_supplier1" value="" readonly>
+            </div>
+
+            <div class="col-md-6">
+                <label  class="form-label">Item No. (Supplier 1):</label>
+                <input type="text" class="form-control" id="item_number_supplier1" name="item_number_supplier1" value="" readonly>
+            </div>
+
+            <div class="col-md-12">
+                <label  class="form-label"> Description:</label>
+                <textarea type="text" class="form-control" id="desc_supplier1" name="desc_supplier1" value="" readonly></textarea>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Qty:</label>
+                <input type="text" class="form-control" id="qnty_supplier1" name="qnty_supplier1" value="" readonly>
+            </div>
+            
+            <div class="col-md-4">
+                <label  class="form-label">Unit Price:</label>
+                <input type="text" class="form-control" id="unit_price_supplier1" name="unit_price_supplier1" value="" readonly>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Total Price:</label>
+                <input type="text" class="form-control" id="total_price_supplier1" name="total_price_supplier1" value="" readonly>
+            </div>
+
+            <hr>
+
+            <legend>Supplier 2</legend>
+            <div class="col-md-6">
+                <label  class="form-label">Supplier 2 (Company Name):</label>
+                <input type="text" class="form-control" id="company_name_supplier2" name="company_name_supplier2" value="" readonly>
+            </div>
+
+            <div class="col-md-6">
+                <label  class="form-label">Item No. (supplier 2):</label>
+                <input type="text" class="form-control" id="item_number_supplier2" name="item_number_supplier2" value="" readonly>
+            </div>
+
+            <div class="col-md-12">
+                <label  class="form-label">Description:</label>
+                <textarea type="text" class="form-control" id="desc_supplier2" name="desc_supplier2" value="" readonly></textarea>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Qty:</label>
+                <input type="text" class="form-control" id="qnty_supplier2" name="qnty_supplier2" value="" readonly>
+            </div>
+            
+            <div class="col-md-4">
+                <label  class="form-label">Unit price:</label>
+                <input type="text" class="form-control" id="unit_price_supplier2" name="unit_price_supplier2" value="" readonly>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Total Price:</label>
+                <input type="text" class="form-control" id="total_price_supplier2" name="total_price_supplier2" value="" readonly>
+            </div>
+
+            <hr>
+            
+            <legend>Supplier 3</legend>
+            <div class="col-md-6">
+                <label  class="form-label">Supplier 3 (Company Name):</label>
+                <input type="text" class="form-control" id="company_name_supplier3" name="company_name_supplier3" value="" readonly>
+            </div>
+
+            <div class="col-md-6">
+                <label  class="form-label">Supplier 3 (Supplier3):</label>
+                <input type="text" class="form-control" id="item_number_supplier3" name="item_number_supplier3" value="" readonly>
+            </div>
+
+            <div class="col-md-12">
+                <label  class="form-label">Description:</label>
+                <textarea type="text" class="form-control" id="desc_supplier3" name="desc_supplier3" value="" readonly></textarea>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Qty:</label>
+                <input type="text" class="form-control" id="qnty_supplier3" name="qnty_supplier3" value="" readonly>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Unit Price:</label>
+                <input type="text" class="form-control" id="unit_price_supplier3" name="unit_price_supplier3" value="" readonly>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Total Price:</label>
+                <input type="text" class="form-control" id="total_price_supplier3" name="total_price_supplier3" value="" readonly>
+            </div>
+            
+            <hr>
+
+            <div class="col-md-4">
+                <label  class="form-label">Recommended Supplier:</label>
+                <input type="text" class="form-control" id="recommended_supplier" name="recommended_supplier" value="" readonly>
+            </div>
+
+            <div class="col-md-8">
+                <label  class="form-label">Reasons for recommendations:</label>
+                <textarea type="text" class="form-control" id="recommended_supplier_reason" name="recommended_supplier_reason" value="" readonly></textarea>
+            </div>
+
+            <hr>
+
+            <div class="col-md-12">
+                <label  class="form-label">Department/Project requesting purchase:</label>
+                <input type="text" class="form-control" id="dpt_project_requesting" name="dpt_project_requesting" value="" readonly>
+            </div>
+
+            <hr>
+
+            <div class="col-md-4">
+                <label  class="form-label">Requested By:</label>
+                <input type="text" class="form-control" id="requested_by" name="requested_by" value="" readonly>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Signature:</label>
+                <input type="text" class="form-control" id="requested_by_sig" name="requested_by_sig" value="" readonly>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Date:</label>
+                <input type="text" class="form-control" id="requested_by_date" name="requested_by_date" value="" readonly>
+            </div>
+            
+            <hr>
+
+            <div class="col-md-4">
+                <label  class="form-label">Technical Person:</label>
+                <input type="text" class="form-control" id="tech_person_by" name="tech_person_by" value="" readonly>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Signature:</label>
+                <input type="text" class="form-control" id="tech_person_by_sig" name="tech_person_by_sig" value="" readonly>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Date:</label>
+                <input type="text" class="form-control" id="tech_person_date" name="tech_person_date" value="" readonly>
+            </div>
+            <hr>
+
+            <div class="col-md-4">
+                <label  class="form-label">Dept Head:</label>
+                <input type="text" class="form-control" id="dpt_head_by" name="dpt_head_by" value="" readonly>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Signature:</label>
+                <input type="text" class="form-control" id="dpt_head_by_sig" name="dpt_head_by_sig" value="" readonly>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Date:</label>
+                <input type="text" class="form-control" id="dpt_head_date" name="dpt_head_date" value="" readonly>
+            </div>
+
+            <hr>
+
+
+            <div class="col-md-4">
+                <label  class="form-label">Coordinator/Team Lead:</label>
+                <input type="text" class="form-control" id="team_lead_by" name="team_lead_by" value="" readonly>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Signature:</label>
+                <input type="text" class="form-control" id="team_lead_by_sig" name="team_lead_by_sig" value="" readonly>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Date:</label>
+                <input type="text" class="form-control" id="team_lead_date" name="team_lead_date" value="" readonly>
+            </div>
+
+
+<!-- <hr>
+
+            <div class="col-md-6">
+                <label  class="form-label">Select DG/PI</label>
+                <select class="form-control" name="approved_by" id="approved_by">
+                    <option value="None">..</option>
+    
+                    </select>  
+            </div> -->
+            <hr>
+
+
+
+
+
+            <hr>
+
+            <div class="col-md-4">
+                <label  class="form-label">Approved by:(DG/PI):</label>
+                <input type="text" class="form-control" id="approved_by" name="approved_by" value="" readonly>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Signature:</label>
+                <input type="text" class="form-control" id="approved_by_sig" name="approved_by_sig" value="" readonly>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">Date:</label>
+                <input type="text" class="form-control" id="approved_date" name="approved_date" value="" readonly>
+            </div>
+            <hr>
+          </form> 
+
+
+
+
+          <div class="col-md-12">
+            <a onclick="sendEdit();" id="approve" class="btn btn-primary"> Approve</a>
+
+            <script  language="JavaScript" type="text/javascript">
+
+
+
+// populate the users dropdown
+
+const url = "http://localhost:8000/get_users"
+                    const data = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url,data, function(data,status){
+            
+
+                        console.log(data)
+
+
+                        $.each(data, function(val, text) {
+                            $('#dpt_head_by').append( new Option(text,val) );
+                        });
+
+            
+  
+    
+                        $('#overlay').fadeOut();
+
+
+        });
+
+
+
+                // populating the already existing records
+                
+                            current_url = window.location.href;
+                                        arr = current_url.split("_");
+                                        case_id = arr.at(-1);
+                                    console.log(case_id);
+                                    if (case_id == "add"){}else{
+                                    const url = "http://localhost:8000/comp_schedule_get_record"
+                                    const data = {
+                                      'id':case_id,
+                                    }
+                    
+                                      $.post(url,data, function(data,status){
+                            
+                            if (data['message']=="success"){
+                
+                    // $("#request_id").val(data['request_id']);
+                    $("#payee").val(data['payee']);
+
+                    $("#company_name_supplier1").val(data['company_name_supplier1']);
+                    $("#item_number_supplier1").val(data['item_number_supplier1']);
+                    $("#desc_supplier1").val(data['desc_supplier1']);
+                    $("#qnty_supplier1").val(data['qnty_supplier1']); 
+                    $("#unit_price_supplier1 ").val(data['unit_price_supplier1']);
+                    $("#total_price_supplier1").val(data['total_price_supplier1']);
+
+                    $("#company_name_supplier2").val(data['company_name_supplier2']);
+                    $("#item_number_supplier2").val(data['item_number_supplier2']);
+                    $("#desc_supplier2").val(data['desc_supplier2']);
+                    $("#qnty_supplier2").val(data['qnty_supplier2']); 
+                    $("#unit_price_supplier2 ").val(data['unit_price_supplier2']);
+                    $("#total_price_supplier2").val(data['total_price_supplier2']);
+
+                    $("#company_name_supplier3").val(data['company_name_supplier3']);
+                    $("#item_number_supplier3").val(data['item_number_supplier3']);
+                    $("#desc_supplier3").val(data['desc_supplier3']);
+                    $("#qnty_supplier3").val(data['qnty_supplier3']); 
+                    $("#unit_price_supplier3 ").val(data['unit_price_supplier3']);
+                    $("#total_price_supplier3").val(data['total_price_supplier3']);
+
+                    $("#recommended_supplier").val(data['recommended_supplier']);
+                    $("#recommended_supplier_reason").val(data['recommended_supplier_reason']);
+                    $("#dpt_project_requesting").val(data['dpt_project_requesting']);
+
+                    $("#requested_by").val(data['requested_by']); 
+                    $("#requested_by_sig ").val(data['requested_by_sig']);
+                    $("#requested_by_date").val(data['requested_by_date']);
+
+                    $("#tech_person_by").val(data['tech_person_by']); 
+                    $("#tech_person_by_sig ").val(data['tech_person_by_sig']);
+                    $("#tech_person_date").val(data['tech_person_date']);
+
+                    $("#dpt_head_by").val(data['dpt_head_by']); 
+                    $("#dpt_head_by_sig ").val(data['dpt_head_by_sig']);
+                    $("#dpt_head_date").val(data['dpt_head_date']);
+
+                    $("#team_lead_by").val(data['team_lead_by']); 
+                    $("#team_lead_by_sig ").val(data['team_lead_by_sig']);
+                    $("#team_lead_date").val(data['team_lead_date']);
+
+                    $("#approved_by").val(data['approved_by']); 
+                    $("#approved_by_sig ").val(data['approved_by_sig']);
+                    $("#approved_date").val(data['approved_date']);    
+                        }
+                        else{
+                            console.log(data['message'])
+                            window.location.href="/comp_schedule_all";
+                        }
+                        });
+                    }
+                
+                  
+                    function sendEdit(){
+        $('#approve').prop('disabled', true);
+
+
+            current_url = window.location.href;
+            arr = current_url.split("/");
+            case_id = arr.at(-1);
+            console.log(case_id);
+
+        const url = "http://localhost:8000/comp_schedule_approve_pi";
+        const data={
+                // "lead":document.getElementById('team_lead_by').value,
+                // "pi":document.getElementById('approved_by').value,
+
+                "id":case_id,
+
+            }
+        $.post(url,data, function(data,status){
+        if (data['message']=="success"){
+            console.log("success")
+            window.location.href="http://localhost:8000/comp_schedule_all";
+        }else{
+            console.log(data['message'])
+            window.location.href="http://localhost:8000/comp_schedule_all";
+
+        }
+
+        });
+        // alert("stop hee");
+
+    }
+
+
+
+
+
+                        </script>
+{% endblock content %}

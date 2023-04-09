@@ -227,8 +227,8 @@ def purchase_request_get_record(request):
 # comparative schedule
 @login_required(login_url='login')
 def comp_schedule(request):
-    form = ComparativeSchedule.objects.all()
-    context = {'form':form}
+    records = ComparativeSchedule.objects.all()
+    context = {'records':records}
     return render(request, 'pages/comparative_schedules/comparative_schedules.html', context)
 
 @login_required(login_url='login')
@@ -268,7 +268,7 @@ def comp_schedule_send_record(request):
 
     with app.app_context():
         try:
-          request_id= request.POST.get('request_id',default=None)
+          # request_id= request.POST.get('request_id',default=None)
           payee= request.POST.get('payee',default=None)
 
           company_name_supplier1= request.POST.get('company_name_supplier1',default=None)
@@ -296,30 +296,30 @@ def comp_schedule_send_record(request):
           recommended_supplier_reason= request.POST.get('recommended_supplier_reason',default=None)
           dpt_project_requesting= request.POST.get('dpt_project_requesting',default=None)
 
-          requested_by= request.POST.get('requested_by',default=None)
-          requested_by_sig= request.POST.get('requested_by_sig',default=None)
-          requested_by_date= request.POST.get('requested_by_date',default=None)
+          # requested_by= request.POST.get('requested_by',default=None)
+          # requested_by_sig= request.POST.get('requested_by_sig',default=None)
+          # requested_by_date= request.POST.get('requested_by_date',default=None)
 
           tech_person_by= request.POST.get('tech_person_by',default=None)
-          tech_person_by_sig= request.POST.get('tech_person_by_sig',default=None)
-          tech_person_date= request.POST.get('tech_person_date',default=None)
+          # tech_person_by_sig= request.POST.get('tech_person_by_sig',default=None)
+          # tech_person_date= request.POST.get('tech_person_date',default=None)
 
-          dpt_head_by= request.POST.get('dpt_head_by',default=None)
-          dpt_head_by_sig= request.POST.get('dpt_head_by_sig',default=None)
-          dpt_head_date= request.POST.get('dpt_head_date',default=None)
+          # dpt_head_by= request.POST.get('dpt_head_by',default=None)
+          # dpt_head_by_sig= request.POST.get('dpt_head_by_sig',default=None)
+          # dpt_head_date= request.POST.get('dpt_head_date',default=None)
 
-          team_lead_by= request.POST.get('team_lead_by',default=None)
-          team_lead_by_sig= request.POST.get('team_lead_by_sig',default=None)
-          team_lead_date= request.POST.get('team_lead_date',default=None)
+          # team_lead_by= request.POST.get('team_lead_by',default=None)
+          # team_lead_by_sig= request.POST.get('team_lead_by_sig',default=None)
+          # team_lead_date= request.POST.get('team_lead_date',default=None)
 
-          approved_by= request.POST.get('approved_by',default=None)
-          approved_by_sig= request.POST.get('approved_by_sig',default=None)
-          approved_date= request.POST.get('approved_date',default=None)
+          # approved_by= request.POST.get('approved_by',default=None)
+          # approved_by_sig= request.POST.get('approved_by_sig',default=None)
+          # approved_date= request.POST.get('approved_date',default=None)
 
           record = ComparativeSchedule()
 
         #   record.compiled_by = request.user.username
-          record.request_id= request_id
+          # record.request_id= request_id
           record.payee= payee
 
           record.company_name_supplier1= company_name_supplier1
@@ -347,27 +347,30 @@ def comp_schedule_send_record(request):
           record.recommended_supplier_reason= recommended_supplier_reason
           record.dpt_project_requesting= dpt_project_requesting
 
-          record.requested_by= requested_by 
-          record.requested_by_sig = requested_by_sig
-          record.requested_by_date= requested_by_date
-        
-          record.tech_person_by= tech_person_by
-          record.tech_person_by_sig= tech_person_by_sig
-          record.tech_person_date= tech_person_date
-
-          record.dpt_head_by= dpt_head_by 
-          record.dpt_head_by_sig = dpt_head_by_sig
-          record.dpt_head_date= dpt_head_date
-
-          record.team_lead_by= team_lead_by 
-          record.team_lead_by_sig = team_lead_by_sig
-          record.team_lead_date= team_lead_date
-
-          record.approved_by= approved_by
-          record.approved_by_sig= approved_by_sig
-          record.approved_date= approved_date
+          record.requested_by= request.user.username 
+          # record.requested_by_sig = requested_by_sig
 
           d = datetime.datetime.now()
+          record.requested_by_date = "{:%B %d, %Y}".format(d)
+          # record.requested_by_date= requested_by_date
+        
+          record.tech_person_by= tech_person_by
+          # record.tech_person_by_sig= tech_person_by_sig
+          # record.tech_person_date= tech_person_date
+
+          # record.dpt_head_by= dpt_head_by 
+          # record.dpt_head_by_sig = dpt_head_by_sig
+          # record.dpt_head_date= dpt_head_date
+
+          # record.team_lead_by= team_lead_by 
+          # record.team_lead_by_sig = team_lead_by_sig
+          # record.team_lead_date= team_lead_date
+
+          # record.approved_by= approved_by
+          # record.approved_by_sig= approved_by_sig
+          # record.approved_date= approved_date
+
+          # d = datetime.datetime.now()
         #   record.date_of_request = "{:%B %d, %Y}".format(d)
         #   record.approved_by_date= approved_by_date
 
@@ -376,48 +379,256 @@ def comp_schedule_send_record(request):
           return JsonResponse( {'message':"success"})
 
         except Exception as e  :
-            f= open("service1.txt","w")
+            f= open("service2.txt","w")
             f.write(str(e))
             f.close()
             return JsonResponse({'message':"failed"})
 
 @login_required(login_url='login')
+@csrf_exempt
 def comp_schedule_get_record(request):
     context={}
     if request.method == "POST":
+      try:
         _id = request.POST.get('id',default=None)
 
         record = ComparativeSchedule.objects.get(id=_id)
         dic = {
-           
-        # "date_of_request": record.date_of_request,
-          "payee": record.payee,
+      "payee":record.payee,
+      "message":"success",
+      "company_name_supplier1":record.company_name_supplier1,
+      "item_number_supplier1":record.item_number_supplier1,
+      "desc_supplier1":record.desc_supplier1,
+      "qnty_supplier1":record.qnty_supplier1,
+      "unit_price_supplier1":record.unit_price_supplier1,
+      "total_price_supplier1":record.total_price_supplier1,
 
-          "company_name_supplier1": record.company_name_supplier1,
-          "amount": record.amount,
-          "project_number": record.project_number,
+      "company_name_supplier2":record.company_name_supplier2,
+      "item_number_supplier2":record.item_number_supplier2,
+      "desc_supplier2":record.desc_supplier2,
+      "qnty_supplier2":record.qnty_supplier2,
+      "unit_price_supplier2":record.unit_price_supplier2,
+      "total_price_supplier2":record.total_price_supplier2,
 
-          "account_code": record.account_code, 
-          "details ": record.details,
-          "total": record.total,
+      "company_name_supplier3":record.company_name_supplier3,
+      "item_number_supplier3":record.item_number_supplier3,
+      "desc_supplier3":record.desc_supplier3,
+      "qnty_supplier3":record.qnty_supplier3,
+      "unit_price_supplier3":record.unit_price_supplier3,
+      "total_price_supplier3":record.total_price_supplier3,
 
-          "certified_by": record.certified_by,
-          "certified_by_date": record.certified_by_date,
+      "recommended_supplier":record.recommended_supplier,
+      "recommended_supplier_reason":record.recommended_supplier_reason,
+      "dpt_project_requesting":record.dpt_project_requesting,
 
-          "cleared_by_fin_man": record.cleared_by_fin_man,
-          "cleared_by_fin_man_date": record.cleared_by_fin_man_date,
+      "requested_by":record.requested_by,
+      "requested_by_sig":record.requested_by_sig,
+      "requested_by_date":record.requested_by_date,
 
-          "approved_by_project_man": record.approved_by_project_man,
-          "approved_by_project_man_date": record.approved_by_project_man_date,
+      "tech_person_by":record.tech_person_by,
+      "tech_person_by_sig":record.tech_person_by_sig,
+      "tech_person_date":record.tech_person_date,
 
-          "approved_by": record.approved_by,
-          "approved_by_date": record.approved_by_date,
-          "message":"success",
-        }
-        context = {'addTabActive': True, "record":""}
+      "dpt_head_by":record.dpt_head_by,
+      "dpt_head_by_sig":record.dpt_head_by_sig,
+      "dpt_head_date":record.dpt_head_date,
+
+      "team_lead_by":record.team_lead_by,
+      "team_lead_by_sig":record.team_lead_by_sig,
+      "team_lead_date":record.team_lead_date,
+
+      "approved_by":record.approved_by,
+      "approved_by_sig":record.approved_by_sig,
+      "approved_date":record.approved_date,
+    }
         return JsonResponse(dic)
+
+      except Exception as e:
+        return JsonResponse(str(e))
+
     else:
-        return redirect('/payment_requests')
+        return redirect('/comp_schedule')
+
+
+
+
+
+login_required(login_url='login')
+def comp_schedule_approve(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+      head = request.POST.get('head',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = ComparativeSchedule.objects.get(id=_id)
+      record.tech_person_by = request.user.username
+      record.dpt_head_by = head
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y}".format(d)
+      record.approved_by_date= "{:%B %d, %Y}".format(d)
+
+      record.save()
+
+
+
+
+      return JsonResponse( {'message':"success"})
+
+    else:
+      return render(request, 'pages/payment_requests/list.html', {})
+
+
+
+login_required(login_url='login')
+def comp_schedule_approve_head(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+      pi = request.POST.get('pi',default=None)
+      lead = request.POST.get('lead',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = ComparativeSchedule.objects.get(id=_id)
+      record.approved_by = pi
+      record.dpt_head_by = request.user.username
+      record.team_lead_by = lead
+
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y}".format(d)
+      record.dpt_head_date= "{:%B %d, %Y}".format(d)
+
+      record.save()
+
+
+
+
+      return JsonResponse( {'message':"success"})
+
+    else:
+      return render(request, 'pages/payment_requests/list.html', {})
+
+
+
+
+login_required(login_url='login')
+def comp_schedule_approve_lead(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+      pi = request.POST.get('pi',default=None)
+      # lead = request.POST.get('lead',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = ComparativeSchedule.objects.get(id=_id)
+      record.approved_by = pi
+      record.team_lead_by = request.user.username
+      # record.team_lead_by = lead
+
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y}".format(d)
+      record.team_lead_date= "{:%B %d, %Y}".format(d)
+
+      record.save()
+
+
+
+
+      return JsonResponse( {'message':"success"})
+
+    else:
+      return render(request, 'pages/payment_requests/list.html', {})
+
+
+login_required(login_url='login')
+def comp_schedule_approve_pi(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+      # pi = request.POST.get('pi',default=None)
+      # lead = request.POST.get('lead',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = ComparativeSchedule.objects.get(id=_id)
+      # record.approved_by = pi
+      record.approved_by = request.user.username
+      # record.team_lead_by = lead
+
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y}".format(d)
+      record.approved_date= "{:%B %d, %Y}".format(d)
+
+      record.save()
+
+
+
+
+      return JsonResponse( {'message':"success"})
+
+    else:
+      return render(request, 'pages/payment_requests/list.html', {})
+
+login_required(login_url='login')
+def comp_schedule_open_record(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = ComparativeSchedule.objects.get(id=_id)
+      context = {'record':record}
+      print("IN POST")
+      return render(request, 'pages/comparative_schedules/view_record.html', context)
+    else:
+       redirect("payment_request_all")
+
+
+@login_required(login_url='login')
+def comp_schedule_pending_view(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = ComparativeSchedule.objects.get(id=_id)
+      context = {'record':record}
+
+      print("IN POST")
+      if record.tech_person_date == "None" and record.tech_person_by == request.user.username:
+         print("certified")
+         return render(request, 'pages/comparative_schedules/tech_approve.html', context)
+      elif record.dpt_head_date == "None":
+         print("cleared")
+
+         return render(request, 'pages/comparative_schedules/head_approve.html', context)
+      
+
+      elif record.team_lead_date == "None" and record.team_lead_by is not "None" and record.team_lead_by == request.user.username:
+         print("approved")
+
+         return render(request, 'pages/comparative_schedules/lead_approve.html', context)
+      
+
+      elif record.team_lead_by == "None" and record.team_lead_date == "None" and record.approved_by == "None" and record.dpt_head_by == request.user.username:
+         print("approved")
+
+         return render(request, 'pages/comparative_schedules/head_approve.html', context)
+      
+      elif record.approved_date == "None" and record.approved_by is not "None" and record.approved_by == request.user.username: 
+         print("approved")
+
+         return render(request, 'pages/comparative_schedules/pi_approve.html', context)
+      else:
+        return render(request, 'pages/comparative_schedules/not_auth.html', {})
+
+
+@login_required(login_url='login')
+def comp_schedule_pending(request):
+    username = request.user.username
+    records = ComparativeSchedule.objects.filter((Q(approved_by=username) & Q (approved_date="None")) | (Q(dpt_head_by=username) & Q (dpt_head_by="None")) | (Q(team_lead_by=username) & Q (team_lead_date="None")) | (Q(tech_person_by=username) & Q (tech_person_date="None")) )
+    context = {'records':records}
+    return render(request, 'pages/comparative_schedules/list_pending.html', context)
+
 
 # ***********************************************************************************************************************
 
@@ -447,20 +658,24 @@ def payment_request_view(request):
       record = PaymentRequest.objects.get(id=_id)
       context = {'record':record}
       print("IN POST")
-      if record.certified_by_date == "None":
+      if record.certified_by_date == "None" and record.certified_by == request.user.username:
          print("certified")
          return render(request, 'pages/payment_requests/certify.html', context)
-      elif record.cleared_by_fin_man_date == "None":
+      
+      elif record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man == request.user.username:
          print("cleared")
 
          return render(request, 'pages/payment_requests/clear.html', context)
-      elif record.approved_by_date == "None":
+      
+      elif record.approved_by_date == "None" and record.approved_by == request.user.username:
          print("approved")
 
          return render(request, 'pages/payment_requests/approve.html', context)
       else:
          return redirect("payment_request_pending")
 
+
+@login_required(login_url="login")
 def payment_request_open_record(request):
     if request.method == "POST":
       
@@ -499,21 +714,22 @@ def payment_request_pending_view(request):
       context = {'record':record}
 
       print("IN POST")
-      if record.certified_by_date == "None":
+      if record.certified_by_date == "None" and record.certified_by == request.user.username:
          print("certified")
          return render(request, 'pages/payment_requests/certify.html', context)
-      elif record.cleared_by_fin_man_date == "None":
+      elif record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man == request.user.username:
          print("cleared")
 
          return render(request, 'pages/payment_requests/clear.html', context)
-      elif record.approved_by_date == "None":
+      
+      elif record.approved_by_date == "None" and record.approved_by == request.user.username:
          print("approved")
 
          return render(request, 'pages/payment_requests/approve.html', context)
 
 
-    # else:
-    #   return render(request, 'pages/payment_requests/list.html', {})
+    else:
+      return render(request, 'pages/payment_requests/list2.html', {})
 
 
 @login_required(login_url='login')

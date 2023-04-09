@@ -71,7 +71,11 @@ urlpatterns = [
     path('comp_schedule_add', views.comp_schedule_add, name='comp_schedule_add'),
     path('comp_schedule_send_record', views.comp_schedule_send_record, name='comp_schedule_send_record'),
 
+    re_path('comp_schedule_pending_view', views.comp_schedule_pending_view, name='comp_schedule_pending_view'),
 
+    re_path('comp_schedule_open_record', views.comp_schedule_open_record, name='comp_schedule_open_record'),
+
+    re_path('comp_schedule_get_record', views.comp_schedule_get_record, name='comp_schedule_get_record'),
 
     #purchase request
     path('purchase_request', views.purchase_request, name='purchase_request'),

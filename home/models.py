@@ -5,8 +5,8 @@ from django.db import models
 
 
 class PuchaseRequest(models.Model):
-    request_id = models.CharField(max_length=30, default="username")
-    requester = models.CharField(max_length=30, default="username")
+    request_id = models.CharField(max_length=30, default="None")
+    requester = models.CharField(max_length=30, default="None")
     date_of_request = models.CharField(max_length=15, default="2023")
     requesting_dpt = models.CharField(max_length=150, default="None")
     request_justification = models.CharField(max_length=450, default="None")
@@ -28,8 +28,8 @@ class PuchaseRequest(models.Model):
 
 
 class PaymentRequest(models.Model):
-    request_id = models.CharField(max_length=30, default="username")
-    compiled_by = models.CharField(max_length=30, default="username")
+    request_id = models.CharField(max_length=30, default="None")
+    compiled_by = models.CharField(max_length=30, default="None")
     date_of_request = models.CharField(max_length=15, default="2023")
     payee = models.CharField(max_length=150, default="None")
     payment_type = models.CharField(max_length=450, default="None")
@@ -56,7 +56,7 @@ class PaymentRequest(models.Model):
 
 
 class ComparativeSchedule(models.Model):
-    request_id = models.CharField(max_length=30, default="username")
+    request_id = models.CharField(max_length=30, default="None")
     payee = models.CharField(max_length=150, default="None")
    
     company_name_supplier1 = models.CharField(max_length=450, default="None")
@@ -91,27 +91,27 @@ class ComparativeSchedule(models.Model):
     
     dpt_project_requesting = models.CharField(max_length=15, default="2023")
 
-    requested_by = models.CharField(max_length=30, default="username")
-    requested_by_sig = models.CharField(max_length=30, default="username")
-    requested_by_date = models.CharField(max_length=30, default="username")
+    requested_by = models.CharField(max_length=30, default="None")
+    requested_by_sig = models.CharField(max_length=30, default="None")
+    requested_by_date = models.CharField(max_length=30, default="None")
 
 
     
-    tech_person_by = models.CharField(max_length=30, default="username")
-    tech_person_by_sig = models.CharField(max_length=30, default="username")
-    tech_person_date = models.CharField(max_length=30, default="username")
+    tech_person_by = models.CharField(max_length=30, default="None")
+    tech_person_by_sig = models.CharField(max_length=30, default="None")
+    tech_person_date = models.CharField(max_length=30, default="None")
 
-    dpt_head_by = models.CharField(max_length=30, default="username")
-    dpt_head_by_sig = models.CharField(max_length=30, default="username")
-    dpt_head_date = models.CharField(max_length=30, default="username")
+    dpt_head_by = models.CharField(max_length=30, default="None")
+    dpt_head_by_sig = models.CharField(max_length=30, default="None")
+    dpt_head_date = models.CharField(max_length=30, default="None")
 
-    team_lead_by = models.CharField(max_length=30, default="username")
-    team_lead_by_sig = models.CharField(max_length=30, default="username")
-    team_lead_date = models.CharField(max_length=30, default="username")
+    team_lead_by = models.CharField(max_length=30, default="None")
+    team_lead_by_sig = models.CharField(max_length=30, default="None")
+    team_lead_date = models.CharField(max_length=30, default="None")
 
-    approved_by = models.CharField(max_length=30, default="username")
-    approved_by_sig = models.CharField(max_length=30, default="username")
-    approved_date = models.CharField(max_length=30, default="username")
+    approved_by = models.CharField(max_length=30, default="None")
+    approved_by_sig = models.CharField(max_length=30, default="None")
+    approved_date = models.CharField(max_length=30, default="None")
 
     project_number = models.CharField(max_length=150, default="None")
 

@@ -1,1 +1,1 @@
-(1048, "Column 'qnty' cannot be null")
+(1048, "Column 'tech_person_by' cannot be null")

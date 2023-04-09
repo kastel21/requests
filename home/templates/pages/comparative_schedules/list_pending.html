@@ -81,8 +81,7 @@
                                 {% for record in records %}
                                     <tr>
                                         <td></td>
-
-                                        <form method="POST" action="comp_schedule_open_record/{{record.id}}">
+                                        <form method="POST" action="comp_schedule_pending_view/{{record.id}}">
                                             {% csrf_token %}
                                             <input type="text" style="display: none;" name="id" id="id" value="{{record.id}}" />
                                             <td> <input type="submit" value="{{record.requested_by}}" /> </td>
@@ -96,7 +95,6 @@
 
                                     <td>{{record.project_number}}</td>
                                     <td>{{record.status}}</td>
-                                    <td></td>
 
 
 

@@ -64,7 +64,13 @@
             <div class="row align-items-center justify-content-between">
 
   
-                            <table style="margin: 2%;">
+
+                <div>
+
+
+                    <h1>Not allowed to edit this record</h1>
+                </div>
+                            <!-- <table style="margin: 2%;">
                                 <th>
                                     <td>Requester</td>
                                     <td>Request Date</td>
@@ -80,24 +86,28 @@
 
                                 {% for record in records %}
                                     <tr>
-                                        <td></td>
-
-                                        <form method="POST" action="comp_schedule_open_record/{{record.id}}">
+                                        <form method="POST" action="payment_request_view/{{record.id}}">
                                             {% csrf_token %}
-                                            <input type="text" style="display: none;" name="id" id="id" value="{{record.id}}" />
+                                            <input type="text" name="id" id="id" value="{{record.id}}" />
                                             <td> <input type="submit" value="{{record.requested_by}}" /> </td>
 
                                         </form>
+                                    <td>{{record.company_name_supplier1}}</td>
+                                    <td>{{record.company_name_supplier2}}</td>
+                                    <td>{{record.company_name_supplier3}}</td>
 
+                                    <td>{{record.unit_price_supplier1}}</td>
+                                    <td>{{record.unit_price_supplier2}}</td>
+                                    <td>{{record.unit_price_supplier3}}</td>
 
-                                    <td>{{record.requested_by_date}}</td>
-                                    <td>{{record.payee}}</td>
+                                    <td>{{record.total_price_supplier1}}</td>
+                                    <td>{{record.total_price_supplier2}}</td>
+                                    <td>{{record.total_price_supplier3}}</td>
+
                                     <td>{{record.recommended_supplier}}</td>
-
-                                    <td>{{record.project_number}}</td>
-                                    <td>{{record.status}}</td>
-                                    <td></td>
-
+                                    <td>{{record.recommended_supplier_reason}}</td>
+                                    <td>{{record.dpt_project_requesting}}</td>
+                                    <td>{{record.requested_by}}</td>
 
 
                                     </tr>
@@ -105,7 +115,7 @@
 
                                 {% endfor %}
 
-                            </table> 
+                            </table> -->
 
             </div>
         </div>
