@@ -66,6 +66,9 @@ urlpatterns = [
     path('comp_schedule', views.comp_schedule, name='comp_schedule'),
     path('comp_schedule_all', views.comp_schedule_all, name='comp_schedule_all'),
     path('comp_schedule_approved', views.comp_schedule_approved, name='comp_schedule_approved'),
+    
+    path('comp_schedule_approve', views.comp_schedule_approve, name='comp_schedule_approve'),
+
     path('comp_schedule_pending', views.comp_schedule_pending, name='comp_schedule_pending'),
     path('comp_schedule_super', views.comp_schedule_super, name='comp_schedule_super'),
     path('comp_schedule_add', views.comp_schedule_add, name='comp_schedule_add'),
@@ -76,6 +79,10 @@ urlpatterns = [
     re_path('comp_schedule_open_record', views.comp_schedule_open_record, name='comp_schedule_open_record'),
 
     re_path('comp_schedule_get_record', views.comp_schedule_get_record, name='comp_schedule_get_record'),
+        re_path('comp_schedule_approve_head', views.comp_schedule_approve_head, name='comp_schedule_approve_head'),
+        re_path('comp_schedule_approve_lead', views.comp_schedule_approve_lead, name='comp_schedule_approve_lead'),
+        re_path('comp_schedule_approve_pi', views.comp_schedule_approve_pi, name='comp_schedule_approve_pi'),
+
 
     #purchase request
     path('purchase_request', views.purchase_request, name='purchase_request'),

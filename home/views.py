@@ -317,6 +317,7 @@ def comp_schedule_send_record(request):
           # approved_date= request.POST.get('approved_date',default=None)
 
           record = ComparativeSchedule()
+          notice = Notifications()
 
         #   record.compiled_by = request.user.username
           # record.request_id= request_id
@@ -346,8 +347,11 @@ def comp_schedule_send_record(request):
           record.recommended_supplier= recommended_supplier
           record.recommended_supplier_reason= recommended_supplier_reason
           record.dpt_project_requesting= dpt_project_requesting
+          username = request.user.username 
+          record.requested_by= username
 
-          record.requested_by= request.user.username 
+          notice.trigger = username
+
           # record.requested_by_sig = requested_by_sig
 
           d = datetime.datetime.now()
@@ -355,7 +359,11 @@ def comp_schedule_send_record(request):
           # record.requested_by_date= requested_by_date
         
           record.tech_person_by= tech_person_by
+          notice.message = " "+ username +" created a Comparative schedule\n and assigned you as the Technical Person to approve."
           # record.tech_person_by_sig= tech_person_by_sig
+          notice.status = "New"
+          notice.to  = tech_person_by
+          notice.date_time = "{:%B %d, %Y}".format(d)
           # record.tech_person_date= tech_person_date
 
           # record.dpt_head_by= dpt_head_by 
@@ -375,6 +383,7 @@ def comp_schedule_send_record(request):
         #   record.approved_by_date= approved_by_date
 
           record.save()
+          notice.save()
 
           return JsonResponse( {'message':"success"})
 
@@ -454,33 +463,41 @@ def comp_schedule_get_record(request):
 
 
 login_required(login_url='login')
+@csrf_exempt
 def comp_schedule_approve(request):
     if request.method == "POST":
       
       _id = request.POST.get('id',default=None)
       head = request.POST.get('head',default=None)
-
+      username = request.user.username
         # objs = Record.objects.get(id=_id)
       record = ComparativeSchedule.objects.get(id=_id)
-      record.tech_person_by = request.user.username
+      record.tech_person_by = username
       record.dpt_head_by = head
       d = datetime.datetime.now()
           # record.date_of_request = "{:%B %d, %Y}".format(d)
-      record.approved_by_date= "{:%B %d, %Y}".format(d)
+      record.tech_person_date= "{:%B %d, %Y}".format(d)
 
       record.save()
+
+      notice = Notifications()
+      notice.to = head
+      notice.message = " "+ username +" updated a Comparative schedule\n and assigned you as the Department Head for you to approve."
+      notice.date_time = "{:%B %d, %Y}".format(d)
+      notice.trigger = username
+      notice.save()
 
 
 
 
       return JsonResponse( {'message':"success"})
-
     else:
       return render(request, 'pages/payment_requests/list.html', {})
 
 
 
 login_required(login_url='login')
+@csrf_exempt
 def comp_schedule_approve_head(request):
     if request.method == "POST":
       
@@ -490,9 +507,10 @@ def comp_schedule_approve_head(request):
 
         # objs = Record.objects.get(id=_id)
       record = ComparativeSchedule.objects.get(id=_id)
-      record.approved_by = pi
-      record.dpt_head_by = request.user.username
+      username = request.user.username
+      record.dpt_head_by = username
       record.team_lead_by = lead
+      record.approved_by = pi
 
       d = datetime.datetime.now()
           # record.date_of_request = "{:%B %d, %Y}".format(d)
@@ -500,7 +518,25 @@ def comp_schedule_approve_head(request):
 
       record.save()
 
+      if pi == "None":
+         pass
+      else:
+        notice = Notifications()
+        notice.to = pi
+        notice.message = " "+ username +" updated a Comparative schedule\n and assigned you as the PI for you to approve."
+        notice.date_time = "{:%B %d, %Y}".format(d)
+        notice.trigger = username
+        notice.save()
 
+      if lead == "None":
+         pass
+      else:
+        notice = Notifications()
+        notice.to = lead
+        notice.message = " "+ username +" updated a Comparative schedule\n and assigned you as the Coordinator for you to approve."
+        notice.date_time = "{:%B %d, %Y}".format(d)
+        notice.trigger = username
+        notice.save()
 
 
       return JsonResponse( {'message':"success"})
@@ -512,6 +548,7 @@ def comp_schedule_approve_head(request):
 
 
 login_required(login_url='login')
+@csrf_exempt
 def comp_schedule_approve_lead(request):
     if request.method == "POST":
       
@@ -522,12 +559,24 @@ def comp_schedule_approve_lead(request):
         # objs = Record.objects.get(id=_id)
       record = ComparativeSchedule.objects.get(id=_id)
       record.approved_by = pi
-      record.team_lead_by = request.user.username
+      # record.team_lead_by = request.user.username
       # record.team_lead_by = lead
 
       d = datetime.datetime.now()
           # record.date_of_request = "{:%B %d, %Y}".format(d)
       record.team_lead_date= "{:%B %d, %Y}".format(d)
+
+      if pi == "None":
+         pass
+      else:
+        notice = Notifications()
+        notice.to = pi
+        notice.message = " "+ request.user.username +" updated a Comparative schedule\n and assigned you as the PI for you to approve."
+        notice.date_time = "{:%B %d, %Y}".format(d)
+        notice.trigger = request.user.username
+        notice.save()
+
+
 
       record.save()
 
@@ -541,6 +590,7 @@ def comp_schedule_approve_lead(request):
 
 
 login_required(login_url='login')
+@csrf_exempt
 def comp_schedule_approve_pi(request):
     if request.method == "POST":
       
@@ -559,7 +609,12 @@ def comp_schedule_approve_pi(request):
       record.approved_date= "{:%B %d, %Y}".format(d)
 
       record.save()
-
+      notice = Notifications()
+      notice.to = record.requested_by
+      notice.message = " "+ request.user.username +" approved your Comparative schedule."
+      notice.date_time = "{:%B %d, %Y}".format(d)
+      notice.trigger = request.user.username
+      notice.save()
 
 
 
@@ -594,10 +649,12 @@ def comp_schedule_pending_view(request):
       context = {'record':record}
 
       print("IN POST")
+
       if record.tech_person_date == "None" and record.tech_person_by == request.user.username:
          print("certified")
          return render(request, 'pages/comparative_schedules/tech_approve.html', context)
-      elif record.dpt_head_date == "None":
+      
+      elif record.dpt_head_date == "None" and record.dpt_head_by == request.user.username:
          print("cleared")
 
          return render(request, 'pages/comparative_schedules/head_approve.html', context)
@@ -625,7 +682,7 @@ def comp_schedule_pending_view(request):
 @login_required(login_url='login')
 def comp_schedule_pending(request):
     username = request.user.username
-    records = ComparativeSchedule.objects.filter((Q(approved_by=username) & Q (approved_date="None")) | (Q(dpt_head_by=username) & Q (dpt_head_by="None")) | (Q(team_lead_by=username) & Q (team_lead_date="None")) | (Q(tech_person_by=username) & Q (tech_person_date="None")) )
+    records = ComparativeSchedule.objects.filter((Q(approved_by=username) & Q (approved_date="None")) | (Q(dpt_head_by=username) & Q (dpt_head_date="None")) | (Q(team_lead_by=username) & Q (team_lead_date="None")) | (Q(tech_person_by=username) & Q (tech_person_date="None")) )
     context = {'records':records}
     return render(request, 'pages/comparative_schedules/list_pending.html', context)
 
@@ -814,31 +871,6 @@ def payment_request_certification(request):
     else:
       return render(request, 'pages/payment_requests/list.html', {})
 
-@login_required(login_url='login')
-def payment_request_certify(request):
-    if request.method == "POST":
-      
-      _id = request.POST.get('id',default=None)
-
-        # objs = Record.objects.get(id=_id)
-      record = PaymentRequest.objects.get(id=_id)
-      record.certified_by = request.user.username
-      # record.certified_by_date = request.user.username
-      d = datetime.datetime.now()
-          # record.date_of_request = "{:%B %d, %Y}".format(d)
-      record.certified_by_date= "{:%B %d, %Y}".format(d)
-
-      record.save()
-
-
-
-
-      return JsonResponse( {'message':"success"})
-
-    else:
-      return render(request, 'pages/payment_requests/list.html', {})
-
-
 
 # @login_required(login_url='login')
 # def payment_request_pending_clearance(request):
@@ -862,29 +894,29 @@ def payment_request_clearance(request):
     else:
       return render(request, 'pages/payment_requests/list.html', {})
 
-@login_required(login_url='login')
-def payment_request_clear(request):
-    if request.method == "POST":
+# @login_required(login_url='login')
+# def payment_request_clear(request):
+#     if request.method == "POST":
       
-      _id = request.POST.get('id',default=None)
+#       _id = request.POST.get('id',default=None)
 
-        # objs = Record.objects.get(id=_id)
-      record = PaymentRequest.objects.get(id=_id)
-      record.cleared_by_fin_man = request.user.username
-      # record.certified_by_date = request.user.username
-      d = datetime.datetime.now()
-          # record.date_of_request = "{:%B %d, %Y}".format(d)
-      record.cleared_by_fin_man_date= "{:%B %d, %Y}".format(d)
+#         # objs = Record.objects.get(id=_id)
+#       record = PaymentRequest.objects.get(id=_id)
+#       record.cleared_by_fin_man = request.user.username
+#       # record.certified_by_date = request.user.username
+#       d = datetime.datetime.now()
+#           # record.date_of_request = "{:%B %d, %Y}".format(d)
+#       record.cleared_by_fin_man_date= "{:%B %d, %Y}".format(d)
 
-      record.save()
-
-
+#       record.save()
 
 
-      return JsonResponse( {'message':"success"})
 
-    else:
-      return render(request, 'pages/payment_requests/list.html', {})
+
+#       return JsonResponse( {'message':"success"})
+
+#     else:
+#       return render(request, 'pages/payment_requests/list.html', {})
 
 
 
@@ -895,42 +927,45 @@ def payment_request_pending_approval(request):
     return render(request, 'pages/payment_requests/list.html', context)
 
 
-@login_required(login_url='login')
-def payment_request_approval(request):
-    if request.method == "POST":
+# @login_required(login_url='login')
+# def payment_request_approval(request):
+#     if request.method == "POST":
       
-      _id = request.POST.get('id',default=None)
+#       _id = request.POST.get('id',default=None)
 
-        # objs = Record.objects.get(id=_id)
-      record = PaymentRequest.objects.get(id=_id)
-      context = {'record':record}
-      return render(request, 'pages/payment_requests/view.html', context)
-    else:
-      return render(request, 'pages/payment_requests/list.html', {})
+#         # objs = Record.objects.get(id=_id)
+#       record = PaymentRequest.objects.get(id=_id)
 
-@login_required(login_url='login')
-def payment_request_approve(request):
-    if request.method == "POST":
+
+
+
+#       context = {'record':record}
+#       return render(request, 'pages/payment_requests/view.html', context)
+#     else:
+#       return render(request, 'pages/payment_requests/list.html', {})
+
+# @login_required(login_url='login')
+# def payment_request_approve(request):
+#     if request.method == "POST":
       
-      _id = request.POST.get('id',default=None)
+#       _id = request.POST.get('id',default=None)
 
-        # objs = Record.objects.get(id=_id)
-      record = PaymentRequest.objects.get(id=_id)
-      record.approved_by = request.user.username
-      # record.certified_by_date = request.user.username
-      d = datetime.datetime.now()
-          # record.date_of_request = "{:%B %d, %Y}".format(d)
-      record.approved_by_date= "{:%B %d, %Y}".format(d)
-
-      record.save()
+#         # objs = Record.objects.get(id=_id)
+#       record = PaymentRequest.objects.get(id=_id)
+#       record.approved_by = request.user.username
+#       # record.certified_by_date = request.user.username
+#       d = datetime.datetime.now()
+#           # record.date_of_request = "{:%B %d, %Y}".format(d)
+#       record.approved_by_date= "{:%B %d, %Y}".format(d)
 
 
 
 
-      return JsonResponse( {'message':"success"})
 
-    else:
-      return render(request, 'pages/payment_requests/list.html', {})
+#       return JsonResponse( {'message':"success"})
+
+#     else:
+#       return render(request, 'pages/payment_requests/list.html', {})
 
 @login_required(login_url='login')
 @csrf_exempt
@@ -950,6 +985,13 @@ def payment_request_certify(request):
             # record.date_of_request = "{:%B %d, %Y}".format(d)
         record.certified_by_date= "{:%B %d, %Y}".format(d)
         record.save()
+
+        notice = Notifications()
+        notice.to = clear
+        notice.message = " "+ request.user.username +" updated a Payement Request\n and assigned you as the Finance Officer for you to clear."
+        notice.date_time = "{:%B %d, %Y}".format(d)
+        notice.trigger = request.user.username
+        notice.save()
 
         return JsonResponse( {'message':"success"})
       else:
@@ -978,6 +1020,13 @@ def payment_request_clear(request):
 
         record.save()
 
+        notice = Notifications()
+        notice.to = approver
+        notice.message = " "+ request.user.username +" updated a Payement Request\n and assigned you as the Approver."
+        notice.date_time = "{:%B %d, %Y}".format(d)
+        notice.trigger = request.user.username
+        notice.save()
+
         return JsonResponse( {'message':"success"})
       else:
         return render(request, 'pages/payment_requests/list.html', {})
@@ -1004,7 +1053,16 @@ def payment_request_approve(request):
             # record.date_of_request = "{:%B %d, %Y}".format(d)
         record.approved_by_date= "{:%B %d, %Y}".format(d)
 
+
+
+        notice = Notifications()
+        notice.to = record.compiled_by
         record.save()
+
+        notice.message = " "+ request.user.username +" Approved your Payement Request."
+        notice.date_time = "{:%B %d, %Y}".format(d)
+        notice.trigger = request.user.username
+        notice.save()
 
         return JsonResponse( {'message':"success"})
       else:
@@ -1152,9 +1210,19 @@ def payment_request_send_record(request):
           # record.approved_by_project_man_date= approved_by_project_man_date
 
           # record.approved_by= approved_by
+
+          notice = Notifications()
+          notice.to= record.certified_by
+          notice.trigger = request.user.username
+          notice.message = request.user.username +" has created a Payment Request and assigned you to Certify"
+
           d = datetime.datetime.now()
           record.date_of_request = "{:%B %d, %Y}".format(d)
+          notice.date_time = "{:%B %d, %Y}".format(d)
+          notice.status = "New"
+          notice.save()
           # record.approved_by_date= approved_by_date
+
 
           record.save()
 
