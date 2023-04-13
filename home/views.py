@@ -22,7 +22,17 @@ from django.contrib.auth import views as auth_views
 # Create your views here.
 @login_required(login_url='login')
 def index(request):
-  return render(request, 'pages/index.html')
+  username = request.user.username
+  notices = Notifications.objects.filter(to=username)
+  
+
+  context = {
+     "notices":notices,
+     "nots_num": notices.count()
+
+  }
+
+  return render(request, 'pages/index.html', context=context)
 
 @login_required(login_url='login')
 def payment_request(request):
@@ -169,7 +179,7 @@ def purchase_request_send_record(request):
 
           record.accounts_clerk_approved= accounts_clerk_approved
         #   d = datetime.datetime.now()
-        #   record.date_of_request = "{:%B %d, %Y}".format(d)
+        #   record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
           record.accounts_clerk_approved_date= accounts_clerk_approved_date
 
           record.save()
@@ -355,7 +365,7 @@ def comp_schedule_send_record(request):
           # record.requested_by_sig = requested_by_sig
 
           d = datetime.datetime.now()
-          record.requested_by_date = "{:%B %d, %Y}".format(d)
+          record.requested_by_date = "{:%B %d, %Y  %H:%M:%S}".format(d)
           # record.requested_by_date= requested_by_date
         
           record.tech_person_by= tech_person_by
@@ -363,7 +373,7 @@ def comp_schedule_send_record(request):
           # record.tech_person_by_sig= tech_person_by_sig
           notice.status = "New"
           notice.to  = tech_person_by
-          notice.date_time = "{:%B %d, %Y}".format(d)
+          notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
           # record.tech_person_date= tech_person_date
 
           # record.dpt_head_by= dpt_head_by 
@@ -379,7 +389,7 @@ def comp_schedule_send_record(request):
           # record.approved_date= approved_date
 
           # d = datetime.datetime.now()
-        #   record.date_of_request = "{:%B %d, %Y}".format(d)
+        #   record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
         #   record.approved_by_date= approved_by_date
 
           record.save()
@@ -475,15 +485,15 @@ def comp_schedule_approve(request):
       record.tech_person_by = username
       record.dpt_head_by = head
       d = datetime.datetime.now()
-          # record.date_of_request = "{:%B %d, %Y}".format(d)
-      record.tech_person_date= "{:%B %d, %Y}".format(d)
+          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.tech_person_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
 
       record.save()
 
       notice = Notifications()
       notice.to = head
       notice.message = " "+ username +" updated a Comparative schedule\n and assigned you as the Department Head for you to approve."
-      notice.date_time = "{:%B %d, %Y}".format(d)
+      notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice.trigger = username
       notice.save()
 
@@ -513,8 +523,8 @@ def comp_schedule_approve_head(request):
       record.approved_by = pi
 
       d = datetime.datetime.now()
-          # record.date_of_request = "{:%B %d, %Y}".format(d)
-      record.dpt_head_date= "{:%B %d, %Y}".format(d)
+          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.dpt_head_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
 
       record.save()
 
@@ -524,7 +534,7 @@ def comp_schedule_approve_head(request):
         notice = Notifications()
         notice.to = pi
         notice.message = " "+ username +" updated a Comparative schedule\n and assigned you as the PI for you to approve."
-        notice.date_time = "{:%B %d, %Y}".format(d)
+        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = username
         notice.save()
 
@@ -534,7 +544,7 @@ def comp_schedule_approve_head(request):
         notice = Notifications()
         notice.to = lead
         notice.message = " "+ username +" updated a Comparative schedule\n and assigned you as the Coordinator for you to approve."
-        notice.date_time = "{:%B %d, %Y}".format(d)
+        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = username
         notice.save()
 
@@ -563,8 +573,8 @@ def comp_schedule_approve_lead(request):
       # record.team_lead_by = lead
 
       d = datetime.datetime.now()
-          # record.date_of_request = "{:%B %d, %Y}".format(d)
-      record.team_lead_date= "{:%B %d, %Y}".format(d)
+          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.team_lead_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
 
       if pi == "None":
          pass
@@ -572,7 +582,7 @@ def comp_schedule_approve_lead(request):
         notice = Notifications()
         notice.to = pi
         notice.message = " "+ request.user.username +" updated a Comparative schedule\n and assigned you as the PI for you to approve."
-        notice.date_time = "{:%B %d, %Y}".format(d)
+        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
 
@@ -605,14 +615,14 @@ def comp_schedule_approve_pi(request):
       # record.team_lead_by = lead
 
       d = datetime.datetime.now()
-          # record.date_of_request = "{:%B %d, %Y}".format(d)
-      record.approved_date= "{:%B %d, %Y}".format(d)
+          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
 
       record.save()
       notice = Notifications()
       notice.to = record.requested_by
       notice.message = " "+ request.user.username +" approved your Comparative schedule."
-      notice.date_time = "{:%B %d, %Y}".format(d)
+      notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice.trigger = request.user.username
       notice.save()
 
@@ -905,8 +915,8 @@ def payment_request_clearance(request):
 #       record.cleared_by_fin_man = request.user.username
 #       # record.certified_by_date = request.user.username
 #       d = datetime.datetime.now()
-#           # record.date_of_request = "{:%B %d, %Y}".format(d)
-#       record.cleared_by_fin_man_date= "{:%B %d, %Y}".format(d)
+#           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+#       record.cleared_by_fin_man_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
 
 #       record.save()
 
@@ -955,8 +965,8 @@ def payment_request_pending_approval(request):
 #       record.approved_by = request.user.username
 #       # record.certified_by_date = request.user.username
 #       d = datetime.datetime.now()
-#           # record.date_of_request = "{:%B %d, %Y}".format(d)
-#       record.approved_by_date= "{:%B %d, %Y}".format(d)
+#           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+#       record.approved_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
 
 
 
@@ -982,14 +992,14 @@ def payment_request_certify(request):
         record.certified_by = request.user.username
         record.cleared_by_fin_man = clear
         d = datetime.datetime.now()
-            # record.date_of_request = "{:%B %d, %Y}".format(d)
-        record.certified_by_date= "{:%B %d, %Y}".format(d)
+            # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        record.certified_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
         record.save()
 
         notice = Notifications()
         notice.to = clear
         notice.message = " "+ request.user.username +" updated a Payement Request\n and assigned you as the Finance Officer for you to clear."
-        notice.date_time = "{:%B %d, %Y}".format(d)
+        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
 
@@ -1015,15 +1025,15 @@ def payment_request_clear(request):
         record.cleared_by_fin_man = request.user.username
         record.approved_by = approver
         d = datetime.datetime.now()
-            # record.date_of_request = "{:%B %d, %Y}".format(d)
-        record.cleared_by_fin_man_date= "{:%B %d, %Y}".format(d)
+            # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        record.cleared_by_fin_man_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
 
         record.save()
 
         notice = Notifications()
         notice.to = approver
         notice.message = " "+ request.user.username +" updated a Payement Request\n and assigned you as the Approver."
-        notice.date_time = "{:%B %d, %Y}".format(d)
+        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
 
@@ -1050,8 +1060,8 @@ def payment_request_approve(request):
         record.approved_by = request.user.username
         # record.certified_by_date = request.user.username
         d = datetime.datetime.now()
-            # record.date_of_request = "{:%B %d, %Y}".format(d)
-        record.approved_by_date= "{:%B %d, %Y}".format(d)
+            # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        record.approved_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
 
 
 
@@ -1060,7 +1070,7 @@ def payment_request_approve(request):
         record.save()
 
         notice.message = " "+ request.user.username +" Approved your Payement Request."
-        notice.date_time = "{:%B %d, %Y}".format(d)
+        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
 
@@ -1217,8 +1227,8 @@ def payment_request_send_record(request):
           notice.message = request.user.username +" has created a Payment Request and assigned you to Certify"
 
           d = datetime.datetime.now()
-          record.date_of_request = "{:%B %d, %Y}".format(d)
-          notice.date_time = "{:%B %d, %Y}".format(d)
+          record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+          notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
           notice.status = "New"
           notice.save()
           # record.approved_by_date= approved_by_date
@@ -1269,7 +1279,7 @@ def payment_request_edit_record(request):
           record.compiled_by = request.user.username
           record.payee= payee
           d = datetime.datetime.now()
-          record.date_of_request = "{:%B %d, %Y}".format(d)
+          record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
 
           record.payment_type= payment_type
           record.amount= amount
