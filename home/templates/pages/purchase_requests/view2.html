@@ -1,0 +1,478 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock title %}
+{% block content %}
+
+
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    <div class="pc-content">
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+       
+        <form class="row g-3">
+
+            <!-- <div class="col-md-6">
+                <label  class="form-label">request_id:</label>
+                <input type="text" class="form-control" id="request_id" name="request_id" value="">
+            </div> -->
+
+            <div class="col-md-6">
+                <label  class="form-label">Payee:</label>
+                <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
+            </div>
+            <div class="col-md-6">
+                <label  class="form-label">Account Code:</label>
+                <input type="text" class="form-control" id="account_code" name="account_code" value="" readonly>
+            </div>
+
+
+
+            <div class="col-md-6">
+                <label  class="form-label"> Payment Type</label>
+                <!-- <input type="text" class="form-control" id="payment_type" name="payment_type" value=""> -->
+                <select class="form-control" name="payment_type" id="payment_type" disabled>
+                    <option value="TRANSFER">TRANSFER</option>
+
+                    <option value="CHEQUE">CHEQUE</option>
+                    <option value="CASH">CASH</option>
+
+                    </select>
+
+
+            </div>
+
+
+            <div class="col-md-6">
+                <label  class="form-label">Project Number:</label>
+                <input type="text" class="form-control" id="project_number" name="project_number" value="" readonly>
+            </div>
+
+
+
+            <div class="col-md-12">
+                <label  class="form-label">Details of Expenditure:</label>
+                <textarea type="text" class="form-control" id="details" name="details" value="" readonly></textarea>
+            </div>
+
+
+            <div class="col-md-6">
+                <label  class="form-label">Quantity:</label>
+                <input type="text" class="form-control" id="amount" name="amount" value="" readonly>
+            </div>
+
+            <hr>
+            <div class="col-md-6">
+                <label  class="form-label">Unit Amount:</label>
+                <input type="text" class="form-control" id="amount" name="amount" value="" readonly>
+            </div>
+
+            <div class="col-md-6">
+                <label  class="form-label">Total:</label>
+                <input type="text" class="form-control" id="total" name="total" value="" readonly>
+            </div>
+
+            <hr>
+
+            <div class="col-md-6">
+                <label  class="form-label">Compiled By:</label>
+                <input type="text" class="form-control" id="compiled_by" name="compiled_by" value="" readonly>
+            </div>
+
+            
+            <div class="col-md-6">
+                <label  class="form-label">Date:</label>
+                <input type="text" class="form-control" id="compiled_by_date" name="compiled_by_date" value="" readonly>
+            </div>
+
+                <!-- <label  class="form-label">Certified By:</label>
+                <input type="text" class="form-control" id="certified_by" name="certified_by" value=""> -->
+            
+
+
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Select Certifier</label>
+                <select class="form-control" name="certified_by" id="certified_by" disabled>
+                <option value="None">..</option>
+
+                </select>
+            </div>
+
+            <!-- <div class="col-md-6">
+                <label  class="form-label">Date:</label>
+                <input type="text" class="form-control" id="certified_by_date" name="certified_by_date" value="">
+            </div> -->
+
+            <!-- <hr>
+
+            <div class="col-md-12">
+                <label  class="form-label">Cleared by Finance Manager:</label>
+                <input type="text" class="form-control" id="cleared_by_fin_man" name="cleared_by_fin_man" value="">
+            </div> -->
+<!-- 
+            <div class="col-md-6">
+                <label  class="form-label">Date:</label>
+                <input type="text" class="form-control" id="cleared_by_fin_man_date" name="cleared_by_fin_man_date" value="">
+            </div> -->
+
+            <!-- <hr>
+
+            <div class="col-md-12">
+                <label  class="form-label">Approved by Project Lead/Manager:</label>
+                <input type="text" class="form-control" id="approved_by_project_man" name="approved_by_project_man" value="">
+            </div> -->
+
+            <!-- <div class="col-md-6">
+                <label  class="form-label">Date:</label>
+                <input type="text" class="form-control" id="approved_by_project_man_date" name="approved_by_project_man_date" value="">
+            </div> -->
+            
+            <!-- <hr>
+
+            <div class="col-md-12">
+                <label  class="form-label">Approved By:</label>
+                <input type="text" class="form-control" id="approved_by" name="approved_by" value="">
+            </div> -->
+
+            <!-- <div class="col-md-6">
+                <label  class="form-label">Date:</label>
+                <input type="text" class="form-control" id="approved_by_date" name="approved_by_date" value="">
+            </div> -->
+
+            <!-- <hr> -->
+          </form> 
+
+            <div style="margin-top: 2%;" class="col-md-12">
+                <a onclick="edit()" class="btn btn-primary"> Edit</a>
+                <a onclick="print()" class="btn btn-success"> Print</a>
+
+            </div>
+
+
+
+
+
+
+<script  language="JavaScript" type="text/javascript">
+
+
+
+
+// populate the users dropdown
+
+const url = "http://localhost:8000/get_users"
+                    const data = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url,data, function(data,status){
+            
+
+// console.log(data)
+
+
+                        $.each(data, function(val, text) {
+                            $('#certified_by').append( new Option(text,val) );
+                        });
+
+            
+  
+    
+
+
+        });
+
+    
+
+
+
+
+
+
+
+
+// populating the already existing records
+
+            current_url = window.location.href;
+                        arr = current_url.split("/");
+                        case_id = arr.at(-1);
+                    console.log(case_id);
+                    if (case_id == "add"){}else{
+                    const url = "http://localhost:8000/payment_request_get_record"
+                    const data = {
+                      'id':case_id,
+                    }
+            
+                      $.post(url,data, function(data,status){
+            
+            if (data['message']=="success"){
+
+
+
+    // $("#date_of_request").val(data['date_of_request']);
+    $("#payee").val(data['payee']);
+    $("#payment_type").val(data['payment_type']);
+    $("#amount").val(data['amount']);
+    $("#project_number").val(data['project_number']);
+   
+    $("#account_code").val(data['account_code']); 
+    $("#details ").val(data['details']);
+    // $("#amount ").val(data['pat_name']);
+    //  $("#unit_price ").val(data['unit_price']);
+    $("#total").val(data['total']);
+   
+    $("#certified_by").val(data['certified_by']);
+//     $("#certified_by_date").val(data['certified_by_date']);
+
+//     $("#cleared_by_fin_man").val(data['cleared_by_fin_man']);
+//     $("#cleared_by_fin_man_date").val(data['cleared_by_fin_man_date']);
+
+//     $("#approved_by_project_man").val(data['approved_by_project_man']);
+//     $("#approved_by_project_man_date").val(data['approved_by_project_man_date']);
+
+//    $("#approved_by").val(data['approved_by']);
+//     $("#approved_by_date").val(data['approved_by_date']);
+
+            
+  
+    
+                
+        }else{
+            console.log(data['message'])
+            window.location.href="/payment_request_all";
+
+        }
+
+        });
+
+    }
+
+
+function print(){
+
+    current_url = window.location.href;
+                        arr = current_url.split("/");
+                        case_id = arr.at(-1);
+
+    window.location.href="http://localhost:8000/payment_request_print/"+case_id;
+
+
+
+}
+
+function edit(){
+
+    current_url = window.location.href;
+                        arr = current_url.split("/");
+                        case_id = arr.at(-1);
+window.location.href="http://localhost:8000/payment_request_view/"+case_id;
+
+
+
+}
+
+    function sendEdit(){
+
+
+
+        // var date_of_request= document.getElementById('date_of_request').value;
+        var payee= document.getElementById('payee').value;
+        var payment_type= document.getElementById('payment_type').value;
+        var amount= document.getElementById('amount').value;
+        var project_number= document.getElementById('project_number').value;
+
+        var account_code= document.getElementById('account_code').value; 
+        var details = document.getElementById('details').value;
+        // var amount = document.getElementById('pat_name').value;
+        // var unit_price = document.getElementById('unit_price').value;
+        var total= document.getElementById('total').value;
+
+        var certified_by= document.getElementById('certified_by').value;
+        // var certified_by_date= document.getElementById('certified_by_date').value;
+
+        // var cleared_by_fin_man= document.getElementById('cleared_by_fin_man').value;
+        // var cleared_by_fin_man_date= document.getElementById('cleared_by_fin_man_date').value;
+
+        // var approved_by_project_man= document.getElementById('approved_by_project_man').value;
+        // var approved_by_project_man_date= document.getElementById('approved_by_project_man_date').value;
+
+        // var approved_by= document.getElementById('approved_by').value;
+        // var approved_by_date= document.getElementById('approved_by_date').value;
+
+
+
+
+
+
+
+
+            current_url = window.location.href;
+            arr = current_url.split("_");
+            case_id = arr.at(-1);
+        console.log(case_id);
+        if (case_id == "add"){
+
+        const url = "http://localhost:8000/payment_request_send_record";
+        // current_url = window.location.href;
+        // arr = current_url.split("/");
+        // case_id = arr.at(-1);
+        // month_id =arr[arr.length - 2];
+        console.log("after url");
+        const data = {
+            // "date_of_request": date_of_request,
+                            "payee": payee,
+                            "payment_type": payment_type,
+                            "amount": amount,
+                            "project_number": project_number,
+
+                            "account_code": account_code, 
+                            "details": details,
+                            "case_id": case_id,
+                            // "unit_price ": unit_price,
+                            "total": total,
+
+                            "certified_by": certified_by,
+                            // "certified_by_date": certified_by_date,
+
+                            // "cleared_by_fin_man": cleared_by_fin_man,
+                            // "cleared_by_fin_man_date": cleared_by_fin_man_date,
+
+                            // "approved_by_project_man": approved_by_project_man,
+                            // "approved_by_project_man_date": approved_by_project_man_date,
+
+                            // "approved_by": approved_by,
+                            // "approved_by_date": approved_by_date
+                        }
+
+                console.log("after dict");
+        $.post(url,data, function(data,status){
+        if (data['message']=="success"){
+            console.log("success")
+            window.location.href="http://localhost:8000/payment_request_all";
+        }else{
+            console.log(data['message'])
+            window.location.href="http://localhost:8000/payment_request_all";
+
+        }
+
+        });
+        // alert("stop hee");
+    }else{
+
+        const url = "http://localhost:8000/payment_request_edit_record/";
+        // current_url = window.location.href;
+        // arr = current_url.split("/");
+        // case_id = arr.at(-1);
+        // month_id =arr[arr.length - 2];
+
+
+
+        const data = {
+            // "date_of_request": date_of_request,
+                            "payee": payee,
+                            "payment_type": payment_type,
+                            "amount": amount,
+                            "project_number": project_number,
+
+                            "account_code": account_code, 
+                            "details": details,
+                            "case_id": case_id,
+                            // "unit_price ": unit_price,
+                            "total": total,
+
+                            "certified_by": certified_by,
+                            // "certified_by_date": certified_by_date,
+
+                            // "cleared_by_fin_man": cleared_by_fin_man,
+                            // "cleared_by_fin_man_date": cleared_by_fin_man_date,
+
+                            // "approved_by_project_man": approved_by_project_man,
+                            // "approved_by_project_man_date": approved_by_project_man_date,
+
+                            // "approved_by": approved_by,
+                            // "approved_by_date": approved_by_date,
+                        };
+
+
+
+
+        
+      
+
+        $.post(url,data, function(data,status){
+          window.location.replace("http://localhost:8000/payment_request_view/"+case_id);
+
+        console.log(data);
+        if (data['message']=="success"){
+            alert("success");
+            window.location.replace("http://localhost:8000/payment_request_view/"+case_id);
+        }else{
+            alert(data['message']);
+            window.location.replace("http://localhost:8000/payment_request_view/"+case_id);
+
+            // window.location.href="/view_record/"+case_id;
+
+        }
+
+        });
+
+
+
+
+
+    }
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+        </script>
+
+
+
+
+{% endblock content %} 
+   
+     
+     
+     
+     
+   
+     
+     
+
+    
+    
+
+    
+    
+
+    
+    

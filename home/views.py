@@ -101,9 +101,30 @@ def purchase_request_super(request):
 
 @login_required(login_url='login')
 def purchase_request_pending(request):
-    form = PuchaseRequest.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/purchase_request.html', context)
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+      record = PuchaseRequest.objects.get(id=_id)
+      context = {'record':record}
+
+      print("IN POST")
+      if record.certified_by_date == "None" and record.certified_by == request.user.username:
+         print("certified")
+         return render(request, 'pages/payment_requests/certify.html', context)
+      elif record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man == request.user.username:
+         print("cleared")
+
+         return render(request, 'pages/payment_requests/clear.html', context)
+      
+      elif record.approved_by_date == "None" and record.approved_by == request.user.username:
+         print("approved")
+
+         return render(request, 'pages/payment_requests/approve.html', context)
+
+
+    else:
+      return render(request, 'pages/payment_requests/list2.html', {})
 
 @login_required(login_url='login')
 def purchase_request_approved(request):
