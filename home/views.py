@@ -691,7 +691,7 @@ def comp_schedule_pending_view(request):
          return render(request, 'pages/comparative_schedules/head_approve.html', context)
       
 
-      elif record.team_lead_date == "None" and record.team_lead_by is not "None" and record.team_lead_by == request.user.username:
+      elif record.team_lead_date == "None" and record.team_lead_by != "None" and record.team_lead_by == request.user.username:
          print("approved")
 
          return render(request, 'pages/comparative_schedules/lead_approve.html', context)
@@ -702,7 +702,7 @@ def comp_schedule_pending_view(request):
 
          return render(request, 'pages/comparative_schedules/head_approve.html', context)
       
-      elif record.approved_date == "None" and record.approved_by is not "None" and record.approved_by == request.user.username: 
+      elif record.approved_date == "None" and record.approved_by != "None" and record.approved_by == request.user.username: 
          print("approved")
 
          return render(request, 'pages/comparative_schedules/pi_approve.html', context)
