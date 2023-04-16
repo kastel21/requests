@@ -169,7 +169,7 @@
             <div class="card-body">
               <div class="row mb-3 align-items-center">
                 <div class="col">
-                  <h4>Popular Stocks</h4>
+                  <h4>Recent Payment Requests</h4>
                 </div>
                 <div class="col-auto"> </div>
               </div>
@@ -177,8 +177,8 @@
                 <div class="px-3 pt-3">
                   <div class="row mb-1 align-items-start">
                     <div class="col">
-                      <h5 class="text-secondary mb-0">Bajaj Finery</h5>
-                      <small class="text-muted">10% Profit</small>
+                      <h5 class="text-secondary mb-0">Payments Trends</h5>
+                      <small class="text-muted"></small>
                     </div>
                     <div class="col-auto">
                       <h4 class="mb-0">$1839.00</h4>
@@ -188,21 +188,37 @@
                 <div id="bajajchart"></div>
               </div>
               <ul class="list-group list-group-flush">
+
+                {% if payments %}
+                  {% for payment in payments%}
                 <li class="list-group-item px-0">
                   <div class="row align-items-start">
                     <div class="col">
-                      <h5 class="mb-0">Bajaj Finery</h5>
-                      <small class="text-success">10% Profit</small>
+                      <h5 class="mb-0">{{payment.payee}}</h5>
+                      <small class="text-success">{{payment.details}}</small>
                     </div>
                     <div class="col-auto">
                       <h4 class="mb-0"
-                        >$1839.00<span class="ms-2 align-top avtar avtar-xxs bg-light-success"
+                        >{{payment.total}}<span class="ms-2 align-top avtar avtar-xxs bg-light-success"
                           ><i class="ti ti-chevron-up text-success"></i></span
                       ></h4>
                     </div>
                   </div>
                 </li>
+                {%endfor%}
+                {%else%}
+
                 <li class="list-group-item px-0">
+                  <div class="row align-items-start">
+                    <div class="col">
+                      <h5 class="mb-0">No Recent Payments</h5>
+                    </div>
+                  </div>
+                </li>
+                {%endif%}
+
+
+                <!-- <li class="list-group-item px-0">
                   <div class="row align-items-start">
                     <div class="col">
                       <h5 class="mb-0">TTML</h5>
@@ -215,8 +231,10 @@
                       ></h4>
                     </div>
                   </div>
-                </li>
-                <li class="list-group-item px-0">
+                </li> -->
+
+
+                <!-- <li class="list-group-item px-0">
                   <div class="row align-items-start">
                     <div class="col">
                       <h5 class="mb-0">Reliance</h5>
@@ -229,8 +247,10 @@
                       ></h4>
                     </div>
                   </div>
-                </li>
-                <li class="list-group-item px-0">
+                </li> -->
+
+
+                <!-- <li class="list-group-item px-0">
                   <div class="row align-items-start">
                     <div class="col">
                       <h5 class="mb-0">TTML</h5>
@@ -244,6 +264,8 @@
                     </div>
                   </div>
                 </li>
+
+
                 <li class="list-group-item px-0">
                   <div class="row align-items-start">
                     <div class="col">
@@ -257,7 +279,9 @@
                       ></h4>
                     </div>
                   </div>
-                </li>
+                </li> -->
+
+
               </ul>
               <div class="text-center">
                 <a href="#!" class="b-b-primary text-primary">View all <i class="ti ti-chevron-right"></i></a>

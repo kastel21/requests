@@ -24,11 +24,14 @@ from django.contrib.auth import views as auth_views
 def index(request):
   username = request.user.username
   notices = Notifications.objects.filter(to=username)
+
+  payments = PaymentRequest.objects.all().order_by('-id')[:5][::-1]
   
 
   context = {
      "notices":notices,
-     "nots_num": notices.count()
+     "nots_num": notices.count(),
+     "payments": payments,
 
   }
 
@@ -52,21 +55,21 @@ def sample_page(request):
   return render(request, 'pages/sample-page.html')
 
 
-# Authentication
-def registration(request):
-  if request.method == 'POST':
-    form = RegistrationForm(request.POST)
-    if form.is_valid():
-      form.save()
-      print('Account created successfully!')
-      return redirect('/accounts/login/')
-    else:
-      print("Registration failed!")
-  else:
-    form = RegistrationForm()
+# # Authentication
+# def registration(request):
+#   if request.method == 'POST':
+#     form = RegistrationForm(request.POST)
+#     if form.is_valid():
+#       form.save()
+#       print('Account created successfully!')
+#       return redirect('/accounts/login/')
+#     else:
+#       print("Registration failed!")
+#   else:
+#     form = RegistrationForm()
   
-  context = {'form': form}
-  return render(request, 'accounts/register.html', context)
+#   context = {'form': form}
+#   return render(request, 'accounts/register.html', context)
 
 class UserLoginView(auth_views.LoginView):
   template_name = 'accounts/login.html'
