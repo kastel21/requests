@@ -56,6 +56,9 @@ function floatchart() {
     var chart = new ApexCharts(document.querySelector('#tab-chart-1'), options);
     chart.render();
   })();
+
+
+
   (function () {
     var options = {
       chart: {
@@ -75,7 +78,7 @@ function floatchart() {
       },
       series: [
         {
-          name: 'series1',
+          name: 'total for month',
           data: [35, 44, 9, 54, 45, 66, 41, 69]
         }
       ],
@@ -106,6 +109,9 @@ function floatchart() {
     var chart = new ApexCharts(document.querySelector('#tab-chart-2'), options);
     chart.render();
   })();
+
+
+
   (function () {
     var options = {
       chart: {
@@ -125,24 +131,24 @@ function floatchart() {
       dataLabels: {
         enabled: false
       },
-      colors: ['#d3eafd', '#2196f3', '#673ab7', '#e1d8f1'],
+      colors: ['#2196f3', '#2196f3', '#673ab7', '#e1d8f1'],
       series: [
         {
-          name: 'Investment',
+          name: 'Spending',
           data: [35, 125, 35, 35, 35, 80, 35, 20, 35, 45, 15, 75]
         },
-        {
-          name: 'Loss',
-          data: [35, 15, 15, 35, 65, 40, 80, 25, 15, 85, 25, 75]
-        },
-        {
-          name: 'Profit',
-          data: [35, 145, 35, 35, 20, 105, 100, 10, 65, 45, 30, 10]
-        },
-        {
-          name: 'Maintenance',
-          data: [0, 0, 75, 0, 0, 115, 0, 0, 0, 0, 150, 0]
-        }
+        // {
+        //   name: 'Loss',
+        //   data: [35, 15, 15, 35, 65, 40, 80, 25, 15, 85, 25, 75]
+        // },
+        // {
+        //   name: 'Profit',
+        //   data: [35, 145, 35, 35, 20, 105, 100, 10, 65, 45, 30, 10]
+        // },
+        // {
+        //   name: 'Maintenance',
+        //   data: [0, 0, 75, 0, 0, 115, 0, 0, 0, 0, 150, 0]
+        // }
       ],
       responsive: [
         {
@@ -158,7 +164,7 @@ function floatchart() {
       ],
       xaxis: {
         type: 'category',
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        categories: ['proj1', 'proj2', 'proj3', 'proj4', 'proj5', 'proj6', 'proj7', 'proj8', 'proj9', 'proj10', 'proj11', 'proj12']
       },
       grid: {
         strokeDashArray: 4
@@ -170,6 +176,9 @@ function floatchart() {
     var chart = new ApexCharts(document.querySelector('#growthchart'), options);
     chart.render();
   })();
+
+
+
   (function () {
     var options = {
       chart: {
@@ -187,7 +196,7 @@ function floatchart() {
       },
       series: [
         {
-          data: [0, 15, 10, 50, 30, 40, 25]
+          data: [0, 15, 10, 50, 30, 40, 25,10, 50, 30, 40, 25]
         }
       ]
     };

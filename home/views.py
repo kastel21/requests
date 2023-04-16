@@ -26,12 +26,13 @@ def index(request):
   notices = Notifications.objects.filter(to=username)
 
   payments = PaymentRequest.objects.all().order_by('-id')[:5][::-1]
-  
+  total_payments= 123455
 
   context = {
      "notices":notices,
      "nots_num": notices.count(),
      "payments": payments,
+     "total_payments":total_payments,
 
   }
 
