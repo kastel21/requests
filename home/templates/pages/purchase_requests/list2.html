@@ -66,38 +66,31 @@
   
                             <table style="margin: 2%;">
                                 <th>
+                                    <td>ID</td>
                                     <td>Requester</td>
-                                    <td>Certifier</td>
-                                    <td>Payee</td>
+                                    <td>Requesting Department</td>
+                                    <td>Request Justification</td>
                                     <td>Total</td>
-                                    <td>Project Number</td>
                                     <td>status</td>
 
                                 </th>
-
-
-
-
                                 {% for record in records %}
-
-                                <form method="POST" action="payment_request_open_record/{{record.id}}">
-
                                     <tr>
+                                        <form method="POST" action="purchase_request_edit_options/{{record.id}}">
                                             {% csrf_token %}
-                                            <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
-                                            <td></td>
-                                            <td> <input type="submit" value="{{record.compiled_by}}" /> </td>
+                                            <input type="text" name="id" id="id" value="{{record.id}}" />
+                                            <td> <input type="submit" value="{{record.requester}}" /> </td>
 
-                                        
-                                    <td>{{record.certified_by}}</td>
-                                    <td>{{record.payee}}</td>
+                                        </form>
+                                    <td>{{record.requester}}</td>
+                                    <td>{{record.requesting_dpt}}</td>
+                                    <td>{{record.request_justification}}</td>
                                     <td>{{record.total}}</td>
-                                    <td>{{record.project_number}}</td>
                                     <td>{{record.status}}</td>
 
                                     </tr>
 
-                                </form>
+
                                 {% endfor %}
 
                             </table>

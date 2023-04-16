@@ -7,7 +7,7 @@ from django.db import models
 class PuchaseRequest(models.Model):
     request_id = models.CharField(max_length=30, default="None")
     requester = models.CharField(max_length=30, default="None")
-    date_of_request = models.CharField(max_length=15, default="2023")
+    date_of_request = models.CharField(max_length=25, default="2023")
     requesting_dpt = models.CharField(max_length=150, default="None")
     request_justification = models.CharField(max_length=450, default="None")
     name_address_of_supplier = models.CharField(max_length=550, default="None")
@@ -30,7 +30,7 @@ class PuchaseRequest(models.Model):
 class PaymentRequest(models.Model):
     request_id = models.CharField(max_length=30, default="None")
     compiled_by = models.CharField(max_length=30, default="None")
-    date_of_request = models.CharField(max_length=15, default="2023")
+    date_of_request = models.CharField(max_length=25, default="2023")
     payee = models.CharField(max_length=150, default="None")
     payment_type = models.CharField(max_length=450, default="None")
     # amount = models.CharField(max_length=550, default="None")
@@ -46,13 +46,13 @@ class PaymentRequest(models.Model):
     certified_by_date = models.CharField(max_length=150, default="None")
 
     cleared_by_fin_man= models.CharField(max_length=150, default="None")
-    cleared_by_fin_man_date= models.CharField(max_length=150, default="None")
+    cleared_by_fin_man_date= models.CharField(max_length=25, default="None")
 
-    approved_by_project_man= models.CharField(max_length=150, default="None")
-    approved_by_project_man_date= models.CharField(max_length=150, default="None")
+    approved_by_project_man= models.CharField(max_length=250, default="None")
+    approved_by_project_man_date= models.CharField(max_length=25, default="None")
 
     approved_by= models.CharField(max_length=150, default="None")
-    approved_by_date= models.CharField(max_length=150, default="None")
+    approved_by_date= models.CharField(max_length=25, default="None")
 
 
 class ComparativeSchedule(models.Model):

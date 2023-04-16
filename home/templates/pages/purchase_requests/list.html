@@ -76,7 +76,7 @@
                                 </th>
                                 {% for record in records %}
                                     <tr>
-                                        <form method="POST" action="payment_request_view/{{record.id}}">
+                                        <form method="POST" action="purchase_request_open_record/{{record.id}}">
                                             {% csrf_token %}
                                             <input type="text" name="id" id="id" value="{{record.id}}" />
                                             <td> <input type="submit" value="{{record.requester}}" /> </td>

@@ -19,6 +19,11 @@
                 <input type="text" class="form-control" id="request_id" name="request_id" value="">
             </div> -->
 
+            <div id="overlay">
+                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
+                
+           </div>
+
             <div class="col-md-6">
                 <label  class="form-label">Payee:</label>
                 <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
@@ -164,23 +169,7 @@
 
 
 
-// populate the users dropdown
 
-const url = "http://localhost:8000/get_users"
-                    const data = {
-                      'id':"case_id",
-                    }
-            
-                      $.post(url,data, function(data,status){
-            
-
-                        console.log(data)
-
-                        $.each(data, function(val, text) {
-                            $('#approved_by').append( new Option(text,val) );
-                        });
-
-        });
 
     
 
@@ -234,6 +223,26 @@ const url = "http://localhost:8000/get_users"
 //    $("#approved_by").val(data['approved_by']);
 //     $("#approved_by_date").val(data['approved_by_date']);
 
+// populate the users dropdown
+
+const url = "http://localhost:8000/get_users"
+                    const data1 = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url,data1, function(data1,status){
+            
+
+                        console.log(data1)
+
+                        $.each(data1, function(val, text) {
+                            $('#approved_by').append( new Option(text,val) );
+                        });
+
+                        $('#overlay').fadeOut();
+
+
+        });
             
   
     
@@ -254,7 +263,9 @@ const url = "http://localhost:8000/get_users"
 
 
     function sendEdit(){
-        $('#approve').prop('disabled', true);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        $('#overlay').fadeIn();
 
 
             current_url = window.location.href;
@@ -270,10 +281,14 @@ const url = "http://localhost:8000/get_users"
             }
         $.post(url,data, function(data,status){
         if (data['message']=="success"){
-            console.log("success")
+            $('#overlay').fadeOut();
+
+            alert("success");
             window.location.href="http://localhost:8000/payment_request_all";
         }else{
-            console.log(data['message'])
+            $('#overlay').fadeOut();
+
+            alert(data['message']);
             window.location.href="http://localhost:8000/payment_request_all";
 
         }

@@ -12,6 +12,11 @@
        
         <form class="row g-3">
 
+            <div id="overlay">
+                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
+                
+           </div>
+
             <!-- <div class="col-md-6">
                 <label for="fname" class="form-label">request_id:</label>
                 <input type="text" class="form-control" id="request_id" name="request_id" value="">
@@ -93,7 +98,16 @@
                 <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="">
             </div> -->
 
-            <div class="col-md-6">
+
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Select PI/Supervisor</label>
+                <select class="form-control" name="pi" id="pi">
+                <option value="None">..</option>
+
+                </select>
+            </div>
+
+            <!-- <div class="col-md-6">
                 <label for="fname" class="form-label">Signature of PI/Supervisor:</label>
                 <input type="text" class="form-control" id="supervisor_approved" name="supervisor_approved" value="">
             </div>
@@ -111,7 +125,7 @@
             <div class="col-md-6">
                 <label for="fname" class="form-label">Date</label>
                 <input type="text" class="form-control" id="accounts_clerk_approved_date" name="accounts_clerk_approved_date" value="">
-            </div>
+            </div> -->
 
           </form>
 
@@ -121,58 +135,100 @@
             <script  language="JavaScript" type="text/javascript">
 
 
+
+
+
+
+
+
+// populate the users dropdown
+
+const url = "http://localhost:8000/get_users"
+                    const data = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url,data, function(data,status){
+            
+
+console.log(data)
+
+
+                        $.each(data, function(val, text) {
+                            $('#pi').append( new Option(text,val) );
+                        });
+
+            
+  
+    
+                        $('#overlay').fadeOut();
+
+
+        });
+
+    
+
+
+
+
+
+
+
                 // populating the already existing records
                 
-                            current_url = window.location.href;
-                                        arr = current_url.split("_");
-                                        case_id = arr.at(-1);
-                                    console.log(case_id);
-                                    if (case_id == "add"){}else{
-                                    const url = "http://localhost:8000/purchase_request_get_record"
-                                    const data = {
-                                      'id':case_id,
-                                    }
+                //             current_url = window.location.href;
+                //                         arr = current_url.split("/");
+                //                         case_id = arr.at(-1);
+                //                     console.log(case_id);
+                //                     if (case_id == "add"){}else{
+                //                     const url = "http://localhost:8000/purchase_request_get_record"
+                //                     const data = {
+                //                       'id':case_id,
+                //                     }
                             
-                                      $.post(url,data, function(data,status){
+                //                       $.post(url,data, function(data,status){
                             
-                            if (data['message']=="success"){
+                //             if (data['message']=="success"){
                 
                 
                 
-                    $("#requester").val(data['requester']);
-                    $("#date_of_request").val(data['date_of_request']);
-                    $("#requesting_dpt").val(data['requesting_dpt']);
-                    $("#budget_line_item").val(data['budget_line_item']);
-                    $("#request_justification").val(data['request_justification']);
+                //     $("#requester").val(data['requester']);
+                //     $("#date_of_request").val(data['date_of_request']);
+                //     $("#requesting_dpt").val(data['requesting_dpt']);
+                //     $("#budget_line_item").val(data['budget_line_item']);
+                //     $("#request_justification").val(data['request_justification']);
     
-                    $("#name_address_of_supplier").val(data['name_address_of_supplier']); 
+                //     $("#name_address_of_supplier").val(data['name_address_of_supplier']); 
                    
-                    $("#qnty ").val(data['qnty']);
-                    $("#item_number").val(data['item_number']);
-                    $("#description").val(data['description']);
-                    $("#unit_price").val(data['unit_price']);
-                    $("#total").val(data['total']);
+                //     $("#qnty ").val(data['qnty']);
+                //     $("#item_number").val(data['item_number']);
+                //     $("#description").val(data['description']);
+                //     $("#unit_price").val(data['unit_price']);
+                //     $("#total").val(data['total']);
 
-                    $("#supervisor_approved").val(data['supervisor_approved']);
-                    $("#supervisor_approved_date").val(data['supervisor_approved_date']);
+                //     $("#supervisor_approved").val(data['supervisor_approved']);
+                //     $("#supervisor_approved_date").val(data['supervisor_approved_date']);
 
-                    $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
-                   $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);        
-                        }
-                        else{
-                            console.log(data['message'])
-                            window.location.href="/purchase_request_all";
+                //     $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
+                //    $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);        
+                //         }
+                //         else{
+                //             console.log(data['message'])
+                //             window.location.href="/purchase_request_all";
                 
-                        }
+                //         }
                 
-                        });
-                    }
+                //         });
+                //     }
                 
                     function sendEdit(){
-    
-                        var request_id= document.getElementById('request_id').value;
-                        var requester= document.getElementById('requester').value;
-                        var date_of_request= document.getElementById('date_of_request').value;
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                        $('#overlay').fadeIn();
+
+                        // var request_id= document.getElementById('request_id').value;
+                        // var requester= document.getElementById('requester').value;
+                        // var date_of_request= document.getElementById('date_of_request').value;
                         var requesting_dpt= document.getElementById('requesting_dpt').value;
                         var budget_line_item= document.getElementById('budget_line_item').value;
                         var request_justification= document.getElementById('request_justification').value;
@@ -189,16 +245,15 @@
                         var total=      document.getElementById('total').value;
 
                 
-                        var supervisor_approved= document.getElementById('supervisor_approved').value;
-                        var supervisor_approved_date= document.getElementById('supervisor_approved_date').value;
+                        var supervisor_approved= document.getElementById('pi').value;
+                        // var supervisor_approved_date= document.getElementById('supervisor_approved_date').value;
                 
-                        var accounts_clerk_approved= document.getElementById('accounts_clerk_approved').value;
-                        var accounts_clerk_approved_date= document.getElementById('accounts_clerk_approved_date').value;
+                        // var accounts_clerk_approved= document.getElementById('accounts_clerk_approved').value;
+                        // var accounts_clerk_approved_date= document.getElementById('accounts_clerk_approved_date').value;
       
                             current_url = window.location.href;
                             arr = current_url.split("_");
                             case_id = arr.at(-1);
-                        console.log(case_id);
                         if (case_id == "add"){
                 
                         const url = "http://localhost:8000/purchase_request_send_record";
@@ -207,10 +262,11 @@
                         // case_id = arr.at(-1);
                         // month_id =arr[arr.length - 2];
                         console.log("after url");
-                        const data = {"request_id": request_id,
-                                            "requester": requester,
+                        const data = {
+                            // "request_id": request_id,
+                            //                 "requester": requester,
                                             "requesting_dpt": requesting_dpt,
-                                            "date_of_request": date_of_request,
+                                            // "date_of_request": date_of_request,
                                             "budget_line_item": budget_line_item,
                                             "item_number":item_number,
                                             "description":description,
@@ -219,93 +275,36 @@
                                             "name_address_of_supplier":name_address_of_supplier,
 
                                             "qnty": qnty,
-                                            "case_id": case_id,
+                                            "id": case_id,
                                             "unit_price": unit_price,
                                             "total": total,
                 
                                             "supervisor_approved": supervisor_approved,
-                                            "supervisor_approved_date": supervisor_approved_date,
+                                            // "supervisor_approved_date": supervisor_approved_date,
                 
-                                            "accounts_clerk_approved": accounts_clerk_approved,
-                                            "accounts_clerk_approved_date": accounts_clerk_approved_date,
+                                            // "accounts_clerk_approved": accounts_clerk_approved,
+                                            // "accounts_clerk_approved_date": accounts_clerk_approved_date,
                 
                                            }
                 
                                 console.log("after dict");
                         $.post(url,data, function(data,status){
                         if (data['message']=="success"){
-                            console.log("success")
+                            alert("success");
+                            $('#overlay').fadeOut();
+
                             window.location.href="http://localhost:8000/purchase_request_all";
                         }else{
-                            console.log(data['message'])
+                            alert(data['message']);
+                            console,log("err")
+                            $('#overlay').fadeOut();
+
                             window.location.href="http://localhost:8000/purchase_requests_all";
                 
                         }
                 
                         });
                         // alert("stop hee");
-                    }else{
-                
-                        const url = "http://localhost:8000/purchase_request_edit_record/";
-                        // current_url = window.location.href;
-                        // arr = current_url.split("/");
-                        // case_id = arr.at(-1);
-                        // month_id =arr[arr.length - 2];
-                
-                
-                
-                        const data = {"date_of_request": date_of_request,
-                                            "payee": payee,
-                                            "purchase_type": payment_type,
-                                            "amount": amount,
-                                            "project_number": project_number,
-                
-                                            "account_code": account_code, 
-                                            "details": details,
-                                            "case_id": case_id,
-                                            // "unit_price ": unit_price,
-                                            "total": total,
-                
-                                            "certified_by": certified_by,
-                                            "certified_by_date": certified_by_date,
-                
-                                            "cleared_by_fin_man": cleared_by_fin_man,
-                                            "cleared_by_fin_man_date": cleared_by_fin_man_date,
-                
-                                            "approved_by_project_man": approved_by_project_man,
-                                            "approved_by_project_man_date": approved_by_project_man_date,
-                
-                                            "approved_by": approved_by,
-                                            "approved_by_date": approved_by_date,
-                                        };
-                
-                
-                
-                
-                        
-                      
-                
-                        $.post(url,data, function(data,status){
-                          window.location.replace("http://localhost:8000/purchase_request_view/"+case_id);
-                
-                        console.log(data);
-                        if (data['message']=="success"){
-                            alert("success");
-                            window.location.replace("http://localhost:8000/purchase_request_view/"+case_id);
-                        }else{
-                            alert(data['message']);
-                            window.location.replace("http://localhost:8000/purchase_request_view/"+case_id);
-                
-                            // window.location.href="/view_record/"+case_id;
-                
-                        }
-                
-                        });
-                
-                
-                
-                
-                
                     }
                 
                     }

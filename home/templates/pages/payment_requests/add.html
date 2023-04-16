@@ -17,7 +17,7 @@
 
             <div id="overlay">
                 <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
-                Loading...
+                
            </div>
             <!-- <div class="col-md-6">
                 <label  class="form-label">request_id:</label>
@@ -156,9 +156,9 @@
 
 
 
-
 <script  language="JavaScript" type="text/javascript">
 
+$('#dis').fadeOut();
 
 // $(window).load(function(){
 //    // PAGE IS FULLY LOADED  
@@ -166,30 +166,7 @@
 //    $('#overlay').fadeOut();
 // });
 
-// populate the users dropdown
 
-const url = "http://localhost:8000/get_users"
-                    const data = {
-                      'id':"case_id",
-                    }
-            
-                      $.post(url,data, function(data,status){
-            
-
-console.log(data)
-
-
-                        $.each(data, function(val, text) {
-                            $('#certified_by').append( new Option(text,val) );
-                        });
-
-            
-  
-    
-                        $('#overlay').fadeOut();
-
-
-        });
 
     
 
@@ -206,7 +183,37 @@ console.log(data)
                         arr = current_url.split("_");
                         case_id = arr.at(-1);
                     console.log(case_id);
-                    if (case_id == "add"){}else{
+                    if (case_id == "add"){
+
+  // populate the users dropdown
+
+  const url = "http://localhost:8000/get_users"
+                    const data = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url,data, function(data,status){
+            
+
+console.log(data)
+
+
+                        $.each(data, function(val, text) {
+                            $('#certified_by').append( new Option(text,val) );
+                        });
+
+            
+  
+                        $('#dis').fadeIn();
+
+                        $('#overlay').fadeOut();
+
+
+        });
+
+
+
+                    }else{
                     const url = "http://localhost:8000/payment_request_get_record"
                     const data = {
                       'id':case_id,
@@ -243,11 +250,13 @@ console.log(data)
 //     $("#approved_by_date").val(data['approved_by_date']);
 
             
-  
+
     
                 
         }else{
-            console.log(data['message'])
+            alert(data['message']);
+            $('#overlay').fadeOut();
+
             window.location.href="/payment_request_all";
 
         }

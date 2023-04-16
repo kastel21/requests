@@ -111,30 +111,12 @@ def purchase_request_super(request):
 
 @login_required(login_url='login')
 def purchase_request_pending(request):
-    if request.method == "POST":
-      
-      _id = request.POST.get('id',default=None)
+      username = request.user.username
 
-      record = PuchaseRequest.objects.get(id=_id)
-      context = {'record':record}
+      records = PuchaseRequest.objects.filter((Q(supervisor_approved=username) & Q (supervisor_approved_date="None")) | (Q(accounts_clerk_approved=username) & Q (accounts_clerk_approved_date="None")) )
+      context = {'records':records}
 
-      print("IN POST")
-      if record.certified_by_date == "None" and record.certified_by == request.user.username:
-         print("certified")
-         return render(request, 'pages/payment_requests/certify.html', context)
-      elif record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man == request.user.username:
-         print("cleared")
-
-         return render(request, 'pages/payment_requests/clear.html', context)
-      
-      elif record.approved_by_date == "None" and record.approved_by == request.user.username:
-         print("approved")
-
-         return render(request, 'pages/payment_requests/approve.html', context)
-
-
-    else:
-      return render(request, 'pages/payment_requests/list2.html', {})
+      return render(request, 'pages/purchase_requests/list2.html', context)
 
 @login_required(login_url='login')
 def purchase_request_approved(request):
@@ -156,8 +138,8 @@ def purchase_request_send_record(request):
     with app.app_context():
         try:
         
-          request_id= request.POST.get('request_id',default=None)
-          requester= request.POST.get('requester',default=None)
+          # request_id= request.POST.get('request_id',default=None)
+          requester= request.user.username
           date_of_request= request.POST.get('date_of_request',default=None)
           requesting_dpt= request.POST.get('requesting_dpt',default=None)
 
@@ -172,15 +154,15 @@ def purchase_request_send_record(request):
           unit_price=  request.POST.get('unit_price',default=None)
 
           supervisor_approved= request.POST.get('supervisor_approved',default=None)
-          supervisor_approved_date= request.POST.get('supervisor_approved_date',default=None)
+          # supervisor_approved_date= request.POST.get('supervisor_approved_date',default=None)
 
-          accounts_clerk_approved= request.POST.get('accounts_clerk_approved',default=None)
-          accounts_clerk_approved_date= request.POST.get('accounts_clerk_approved_date',default=None)
+          # accounts_clerk_approved= request.POST.get('accounts_clerk_approved',default=None)
+          # accounts_clerk_approved_date= request.POST.get('accounts_clerk_approved_date',default=None)
 
           record = PuchaseRequest()
 
         #   record.compiled_by = request.user.username
-          record.request_id= request_id
+          # record.request_id= request_id
           record.requester= requester
           record.date_of_request= date_of_request
           record.requesting_dpt= requesting_dpt
@@ -195,13 +177,13 @@ def purchase_request_send_record(request):
           record.description= description
           record.unit_price= unit_price
 
-          record.supervisor_approved= supervisor_approved
-          record.supervisor_approved_date= supervisor_approved_date
+          record.supervisor_approved = supervisor_approved
+          # record.supervisor_approved_date= supervisor_approved_date
 
-          record.accounts_clerk_approved= accounts_clerk_approved
-        #   d = datetime.datetime.now()
-        #   record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
-          record.accounts_clerk_approved_date= accounts_clerk_approved_date
+          # record.accounts_clerk_approved= accounts_clerk_approved
+          d = datetime.datetime.now()
+          record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+          # record.accounts_clerk_approved_date= accounts_clerk_approved_date
 
           record.save()
 
@@ -215,6 +197,7 @@ def purchase_request_send_record(request):
             return JsonResponse({'message':(str(e))})
 
 @login_required(login_url='login')
+@csrf_exempt
 def purchase_request_get_record(request):
     context={}
     if request.method == "POST":
@@ -223,36 +206,175 @@ def purchase_request_get_record(request):
         record = PuchaseRequest.objects.get(id=_id)
         dic = {
            
-        "date_of_request": record.date_of_request,
-          "payee": record.payee,
-          "payment_type": record.payment_type,
-          "amount": record.amount,
-          "project_number": record.project_number,
+                                            "requesting_dpt":record.requesting_dpt,
+                                            "date_of_request":record.date_of_request,
+                                            "budget_line_item":record.budget_line_item,
+                                            "item_number":record.item_number,
+                                            "description":record.description,
+                                            "requester":record.requester,
 
-          "account_code": record.account_code, 
-          "details ": record.details,
-          # // "amount ": record.pat_name,
-          # "unit_price ": record.unit_price,
-          "total": record.total,
+                
+                                            "request_justification":record.request_justification,
+                                            "name_address_of_supplier": record.name_address_of_supplier,
 
-          "certified_by": record.certified_by,
-          "certified_by_date": record.certified_by_date,
-
-          "cleared_by_fin_man": record.cleared_by_fin_man,
-          "cleared_by_fin_man_date": record.cleared_by_fin_man_date,
-
-          "approved_by_project_man": record.approved_by_project_man,
-          "approved_by_project_man_date": record.approved_by_project_man_date,
-
-          "approved_by": record.approved_by,
-          "approved_by_date": record.approved_by_date,
+                                            "qnty":record.qnty,
+                                            "unit_price":record.unit_price,
+                                            "total":record.total,
+                
+                                            "supervisor_approved":record.supervisor_approved,
+                                            "supervisor_approved_date": record.supervisor_approved_date,
+                
+                                            "accounts_clerk_approved": record.accounts_clerk_approved,
+                                            "accounts_clerk_approved_date": record.accounts_clerk_approved_date,
           "message":"success",
         }
+
+        print(record.supervisor_approved)
         context = {'addTabActive': True, "record":""}
         return JsonResponse(dic)
     else:
         return redirect('/payment_requests')
+    
+
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def purchase_request_pi_approve(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+      clerk = request.POST.get('clerk',default=None)
+      username = request.user.username
+        # objs = Record.objects.get(id=_id)
+      record = PuchaseRequest.objects.get(id=_id)
+      record.accounts_clerk_approved = clerk
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.supervisor_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+
+      record.save()
+
+      notice = Notifications()
+      notice.to = clerk
+      notice.message = " "+ username +" updated a Purchse Request \n and assigned you as the Accounts Clerk for you to approve."
+      notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      notice.trigger = username
+      notice.save()
+
+
+
+
+      return JsonResponse( {'message':"success"})
+    else:
+      return render(request, 'pages/purchase_requests/list.html', {})
+
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def purchase_request_clerk_approve(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+      # clerk = request.POST.get('clerk',default=None)
+      username = request.user.username
+        # objs = Record.objects.get(id=_id)
+      record = PuchaseRequest.objects.get(id=_id)
+      # record.accounts_clerk_approved = clerk
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.accounts_clerk_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+      notice = Notifications()
+      notice.to = record.requester
+      record.save()
+
+  
+      notice.message = " "+ username +" has Approved your Purchse Request."
+      notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      notice.trigger = username
+      notice.save()
+
+
+
+
+      return JsonResponse( {'message':"success"})
+    else:
+      return render(request, 'pages/purchase_requests/list.html', {})
+    
+
+
+
+
+@login_required(login_url='login')
+def purchase_request_view(request):
+      username = request.user.username
+      records = PuchaseRequest.objects.filter(Q(requester = username) | Q(supervisor_approved =username) | Q(accounts_clerk_approved = username))
+      context = {'records':records}
+
+
+      return render(request, 'pages/purchase_requests/list.html', context)
+
+
+
+@login_required(login_url="login")
+def purchase_request_open_record(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PuchaseRequest.objects.get(id=_id)
+      context = {'record':record}
+      print("IN POST")
+      return render(request, 'pages/purchase_requests/view_record.html', context)
+    else:
+       redirect("purchase_request_all")
+
+
+# make some error so this name is unique to purchase only
+
+@login_required(login_url='login')
+def purchase_request_edit_options(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PuchaseRequest.objects.get(id=_id)
+      context = {'record':record}
+      print("IN POST")
+      if record.supervisor_approved_date == "None" and record.supervisor_approved_date == request.user.username:
+         print("certified")
+         return render(request, 'pages/purchase_requests/pi.html', context)
+      
+      elif record.accounts_clerk_approved_date == "None" and record.accounts_clerk_approved == request.user.username:
+         print("cleared")
+
+         return render(request, 'pages/purchase_requests/clerk.html', context)
+      else:
+         return render(request, 'pages/comparative_schedules/not_auth.html', {})
+      
+
+    else:
+         return redirect("purchase_request_pending")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ***********************************************************************************************************************
+
 
 # ***********************************************************************************************************************
 # comparative schedule
@@ -274,11 +396,11 @@ def comp_schedule_super(request):
     context = {'form':form}
     return render(request, 'pages/payment_request.html', context)
 
-@login_required(login_url='login')
-def comp_schedule_pending(request):
-    form = ComparativeSchedule.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/payment_request.html', context)
+# @login_required(login_url='login')
+# def comp_schedule_pending(request):
+#     form = ComparativeSchedule.objects.all()
+#     context = {'form':form}
+#     return render(request, 'pages/payment_request.html', context)
 
 @login_required(login_url='login')
 def comp_schedule_approved(request):

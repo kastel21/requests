@@ -12,7 +12,10 @@
         <!-- [ sample-page ] start -->
        
         <form class="row g-3">
-
+            <div id="overlay">
+                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
+                
+           </div>
             <!-- <div class="col-md-6">
                 <label  class="form-label">request_id:</label>
                 <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly>
@@ -255,30 +258,7 @@
 
 
 
-// populate the users dropdown
 
-const url = "http://localhost:8000/get_users"
-                    const data = {
-                      'id':"case_id",
-                    }
-            
-                      $.post(url,data, function(data,status){
-            
-
-                        console.log(data)
-
-
-                        $.each(data, function(val, text) {
-                            $('#dpt_head_by').append( new Option(text,val) );
-                        });
-
-            
-  
-    
-                        $('#overlay').fadeOut();
-
-
-        });
 
 
 
@@ -346,10 +326,38 @@ const url = "http://localhost:8000/get_users"
 
                     $("#approved_by").val(data['approved_by']); 
                     $("#approved_by_sig ").val(data['approved_by_sig']);
-                    $("#approved_date").val(data['approved_date']);    
+                    $("#approved_date").val(data['approved_date']); 
+                    
+                    
+                    // populate the users dropdown
+
+const url = "http://localhost:8000/get_users"
+                    const data = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url,data, function(data,status){
+            
+
+                        console.log(data)
+
+
+                        $.each(data, function(val, text) {
+                            $('#dpt_head_by').append( new Option(text,val) );
+                        });
+
+            
+  
+    
+                        $('#overlay').fadeOut();
+
+
+        });
                         }
                         else{
-                            console.log(data['message'])
+                            alert(data['message']);
+                            $('#overlay').fadeOut();
+
                             window.location.href="/comp_schedule_all";
                         }
                         });

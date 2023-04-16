@@ -77,7 +77,7 @@
 
 
 
-
+                            {%  if records %}
                                 {% for record in records %}
 
                                 <form method="POST" action="payment_request_open_record/{{record.id}}">
@@ -99,6 +99,12 @@
 
                                 </form>
                                 {% endfor %}
+
+                                {% else %}
+<tr>
+                                <td colspan="5"><h5 style="text-align: center;margin-top: 3%;">There are no records attached to your username</h5></td>
+                            </tr>
+                                {%endif%}
 
                             </table>
 

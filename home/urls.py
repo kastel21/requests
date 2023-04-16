@@ -93,5 +93,14 @@ urlpatterns = [
     path('purchase_request_add', views.purchase_request_add, name='purchase_request_add'),
     path('purchase_request_send_record', views.purchase_request_send_record, name='purchase_request_send_record'),
 
+    re_path('purchase_request_edit_options', views.purchase_request_edit_options, name='purchase_request_edit_options'),
+
+    path('purchase_request_get_record', views.purchase_request_get_record, name='purchase_request_get_record'),
+
+    re_path('purchase_request_pi_approve', views.purchase_request_pi_approve, name='purchase_request_pi_approve'),
+    re_path('purchase_request_clerk_approve', views.purchase_request_clerk_approve, name='purchase_request_clerk_approve'),
+    re_path('purchase_request_open_record', views.purchase_request_open_record, name='purchase_request_open_record'),
+    re_path('purchase_request_view', views.purchase_request_view, name='purchase_request_view'),
+
     
 ]

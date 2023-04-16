@@ -11,10 +11,7 @@
         <!-- [ sample-page ] start -->
        
         <form class="row g-3">
-            <div id="overlay">
-                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
-                
-           </div>
+
             <!-- <div class="col-md-6">
                 <label for="fname" class="form-label">request_id:</label>
                 <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly >
@@ -100,8 +97,8 @@
 
 
            <div class="col-md-6">
-                <label for="supervisor_approved" class="form-label">Signature of PI/Supervisor:</label>
-                <input type="text" class="form-control" id="supervisor_approved" name="supervisor_approved" value="" readonly >
+                <label for="pi" class="form-label">Signature of PI/Supervisor:</label>
+                <input type="text" class="form-control" id="pi" name="pi" value="" readonly >
             </div>
 
             <div class="col-md-6">
@@ -110,15 +107,15 @@
             </div>
 
 
-<!-- 
+
             <div class="col-md-12">
                 <label for="certifier" class="form-label">Select Accounts Clerk</label>
                 <select class="form-control" name="accounts_clerk_approved" id="accounts_clerk_approved">
                 <option value="None">..</option>
 
                 </select>
-            </div> -->
- 
+            </div>
+ <!-- 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Signature of Accounts Clerk</label>
                 <input type="text" class="form-control" id="accounts_clerk_approved" name="accounts_clerk_approved" value="" readonly >
@@ -127,12 +124,12 @@
             <div class="col-md-6">
                 <label for="fname" class="form-label">Date</label>
                 <input type="text" class="form-control" id="accounts_clerk_approved_date" name="accounts_clerk_approved_date" value="" readonly >
-            </div>
+            </div> -->
 
           </form>
 
           <div class="col-md-12">
-            <a onclick="" class="btn btn-primary"> Print</a>
+            <a onclick="sendEdit();" class="btn btn-primary"> Approve</a>
 
             <script  language="JavaScript" type="text/javascript">
 
@@ -145,28 +142,28 @@
 
 // populate the users dropdown
 
-// const url = "http://localhost:8000/get_users"
-//                     const data = {
-//                       'id':"case_id",
-//                     }
+const url = "http://localhost:8000/get_users"
+                    const data = {
+                      'id':"case_id",
+                    }
             
-//                       $.post(url,data, function(data,status){
+                      $.post(url,data, function(data,status){
             
 
-// console.log(data)
+console.log(data)
 
 
-//                         $.each(data, function(val, text) {
-//                             $('#accounts_clerk_approved').append( new Option(text,val) );
-//                         });
+                        $.each(data, function(val, text) {
+                            $('#accounts_clerk_approved').append( new Option(text,val) );
+                        });
 
             
   
     
-//                         $('#overlay').fadeOut();
+                        $('#overlay').fadeOut();
 
 
-//         });
+        });
 
     
 
@@ -192,8 +189,7 @@
                             
                             if (data['message']=="success"){
                 
-                                // console.log(data);
-
+                
                 
                     $("#requester").val(data['requester']);
                     $("#date_of_request").val(data['date_of_request']);
@@ -209,17 +205,14 @@
                     $("#unit_price").val(data['unit_price']);
                     $("#total").val(data['total']);
 
-                    $("#supervisor_approved").val(data['supervisor_approved']);
+                    $("#pi").val(data['supervisor_approved']);
                     $("#supervisor_approved_date").val(data['supervisor_approved_date']);
 
-                    $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
-                   $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);   
-                   $('#overlay').fadeOut();
-     
-                }else{
-                    $('#overlay').fadeOut();
-
-                            alert(data['message']);
+                //     $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
+                //    $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);        
+                        }
+                        else{
+                            console.log(data['message'])
                             window.location.href="/purchase_request_all";
                 
                         }
@@ -228,29 +221,10 @@
                     }
                 
                     function sendEdit(){
-                        $('#overlay').fadeIn();
 
-    
-                        // var request_id= document.getElementById('request_id').value;
-                        // var requester= document.getElementById('requester').value;
-                        // var date_of_request= document.getElementById('date_of_request').value;
-                        var requesting_dpt= document.getElementById('requesting_dpt').value;
-                        var budget_line_item= document.getElementById('budget_line_item').value;
-                        var request_justification= document.getElementById('request_justification').value;
-
-                        var item_number= document.getElementById('item_number').value;
-                        var description= document.getElementById('description').value;
-                        
 
                 
-                        var name_address_of_supplier= document.getElementById('name_address_of_supplier').value; 
-                        var qnty = document.getElementById('qnty').value;
-    
-                        var unit_price = document.getElementById('unit_price').value;
-                        var total=      document.getElementById('total').value;
-
-                
-                        var supervisor_approved = document.getElementById('pi').value;
+                        // var supervisor_approved = document.getElementById('pi').value;
                         // var supervisor_approved_date= document.getElementById('supervisor_approved_date').value;
                 
                         var accounts_clerk_approved= document.getElementById('accounts_clerk_approved').value;
@@ -260,32 +234,28 @@
                             arr = current_url.split("/");
                             case_id = arr.at(-1);
                         console.log(case_id);
-                        if (case_id == "add"){
+                        if (case_id == "add"){}else{
                 
-                        const url = "http://localhost:8000/purchase_request_clerk_approve";
+                        const url = "http://localhost:8000/purchase_request_pi_approve";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
                         // month_id =arr[arr.length - 2];
                         console.log("after url");
                         const data = {
-                            // "request_id": request_id,
                                             "id": case_id,
-
+                
+                                            "clerk": accounts_clerk_approved,
                 
                                            }
                 
                                 console.log("after dict");
                         $.post(url,data, function(data,status){
                         if (data['message']=="success"){
-                            alert("success");
-                            $('#overlay').fadeOut();
-
+                            console.log("success")
                             window.location.href="http://localhost:8000/purchase_request_all";
                         }else{
-                            alert(data['message']);
-                            $('#overlay').fadeOut();
-
+                            console.log(data['message'])
                             window.location.href="http://localhost:8000/purchase_requests_all";
                 
                         }
