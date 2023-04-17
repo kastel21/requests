@@ -428,6 +428,7 @@ def comp_schedule_send_record(request):
           # request_id= request.POST.get('request_id',default=None)
           payee= request.POST.get('payee',default=None)
 
+          upload= request.POST.get('upload',default=None)
           company_name_supplier1= request.POST.get('company_name_supplier1',default=None)
           item_number_supplier1= request.POST.get('item_number_supplier1',default=None)
           desc_supplier1= request.POST.get('desc_supplier1',default=None)
@@ -479,7 +480,7 @@ def comp_schedule_send_record(request):
         #   record.compiled_by = request.user.username
           # record.request_id= request_id
           record.payee= payee
-
+          record.upload= upload
           record.company_name_supplier1= company_name_supplier1
           record.item_number_supplier1= item_number_supplier1
           record.desc_supplier1= desc_supplier1
@@ -559,8 +560,11 @@ def comp_schedule_get_record(request):
         _id = request.POST.get('id',default=None)
 
         record = ComparativeSchedule.objects.get(id=_id)
+        print(record.upload)
         dic = {
       "payee":record.payee,
+      "upload":record.upload,
+
       "message":"success",
       "company_name_supplier1":record.company_name_supplier1,
       "item_number_supplier1":record.item_number_supplier1,
@@ -607,7 +611,7 @@ def comp_schedule_get_record(request):
       "approved_by_sig":record.approved_by_sig,
       "approved_date":record.approved_date,
     }
-        return JsonResponse(dic)
+        return JsonResponse(dic, safe=False)
 
       except Exception as e:
         return JsonResponse(str(e))

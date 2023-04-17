@@ -88,7 +88,8 @@ class ComparativeSchedule(models.Model):
     recommended_supplier = models.CharField(max_length=15, default="2023")
     recommended_supplier_reason = models.CharField(max_length=150, default="None")
 
-    
+    upload = models.FileField(upload_to='documents/', default="N/A")
+
     dpt_project_requesting = models.CharField(max_length=15, default="2023")
 
     requested_by = models.CharField(max_length=30, default="None")
