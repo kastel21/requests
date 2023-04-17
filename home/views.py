@@ -19,6 +19,15 @@ app = Flask(__name__)
 
 from django.contrib.auth import views as auth_views
 
+
+from django.http import FileResponse
+import os
+ 
+def show_pdf(request):
+    filepath = os.path.join('static', 'sample.pdf')
+    return FileResponse(open(filepath, 'rb'), content_type='application/pdf')
+
+
 # Create your views here.
 @login_required(login_url='login')
 def index(request):
@@ -146,6 +155,7 @@ def purchase_request_send_record(request):
           requester= request.user.username
           date_of_request= request.POST.get('date_of_request',default=None)
           requesting_dpt= request.POST.get('requesting_dpt',default=None)
+          q1= request.FILES["q1"]
 
           request_justification= request.POST.get('request_justification',default=None) 
           name_address_of_supplier = request.POST.get('name_address_of_supplier',default=None)
@@ -170,6 +180,7 @@ def purchase_request_send_record(request):
           record.requester= requester
           record.date_of_request= date_of_request
           record.requesting_dpt= requesting_dpt
+          record.q1 = q1
 
           record.request_justification= request_justification 
           record.name_address_of_supplier = name_address_of_supplier
@@ -199,6 +210,7 @@ def purchase_request_send_record(request):
             f.close()
             print(str(e))
             return JsonResponse({'message':(str(e))})
+
 
 @login_required(login_url='login')
 @csrf_exempt

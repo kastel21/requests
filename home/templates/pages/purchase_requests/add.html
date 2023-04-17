@@ -61,12 +61,12 @@
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">QTY:</label>
-                <input type="text" class="form-control" id="qnty" name="qnty" value="">
+                <input type="number" class="form-control" id="qnty" name="qnty" value="">
             </div>
 
             <div class="col-md-6">
                 <label for="lname" class="form-label">Item No.</label>
-                <input type="text" class="form-control" id="item_number" name="item_number" value="">
+                <input type="number" class="form-control" id="item_number" name="item_number" value="">
             </div>
 
             <div class="col-md-12">
@@ -78,21 +78,36 @@
 
             <div class="col-md-6">
                 <label for="lname" class="form-label">Unit Price</label>
-                <input type="text" class="form-control" id="unit_price" name="unit_price" value="">
+                <input type="number" class="form-control" id="unit_price" name="unit_price" value="">
             </div>
             
             <div class="col-md-6">
                 <label for="fname" class="form-label">Total Price:</label>
-                <input type="text" class="form-control" id="total" name="total" value="">
+                <input type="number" class="form-control" id="total" name="total" value="">
             </div>
 
             <p></p>
 
-            <!-- <div class="col-md-6">
-                <label for="fname" class="form-label">Signature of Requestor:</label>
-                <input type="text" class="form-control" id="fname" name="fname" value="John">
+            <div class="col-md-4">
+                <label for="q1" class="form-label">Quotaion 1:</label>
+
+                <input type="file" accept="application/pdf, application/vnd.ms-excel" class="form-control" id="q1" name="q1" value="John">
             </div>
 
+            <!-- <div class="col-md-4">
+                <label for="q2" class="form-label">Quotaion 2:</label>
+                <input type="file" accept="application/pdf, application/vnd.ms-excel" class="form-control" id="q2" name="q2" value="John">
+            </div>
+
+            <div class="col-md-4">
+                <label for="q3" class="form-label">Quotaion 3:</label>
+                <input type="file" accept="application/pdf, application/vnd.ms-excel" class="form-control" id="q3" name="q3" value="John">
+            </div> -->
+
+
+
+
+<!-- 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Date:</label>
                 <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="">
@@ -228,7 +243,7 @@ console.log(data)
 
                         // var request_id= document.getElementById('request_id').value;
                         // var requester= document.getElementById('requester').value;
-                        // var date_of_request= document.getElementById('date_of_request').value;
+                        var q1= document.getElementById('q1').files[0];
                         var requesting_dpt= document.getElementById('requesting_dpt').value;
                         var budget_line_item= document.getElementById('budget_line_item').value;
                         var request_justification= document.getElementById('request_justification').value;
@@ -264,7 +279,7 @@ console.log(data)
                         console.log("after url");
                         const data = {
                             // "request_id": request_id,
-                            //                 "requester": requester,
+                                            "q1": q1,
                                             "requesting_dpt": requesting_dpt,
                                             // "date_of_request": date_of_request,
                                             "budget_line_item": budget_line_item,
