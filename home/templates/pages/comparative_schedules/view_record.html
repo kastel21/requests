@@ -16,10 +16,11 @@
                 <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
                 
            </div>
-            <!-- <div class="col-md-6">
-                <label  class="form-label">request_id:</label>
-                <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly>
-            </div> -->
+            <div class="col-md-6">
+                <a href="show_pdf/record.upload">upload {{record.upload}} </a>
+
+                <!-- <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly> -->
+            </div>
 
             <div class="col-md-12">
                 <label  class="form-label">payee:</label>
@@ -58,6 +59,11 @@
             <div class="col-md-4">
                 <label  class="form-label">Total Price:</label>
                 <input type="text" class="form-control" id="total_price_supplier1" name="total_price_supplier1" value="" readonly>
+            </div>
+
+            <div class="col-md-4">
+                <label  class="form-label">File for supplier1:</label>
+                <input type="text" class="form-control" id="upload" name="upload" value="" readonly>
             </div>
 
             <hr>
@@ -283,6 +289,7 @@
                     // $("#request_id").val(data['request_id']);
                     $("#payee").val(data['payee']);
 
+                    $("#upload").val(data['upload']);
                     $("#company_name_supplier1").val(data['company_name_supplier1']);
                     $("#item_number_supplier1").val(data['item_number_supplier1']);
                     $("#desc_supplier1").val(data['desc_supplier1']);

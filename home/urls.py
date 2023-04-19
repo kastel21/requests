@@ -1,5 +1,6 @@
 from django.urls import path,  re_path
-
+from django.conf import settings
+from django.conf.urls.static import static 
 from . import views
 from django.contrib.auth import views as auth_views
 
@@ -42,6 +43,8 @@ urlpatterns = [
     path('payment_request_add', views.payment_request_add, name='payment_request_add'),
     re_path('payment_request_view', views.payment_request_view, name='payment_request_view'),
     re_path('payment_request_open_record', views.payment_request_open_record, name='payment_request_open_record'),
+
+    re_path('show_pdf', views.show_pdf, name='show_pdf'),
 
     path('payment_request_print', views.payment_request_print, name='payment_request_print'),
     re_path('payment_request_print', views.payment_request_print, name='payment_request_print'),
@@ -103,4 +106,4 @@ urlpatterns = [
     re_path('purchase_request_view', views.purchase_request_view, name='purchase_request_view'),
 
     
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

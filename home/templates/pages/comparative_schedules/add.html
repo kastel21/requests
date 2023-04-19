@@ -141,6 +141,13 @@
                 <label  class="form-label">Department/Project requesting purchase:</label>
                 <input type="text" class="form-control" id="dpt_project_requesting" name="dpt_project_requesting" value="">
             </div>
+            
+            <div class="col-md-12">
+                <label  class="form-label">Upload file</label>
+                <input type="file" class="form-control" id="upload" value="" name="upload" accept=".doc, .docx, .pdf, .txt">
+            </div>
+
+            
 
             <hr>
 <!-- 
@@ -284,6 +291,7 @@ console.log(data)
                     // $("#request_id").val(data['request_id']);
                     $("#payee").val(data['payee']);
 
+                    $("#upload").val(data['upload']);
                     $("#company_name_supplier1").val(data['company_name_supplier1']);
                     $("#item_number_supplier1").val(data['item_number_supplier1']);
                     $("#desc_supplier1").val(data['desc_supplier1']);
@@ -341,7 +349,8 @@ console.log(data)
 
                         // var request_id= document.getElementById('request_id').value;
                         var payee= document.getElementById('payee').value;
-
+                        
+                        var upload= document.getElementById('upload').value;
                         var company_name_supplier1= document.getElementById('company_name_supplier1').value;
                         var item_number_supplier1= document.getElementById('item_number_supplier1').value;
                         var desc_supplier1= document.getElementById('desc_supplier1').value;
@@ -402,7 +411,7 @@ console.log(data)
                         const data = {
                             // "request_id": request_id,
                                             "payee": payee,
-
+                                            "upload": upload,
                                             "company_name_supplier1": company_name_supplier1,
                                             "item_number_supplier1": item_number_supplier1,
                                             "desc_supplier1": desc_supplier1,
@@ -476,6 +485,7 @@ console.log(data)
                             // "request_id": request_id,
                                             "payee": payee,
 
+                                            "upload": upload,
                                             "company_name_supplier1": company_name_supplier1,
                                             "item_number_supplier1": item_number_supplier1,
                                             "desc_supplier1": desc_supplier1,
