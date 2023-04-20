@@ -93,14 +93,14 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'request',
-        'USER': 'admin',
-        'PASSWORD': 'p@s3w0rd?1995',
-        'HOST': 'lorkas.co.zw',
-        'PORT': '3306',
-    },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'requests',
+    #     'USER': 'admin',
+    #     'PASSWORD': 'p@s3w0rd?1995',
+    #     'HOST': 'lorkas.co.zw',
+    #     'PORT': '3306',
+    # },
 
     'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
