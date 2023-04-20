@@ -14,6 +14,8 @@ class PuchaseRequest(models.Model):
     budget_line_item = models.CharField(max_length=150, default="None")
    
     qnty = models.CharField(max_length=150, default="None")
+    q1 = models.FileField(default="None")
+
     item_number = models.CharField(max_length=150, default="None")
     description = models.CharField(max_length=150, default="None")
     unit_price = models.CharField(max_length=150, default="None")
@@ -26,6 +28,13 @@ class PuchaseRequest(models.Model):
 
 
 
+class PuchaseRequestQuote(models.Model):
+    request_id = models.CharField(max_length=255, blank=True)
+    quote = models.FileField(upload_to='documents/')
+
+class PuchaseRequestQuotation(models.Model):
+    request_id = models.CharField(max_length=255, blank=True)
+    quote_path = models.CharField(max_length=500,default=".")
 
 class PaymentRequest(models.Model):
     request_id = models.CharField(max_length=30, default="None")

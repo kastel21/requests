@@ -6,7 +6,10 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
+
     path('', views.index, name='index'),
+        path('', views.index, name='index'),
+
         path('typography/', views.typography, name='typography'),
     path('color/', views.color, name='color'),
     path('icon-tabler/', views.icon_tabler, name='icon_tabler'),
@@ -43,6 +46,8 @@ urlpatterns = [
     path('payment_request_add', views.payment_request_add, name='payment_request_add'),
     re_path('payment_request_view', views.payment_request_view, name='payment_request_view'),
     re_path('payment_request_open_record', views.payment_request_open_record, name='payment_request_open_record'),
+
+    re_path('show_pdf', views.show_pdf, name='show_pdf'),
 
     path('payment_request_print', views.payment_request_print, name='payment_request_print'),
     re_path('payment_request_print', views.payment_request_print, name='payment_request_print'),
@@ -93,6 +98,8 @@ urlpatterns = [
     path('purchase_request_super', views.purchase_request_super, name='purchase_request_super'),
     path('purchase_request_add', views.purchase_request_add, name='purchase_request_add'),
     path('purchase_request_send_record', views.purchase_request_send_record, name='purchase_request_send_record'),
+
+    re_path('purchase_request_quote_upload', views.purchase_request_quote_upload, name='purchase_request_quote_upload'),
 
     re_path('purchase_request_edit_options', views.purchase_request_edit_options, name='purchase_request_edit_options'),
 

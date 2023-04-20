@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
+from .forms import *
 from django.shortcuts import render, redirect
 from admin_berry.forms import LoginForm, RegistrationForm, UserPasswordResetForm, UserSetPasswordForm, UserPasswordChangeForm
 from django.contrib.auth import logout
@@ -18,6 +19,16 @@ from django.contrib.auth.decorators import login_required
 app = Flask(__name__)
 
 from django.contrib.auth import views as auth_views
+
+
+from django.http import FileResponse
+import os
+ 
+def show_pdf(request):
+    print(request.path)
+    filepath="C:\\fakepath\\2022 PRICE LIST (1).pdf"
+    return FileResponse(open(filepath, 'rb'), content_type='application/pdf')
+
 
 # Create your views here.
 @login_required(login_url='login')
@@ -95,6 +106,44 @@ def user_logout_view(request):
     
 # *************************************************************************************************************************
 # purchase request
+
+
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
+def purchase_request_quote_upload(request):
+    if request.method == 'POST' and request.FILES['quote']:
+        myfile = request.FILES['quote']
+        request_id = request.POST.get('request_id')
+        
+        fs = FileSystemStorage()
+        filename = fs.save("uploads/"+myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        record = PuchaseRequestQuotation()
+        record.request_id = request_id
+        record.quote_path = uploaded_file_url
+        record.save()
+
+    #     return render(request, 'core/simple_upload.html', {'uploaded_file_url': uploaded_file_url})
+    # return render(request, 'core/simple_upload.html')
+        return redirect('/purchase_request')
+    else:
+          return render(request, 'pages/purchase_requests/upload_quote.html')
+
+
+
+    # if request.method == 'POST':
+    #     form = PuchaseRequestQuoteForm(request.POST, request.FILES)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('purchase_request_all')
+    # else:
+    #     form = PuchaseRequestQuoteForm()
+    # return render(request, 'purchase_requests/upload_quote.html', {'form': form})
+
+
+
+
 @login_required(login_url='login')
 def purchase_request(request):
     form = PuchaseRequest.objects.all()
@@ -146,6 +195,7 @@ def purchase_request_send_record(request):
           requester= request.user.username
           date_of_request= request.POST.get('date_of_request',default=None)
           requesting_dpt= request.POST.get('requesting_dpt',default=None)
+          # q1= request.FILES["q1"]
 
           request_justification= request.POST.get('request_justification',default=None) 
           name_address_of_supplier = request.POST.get('name_address_of_supplier',default=None)
@@ -170,6 +220,7 @@ def purchase_request_send_record(request):
           record.requester= requester
           record.date_of_request= date_of_request
           record.requesting_dpt= requesting_dpt
+          # record.q1 = q1
 
           record.request_justification= request_justification 
           record.name_address_of_supplier = name_address_of_supplier
@@ -188,10 +239,11 @@ def purchase_request_send_record(request):
           d = datetime.datetime.now()
           record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
           # record.accounts_clerk_approved_date= accounts_clerk_approved_date
-
+          
           record.save()
-
-          return JsonResponse( {'message':"success"})
+       
+          _id = record.pk
+          return JsonResponse( {'message':"success",'id':_id})
 
         except Exception as e  :
             f= open("service1.txt","w")
@@ -200,16 +252,23 @@ def purchase_request_send_record(request):
             print(str(e))
             return JsonResponse({'message':(str(e))})
 
+
 @login_required(login_url='login')
 @csrf_exempt
 def purchase_request_get_record(request):
     context={}
     if request.method == "POST":
         _id = request.POST.get('id',default=None)
+        pdf = PuchaseRequestQuotation.objects.get(id=2)
 
+        try:
+          pdf = PuchaseRequestQuotation.objects.get(request_id=_id)
+        except:
+          pass
         record = PuchaseRequest.objects.get(id=_id)
+
         dic = {
-           
+                                            "pdf":pdf.quote_path,
                                             "requesting_dpt":record.requesting_dpt,
                                             "date_of_request":record.date_of_request,
                                             "budget_line_item":record.budget_line_item,
@@ -424,13 +483,18 @@ def comp_schedule_add(request):
 def comp_schedule_send_record(request):
 
     with app.app_context():
-        try:
+        # try:
           import os
           app.config['UPLOAD_FOLDER'] = "/uploads"
           # request_id= request.POST.get('request_id',default=None)
           payee= request.POST.get('payee',default=None)
 
-          upload= request.FILE['upload']
+          for filename in  request.FILES.items():
+            name = request.FILES[filename].name
+            print(name)
+
+          upload= request.FILES['upload']
+          print(upload)
           filename = upload.filename
           upload.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
@@ -485,7 +549,7 @@ def comp_schedule_send_record(request):
         #   record.compiled_by = request.user.username
           # record.request_id= request_id
           record.payee= payee
-          record.upload_name= upload
+          record.upload_name= filename
           record.company_name_supplier1= company_name_supplier1
           record.item_number_supplier1= item_number_supplier1
           record.desc_supplier1= desc_supplier1
@@ -550,11 +614,11 @@ def comp_schedule_send_record(request):
 
           return JsonResponse( {'message':"success"})
 
-        except Exception as e  :
-            f= open("service2.txt","w")
-            f.write(str(e))
-            f.close()
-            return JsonResponse({'message':"failed"})
+        # except Exception as e  :
+        #     f= open("service2.txt","w")
+        #     f.write(str(e))
+        #     f.close()
+        #     return JsonResponse({'message':"failed"})
 
 @login_required(login_url='login')
 @csrf_exempt

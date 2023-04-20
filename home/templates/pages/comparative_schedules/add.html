@@ -34,7 +34,7 @@
 
             <div class="col-md-6">
                 <label  class="form-label">Item No. (Supplier 1):</label>
-                <input type="text" class="form-control" id="item_number_supplier1" name="item_number_supplier1" value="">
+                <input type="number" class="form-control" id="item_number_supplier1" name="item_number_supplier1" value="">
             </div>
 
             <div class="col-md-12">
@@ -44,17 +44,17 @@
 
             <div class="col-md-4">
                 <label  class="form-label">Qty:</label>
-                <input type="text" class="form-control" id="qnty_supplier1" name="qnty_supplier1" value="">
+                <input type="number" class="form-control" id="qnty_supplier1" name="qnty_supplier1" value="">
             </div>
             
             <div class="col-md-4">
                 <label  class="form-label">Unit Price:</label>
-                <input type="text" class="form-control" id="unit_price_supplier1" name="unit_price_supplier1" value="">
+                <input type="number" class="form-control" id="unit_price_supplier1" name="unit_price_supplier1" value="">
             </div>
 
             <div class="col-md-4">
                 <label  class="form-label">Total Price:</label>
-                <input type="text" class="form-control" id="total_price_supplier1" name="total_price_supplier1" value="">
+                <input type="number" class="form-control" id="total_price_supplier1" name="total_price_supplier1" value="">
             </div>
 
             <hr>
@@ -67,7 +67,7 @@
 
             <div class="col-md-6">
                 <label  class="form-label">Item No. (supplier 2):</label>
-                <input type="text" class="form-control" id="item_number_supplier2" name="item_number_supplier2" value="">
+                <input type="number" class="form-control" id="item_number_supplier2" name="item_number_supplier2" value="">
             </div>
 
             <div class="col-md-12">
@@ -77,17 +77,17 @@
 
             <div class="col-md-4">
                 <label  class="form-label">Qty:</label>
-                <input type="text" class="form-control" id="qnty_supplier2" name="qnty_supplier2" value="">
+                <input type="number" class="form-control" id="qnty_supplier2" name="qnty_supplier2" value="">
             </div>
             
             <div class="col-md-4">
                 <label  class="form-label">Unit price:</label>
-                <input type="text" class="form-control" id="unit_price_supplier2" name="unit_price_supplier2" value="">
+                <input type="number" class="form-control" id="unit_price_supplier2" name="unit_price_supplier2" value="">
             </div>
 
             <div class="col-md-4">
                 <label  class="form-label">Total Price:</label>
-                <input type="text" class="form-control" id="total_price_supplier2" name="total_price_supplier2" value="">
+                <input type="number" class="form-control" id="total_price_supplier2" name="total_price_supplier2" value="">
             </div>
 
             <hr>
@@ -110,17 +110,17 @@
 
             <div class="col-md-4">
                 <label  class="form-label">Qty:</label>
-                <input type="text" class="form-control" id="qnty_supplier3" name="qnty_supplier3" value="">
+                <input type="number" class="form-control" id="qnty_supplier3" name="qnty_supplier3" value="">
             </div>
 
             <div class="col-md-4">
                 <label  class="form-label">Unit Price:</label>
-                <input type="text" class="form-control" id="unit_price_supplier3" name="unit_price_supplier3" value="">
+                <input type="number" class="form-control" id="unit_price_supplier3" name="unit_price_supplier3" value="">
             </div>
 
             <div class="col-md-4">
                 <label  class="form-label">Total Price:</label>
-                <input type="text" class="form-control" id="total_price_supplier3" name="total_price_supplier3" value="">
+                <input type="number" class="form-control" id="total_price_supplier3" name="total_price_supplier3" value="">
             </div>
             
             <hr>
@@ -247,7 +247,7 @@
 
 // populate the users dropdown
 
-const url = "http://lorkas.co.zw:8000/get_users"
+const url = "http://localhost:8000/get_users"
                     const data = {
                       'id':"case_id",
                     }
@@ -279,7 +279,7 @@ console.log(data)
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "http://lorkas.co.zw:8000/comp_schedule_get_record"
+                                    const url = "http://localhost:8000/comp_schedule_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -350,7 +350,7 @@ console.log(data)
                         // var request_id= document.getElementById('request_id').value;
                         var payee= document.getElementById('payee').value;
                         
-                        var upload= document.getElementById('upload').value;
+                        var upload= document.getElementById('upload').files[0];
                         var company_name_supplier1= document.getElementById('company_name_supplier1').value;
                         var item_number_supplier1= document.getElementById('item_number_supplier1').value;
                         var desc_supplier1= document.getElementById('desc_supplier1').value;
@@ -402,7 +402,7 @@ console.log(data)
                         console.log(case_id);
                         if (case_id == "add"){
                 
-                        const url = "http://lorkas.co.zw:8000/comp_schedule_send_record";
+                        const url = "http://localhost:8000/comp_schedule_send_record";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -462,10 +462,10 @@ console.log(data)
                         $.post(url,data, function(data,status){
                         if (data['message']=="success"){
                             console.log("success")
-                            window.location.href="http://lorkas.co.zw:8000/comp_schedule_all";
+                            window.location.href="http://localhost:8000/comp_schedule_all";
                         }else{
                             console.log(data['message'])
-                            window.location.href="http://lorkas.co.zw:8000/comp_schedule_all";
+                            window.location.href="http://localhost:8000/comp_schedule_all";
                 
                         }
                 
@@ -473,7 +473,7 @@ console.log(data)
                         // alert("stop hee");
                     }else{
                 
-                        const url = "http://lorkas.co.zw:8000/purchase_request_edit_record/";
+                        const url = "http://localhost:8000/purchase_request_edit_record/";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -539,15 +539,15 @@ console.log(data)
                       
                 
                         $.post(url,data, function(data,status){
-                          window.location.replace("http://lorkas.co.zw:8000/comp_schedule_view/"+case_id);
+                          window.location.replace("http://localhost:8000/comp_schedule_view/"+case_id);
                 
                         console.log(data);
                         if (data['message']=="success"){
                             alert("success");
-                            window.location.replace("http://lorkas.co.zw:8000/comp_schedule_view/"+case_id);
+                            window.location.replace("http://localhost:8000/comp_schedule_view/"+case_id);
                         }else{
                             alert(data['message']);
-                            window.location.replace("http://lorkas.co.zw:8000/comp_schedule_view/"+case_id);
+                            window.location.replace("http://localhost:8000/comp_schedule_view/"+case_id);
                 
                             // window.location.href="/view_record/"+case_id;
                 
