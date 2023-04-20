@@ -118,6 +118,11 @@
 
              <hr>
 
+             <div class="col-md-12">
+                <label for="certifier" class="form-label">Quotation</label>
+                <a id="quotation" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+
+            </div>
 
 <!-- 
              <div class="col-md-12">
@@ -207,6 +212,8 @@
     // $("#amount ").val(data['pat_name']);
      $("#qnty").val(data['qnty']);
     $("#total").val(data['total']);
+    $('#quotation').attr('href',data['pdf']);
+
     $("#compiled_by").val(data['compiled_by']);
      $("#compiled_by_date").val(data['compiled_by_date']);
     $("#certified_by").val(data['certified_by']);

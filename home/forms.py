@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, UsernameField, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import User
+from .models import *
 from django.utils.translation import gettext_lazy as _
 
 
@@ -35,7 +36,11 @@ class RegistrationForm(UserCreationForm):
         })
         }
 
-
+class PuchaseRequestQuoteForm(forms.ModelForm):
+    class Meta:
+        model = PuchaseRequestQuote
+        fields = ('request_id', 'quote', )
+        
 class LoginForm(AuthenticationForm):
     username = UsernameField(widget=forms.TextInput(attrs={
         "class": "form-control",

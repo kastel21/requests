@@ -117,6 +117,11 @@
 
             <hr>
 
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Quotation</label>
+                <a id="quotation" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+
+            </div>
             <!-- <div class="col-md-12">
                 <label  class="form-label">Cleared by Finance Manager:</label>
                 <input type="text" class="form-control" id="cleared_by_fin_man" name="cleared_by_fin_man" value="" readonly>
@@ -197,6 +202,8 @@
 
 
     // $("#date_of_request").val(data['date_of_request']);
+    $('#quotation').attr('href',data['pdf']);
+
     $("#payee").val(data['payee']);
     $("#payment_type").val(data['payment_type']);
     $("#amount").val(data['amount']);

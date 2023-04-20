@@ -281,7 +281,7 @@
 
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "http://lorkas.co.zw:8000/comp_schedule_get_record"
+                                    const url = "http://localhost:8000/comp_schedule_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -342,7 +342,7 @@
                     
                     // populate the users dropdown
 
-const url = "http://lorkas.co.zw:8000/get_users"
+const url = "http://localhost:8000/get_users"
                     const data1 = {
                       'id':"case_id",
                     }
@@ -390,7 +390,7 @@ const url = "http://lorkas.co.zw:8000/get_users"
             case_id = arr.at(-1);
             console.log(case_id);
 
-        const url = "http://lorkas.co.zw:8000/comp_schedule_approve_pi";
+        const url = "http://localhost:8000/comp_schedule_approve_pi";
         const data={
                 // "lead":document.getElementById('team_lead_by').value,
                 // "pi":document.getElementById('approved_by').value,
@@ -401,10 +401,10 @@ const url = "http://lorkas.co.zw:8000/get_users"
         $.post(url,data, function(data,status){
         if (data['message']=="success"){
             console.log("success")
-            window.location.href="http://lorkas.co.zw:8000/comp_schedule_all";
+            window.location.href="http://localhost:8000/comp_schedule_all";
         }else{
             console.log(data['message'])
-            window.location.href="http://lorkas.co.zw:8000/comp_schedule_all";
+            window.location.href="http://localhost:8000/comp_schedule_all";
 
         }
 

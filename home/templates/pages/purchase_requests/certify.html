@@ -103,6 +103,13 @@
                 <label  class="form-label">Signed:</label>
                 <input type="text" class="form-control" id="compiled_by" name="compiled_by" value="" readonly>
             </div>
+
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Quotation</label>
+                <a id="quotation" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+
+            </div>
+
             <div class="col-md-12">
                 <label for="cleared_by" class="form-label">Select Clearing Finance </label>
                 <select class="form-control" name="cleared_by" id="cleared_by">
@@ -110,6 +117,7 @@
 
                 </select>
             </div>
+
 
 
             <!-- <hr>
@@ -213,6 +221,8 @@ const url = "http://localhost:8000/get_users"
 
 
     // $("#date_of_request").val(data['date_of_request']);
+    $('#quotation').attr('href',data['pdf']);
+
     $("#payee").val(data['payee']);
     $("#payment_type").val(data['payment_type']);
     $("#amount").val(data['amount']);

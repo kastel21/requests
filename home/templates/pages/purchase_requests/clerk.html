@@ -129,6 +129,14 @@
                 <input type="text" class="form-control" id="accounts_clerk_approved_date" name="accounts_clerk_approved_date" value="" readonly >
             </div>
 
+
+
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Quotation</label>
+                <a id="quotation" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+
+            </div>
+
           </form>
 
           <div class="col-md-12">
@@ -193,7 +201,8 @@
                             if (data['message']=="success"){
                 
                             console.log(data)
-                
+                                    $('#quotation').attr('href',data['pdf']);
+
                     $("#requester").val(data['requester']);
                     $("#date_of_request").val(data['date_of_request']);
                     $("#requesting_dpt").val(data['requesting_dpt']);

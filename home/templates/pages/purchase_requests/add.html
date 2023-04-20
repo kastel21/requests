@@ -243,7 +243,7 @@ console.log(data)
 
                         // var request_id= document.getElementById('request_id').value;
                         // var requester= document.getElementById('requester').value;
-                        var q1= document.getElementById('q1').files[0];
+                        // var q1= document.getElementById('q1').files[0];
                         var requesting_dpt= document.getElementById('requesting_dpt').value;
                         var budget_line_item= document.getElementById('budget_line_item').value;
                         var request_justification= document.getElementById('request_justification').value;
@@ -279,7 +279,7 @@ console.log(data)
                         console.log("after url");
                         const data = {
                             // "request_id": request_id,
-                                            "q1": q1,
+                                            // "q1": q1,
                                             "requesting_dpt": requesting_dpt,
                                             // "date_of_request": date_of_request,
                                             "budget_line_item": budget_line_item,
@@ -308,7 +308,7 @@ console.log(data)
                             alert("success");
                             $('#overlay').fadeOut();
 
-                            window.location.href="http://localhost:8000/purchase_request_all";
+                            window.location.href="http://localhost:8000/purchase_request_quote_upload/"+data['id'];
                         }else{
                             alert(data['message']);
                             console,log("err")

@@ -110,14 +110,10 @@
             </div>
 
 
-<!-- 
             <div class="col-md-12">
-                <label for="certifier" class="form-label">Select Accounts Clerk</label>
-                <select class="form-control" name="accounts_clerk_approved" id="accounts_clerk_approved">
-                <option value="None">..</option>
-
-                </select>
-            </div> -->
+                <label for="certifier" class="form-label">Quotation</label>
+                <a id="quotation" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+            </div>
  
             <div class="col-md-6">
                 <label for="fname" class="form-label">Signature of Accounts Clerk</label>
@@ -202,7 +198,9 @@
                     $("#request_justification").val(data['request_justification']);
     
                     $("#name_address_of_supplier").val(data['name_address_of_supplier']); 
-                   
+                    // $("#quotation").val(data['pdf']); 
+                    $('#quotation').attr('href',data['pdf']);
+
                     $("#qnty").val(data['qnty']);
                     $("#item_number").val(data['item_number']);
                     $("#description").val(data['description']);

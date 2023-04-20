@@ -28,6 +28,13 @@ class PuchaseRequest(models.Model):
 
 
 
+class PuchaseRequestQuote(models.Model):
+    request_id = models.CharField(max_length=255, blank=True)
+    quote = models.FileField(upload_to='documents/')
+
+class PuchaseRequestQuotation(models.Model):
+    request_id = models.CharField(max_length=255, blank=True)
+    quote_path = models.CharField(max_length=500,default=".")
 
 class PaymentRequest(models.Model):
     request_id = models.CharField(max_length=30, default="None")
