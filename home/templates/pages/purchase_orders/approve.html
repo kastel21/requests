@@ -78,11 +78,6 @@
                 <input type="text" class="form-control" id="total" name="total" value="" readonly>
             </div>
 
-            <div class="col-md-12">
-                <label for="certifier" class="form-label">Quotation</label>
-                <a id="quotation" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
-            </div>
-
             <hr>
 
             <div class="col-md-6">
@@ -123,6 +118,11 @@
 
              <hr>
 
+             <div class="col-md-12">
+                <label for="certifier" class="form-label">Quotation</label>
+                <a id="quotation" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+
+            </div>
 
 <!-- 
              <div class="col-md-12">
@@ -143,24 +143,23 @@
                 <input type="text" class="form-control" id="approved_by_project_man_date" name="approved_by_project_man_date" value="">
             </div> -->
             
-            <hr>
+            <!-- <hr>
 
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <label  class="form-label">Approved By:</label>
-                <input type="text" class="form-control" id="approved_by" name="approved_by" value="" readonly>
-            </div> 
+                <input type="text" class="form-control" id="approved_by" name="approved_by" value="">
+            </div> -->
 
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
                 <label  class="form-label">Date:</label>
-                <input type="text" class="form-control" id="approved_by_date" name="approved_by_date" value="" readonly>
-            </div>
+                <input type="text" class="form-control" id="approved_by_date" name="approved_by_date" value="">
+            </div> -->
 
-            <hr>
+            <!-- <hr> -->
           </form> 
 
             <div style="margin-top: 2%;" class="col-md-12">
-                <!-- <a onclick="edit()" class="btn btn-primary"> Edit Record</a> -->
-                <a onclick="print();" id="approve" class="btn btn-primary"> Print </a>
+                <a onclick="sendEdit();" id="approve" class="btn btn-primary"> Approve </a>
             </div>
 
 
@@ -173,23 +172,7 @@
 
 
 
-// populate the users dropdown
 
-const url = "http://localhost:8000/get_users"
-                    const data = {
-                      'id':"case_id",
-                    }
-            
-                      $.post(url,data, function(data,status){
-            
-
-                        console.log(data)
-
-                        $.each(data, function(val, text) {
-                            $('#approved_by').append( new Option(text,val) );
-                        });
-
-        });
 
     
 
@@ -216,7 +199,7 @@ const url = "http://localhost:8000/get_users"
             
             if (data['message']=="success"){
 
-    console.log(data)
+
 
     // $("#date_of_request").val(data['date_of_request']);
     $("#payee").val(data['payee']);
@@ -224,13 +207,13 @@ const url = "http://localhost:8000/get_users"
     $("#amount").val(data['amount']);
     $("#project_number").val(data['project_number']);
    
-    $('#quotation').attr('href',data['pdf']);
-
     $("#account_code").val(data['account_code']); 
     $("#details").val(data['details']);
     // $("#amount ").val(data['pat_name']);
      $("#qnty").val(data['qnty']);
     $("#total").val(data['total']);
+    $('#quotation').attr('href',data['pdf']);
+
     $("#compiled_by").val(data['compiled_by']);
      $("#compiled_by_date").val(data['compiled_by_date']);
     $("#certified_by").val(data['certified_by']);
@@ -242,11 +225,28 @@ const url = "http://localhost:8000/get_users"
 //     $("#approved_by_project_man").val(data['approved_by_project_man']);
 //     $("#approved_by_project_man_date").val(data['approved_by_project_man_date']);
 
-   $("#approved_by").val(data['approved_by']);
-    $("#approved_by_date").val(data['approved_by_date']);
+//    $("#approved_by").val(data['approved_by']);
+//     $("#approved_by_date").val(data['approved_by_date']);
 
-    $('#overlay').fadeOut();
+            // populate the users dropdown
 
+const url = "http://localhost:8000/get_users"
+                    const data1 = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url,data1, function(data1,status){
+            
+
+                        console.log(data1)
+
+                        $.each(data1, function(val, text) {
+                            $('#approved_by').append( new Option(text,val) );
+                        });
+                        $('#overlay').fadeOut();
+
+
+        });
   
     
                 
@@ -264,32 +264,13 @@ const url = "http://localhost:8000/get_users"
 
 
 
-    function print(){
 
-current_url = window.location.href;
-                    arr = current_url.split("/");
-                    case_id = arr.at(-1);
-
-window.location.href="http://localhost:8000/payment_request_print/"+case_id;
-
-
-
-}
-
-function edit(){
-
-current_url = window.location.href;
-                    arr = current_url.split("/");
-                    case_id = arr.at(-1);
-window.location.href="http://localhost:8000/payment_request_view/"+case_id;
-
-
-
-}
 
 
     function sendEdit(){
-        $('#approve').prop('disabled', true);
+        $('#overlay').fadeIn();
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
 
 
             current_url = window.location.href;
@@ -305,18 +286,20 @@ window.location.href="http://localhost:8000/payment_request_view/"+case_id;
             }
         $.post(url,data, function(data,status){
         if (data['message']=="success"){
-            console.log("success")
+            $('#overlay').fadeOut();
+
+            alert("success");
             window.location.href="http://localhost:8000/payment_request_all";
         }else{
-            console.log(data['message'])
+            alert(data['message']);
+            $('#overlay').fadeOut();
+
             window.location.href="http://localhost:8000/payment_request_all";
 
         }
 
         });
         // alert("stop hee");
-
-
 
     }
 

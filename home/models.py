@@ -26,6 +26,30 @@ class PuchaseRequest(models.Model):
     accounts_clerk_approved= models.CharField(max_length=150, default="None")
     accounts_clerk_approved_date= models.CharField(max_length=150, default="None")
 
+class PurchaseOrder(models.Model):
+    name = models.CharField(max_length=30, default="None")
+    contact_person = models.CharField(max_length=30, default="None")
+    contact_number = models.CharField(max_length=25, default="2023")
+    address = models.CharField(max_length=150, default="None")
+    project = models.CharField(max_length=450, default="None")
+    date = models.CharField(max_length=550, default="None")
+    budget_line_item = models.CharField(max_length=150, default="None")
+   
+    item = models.CharField(max_length=150, default="None")
+    dept = models.FileField(default="None")
+    quantity = models.CharField(max_length=150, default="None")
+    description = models.CharField(max_length=150, default="None")
+    unit_cost = models.CharField(max_length=150, default="None")
+    total_cost = models.CharField(max_length=150, default="None")
+   
+    ordered_by = models.CharField(max_length=150, default="None")
+    ordered_by_date= models.CharField(max_length=150, default="None")
+    
+    required_by= models.CharField(max_length=150, default="None")
+    required_by_date= models.CharField(max_length=150, default="None")
+
+    approved_by= models.CharField(max_length=150, default="None")
+    approved_by= models.CharField(max_length=150, default="None")
 
 
 class PuchaseRequestQuote(models.Model):
@@ -62,6 +86,14 @@ class PaymentRequest(models.Model):
 
     approved_by= models.CharField(max_length=150, default="None")
     approved_by_date= models.CharField(max_length=25, default="None")
+
+# class PaymentRequest(models.Model):
+#     request_id = models.CharField(max_length=255, blank=True)
+#     quote = models.FileField(upload_to='documents/', default="N/A")
+
+class PaymentRequestQuotation(models.Model):
+    request_id = models.CharField(max_length=255, blank=True)
+    quote_path = models.CharField(max_length=500, default=".")
 
 
 class ComparativeSchedule(models.Model):

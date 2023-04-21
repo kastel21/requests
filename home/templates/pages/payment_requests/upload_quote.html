@@ -78,11 +78,6 @@
                 <input type="text" class="form-control" id="total" name="total" value="" readonly>
             </div>
 
-            <div class="col-md-12">
-                <label for="certifier" class="form-label">Quotation</label>
-                <a id="quotation" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
-            </div>
-
             <hr>
 
             <div class="col-md-6">
@@ -158,10 +153,26 @@
             <hr>
           </form> 
 
-            <div style="margin-top: 2%;" class="col-md-12">
+          <form action="{% url 'payment_request_quote_upload' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="col-md-6">
+          <label for="fname" class="form-label">Request ID</label>
+          <input style="display:none;" type="text" value="" id="request_id" name="request_id" readonly >
+          </div>
+
+          <div class="col-md-6">
+              <label for="quote" class="form-label">Attach Quotation</label>
+          <input type="file"  value="" id="quote" name="quote" accept="pdf"/>
+              </div>
+          <input type="submit" value="Submit" class="form-control" /> 
+
+    </form>
+
+            <!-- <div style="margin-top: 2%;" class="col-md-12"> -->
                 <!-- <a onclick="edit()" class="btn btn-primary"> Edit Record</a> -->
-                <a onclick="print();" id="approve" class="btn btn-primary"> Print </a>
-            </div>
+                <!-- <a onclick="print();" id="approve" class="btn btn-primary"> Print </a>
+            </div> -->
 
 
 
@@ -224,8 +235,6 @@ const url = "http://localhost:8000/get_users"
     $("#amount").val(data['amount']);
     $("#project_number").val(data['project_number']);
    
-    $('#quotation').attr('href',data['pdf']);
-
     $("#account_code").val(data['account_code']); 
     $("#details").val(data['details']);
     // $("#amount ").val(data['pat_name']);

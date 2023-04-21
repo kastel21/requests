@@ -1,0 +1,328 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock title %}
+{% block content %}
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    <div class="pc-content">
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+       
+        <form class="row g-3">
+            <div id="overlay">
+                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
+                
+           </div>
+            <!-- <div class="col-md-6">
+                <label for="fname" class="form-label">request_id:</label>
+                <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Requestor:</label>
+                <input type="text" class="form-control" id="requester" name="requester" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Date:</label>
+                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="" readonly >
+            </div>
+            <p></p> -->
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Requesting Department:</label>
+                <input type="text" class="form-control" id="requesting_dpt" name="requesting_dpt" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Budget Line Item (Where applicable):</label>
+                <input type="text" class="form-control" id="budget_line_item" name="budget_line_item" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="lname" class="form-label">Request Justification:</label>
+                <input type="text" class="form-control" id="request_justification" name="request_justification" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Name and address of Supplier:</label>
+                <input type="text" class="form-control" id="name_address_of_supplier" name="name_address_of_supplier" value="" readonly >
+            </div>
+
+            <p></p>
+
+            <center><p style="color:red;">Purchase Request Must be Approved by the DH/PI before a purchase Order is to be issued.</p></center>
+
+            <p></p>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">QTY:</label>
+                <input type="text" class="form-control" id="qnty" name="qnty" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="lname" class="form-label">Item No.</label>
+                <input type="text" class="form-control" id="item_number" name="item_number" value="" readonly >
+            </div>
+
+            <div class="col-md-12">
+                <label for="fname" class="form-label">Description of item to be purchased:</label>
+                <textarea type="text" class="form-control" id="description" name="description" value="" readonly ></textarea>
+            </div>
+
+            <p></p>
+
+            <div class="col-md-6">
+                <label for="lname" class="form-label">Unit Price</label>
+                <input type="text" class="form-control" id="unit_price" name="unit_price" value="" readonly >
+            </div>
+            
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Total Price:</label>
+                <input type="text" class="form-control" id="total" name="total" value="" readonly >
+            </div>
+
+            <p></p>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Signature of Requestor:</label>
+                <input type="text" class="form-control" id="requester" name="requester" value="" readonly>
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Date:</label>
+                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="" readonly >
+            </div>
+
+
+
+
+           <div class="col-md-6">
+                <label for="supervisor_approved" class="form-label">Signature of PI/Supervisor:</label>
+                <input type="text" class="form-control" id="supervisor_approved" name="supervisor_approved" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="lname" class="form-label">Date:</label>
+                <input type="text" class="form-control" id="supervisor_approved_date" name="supervisor_approved_date" value="" readonly >
+            </div>
+
+
+<!-- 
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Select Accounts Clerk</label>
+                <select class="form-control" name="accounts_clerk_approved" id="accounts_clerk_approved">
+                <option value="None">..</option>
+
+                </select>
+            </div> -->
+ 
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Signature of Accounts Clerk</label>
+                <input type="text" class="form-control" id="accounts_clerk_approved" name="accounts_clerk_approved" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Date</label>
+                <input type="text" class="form-control" id="accounts_clerk_approved_date" name="accounts_clerk_approved_date" value="" readonly >
+            </div>
+
+          </form>
+<hr>
+          <form action="{% url 'purchase_request_quote_upload' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="col-md-6">
+                <label for="fname" class="form-label">Request ID</label>
+                <input style="display:none;" type="text" value="" id="request_id" name="request_id" readonly >
+                </div>
+
+                <div class="col-md-6">
+                    <label for="quote" class="form-label">Attach Quotation</label>
+                <input type="file"  value="" id="quote" name="quote" accept="pdf"/>
+                    </div>
+                <input type="submit" value="Submit" class="form-control" /> 
+
+          </form>
+          <!-- <div class="col-md-12">
+            <a onclick="" class="btn btn-primary"> Print</a> -->
+
+
+
+
+
+
+
+
+            <script  language="JavaScript" type="text/javascript">
+
+
+
+
+
+
+
+
+// populate the users dropdown
+
+// const url = "http://localhost:8000/get_users"
+//                     const data = {
+//                       'id':"case_id",
+//                     }
+            
+//                       $.post(url,data, function(data,status){
+            
+
+// console.log(data)
+
+
+//                         $.each(data, function(val, text) {
+//                             $('#accounts_clerk_approved').append( new Option(text,val) );
+//                         });
+
+            
+  
+    
+//                         $('#overlay').fadeOut();
+
+
+//         });
+
+    
+
+
+
+
+
+
+
+                // populating the already existing records
+                
+                            current_url = window.location.href;
+                                        arr = current_url.split("/");
+                                        case_id = arr.at(-1);
+                                    console.log(case_id);
+                                    $("#request_id").val(case_id);
+                                    if (case_id == "add"){}else{
+                                    const url = "http://localhost:8000/purchase_request_get_record"
+                                    const data = {
+                                      'id':case_id,
+                                    }
+                            
+                                      $.post(url,data, function(data,status){
+                            
+                            if (data['message']=="success"){
+                
+                                // console.log(data);
+
+                
+                    $("#requester").val(data['requester']);
+                    $("#date_of_request").val(data['date_of_request']);
+                    $("#requesting_dpt").val(data['requesting_dpt']);
+                    $("#budget_line_item").val(data['budget_line_item']);
+                    $("#request_justification").val(data['request_justification']);
+    
+                    $("#name_address_of_supplier").val(data['name_address_of_supplier']); 
+                   
+                    $("#qnty").val(data['qnty']);
+                    $("#item_number").val(data['item_number']);
+                    $("#description").val(data['description']);
+                    $("#unit_price").val(data['unit_price']);
+                    $("#total").val(data['total']);
+
+                    $("#supervisor_approved").val(data['supervisor_approved']);
+                    $("#supervisor_approved_date").val(data['supervisor_approved_date']);
+
+                    $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
+                   $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);   
+                   $('#overlay').fadeOut();
+     
+                }else{
+                    $('#overlay').fadeOut();
+
+                            alert(data['message']);
+                            window.location.href="/purchase_request_all";
+                
+                        }
+                
+                        });
+                    }
+                
+                    function sendEdit(){
+                        $('#overlay').fadeIn();
+
+    
+                        // var request_id= document.getElementById('request_id').value;
+                        // var requester= document.getElementById('requester').value;
+                        // var date_of_request= document.getElementById('date_of_request').value;
+                        var requesting_dpt= document.getElementById('requesting_dpt').value;
+                        var budget_line_item= document.getElementById('budget_line_item').value;
+                        var request_justification= document.getElementById('request_justification').value;
+
+                        var item_number= document.getElementById('item_number').value;
+                        var description= document.getElementById('description').value;
+                        
+
+                
+                        var name_address_of_supplier= document.getElementById('name_address_of_supplier').value; 
+                        var qnty = document.getElementById('qnty').value;
+    
+                        var unit_price = document.getElementById('unit_price').value;
+                        var total=      document.getElementById('total').value;
+
+                
+                        var supervisor_approved = document.getElementById('pi').value;
+                        // var supervisor_approved_date= document.getElementById('supervisor_approved_date').value;
+                
+                        var accounts_clerk_approved= document.getElementById('accounts_clerk_approved').value;
+                        // var accounts_clerk_approved_date= document.getElementById('accounts_clerk_approved_date').value;
+      
+                            current_url = window.location.href;
+                            arr = current_url.split("/");
+                            case_id = arr.at(-1);
+                        console.log(case_id);
+                        if (case_id == "add"){
+                
+                        const url = "http://localhost:8000/purchase_request_clerk_approve";
+                        // current_url = window.location.href;
+                        // arr = current_url.split("/");
+                        // case_id = arr.at(-1);
+                        // month_id =arr[arr.length - 2];
+                        console.log("after url");
+                        const data = {
+                            // "request_id": request_id,
+                                            "id": case_id,
+
+                
+                                           }
+                
+                                console.log("after dict");
+                        $.post(url,data, function(data,status){
+                        if (data['message']=="success"){
+                            alert("success");
+                            $('#overlay').fadeOut();
+
+                            window.location.href="http://localhost:8000/purchase_request_all";
+                        }else{
+                            alert(data['message']);
+                            $('#overlay').fadeOut();
+
+                            window.location.href="http://localhost:8000/purchase_requests_all";
+                
+                        }
+                
+                        });
+                        // alert("stop hee");
+                    }
+                
+                    }
+                        </script>
+                
+                
+                
+                
+
+
+{% endblock content %}

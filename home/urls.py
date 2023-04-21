@@ -42,6 +42,13 @@ urlpatterns = [
     path('payment_request_pending', views.payment_request_pending, name='payment_request_pending'),
     path('payment_request_pending_view', views.payment_request_pending_view, name='payment_request_pending_view'),
 
+
+    re_path('payment_request_quote_upload', views.payment_request_quote_upload, name='payment_request_quote_upload'),
+
+    re_path('payment_request_edit_options', views.payment_request_edit_options, name='payment_request_edit_options'),
+
+    path('payment_request_get_record', views.payment_request_get_record, name='payment_request_get_record'),
+
     path('payment_request_super', views.payment_request_super, name='payment_request_super'),
     path('payment_request_add', views.payment_request_add, name='payment_request_add'),
     re_path('payment_request_view', views.payment_request_view, name='payment_request_view'),
@@ -109,6 +116,26 @@ urlpatterns = [
     re_path('purchase_request_clerk_approve', views.purchase_request_clerk_approve, name='purchase_request_clerk_approve'),
     re_path('purchase_request_open_record', views.purchase_request_open_record, name='purchase_request_open_record'),
     re_path('purchase_request_view', views.purchase_request_view, name='purchase_request_view'),
+
+    #purchase order request
+    path('purchase_order', views.purchase_order, name='purchase_order'),
+    path('purchase_order_all', views.purchase_order_all, name='purchase_order_all'),
+    path('purchase_order_approved', views.purchase_order_approved, name='purchase_order_approved'),
+    path('purchase_order_pending', views.purchase_order_pending, name='purchase_order_pending'),
+    path('purchase_order_super', views.purchase_order_super, name='purchase_order_super'),
+    path('purchase_order_add', views.purchase_order_add, name='purchase_order_add'),
+    path('purchase_order_send_record', views.purchase_order_send_record, name='purchase_order_send_record'),
+
+    re_path('purchase_order_quote_upload', views.purchase_order_quote_upload, name='purchase_order_quote_upload'),
+
+    re_path('purchase_order_edit_options', views.purchase_order_edit_options, name='purchase_order_edit_options'),
+
+    path('purchase_order_get_record', views.purchase_order_get_record, name='purchase_order_get_record'),
+
+    # re_path('purchase_order_pi_approve', views.purchase_order_pi_approve, name='purchase_order_pi_approve'),
+    # re_path('purchase_order_clerk_approve', views.purchase_order_clerk_approve, name='purchase_order_clerk_approve'),
+    # re_path('purchase_order_open_record', views.purchase_order_open_record, name='purchase_order_open_record'),
+    # re_path('purchase_order_view', views.purchase_order_view, name='purchase_order_view'),
 
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,226 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock title %}
+{% block content %}
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    <div class="pc-content">
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+       
+        <form class="row g-3">
+
+            <div id="overlay">
+                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
+                
+           </div>
+
+            <!-- <div class="col-md-6">
+                <label for="fname" class="form-label">request_id:</label>
+                <input type="text" class="form-control" id="request_id" name="request_id" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Requestor:</label>
+                <input type="text" class="form-control" id="requester" name="requester" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Date:</label>
+                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="">
+            </div>
+            <p></p> -->
+
+            <div class="col-md-4">
+                <label for="fname" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="">
+            </div>
+
+            <div class="col-md-4">
+                <label for="fname" class="form-label">Contact Person</label>
+                <input type="text" class="form-control" id="contact_person" name="contact_person" value="">
+            </div>
+
+            <div class="col-md-4">
+                <label for="lname" class="form-label">Contact Number</label>
+                <input type="text" class="form-control" id="Contact Number" name="contact_number" value="">
+            </div>
+
+            <p></p>
+
+            <div class="col-md-4">
+                <label for="fname" class="form-label">Address</label>
+                <input type="text" class="form-control" id="address" name="Address" value="">
+            </div>
+
+            <div class="col-md-4">
+                <label for="fname" class="form-label">Project:</label>
+                <input type="number" class="form-control" id="project" name="project" value="">
+            </div>
+
+            <div class="col-md-4">
+                <label for="lname" class="form-label">Date:</label>
+                <input type="number" class="form-control" id="date" name="date" value="">
+            </div>
+
+            <p></p>
+
+            <div class="col-md-1">
+                <label for="fname" class="form-label">Item:</label>
+                <input type="text" class="form-control" id="item" name="item" value=""></input>
+            </div>
+
+            <div class="col-md-4">
+                <label for="lname" class="form-label">Dept:</label>
+                <input type="number" class="form-control" id="dept" name="dept" value="">
+            </div>
+            
+            <div class="col-md-1">
+                <label for="fname" class="form-label">Quantity:</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" value="">
+            </div>
+
+            <div class="col-md-4">
+                <label for="lname" class="form-label">Description:</label>
+                <textarea type="number" class="form-control" id="description" name="description" value=""></textarea>
+            </div>
+            
+            <div class="col-md-1">
+                <label for="fname" class="form-label">Unit Cost:</label>
+                <input type="number" class="form-control" id="unit_cost" name="unit_cost" value="">
+            </div>
+
+            <div class="col-md-1">
+                <label for="fname" class="form-label">Total:</label>
+                <input type="number" class="form-control" id="total" name="total" value="">
+            </div>
+
+            <div class="col-md-4">
+                <label for="q1" class="form-label">Quotaion 1:</label>
+
+                <input type="file" accept="application/pdf, application/vnd.ms-excel" class="form-control" id="q1" name="q1" value="John">
+            </div>
+
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Ordered by:</label>
+                <select class="form-control" name="ordered_by" id="ordered_by">
+                <option value="None">..</option>
+
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Required By:</label>
+                <select class="form-control" name="required_by" id="required_by">
+                <option value="None">..</option>
+
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Approved By:</label>
+                <select class="form-control" name="approved_by" id="approved_by">
+                <option value="None">..</option>
+
+                </select>
+            </div>
+
+          </form>
+
+          <div class="col-md-12">
+            <a onclick="sendEdit();" class="btn btn-primary"> SUBMIT</a>
+
+            <script  language="JavaScript" type="text/javascript">
+
+// populate the users dropdown
+
+const url = "http://localhost:8000/get_users"
+                    const data = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url,data, function(data,status){
+console.log(data)
+                        $.each(data, function(val, text) {
+                            $('#pi').append( new Option(text,val) );
+                        });
+                        $('#overlay').fadeOut();
+        });
+                
+                    function sendEdit(){
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                        $('#overlay').fadeIn();
+
+                        var requesting_dpt= document.getElementById('requesting_dpt').value;
+                        var budget_line_item= document.getElementById('budget_line_item').value;
+                        var request_justification= document.getElementById('request_justification').value;
+
+                        var item_number= document.getElementById('item_number').value;
+                        var description= document.getElementById('description').value;
+                        
+
+                
+                        var name_address_of_supplier= document.getElementById('name_address_of_supplier').value; 
+                        var qnty = document.getElementById('qnty').value;
+    
+                        var unit_price = document.getElementById('unit_price').value;
+                        var total=      document.getElementById('total').value;
+
+                
+                        var supervisor_approved= document.getElementById('pi').value;
+
+                            current_url = window.location.href;
+                            arr = current_url.split("_");
+                            case_id = arr.at(-1);
+                        if (case_id == "add"){
+                
+                        const url = "http://localhost:8000/purchase_request_send_record";
+
+                        console.log("after url");
+                        const data = {
+ 
+                                            "requesting_dpt": requesting_dpt,
+                                            "budget_line_item": budget_line_item,
+                                            "item_number":item_number,
+                                            "description":description,
+                
+                                            "request_justification": request_justification,
+                                            "name_address_of_supplier":name_address_of_supplier,
+
+                                            "qnty": qnty,
+                                            "id": case_id,
+                                            "unit_price": unit_price,
+                                            "total": total,
+                
+                                            "supervisor_approved": supervisor_approved,
+                                           }
+                
+                                console.log("after dict");
+                        $.post(url,data, function(data,status){
+                        if (data['message']=="success"){
+                            alert("success");
+                            $('#overlay').fadeOut();
+
+                            window.location.href="http://localhost:8000/purchase_request_quote_upload/"+data['id'];
+                        }else{
+                            alert(data['message']);
+                            console,log("err")
+                            $('#overlay').fadeOut();
+
+                            window.location.href="http://localhost:8000/purchase_requests_all";
+                
+                        }
+                
+                        });
+                    }
+                
+                    }
+                        </script>
+                
+                
+                
+                
+
+
+{% endblock content %}

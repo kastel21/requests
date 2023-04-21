@@ -13,12 +13,7 @@
         <!-- [ sample-page ] start -->
        
         <form class="row g-3">
-            <!-- <div id='loader'><img src="{% static 'assets/images/dribbble-progress-bar.gif' %}"/></div> -->
 
-            <div id="overlay">
-                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
-                
-           </div>
             <!-- <div class="col-md-6">
                 <label  class="form-label">request_id:</label>
                 <input type="text" class="form-control" id="request_id" name="request_id" value="">
@@ -26,22 +21,19 @@
 
             <div class="col-md-6">
                 <label  class="form-label">Payee:</label>
-                <input type="text" class="form-control" id="payee" name="payee" value="">
+                <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
             </div>
             <div class="col-md-6">
                 <label  class="form-label">Account Code:</label>
-                <input type="text" class="form-control" id="account_code" name="account_code" value="">
+                <input type="text" class="form-control" id="account_code" name="account_code" value="" readonly>
             </div>
 
-            <!-- <div class="col-md-4">
-                <label  class="form-label">Date:</label>
-                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="">
-            </div> -->
+
 
             <div class="col-md-6">
                 <label  class="form-label"> Payment Type</label>
                 <!-- <input type="text" class="form-control" id="payment_type" name="payment_type" value=""> -->
-                <select class="form-control" name="payment_type" id="payment_type">
+                <select class="form-control" name="payment_type" id="payment_type" disabled>
                     <option value="TRANSFER">TRANSFER</option>
 
                     <option value="CHEQUE">CHEQUE</option>
@@ -55,41 +47,45 @@
 
             <div class="col-md-6">
                 <label  class="form-label">Project Number:</label>
-                <input type="text" class="form-control" id="project_number" name="project_number" value="">
+                <input type="text" class="form-control" id="project_number" name="project_number" value="" readonly>
             </div>
 
 
 
             <div class="col-md-12">
                 <label  class="form-label">Details of Expenditure:</label>
-                <input type="text" class="form-control" id="details" name="details" value="" style="height:90px;"/>
+                <textarea type="text" class="form-control" id="details" name="details" value="" readonly></textarea>
             </div>
 
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label  class="form-label">Quantity:</label>
-                <input type="number" class="form-control" id="qnty" name="qnty" value="">
+                <input type="text" class="form-control" id="amount" name="amount" value="" readonly>
             </div>
 
-            <div class="col-md-4">
+            <hr>
+            <div class="col-md-6">
                 <label  class="form-label">Unit Amount:</label>
-                <input type="number" class="form-control" id="amount" name="amount" value="">
+                <input type="text" class="form-control" id="amount" name="amount" value="" readonly>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label  class="form-label">Total:</label>
-                <input type="number" class="form-control" id="total" name="total" value="">
+                <input type="text" class="form-control" id="total" name="total" value="" readonly>
             </div>
 
             <hr>
 
-            <!-- <div class="col-md-6">
+            <div class="col-md-6">
                 <label  class="form-label">Compiled By:</label>
-                <input type="text" class="form-control" id="compiled_by" name="compiled_by" value="">
-            </div> -->
+                <input type="text" class="form-control" id="compiled_by" name="compiled_by" value="" readonly>
+            </div>
 
-            <hr>
-
+            
+            <div class="col-md-6">
+                <label  class="form-label">Date:</label>
+                <input type="text" class="form-control" id="compiled_by_date" name="compiled_by_date" value="" readonly>
+            </div>
 
                 <!-- <label  class="form-label">Certified By:</label>
                 <input type="text" class="form-control" id="certified_by" name="certified_by" value=""> -->
@@ -98,7 +94,7 @@
 
             <div class="col-md-12">
                 <label for="certifier" class="form-label">Select Certifier</label>
-                <select class="form-control" name="certified_by" id="certified_by">
+                <select class="form-control" name="certified_by" id="certified_by" disabled>
                 <option value="None">..</option>
 
                 </select>
@@ -149,8 +145,11 @@
           </form> 
 
             <div style="margin-top: 2%;" class="col-md-12">
-                <a onclick="sendEdit();" id="add" class="btn btn-primary"> SUBMIT</a>
+                <a onclick="edit()" class="btn btn-primary"> Edit</a>
+                <a onclick="print()" class="btn btn-success"> Print</a>
+
             </div>
+
 
 
 
@@ -158,15 +157,32 @@
 
 <script  language="JavaScript" type="text/javascript">
 
-$('#dis').fadeOut();
-
-// $(window).load(function(){
-//    // PAGE IS FULLY LOADED  
-//    // FADE OUT YOUR OVERLAYING DIV
-//    $('#overlay').fadeOut();
-// });
 
 
+
+// populate the users dropdown
+
+const url = "http://localhost:8000/get_users"
+                    const data = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url,data, function(data,status){
+            
+
+// console.log(data)
+
+
+                        $.each(data, function(val, text) {
+                            $('#certified_by').append( new Option(text,val) );
+                        });
+
+            
+  
+    
+
+
+        });
 
     
 
@@ -180,40 +196,10 @@ $('#dis').fadeOut();
 // populating the already existing records
 
             current_url = window.location.href;
-                        arr = current_url.split("_");
+                        arr = current_url.split("/");
                         case_id = arr.at(-1);
                     console.log(case_id);
-                    if (case_id == "add"){
-
-  // populate the users dropdown
-
-  const url = "http://localhost:8000/get_users"
-                    const data = {
-                      'id':"case_id",
-                    }
-            
-                      $.post(url,data, function(data,status){
-            
-
-console.log(data)
-
-
-                        $.each(data, function(val, text) {
-                            $('#certified_by').append( new Option(text,val) );
-                        });
-
-            
-  
-                        $('#dis').fadeIn();
-
-                        $('#overlay').fadeOut();
-
-
-        });
-
-
-
-                    }else{
+                    if (case_id == "add"){}else{
                     const url = "http://localhost:8000/payment_request_get_record"
                     const data = {
                       'id':case_id,
@@ -233,11 +219,11 @@ console.log(data)
    
     $("#account_code").val(data['account_code']); 
     $("#details ").val(data['details']);
-    $("#amount").val(data['amount']);
-     $("#qnty ").val(data['qnty']);
+    // $("#amount ").val(data['pat_name']);
+    //  $("#unit_price ").val(data['unit_price']);
     $("#total").val(data['total']);
    
-    // $("#certified_by").val(data['certified_by']);
+    $("#certified_by").val(data['certified_by']);
 //     $("#certified_by_date").val(data['certified_by_date']);
 
 //     $("#cleared_by_fin_man").val(data['cleared_by_fin_man']);
@@ -250,13 +236,11 @@ console.log(data)
 //     $("#approved_by_date").val(data['approved_by_date']);
 
             
-
+  
     
                 
         }else{
-            alert(data['message']);
-            $('#overlay').fadeOut();
-
+            console.log(data['message'])
             window.location.href="/payment_request_all";
 
         }
@@ -266,14 +250,32 @@ console.log(data)
     }
 
 
+function print(){
+
+    current_url = window.location.href;
+                        arr = current_url.split("/");
+                        case_id = arr.at(-1);
+
+    window.location.href="http://localhost:8000/payment_request_print/"+case_id;
 
 
 
+}
+
+function edit(){
+
+    current_url = window.location.href;
+                        arr = current_url.split("/");
+                        case_id = arr.at(-1);
+window.location.href="http://localhost:8000/payment_request_view/"+case_id;
+
+
+
+}
 
     function sendEdit(){
 
-    $('#add').prop('disabled', true);
-   $('#overlay').fadeIn();
+
 
         // var date_of_request= document.getElementById('date_of_request').value;
         var payee= document.getElementById('payee').value;
@@ -283,7 +285,7 @@ console.log(data)
 
         var account_code= document.getElementById('account_code').value; 
         var details = document.getElementById('details').value;
-        var qnty = document.getElementById('qnty').value;
+        // var amount = document.getElementById('pat_name').value;
         // var unit_price = document.getElementById('unit_price').value;
         var total= document.getElementById('total').value;
 
@@ -328,7 +330,7 @@ console.log(data)
                             "account_code": account_code, 
                             "details": details,
                             "case_id": case_id,
-                            "qnty": qnty,
+                            // "unit_price ": unit_price,
                             "total": total,
 
                             "certified_by": certified_by,
@@ -346,14 +348,12 @@ console.log(data)
 
                 console.log("after dict");
         $.post(url,data, function(data,status){
-               $('#overlay').fadeOut();
-
         if (data['message']=="success"){
             console.log("success")
-            window.location.href="http://localhost:8000/payment_request_quote_upload/"+data['id'];
+            window.location.href="http://localhost:8000/payment_request_all";
         }else{
             console.log(data['message'])
-            window.location.href="http://localhost:8000/payment_requests_all";
+            window.location.href="http://localhost:8000/payment_request_all";
 
         }
 
@@ -379,7 +379,7 @@ console.log(data)
                             "account_code": account_code, 
                             "details": details,
                             "case_id": case_id,
-                            "qnty": qnty,
+                            // "unit_price ": unit_price,
                             "total": total,
 
                             "certified_by": certified_by,
@@ -402,15 +402,15 @@ console.log(data)
       
 
         $.post(url,data, function(data,status){
-        //   window.location.replace("http://localhost:8000/payment_request_view/"+case_id);
+          window.location.replace("http://localhost:8000/payment_request_view/"+case_id);
 
         console.log(data);
         if (data['message']=="success"){
             alert("success");
-            window.location.href="http://localhost:8000/payment_request_quote_upload/"+data['id'];
+            window.location.replace("http://localhost:8000/payment_request_view/"+case_id);
         }else{
             alert(data['message']);
-            window.location.href="http://localhost:8000/payment_requests_all";
+            window.location.replace("http://localhost:8000/payment_request_view/"+case_id);
 
             // window.location.href="/view_record/"+case_id;
 

@@ -929,6 +929,22 @@ def payment_request_all(request):
     context = {'records':records}
     return render(request, 'pages/payment_requests/list2.html', context)
 
+def payment_request_quote_upload(request):
+    if request.method == 'POST' and request.FILES['quote']:
+        myfile = request.FILES['quote']
+        request_id = request.POST.get('request_id')
+        
+        fs = FileSystemStorage()
+        filename = fs.save("uploads/"+myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        record = PaymentRequestQuotation()
+        record.request_id = request_id
+        record.quote_path = uploaded_file_url
+        record.save()
+        return redirect('/payment_request')
+    else:
+          return render(request, 'pages/payment_requests/upload_quote.html')
+
 @login_required(login_url='login')
 def payment_request(request):
     form = PaymentRequest.objects.all()
@@ -960,6 +976,31 @@ def payment_request_view(request):
          return render(request, 'pages/payment_requests/approve.html', context)
       else:
          return redirect("payment_request_pending")
+      
+@login_required(login_url='login')
+def payment_request_edit_options(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PaymentRequest.objects.get(id=_id)
+      context = {'record':record}
+      print("IN POST")
+      if record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man_date == request.user.username:
+         print("certified")
+         return render(request, 'pages/payment_requests/pi.html', context)
+      
+      elif record.approved_by_project_man_date == "None" and record.approved_by_project_man_date == request.user.username:
+         print("cleared")
+
+         return render(request, 'pages/payment_requests/clerk.html', context)
+      else:
+         return render(request, 'pages/comparative_schedules/not_auth.html', {})
+      
+
+    else:
+         return redirect("purchase_request_pending")
 
 
 @login_required(login_url="login")
@@ -1348,11 +1389,18 @@ def payment_request_get_record(request):
     context={}
     if request.method == "POST":
         _id = request.POST.get('id',default=None)
+        pdf = PaymentRequestQuotation.objects.get(id=1)
 
+        try:
+          pdf = PaymentRequestQuotation.objects.get(request_id=_id)
+        except:
+          pass
         record = PaymentRequest.objects.get(id=_id)
+
         dic = {
            
-           "date_of_request": record.date_of_request,
+          "pdf":pdf.quote_path,
+          "date_of_request": record.date_of_request,
           "payee": record.payee,
           "payment_type": record.payment_type,
           "amount": record.amount,
@@ -1456,7 +1504,8 @@ def payment_request_send_record(request):
 
           record.save()
 
-          return JsonResponse( {'message':"success"})
+          _id = record.pk
+          return JsonResponse( {'message':"success",'id':_id})
 
         except Exception as e  :
             f= open("service1.txt","w")
@@ -1537,3 +1586,667 @@ def payment_request_edit_record(request):
 # ***********************************************************************************************************************
 
 
+# ***********************************************************************************************************************
+# purchase order
+@login_required(login_url='login')
+def purchase_order(request):
+    records = PurchaseOrder.objects.all()
+    context = {'records':records}
+    return render(request, 'pages/purchase_orders/purchase_orders.html', context)
+
+@login_required(login_url='login')
+def purchase_order_all(request):
+    username = request.user.username
+    user_id = request.user.id
+    records = PaymentRequest.objects.filter( Q(compiled_by=username) | Q(certified_by= username) | Q(approved_by=username) | Q(cleared_by_fin_man=username))
+    context = {'records':records}
+    return render(request, 'pages/purchase_orders/list2.html', context)
+
+def purchase_order_quote_upload(request):
+    if request.method == 'POST' and request.FILES['quote']:
+        myfile = request.FILES['quote']
+        request_id = request.POST.get('request_id')
+        
+        fs = FileSystemStorage()
+        filename = fs.save("uploads/"+myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        record = PaymentRequestQuotation()
+        record.request_id = request_id
+        record.quote_path = uploaded_file_url
+        record.save()
+        return redirect('/purchase_order')
+    else:
+          return render(request, 'pages/purchase_orders/upload_quote.html')
+
+@login_required(login_url='login')
+def purchase_order_view(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PaymentRequest.objects.get(id=_id)
+      context = {'record':record}
+      print("IN POST")
+      if record.certified_by_date == "None" and record.certified_by == request.user.username:
+         print("certified")
+         return render(request, 'pages/purchase_orders/certify.html', context)
+      
+      elif record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man == request.user.username:
+         print("cleared")
+
+         return render(request, 'pages/purchase_orders/clear.html', context)
+      
+      elif record.approved_by_date == "None" and record.approved_by == request.user.username:
+         print("approved")
+
+         return render(request, 'pages/purchase_orders/approve.html', context)
+      else:
+         return redirect("purchase_order_pending")
+      
+@login_required(login_url='login')
+def purchase_order_edit_options(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PaymentRequest.objects.get(id=_id)
+      context = {'record':record}
+      print("IN POST")
+      if record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man_date == request.user.username:
+         print("certified")
+         return render(request, 'pages/purchase_orders/pi.html', context)
+      
+      elif record.approved_by_project_man_date == "None" and record.approved_by_project_man_date == request.user.username:
+         print("cleared")
+
+         return render(request, 'pages/purchase_orders/clerk.html', context)
+      else:
+         return render(request, 'pages/comparative_schedules/not_auth.html', {})
+      
+
+    else:
+         return redirect("purchase_request_pending")
+
+
+@login_required(login_url="login")
+def purchase_order_open_record(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PaymentRequest.objects.get(id=_id)
+      context = {'record':record}
+      print("IN POST")
+      return render(request, 'pages/purchase_orders/view_record.html', context)
+    else:
+       redirect("purchase_order_all")
+
+
+# def purchase_order_view2(request):
+#     if request.method == "POST":
+      
+#       _id = request.POST.get('id',default=None)
+
+#         # objs = Record.objects.get(id=_id)
+#       record = PaymentRequest.objects.get(id=_id)
+#       context = {'record':record}
+#       print("IN POST")
+#       return render(request, 'pages/purchase_orders/view2.html', context)
+#     else:
+#        redirect("purchase_order_all")
+
+@login_required(login_url='login')
+def purchase_order_pending_view(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PaymentRequest.objects.get(id=_id)
+      context = {'record':record}
+
+      print("IN POST")
+      if record.certified_by_date == "None" and record.certified_by == request.user.username:
+         print("certified")
+         return render(request, 'pages/purchase_orders/certify.html', context)
+      elif record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man == request.user.username:
+         print("cleared")
+
+         return render(request, 'pages/purchase_orders/clear.html', context)
+      
+      elif record.approved_by_date == "None" and record.approved_by == request.user.username:
+         print("approved")
+
+         return render(request, 'pages/purchase_orders/approve.html', context)
+
+
+    else:
+      return render(request, 'pages/purchase_orders/list2.html', {})
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def purchase_order_print(request):
+    # if request.method == "POST":
+        current_url = request.path
+        x= current_url.split("/")[-1]
+        print(x)
+
+        # _id = request.POST.get(x)
+        # print(_id)
+
+        record = PaymentRequest.objects.get(id=x)
+        
+        data = {"payee": record.payee,
+        "compiled_by": record.compiled_by,
+        "date_of_request": record.date_of_request,
+        "payment_type": record.payment_type,
+        "project_number": record.project_number,
+        "account_code": record.account_code,
+        "details": record.details,
+        "amount": record.amount,
+        "total": record.total,
+        "certified_by": record.certified_by,
+        "certified_by_date": record.certified_by_date,
+        "cleared_by_fin_man": record.cleared_by_fin_man,
+        "cleared_by_fin_man_date": record.cleared_by_fin_man_date,
+        "approved_by_project_man": record.approved_by_project_man,
+        "approved_by_project_man_date": record.approved_by_project_man_date,
+        "approved_by": record.approved_by,
+        "approved_by_date": record.approved_by_date,
+        
+        "message":"success"}   
+
+
+        pdf = render_to_pdf('pages/purchase_orders/print.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
+
+    # if request.method == "POST":
+    #   _id = request.POST.get('id',default=None)
+
+      
+    #   print(current_url)
+
+    #   l = current_url.split('/')
+    #   print(l)
+
+      
+
+    #   record = PaymentRequest.objects.filter(id=x)
+    #   context = {'record':record}
+    #   return render(request, 'pages/purchase_orders/print.html', context)
+@login_required(login_url='login')
+def purchase_order_super(request):
+    records = PaymentRequest.objects.all()
+    context = {'records':records}
+    return render(request, 'pages/purchase_orders/list2.html', context)
+
+@login_required(login_url='login')
+def purchase_order_edit(request):
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/purchase_orders/add.html', context)
+
+# @login_required(login_url='login')
+# def purchase_order_pending_certification(request):
+#     records = PaymentRequest.objects.filter(Q (certified_by="None") & Q(certified_by_date="None"))
+#     context = {'records':records}
+#     return render(request, 'pages/purchase_orders/list.html', context)
+
+@login_required(login_url='login')
+def purchase_order_certification(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PaymentRequest.objects.get(id=_id)
+      context = {'record':record}
+      return render(request, 'pages/purchase_orders/view.html', context)
+    else:
+      return render(request, 'pages/purchase_orders/list.html', {})
+
+
+# @login_required(login_url='login')
+# def purchase_order_pending_clearance(request):
+#     username = request.user.username
+#     records = PaymentRequest.objects.filter(Q (cleared_by_fin_man=username)  & Q(cleared_by_fin_man_date="None") )
+#     context = {'records':records}
+#     return render(request, 'pages/purchase_orders/list.html', context)
+
+
+
+@login_required(login_url='login')
+def purchase_order_clearance(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PaymentRequest.objects.get(id=_id)
+      context = {'record':record}
+      return render(request, 'pages/purchase_orders/view.html', context)
+    else:
+      return render(request, 'pages/purchase_orders/list.html', {})
+
+# @login_required(login_url='login')
+# def purchase_order_clear(request):
+#     if request.method == "POST":
+      
+#       _id = request.POST.get('id',default=None)
+
+#         # objs = Record.objects.get(id=_id)
+#       record = PaymentRequest.objects.get(id=_id)
+#       record.cleared_by_fin_man = request.user.username
+#       # record.certified_by_date = request.user.username
+#       d = datetime.datetime.now()
+#           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+#       record.cleared_by_fin_man_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+
+#       record.save()
+
+
+
+
+#       return JsonResponse( {'message':"success"})
+
+#     else:
+#       return render(request, 'pages/purchase_orders/list.html', {})
+
+
+
+@login_required(login_url='login')
+def purchase_order_pending_approval(request):
+    records = PaymentRequest.objects.filter(approved_by="None")
+    context = {'records':records}
+    return render(request, 'pages/purchase_orders/list.html', context)
+
+
+# @login_required(login_url='login')
+# def purchase_order_approval(request):
+#     if request.method == "POST":
+      
+#       _id = request.POST.get('id',default=None)
+
+#         # objs = Record.objects.get(id=_id)
+#       record = PaymentRequest.objects.get(id=_id)
+
+
+
+
+#       context = {'record':record}
+#       return render(request, 'pages/purchase_orders/view.html', context)
+#     else:
+#       return render(request, 'pages/purchase_orders/list.html', {})
+
+# @login_required(login_url='login')
+# def purchase_order_approve(request):
+#     if request.method == "POST":
+      
+#       _id = request.POST.get('id',default=None)
+
+#         # objs = Record.objects.get(id=_id)
+#       record = PaymentRequest.objects.get(id=_id)
+#       record.approved_by = request.user.username
+#       # record.certified_by_date = request.user.username
+#       d = datetime.datetime.now()
+#           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+#       record.approved_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+
+
+
+
+
+#       return JsonResponse( {'message':"success"})
+
+#     else:
+#       return render(request, 'pages/purchase_orders/list.html', {})
+
+@login_required(login_url='login')
+@csrf_exempt
+def purchase_order_certify(request):
+    
+    try:
+      if request.method == "POST":
+        
+        _id = request.POST.get('id',default=None)
+        clear = request.POST.get('clear',default=None)
+
+          # objs = Record.objects.get(id=_id)
+        record = PaymentRequest.objects.get(id=_id)
+        record.certified_by = request.user.username
+        record.cleared_by_fin_man = clear
+        d = datetime.datetime.now()
+            # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        record.certified_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+        record.save()
+
+        notice = Notifications()
+        notice.to = clear
+        notice.message = " "+ request.user.username +" updated a Payement Request\n and assigned you as the Finance Officer for you to clear."
+        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        notice.trigger = request.user.username
+        notice.save()
+
+        return JsonResponse( {'message':"success"})
+      else:
+        return render(request, 'pages/purchase_orders/list.html', {})
+
+    except:
+       return JsonResponse( {'message':"failed"})
+
+@login_required(login_url='login')
+@csrf_exempt
+def purchase_order_clear(request):
+    
+    try:
+      if request.method == "POST":
+        
+        _id = request.POST.get('id',default=None)
+        approver = request.POST.get('approver',default=None)
+
+          # objs = Record.objects.get(id=_id)
+        record = PaymentRequest.objects.get(id=_id)
+        record.cleared_by_fin_man = request.user.username
+        record.approved_by = approver
+        d = datetime.datetime.now()
+            # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        record.cleared_by_fin_man_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+
+        record.save()
+
+        notice = Notifications()
+        notice.to = approver
+        notice.message = " "+ request.user.username +" updated a Payement Request\n and assigned you as the Approver."
+        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        notice.trigger = request.user.username
+        notice.save()
+
+        return JsonResponse( {'message':"success"})
+      else:
+        return render(request, 'pages/purchase_orders/list.html', {})
+
+
+    except:
+       return JsonResponse( {'message':"failed"})
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def purchase_order_approve(request):
+    
+    try:
+      if request.method == "POST":
+        
+        _id = request.POST.get('id',default=None)
+
+          # objs = Record.objects.get(id=_id)
+        record = PaymentRequest.objects.get(id=_id)
+        record.approved_by = request.user.username
+        # record.certified_by_date = request.user.username
+        d = datetime.datetime.now()
+            # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        record.approved_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+
+
+
+        notice = Notifications()
+        notice.to = record.compiled_by
+        record.save()
+
+        notice.message = " "+ request.user.username +" Approved your Payement Request."
+        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        notice.trigger = request.user.username
+        notice.save()
+
+        return JsonResponse( {'message':"success"})
+      else:
+        return render(request, 'pages/purchase_orders/list.html', {})
+
+
+    except:
+       return JsonResponse( {'message':"failed"})
+
+@login_required(login_url='login')
+def purchase_order_pending(request):
+    username = request.user.username
+    records = PaymentRequest.objects.filter((Q(approved_by=username) & Q (approved_by_date="None")) | (Q(certified_by=username) & Q (certified_by_date="None")) | (Q(cleared_by_fin_man=username) & Q (cleared_by_fin_man_date="None")))
+    context = {'records':records}
+    return render(request, 'pages/purchase_orders/list_pending.html', context)
+
+
+@login_required(login_url='login')
+def purchase_order_approved(request):
+    username = request.user.username
+
+    records = PaymentRequest.objects.filter( (Q(approved_by=username) & ~Q(approved_by_date="None") ) | (Q(compiled_by=username) & ~Q(approved_by_date="None") ) |  (Q(certified_by=username) & ~Q(approved_by_date="None") ) | (Q(cleared_by_fin_man=username) & ~Q(approved_by_date="None") )  )
+    context = {'records':records}
+    return render(request, 'pages/purchase_orders/list2.html', context)
+
+@login_required(login_url='login')
+def purchase_order_add(request):
+    
+    form = PaymentRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/purchase_orders/add.html', context)
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def get_users(request):
+   try:
+      dic = {}
+      User = get_user_model()
+      users = User.objects.all()
+
+      for user in users: 
+          dic[user.username]= user.username
+      return JsonResponse(dic)
+   except Exception as e:
+          return JsonResponse(str(e))
+
+    
+
+@login_required(login_url='login')
+@csrf_exempt
+def purchase_order_get_record(request):
+    context={}
+    if request.method == "POST":
+        _id = request.POST.get('id',default=None)
+        pdf = PaymentRequestQuotation.objects.get(id=1)
+
+        try:
+          pdf = PaymentRequestQuotation.objects.get(request_id=_id)
+        except:
+          pass
+        record = PaymentRequest.objects.get(id=_id)
+
+        dic = {
+           
+          "pdf":pdf.quote_path,
+          "date_of_request": record.date_of_request,
+          "payee": record.payee,
+          "payment_type": record.payment_type,
+          "amount": record.amount,
+          "project_number": record.project_number,
+          "compiled_by": record.compiled_by,
+          "compiled_by_date": record.date_of_request,
+
+          "account_code": record.account_code, 
+          "details": record.details,
+          "qnty": record.qnty,
+          # "unit_price ": record.unit_price,
+          "total": record.total,
+
+          "certified_by": record.certified_by,
+          "certified_by_date": record.certified_by_date,
+
+          "cleared_by_fin_man": record.cleared_by_fin_man,
+          "cleared_by_fin_man_date": record.cleared_by_fin_man_date,
+
+          "approved_by_project_man": record.approved_by_project_man,
+          "approved_by_project_man_date": record.approved_by_project_man_date,
+
+          "approved_by": record.approved_by,
+          "approved_by_date": record.approved_by_date,
+          "message":"success",
+        }
+        context = {'addTabActive': True, "record":""}
+        return JsonResponse(dic)
+    else:
+        return redirect('/purchase_orders')
+
+@login_required(login_url='login')
+@csrf_exempt
+@app.route("/send_record")
+def purchase_order_send_record(request):
+
+    with app.app_context():
+        try:
+           
+
+          payee= request.POST.get('payee',default=None)
+          payment_type= request.POST.get('payment_type',default=None)
+          amount= request.POST.get('amount',default=None)
+          project_number= request.POST.get('project_number',default=None)
+
+          account_code= request.POST.get('account_code',default=None) 
+          details = request.POST.get('details',default=None)
+          qnty = request.POST.get('qnty',default=None)
+          # unit_price = request.POST.get('unit_price',default=None)
+          total= request.POST.get('total',default=None)
+
+          certified_by= request.POST.get('certified_by',default=None)
+          # certified_by_date= request.POST.get('certified_by_date',default=None)
+
+          # cleared_by_fin_man= request.POST.get('cleared_by_fin_man',default=None)
+          # cleared_by_fin_man_date= request.POST.get('cleared_by_fin_man_date',default=None)
+
+          # approved_by_project_man= request.POST.get('approved_by_project_man',default=None)
+          # approved_by_project_man_date= request.POST.get('approved_by_project_man_date',default=None)
+
+          # approved_by= request.POST.get('approved_by',default=None)
+          # approved_by_date= request.POST.get('approved_by_date',default=None)
+
+          record = PaymentRequest()
+
+          record.compiled_by = request.user.username
+          record.payee= payee
+          record.payment_type= payment_type
+          record.amount= amount
+          record.project_number= project_number
+
+          record.account_code= account_code 
+          record.details = details
+          # // record.amount = pat_name
+          record.qnty = qnty
+          record.total= total
+
+          record.certified_by= certified_by
+          # record.certified_by_date= certified_by_date
+
+          # record.cleared_by_fin_man= cleared_by_fin_man
+          # record.cleared_by_fin_man_date= cleared_by_fin_man_date
+
+          # record.approved_by_project_man= approved_by_project_man
+          # record.approved_by_project_man_date= approved_by_project_man_date
+
+          # record.approved_by= approved_by
+
+          notice = Notifications()
+          notice.to= record.certified_by
+          notice.trigger = request.user.username
+          notice.message = request.user.username +" has created a Payment Request and assigned you to Certify"
+
+          d = datetime.datetime.now()
+          record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+          notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+          notice.status = "New"
+          notice.save()
+          # record.approved_by_date= approved_by_date
+
+
+          record.save()
+
+          _id = record.pk
+          return JsonResponse( {'message':"success",'id':_id})
+
+        except Exception as e  :
+            f= open("service1.txt","w")
+            f.write(str(e))
+            f.close()
+            return JsonResponse({'message':"failed"})
+
+@login_required(login_url='login')
+@csrf_exempt
+def purchase_order_edit_record(request):
+
+        try:
+          _id= request.POST.get('case_id',default=None)
+
+          payee= request.POST.get('payee',default=None)
+          payment_type= request.POST.get('payment_type',default=None)
+          amount= request.POST.get('amount',default=None)
+          project_number= request.POST.get('project_number',default=None)
+
+          account_code= request.POST.get('account_code',default=None) 
+          details = request.POST.get('details',default=None)
+          # // amount = request.POST.get('pat_name',default=None)
+          qnty = request.POST.get('qnty',default=None)
+          total= request.POST.get('total',default=None)
+
+          certified_by= request.POST.get('certified_by',default=None)
+          # certified_by_date= request.POST.get('certified_by_date',default=None)
+
+          # cleared_by_fin_man= request.POST.get('cleared_by_fin_man',default=None)
+          # cleared_by_fin_man_date= request.POST.get('cleared_by_fin_man_date',default=None)
+
+          # approved_by_project_man= request.POST.get('approved_by_project_man',default=None)
+          # approved_by_project_man_date= request.POST.get('approved_by_project_man_date',default=None)
+
+          # approved_by= request.POST.get('approved_by',default=None)
+          # approved_by_date= request.POST.get('approved_by_date',default=None)
+
+          record = PaymentRequest.objects.get(id=_id)
+
+          record.compiled_by = request.user.username
+          record.payee= payee
+          d = datetime.datetime.now()
+          record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+
+          record.payment_type= payment_type
+          record.amount= amount
+          record.project_number= project_number
+
+          record.account_code= account_code 
+          record.details = details
+          # // record.amount = pat_name
+          record.qnty = qnty
+          record.total= total
+
+          record.certified_by= certified_by
+          # record.certified_by_date= certified_by_date
+
+          # record.cleared_by_fin_man= cleared_by_fin_man
+          # record.cleared_by_fin_man_date= cleared_by_fin_man_date
+
+          # record.approved_by_project_man= approved_by_project_man
+          # record.approved_by_project_man_date= approved_by_project_man_date
+
+          # record.approved_by= approved_by
+          # record.approved_by_date= approved_by_date
+
+          record.save()
+
+
+
+          return JsonResponse( {'message':"success"})
+
+        except Exception as e  :
+            f= open("service1.txt","w")
+            f.write(str(e))
+            f.close()
+            return JsonResponse({'message':"failed"})
