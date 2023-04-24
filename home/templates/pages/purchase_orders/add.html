@@ -142,7 +142,23 @@ const url = "http://localhost:8000/get_users"
                       $.post(url,data, function(data,status){
 console.log(data)
                         $.each(data, function(val, text) {
-                            $('#pi').append( new Option(text,val) );
+                            $('#ordered_by').append( new Option(text,val) );
+                        });
+                        $('#overlay').fadeOut();
+        });
+
+        $.post(url,data, function(data,status){
+console.log(data)
+                        $.each(data, function(val, text) {
+                            $('#approved_by').append( new Option(text,val) );
+                        });
+                        $('#overlay').fadeOut();
+        });
+
+        $.post(url,data, function(data,status){
+console.log(data)
+                        $.each(data, function(val, text) {
+                            $('#required_by').append( new Option(text,val) );
                         });
                         $('#overlay').fadeOut();
         });

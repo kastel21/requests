@@ -2013,7 +2013,7 @@ def purchase_order_approve(request):
 @login_required(login_url='login')
 def purchase_order_pending(request):
     username = request.user.username
-    records = PaymentRequest.objects.filter((Q(approved_by=username) & Q (approved_by_date="None")) | (Q(certified_by=username) & Q (certified_by_date="None")) | (Q(cleared_by_fin_man=username) & Q (cleared_by_fin_man_date="None")))
+    records = PurchaseOrder.objects.filter((Q(approved_by=username) & Q (approved_by_date="None")) | (Q(certified_by=username) & Q (certified_by_date="None")) | (Q(cleared_by_fin_man=username) & Q (cleared_by_fin_man_date="None")))
     context = {'records':records}
     return render(request, 'pages/purchase_orders/list_pending.html', context)
 

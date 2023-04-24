@@ -135,7 +135,7 @@ urlpatterns = [
     # re_path('purchase_order_pi_approve', views.purchase_order_pi_approve, name='purchase_order_pi_approve'),
     # re_path('purchase_order_clerk_approve', views.purchase_order_clerk_approve, name='purchase_order_clerk_approve'),
     # re_path('purchase_order_open_record', views.purchase_order_open_record, name='purchase_order_open_record'),
-    # re_path('purchase_order_view', views.purchase_order_view, name='purchase_order_view'),
+    re_path('purchase_order_view', views.purchase_order_view, name='purchase_order_view'),
 
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
