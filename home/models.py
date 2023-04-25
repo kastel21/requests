@@ -51,7 +51,11 @@ class PurchaseOrder(models.Model):
     required_by_date= models.CharField(max_length=150, default="None")
 
     approved_by= models.CharField(max_length=150, default="None")
-    approved_by= models.CharField(max_length=150, default="None")
+    approved_by_date= models.CharField(max_length=150, default="None")
+
+class PurchaseOrderQuotation(models.Model):
+    request_id = models.CharField(max_length=255, blank=True)
+    quote_path = models.CharField(max_length=500,default=".")
 
 class PuchaseRequestQuote(models.Model):
     request_id = models.CharField(max_length=255, blank=True)

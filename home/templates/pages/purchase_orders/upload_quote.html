@@ -32,63 +32,63 @@
             <p></p> -->
 
             <div class="col-md-6">
-                <label for="fname" class="form-label">Requesting Department:</label>
-                <input type="text" class="form-control" id="requesting_dpt" name="requesting_dpt" value="" readonly >
+                <label for="fname" class="form-label">Comparative Schedule:</label>
+                <input type="text" class="form-control" id="purchase_id" name="purchase_id" value="" readonly >
             </div>
 
             <div class="col-md-6">
-                <label for="fname" class="form-label">Budget Line Item (Where applicable):</label>
-                <input type="text" class="form-control" id="budget_line_item" name="budget_line_item" value="" readonly >
+                <label for="fname" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="" readonly >
             </div>
 
             <div class="col-md-6">
-                <label for="lname" class="form-label">Request Justification:</label>
-                <input type="text" class="form-control" id="request_justification" name="request_justification" value="" readonly >
+                <label for="lname" class="form-label">Contact Person:</label>
+                <input type="text" class="form-control" id="contact_person" name="contact_person" value="" readonly >
             </div>
 
             <div class="col-md-6">
-                <label for="fname" class="form-label">Name and address of Supplier:</label>
-                <input type="text" class="form-control" id="name_address_of_supplier" name="name_address_of_supplier" value="" readonly >
+                <label for="fname" class="form-label">Contact Number:</label>
+                <input type="text" class="form-control" id="contact_number" name="contact_number" value="" readonly >
             </div>
 
             <p></p>
 
-            <center><p style="color:red;">Purchase Request Must be Approved by the DH/PI before a purchase Order is to be issued.</p></center>
+            <!-- <center><p style="color:red;">Purchase Request Must be Approved by the DH/PI before a purchase Order is to be issued.</p></center> -->
 
             <p></p>
 
             <div class="col-md-6">
-                <label for="fname" class="form-label">QTY:</label>
-                <input type="text" class="form-control" id="qnty" name="qnty" value="" readonly >
+                <label for="fname" class="form-label">Address:</label>
+                <input type="text" class="form-control" id="address" name="address" value="" readonly >
             </div>
 
             <div class="col-md-6">
-                <label for="lname" class="form-label">Item No.</label>
-                <input type="text" class="form-control" id="item_number" name="item_number" value="" readonly >
+                <label for="lname" class="form-label">Project</label>.</label>
+                <input type="text" class="form-control" id="project" name="project" value="" readonly >
             </div>
 
             <div class="col-md-12">
-                <label for="fname" class="form-label">Description of item to be purchased:</label>
-                <textarea type="text" class="form-control" id="description" name="description" value="" readonly ></textarea>
+                <label for="fname" class="form-label">Date</label>
+                <textarea type="text" class="form-control" id="date" name="date" value="" readonly ></textarea>
             </div>
 
             <p></p>
 
             <div class="col-md-6">
-                <label for="lname" class="form-label">Unit Price</label>
-                <input type="text" class="form-control" id="unit_price" name="unit_price" value="" readonly >
+                <label for="lname" class="form-label">Budget Line Item</label>
+                <input type="text" class="form-control" id="budget_line_item" name="budget_line_item" value="" readonly >
             </div>
             
             <div class="col-md-6">
-                <label for="fname" class="form-label">Total Price:</label>
-                <input type="text" class="form-control" id="total" name="total" value="" readonly >
+                <label for="fname" class="form-label">Item:</label>
+                <input type="text" class="form-control" id="item" name="item" value="" readonly >
             </div>
 
             <p></p>
 
             <div class="col-md-6">
-                <label for="fname" class="form-label">Signature of Requestor:</label>
-                <input type="text" class="form-control" id="requester" name="requester" value="" readonly>
+                <label for="fname" class="form-label">Quantity:</label>
+                <input type="text" class="form-control" id="quantity" name="quantity" value="" readonly>
             </div>
 
             <div class="col-md-6">
@@ -100,13 +100,13 @@
 
 
            <div class="col-md-6">
-                <label for="supervisor_approved" class="form-label">Signature of PI/Supervisor:</label>
-                <input type="text" class="form-control" id="supervisor_approved" name="supervisor_approved" value="" readonly >
+                <label for="supervisor_approved" class="form-label">description:</label>
+                <input type="text" class="form-control" id="description" name="description" value="" readonly >
             </div>
 
             <div class="col-md-6">
-                <label for="lname" class="form-label">Date:</label>
-                <input type="text" class="form-control" id="supervisor_approved_date" name="supervisor_approved_date" value="" readonly >
+                <label for="lname" class="form-label">Unit Cost:</label>
+                <input type="text" class="form-control" id="unit_cost" name="unit_cost" value="" readonly >
             </div>
 
 
@@ -120,13 +120,38 @@
             </div> -->
  
             <div class="col-md-6">
-                <label for="fname" class="form-label">Signature of Accounts Clerk</label>
-                <input type="text" class="form-control" id="accounts_clerk_approved" name="accounts_clerk_approved" value="" readonly >
+                <label for="fname" class="form-label">Total Cost</label>
+                <input type="text" class="form-control" id="total_cost" name="total_cost" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Ordered By</label>
+                <input type="text" class="form-control" id="ordered_by" name="ordered_by" value="" readonly >
             </div>
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Date</label>
-                <input type="text" class="form-control" id="accounts_clerk_approved_date" name="accounts_clerk_approved_date" value="" readonly >
+                <input type="text" class="form-control" id="ordered_by_date" name="ordered_by_date" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Required By:</label>
+                <input type="text" class="form-control" id="required_by" name="required_by" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Required By Date:</label>
+                <input type="text" class="form-control" id="required_by_date" name="required_by_date" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Approved By:</label>
+                <input type="text" class="form-control" id="approved_by" name="approved_by" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Approved Date:</label>
+                <input type="text" class="form-control" id="approved_by_date" name="approved_by_date" value="" readonly >
             </div>
 
           </form>
@@ -160,44 +185,6 @@
 
 
 
-
-
-
-
-
-// populate the users dropdown
-
-// const url = "http://localhost:8000/get_users"
-//                     const data = {
-//                       'id':"case_id",
-//                     }
-            
-//                       $.post(url,data, function(data,status){
-            
-
-// console.log(data)
-
-
-//                         $.each(data, function(val, text) {
-//                             $('#accounts_clerk_approved').append( new Option(text,val) );
-//                         });
-
-            
-  
-    
-//                         $('#overlay').fadeOut();
-
-
-//         });
-
-    
-
-
-
-
-
-
-
                 // populating the already existing records
                 
                             current_url = window.location.href;
@@ -206,7 +193,7 @@
                                     console.log(case_id);
                                     $("#request_id").val(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "http://localhost:8000/purchase_request_get_record"
+                                    const url = "http://localhost:8000/purchase_order_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -214,29 +201,37 @@
                                       $.post(url,data, function(data,status){
                             
                             if (data['message']=="success"){
-                
-                                // console.log(data);
 
                 
-                    $("#requester").val(data['requester']);
-                    $("#date_of_request").val(data['date_of_request']);
-                    $("#requesting_dpt").val(data['requesting_dpt']);
+                    $("#purchase_id").val(data['purchase_id']);
+
+                    $("#name").val(data['name']);
+                    $("#contact_person").val(data['contact_person']);
+                    $("#contact_number").val(data['contact_number']);
+                    $("#address").val(data['address']);
+                    $("#project").val(data['project']); 
+                    $("#date").val(data['date']);
                     $("#budget_line_item").val(data['budget_line_item']);
-                    $("#request_justification").val(data['request_justification']);
-    
-                    $("#name_address_of_supplier").val(data['name_address_of_supplier']); 
-                   
-                    $("#qnty").val(data['qnty']);
-                    $("#item_number").val(data['item_number']);
+
+                    $("#item").val(data['item']);
+                    $("#quantity").val(data['quantity']);
                     $("#description").val(data['description']);
-                    $("#unit_price").val(data['unit_price']);
-                    $("#total").val(data['total']);
+                    $("#unit_cost").val(data['unit_cost']);
+                    $("#total_cost").val(data['total_cost']);
 
-                    $("#supervisor_approved").val(data['supervisor_approved']);
-                    $("#supervisor_approved_date").val(data['supervisor_approved_date']);
+                    $("#ordered_by").val(data['ordered_by']);
+                    $("#ordered_by_date").val(data['ordered_by_date']);  
+                    
+                    $("#required_by").val(data['required_by']);
+                    $("#required_by_date").val(data['required_by_date']); 
 
-                    $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
-                   $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);   
+                    $("#ordered_by").val(data['ordered_by']);
+                    $("#ordered_by_date").val(data['ordered_by_date']); 
+                    
+                    $("#approved_by").val(data['approved_by']);
+                    $("#approved_by_date").val(data['approved_by_date']); 
+
+                   
                    $('#overlay').fadeOut();
      
                 }else{
@@ -252,31 +247,28 @@
                 
                     function sendEdit(){
                         $('#overlay').fadeIn();
+                        var purchase_id= document.getElementById('purchase_id').value;
 
-    
-                        // var request_id= document.getElementById('request_id').value;
-                        // var requester= document.getElementById('requester').value;
-                        // var date_of_request= document.getElementById('date_of_request').value;
-                        var requesting_dpt= document.getElementById('requesting_dpt').value;
+                        var name= document.getElementById('name').value;
+                        var contact_person= document.getElementById('contact_person').value;
+                        var contact_number= document.getElementById('contact_number').value;
+                        var address= document.getElementById('address').value;
+                        var project= document.getElementById('project').value;
+                        var date= document.getElementById('date').value;
                         var budget_line_item= document.getElementById('budget_line_item').value;
-                        var request_justification= document.getElementById('request_justification').value;
 
                         var item_number= document.getElementById('item_number').value;
-                        var description= document.getElementById('description').value;
-                        
+
+                        var item= document.getElementById('item').value;
+                        var quantity= document.getElementById('quantity').value; 
+                        var description = document.getElementById('description').value;
+                        var unit_cost = document.getElementById('unit_cost').value;
+                        var total_cost=  document.getElementById('total_cost').value;
 
                 
-                        var name_address_of_supplier= document.getElementById('name_address_of_supplier').value; 
-                        var qnty = document.getElementById('qnty').value;
-    
-                        var unit_price = document.getElementById('unit_price').value;
-                        var total=      document.getElementById('total').value;
-
-                
-                        var supervisor_approved = document.getElementById('pi').value;
-                        // var supervisor_approved_date= document.getElementById('supervisor_approved_date').value;
-                
-                        var accounts_clerk_approved= document.getElementById('accounts_clerk_approved').value;
+                        var ordered_by = document.getElementById('ordered_by').value;
+                        var required_by= document.getElementById('required_by').value;
+                        var approved_by= document.getElementById('approved_by').value;
                         // var accounts_clerk_approved_date= document.getElementById('accounts_clerk_approved_date').value;
       
                             current_url = window.location.href;
@@ -285,7 +277,7 @@
                         console.log(case_id);
                         if (case_id == "add"){
                 
-                        const url = "http://localhost:8000/purchase_request_clerk_approve";
+                        const url = "http://localhost:8000/purchase_order_clerk_approve";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -304,12 +296,12 @@
                             alert("success");
                             $('#overlay').fadeOut();
 
-                            window.location.href="http://localhost:8000/purchase_request_all";
+                            window.location.href="http://localhost:8000/purchase_order_all";
                         }else{
                             alert(data['message']);
                             $('#overlay').fadeOut();
 
-                            window.location.href="http://localhost:8000/purchase_requests_all";
+                            window.location.href="http://localhost:8000/purchase_order_all";
                 
                         }
                 
