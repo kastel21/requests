@@ -1,1 +1,1 @@
-(1054, "Unknown column 'quote' in 'field list'")
+'PurchaseOrder' object has no attribute 'certified_by'

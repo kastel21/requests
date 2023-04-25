@@ -1694,7 +1694,7 @@ def purchase_order_quote_upload(request):
         fs = FileSystemStorage()
         filename = fs.save("uploads/"+myfile.name, myfile)
         uploaded_file_url = fs.url(filename)
-        record = PaymentRequestQuotation()
+        record = PurchaseOrderQuotation()
         record.request_id = request_id
         record.quote_path = uploaded_file_url
         record.save()
@@ -2112,8 +2112,7 @@ def purchase_order_approved(request):
 
 @login_required(login_url='login')
 def purchase_order_add(request):
-    
-    form = PaymentRequest.objects.all()
+    form = PurchaseOrder.objects.all()
     context = {'form':form}
     return render(request, 'pages/purchase_orders/add.html', context)
 
@@ -2140,42 +2139,43 @@ def purchase_order_get_record(request):
     context={}
     if request.method == "POST":
         _id = request.POST.get('id',default=None)
-        pdf = PaymentRequestQuotation.objects.get(id=1)
+        pdf = PurchaseOrderQuotation()
 
         try:
-          pdf = PaymentRequestQuotation.objects.get(request_id=_id)
+          pdf = PurchaseOrderQuotation.objects.get(request_id=_id)
         except:
           pass
-        record = PaymentRequest.objects.get(id=_id)
+        record = PurchaseOrder.objects.get(id=_id)
 
         dic = {
            
           "pdf":pdf.quote_path,
-          "date_of_request": record.date_of_request,
-          "payee": record.payee,
-          "payment_type": record.payment_type,
-          "amount": record.amount,
-          "project_number": record.project_number,
-          "compiled_by": record.compiled_by,
-          "compiled_by_date": record.date_of_request,
 
-          "account_code": record.account_code, 
-          "details": record.details,
-          "qnty": record.qnty,
-          # "unit_price ": record.unit_price,
-          "total": record.total,
+          "purchase_id": record.purchase_id,
 
-          "certified_by": record.certified_by,
-          "certified_by_date": record.certified_by_date,
+          "name": record.name,
+          "contact_person": record.contact_person,
+          "contact_number": record.contact_number,
+          "project": record.project,
+          "address": record.address,
+          "date": record.date,
+          "budget_line_item": record.budget_line_item, 
 
-          "cleared_by_fin_man": record.cleared_by_fin_man,
-          "cleared_by_fin_man_date": record.cleared_by_fin_man_date,
+          "item": record.item,
+          "quantity": record.quantity,
+          "unit_cost ": record.unit_cost,
+          "description": record.description,
+          "total_cost": record.total_cost,
 
-          "approved_by_project_man": record.approved_by_project_man,
-          "approved_by_project_man_date": record.approved_by_project_man_date,
+          "ordered_by": record.ordered_by,
+          "ordered_by_date": record.ordered_by_date,
+
+          "required_by": record.required_by,
+          "required_by_date": record.required_by_date,
 
           "approved_by": record.approved_by,
           "approved_by_date": record.approved_by_date,
+
           "message":"success",
         }
         context = {'addTabActive': True, "record":""}
@@ -2190,58 +2190,63 @@ def purchase_order_send_record(request):
 
     with app.app_context():
         try:
-           
+          purchase_id= request.POST.get('purchase_id',default=None)
 
-          payee= request.POST.get('payee',default=None)
-          payment_type= request.POST.get('payment_type',default=None)
-          amount= request.POST.get('amount',default=None)
-          project_number= request.POST.get('project_number',default=None)
+          name= request.POST.get('name',default=None)
+          contact_person= request.POST.get('contact_person',default=None)
+          contact_number= request.POST.get('contact_number',default=None)
+          address= request.POST.get('address',default=None) 
+          project = request.POST.get('project',default=None)
+          date = request.POST.get('date',default=None)
+          budget_line_item = request.POST.get('budget_line_item',default=None)
 
-          account_code= request.POST.get('account_code',default=None) 
-          details = request.POST.get('details',default=None)
-          qnty = request.POST.get('qnty',default=None)
-          # unit_price = request.POST.get('unit_price',default=None)
-          total= request.POST.get('total',default=None)
+          item= request.POST.get('item',default=None)
+          dept= request.POST.get('dept',default=None)
+          description= request.POST.get('description',default=None)
+          quantity= request.POST.get('quantity',default=None)
+          unit_cost= request.POST.get('unit_cost',default=None)
+          total_cost= request.POST.get('total_cost',default=None)
+          
+          ordered_by= request.POST.get('ordered_by',default=None)
+          # ordered_by_date= request.POST.get('ordered_by_date',default=None)
 
-          certified_by= request.POST.get('certified_by',default=None)
-          # certified_by_date= request.POST.get('certified_by_date',default=None)
-
-          # cleared_by_fin_man= request.POST.get('cleared_by_fin_man',default=None)
-          # cleared_by_fin_man_date= request.POST.get('cleared_by_fin_man_date',default=None)
-
-          # approved_by_project_man= request.POST.get('approved_by_project_man',default=None)
-          # approved_by_project_man_date= request.POST.get('approved_by_project_man_date',default=None)
-
-          # approved_by= request.POST.get('approved_by',default=None)
+          approved_by= request.POST.get('approved_by',default=None)
           # approved_by_date= request.POST.get('approved_by_date',default=None)
-
-          record = PaymentRequest()
+          
+          required_by= request.POST.get('required_by',default=None)
+          # required_by_date= request.POST.get('required_by_date',default=None)
+          
+          record = PurchaseOrder()
 
           record.compiled_by = request.user.username
-          record.payee= payee
-          record.payment_type= payment_type
-          record.amount= amount
-          record.project_number= project_number
+          record.purchase_id= purchase_id
 
-          record.account_code= account_code 
-          record.details = details
-          # // record.amount = pat_name
-          record.qnty = qnty
-          record.total= total
+          record.name= name
+          record.contact_person= contact_person
+          record.contact_number= contact_number
+          record.address= address 
+          record.project = project
+          record.date = date
+          record.budget_line_item = budget_line_item
 
-          record.certified_by= certified_by
-          # record.certified_by_date= certified_by_date
+          record.item= item
+          record.dept= dept
+          record.description= description
+          record.quantity= quantity
+          record.unit_cost= unit_cost
+          record.total_cost= total_cost
 
-          # record.cleared_by_fin_man= cleared_by_fin_man
-          # record.cleared_by_fin_man_date= cleared_by_fin_man_date
+          record.ordered_by= ordered_by
+          # record.ordered_by_date= ordered_by_date
 
-          # record.approved_by_project_man= approved_by_project_man
-          # record.approved_by_project_man_date= approved_by_project_man_date
+          record.required_by= required_by
+          # record.required_by_date= required_by_date
 
-          # record.approved_by= approved_by
+          record.approved_by= approved_by
+          # record.approved_by_date= approved_by_date
 
           notice = Notifications()
-          notice.to= record.certified_by
+          notice.to= record.approved_by
           notice.trigger = request.user.username
           notice.message = request.user.username +" has created a Payment Request and assigned you to Certify"
 
