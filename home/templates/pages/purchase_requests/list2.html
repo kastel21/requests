@@ -78,7 +78,7 @@
                                     <tr>
                                         <form method="POST" action="purchase_request_edit_options/{{record.id}}">
                                             {% csrf_token %}
-                                            <input type="text" name="id" id="id" value="{{record.id}}" />
+                                            <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
                                             <td> <input type="submit" value="{{record.requester}}" /> </td>
 
                                         </form>

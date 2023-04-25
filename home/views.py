@@ -195,7 +195,7 @@ def purchase_request_send_record(request):
           requester= request.user.username
           date_of_request= request.POST.get('date_of_request',default=None)
           requesting_dpt= request.POST.get('requesting_dpt',default=None)
-          # q1= request.FILES["q1"]
+          # q1= request.FILES["q1"]comp_schedule
 
           request_justification= request.POST.get('request_justification',default=None) 
           name_address_of_supplier = request.POST.get('name_address_of_supplier',default=None)
@@ -208,7 +208,7 @@ def purchase_request_send_record(request):
           unit_price=  request.POST.get('unit_price',default=None)
 
           supervisor_approved= request.POST.get('supervisor_approved',default=None)
-          # supervisor_approved_date= request.POST.get('supervisor_approved_date',default=None)
+          comp_schedule= request.POST.get('comp_schedule',default=None)
 
           # accounts_clerk_approved= request.POST.get('accounts_clerk_approved',default=None)
           # accounts_clerk_approved_date= request.POST.get('accounts_clerk_approved_date',default=None)
@@ -216,7 +216,7 @@ def purchase_request_send_record(request):
           record = PuchaseRequest()
 
         #   record.compiled_by = request.user.username
-          # record.request_id= request_id
+          record.schedule_id= comp_schedule
           record.requester= requester
           record.date_of_request= date_of_request
           record.requesting_dpt= requesting_dpt
@@ -407,7 +407,7 @@ def purchase_request_edit_options(request):
       record = PuchaseRequest.objects.get(id=_id)
       context = {'record':record}
       print("IN POST")
-      if record.supervisor_approved_date == "None" and record.supervisor_approved_date == request.user.username:
+      if record.supervisor_approved_date == "None" and record.supervisor_approved == request.user.username:
          print("certified")
          return render(request, 'pages/purchase_requests/pi.html', context)
       
@@ -423,7 +423,22 @@ def purchase_request_edit_options(request):
          return redirect("purchase_request_pending")
 
 
+# (request):
 
+
+@login_required(login_url='login')
+@csrf_exempt
+def get_purchase_requests(request):
+   try:
+      dic = {}
+      # User = get_user_model()
+      schedules = PuchaseRequest.objects.filter(~Q(accounts_clerk_approved_date = "None"))
+
+      for schedule in schedules: 
+          dic[schedule.id]= schedule.total +" : raised by "+ schedule.requester+" : raised on "+schedule.date_of_request
+      return JsonResponse(dic)
+   except Exception as e:
+          return JsonResponse(str(e)) 
 
 
 
@@ -483,20 +498,20 @@ def comp_schedule_add(request):
 def comp_schedule_send_record(request):
 
     with app.app_context():
-        # try:
+        try:
           import os
           app.config['UPLOAD_FOLDER'] = "/uploads"
           # request_id= request.POST.get('request_id',default=None)
           payee= request.POST.get('payee',default=None)
 
-          for filename in  request.FILES.items():
-            name = request.FILES[filename].name
-            print(name)
+          # for filename in  request.FILES.items():
+          #   name = request.FILES[filename].name
+          #   print(name)
 
-          upload= request.FILES['upload']
-          print(upload)
-          filename = upload.filename
-          upload.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+          # upload= request.FILES['upload']
+          # print(upload)
+          # filename = upload.filename
+          # upload.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
           company_name_supplier1= request.POST.get('company_name_supplier1',default=None)
           item_number_supplier1= request.POST.get('item_number_supplier1',default=None)
@@ -549,7 +564,7 @@ def comp_schedule_send_record(request):
         #   record.compiled_by = request.user.username
           # record.request_id= request_id
           record.payee= payee
-          record.upload_name= filename
+          # record.upload_name= filename
           record.company_name_supplier1= company_name_supplier1
           record.item_number_supplier1= item_number_supplier1
           record.desc_supplier1= desc_supplier1
@@ -612,27 +627,37 @@ def comp_schedule_send_record(request):
           record.save()
           notice.save()
 
-          return JsonResponse( {'message':"success"})
+          return JsonResponse( {'message':"success",'id':record.pk})
 
-        # except Exception as e  :
-        #     f= open("service2.txt","w")
-        #     f.write(str(e))
-        #     f.close()
-        #     return JsonResponse({'message':"failed"})
+        except Exception as e  :
+            f= open("service2.txt","w")
+            f.write(str(e))
+            f.close()
+            return JsonResponse({'message':"failed"})
 
 @login_required(login_url='login')
 @csrf_exempt
 def comp_schedule_get_record(request):
     context={}
     if request.method == "POST":
+
       try:
         _id = request.POST.get('id',default=None)
+        pdf = CompScheduleQuotation()
+
+        try:
+          pdf = CompScheduleQuotation.objects.get(request_id=_id)
+        except:
+          pass
+        # record = PaymentRequest.objects.get(id=_id)
 
         record = ComparativeSchedule.objects.get(id=_id)
         print(record.upload_name)
         dic = {
       "payee":record.payee,
-      # "upload":record.upload,
+      "pdf1":pdf.quote1_path,
+      "pdf2":pdf.quote2_path,
+      "pdf3":pdf.quote3_path,
 
       "message":"success",
       "company_name_supplier1":record.company_name_supplier1,
@@ -680,10 +705,10 @@ def comp_schedule_get_record(request):
       "approved_by_sig":record.approved_by_sig,
       "approved_date":record.approved_date,
     }
-        return JsonResponse(dic, safe=False)
+        return JsonResponse(dic)
 
       except Exception as e:
-        return JsonResponse(str(e))
+        return JsonResponse(str(e),safe=False)
 
     else:
         return redirect('/comp_schedule')
@@ -915,6 +940,38 @@ def comp_schedule_pending(request):
     records = ComparativeSchedule.objects.filter((Q(approved_by=username) & Q (approved_date="None")) | (Q(dpt_head_by=username) & Q (dpt_head_date="None")) | (Q(team_lead_by=username) & Q (team_lead_date="None")) | (Q(tech_person_by=username) & Q (tech_person_date="None")) )
     context = {'records':records}
     return render(request, 'pages/comparative_schedules/list_pending.html', context)
+
+@login_required(login_url='login')
+def comp_schedule_quotes_upload(request):
+    if request.method == 'POST' and request.FILES['quote1'] and request.FILES['quote2'] and request.FILES['quote3']:
+        myfile1 = request.FILES['quote1']
+        myfile2 = request.FILES['quote2']
+        myfile3 = request.FILES['quote3']
+
+        request_id = request.POST.get('request_id')
+        
+        fs = FileSystemStorage()
+        filename1 = fs.save("uploads/comp_schedules/"+request_id+"/"+myfile1.name, myfile1)
+        uploaded_file_url1 = fs.url(filename1)
+
+        filename2 = fs.save("uploads/comp_schedules/"+request_id+"/"+myfile2.name, myfile2)
+        uploaded_file_url2 = fs.url(filename2)
+
+        filename3 = fs.save("uploads/comp_schedules/"+request_id+"/"+myfile3.name, myfile3)
+        uploaded_file_url3 = fs.url(filename3)
+
+        record = CompScheduleQuotation()
+        record.request_id = request_id
+        record.quote1_path = uploaded_file_url1
+        record.quote2_path = uploaded_file_url2
+        record.quote3_path = uploaded_file_url3
+
+        record.save()
+        return redirect('/comp_schedule')
+    else:
+          return render(request, 'pages/comparative_schedules/upload_quote.html')
+
+
 
 
 # ***********************************************************************************************************************
@@ -1381,7 +1438,21 @@ def get_users(request):
    except Exception as e:
           return JsonResponse(str(e))
 
-    
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def get_comp_schedules(request):
+   try:
+      dic = {}
+      # User = get_user_model()
+      schedules = ComparativeSchedule.objects.filter(~Q(approved_date = "None"))
+
+      for schedule in schedules: 
+          dic[schedule.id]= schedule.dpt_project_requesting +" : raised by "+ schedule.requested_by+" : raised on "+schedule.requested_by_date
+      return JsonResponse(dic)
+   except Exception as e:
+          return JsonResponse(str(e)) 
 
 @login_required(login_url='login')
 @csrf_exempt
@@ -1449,7 +1520,7 @@ def payment_request_send_record(request):
           account_code= request.POST.get('account_code',default=None) 
           details = request.POST.get('details',default=None)
           qnty = request.POST.get('qnty',default=None)
-          # unit_price = request.POST.get('unit_price',default=None)
+          purchase_request = request.POST.get('purchase_request',default=None)
           total= request.POST.get('total',default=None)
 
           certified_by= request.POST.get('certified_by',default=None)
@@ -1474,7 +1545,7 @@ def payment_request_send_record(request):
 
           record.account_code= account_code 
           record.details = details
-          # // record.amount = pat_name
+          record.purchase_id = purchase_request
           record.qnty = qnty
           record.total= total
 

@@ -5,7 +5,8 @@ from django.db import models
 
 
 class PuchaseRequest(models.Model):
-    request_id = models.CharField(max_length=30, default="None")
+
+    schedule_id = models.CharField(max_length=30, default="None")
     requester = models.CharField(max_length=30, default="None")
     date_of_request = models.CharField(max_length=25, default="2023")
     requesting_dpt = models.CharField(max_length=150, default="None")
@@ -27,6 +28,7 @@ class PuchaseRequest(models.Model):
     accounts_clerk_approved_date= models.CharField(max_length=150, default="None")
 
 class PurchaseOrder(models.Model):
+    purchase_id = models.CharField(max_length=30, default="None")
     name = models.CharField(max_length=30, default="None")
     contact_person = models.CharField(max_length=30, default="None")
     contact_number = models.CharField(max_length=25, default="2023")
@@ -51,7 +53,6 @@ class PurchaseOrder(models.Model):
     approved_by= models.CharField(max_length=150, default="None")
     approved_by= models.CharField(max_length=150, default="None")
 
-
 class PuchaseRequestQuote(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
     quote = models.FileField(upload_to='documents/')
@@ -61,9 +62,10 @@ class PuchaseRequestQuotation(models.Model):
     quote_path = models.CharField(max_length=500,default=".")
 
 class PaymentRequest(models.Model):
+    purchase_id= models.CharField(max_length=30, default="None")
     request_id = models.CharField(max_length=30, default="None")
     compiled_by = models.CharField(max_length=30, default="None")
-    date_of_request = models.CharField(max_length=25, default="2023")
+    date_of_request = models.CharField(max_length=25, default="None")
     payee = models.CharField(max_length=150, default="None")
     payment_type = models.CharField(max_length=450, default="None")
     # amount = models.CharField(max_length=550, default="None")
@@ -95,6 +97,11 @@ class PaymentRequestQuotation(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
     quote_path = models.CharField(max_length=500, default=".")
 
+class CompScheduleQuotation(models.Model):
+    request_id = models.CharField(max_length=255, blank=True)
+    quote1_path = models.CharField(max_length=500, default=".")
+    quote2_path = models.CharField(max_length=500, default=".")
+    quote3_path = models.CharField(max_length=500, default=".")
 
 class ComparativeSchedule(models.Model):
     request_id = models.CharField(max_length=30, default="None")

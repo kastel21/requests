@@ -23,7 +23,12 @@
                 <label  class="form-label">request_id:</label>
                 <input type="text" class="form-control" id="request_id" name="request_id" value="">
             </div> -->
-
+            <div class="col-md-12">
+                <label for="fname" class="form-label">Add From Purchase Request:</label>
+                <select class="form-control" name="purchase_request" id="purchase_request">
+                    <option value="None">..</option>
+    
+                    </select>            </div>
             <div class="col-md-6">
                 <label  class="form-label">Payee:</label>
                 <input type="text" class="form-control" id="payee" name="payee" value="">
@@ -186,7 +191,28 @@ $('#dis').fadeOut();
                     if (case_id == "add"){
 
   // populate the users dropdown
+  const url1 = "http://localhost:8000/get_purchase_requests"
+                    const data1 = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url1,data1, function(data1,status){
+            
 
+console.log(data1)
+
+
+                        $.each(data1, function(val, text) {
+                            $('#purchase_request').append( new Option(text,val) );
+                        });
+
+            
+  
+    
+                        $('#overlay').fadeOut();
+
+
+        });
   const url = "http://localhost:8000/get_users"
                     const data = {
                       'id':"case_id",
@@ -275,7 +301,7 @@ console.log(data)
     $('#add').prop('disabled', true);
    $('#overlay').fadeIn();
 
-        // var date_of_request= document.getElementById('date_of_request').value;
+        var purchase_request= document.getElementById('purchase_request').value;
         var payee= document.getElementById('payee').value;
         var payment_type= document.getElementById('payment_type').value;
         var amount= document.getElementById('amount').value;
@@ -332,7 +358,7 @@ console.log(data)
                             "total": total,
 
                             "certified_by": certified_by,
-                            // "certified_by_date": certified_by_date,
+                            "purchase_request": purchase_request,
 
                             // "cleared_by_fin_man": cleared_by_fin_man,
                             // "cleared_by_fin_man_date": cleared_by_fin_man_date,
@@ -349,10 +375,10 @@ console.log(data)
                $('#overlay').fadeOut();
 
         if (data['message']=="success"){
-            console.log("success")
-            window.location.href="http://localhost:8000/payment_request_quote_upload/"+data['id'];
+            console.log("success");
+            window.location.href="http://localhost:8000/payment_requests_all";
         }else{
-            console.log(data['message'])
+            console.log(data['message']);
             window.location.href="http://localhost:8000/payment_requests_all";
 
         }

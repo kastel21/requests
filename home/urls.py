@@ -75,7 +75,13 @@ urlpatterns = [
     path('get_users', views.get_users, name='get_users'),
     # path('print', views.payment_request_print, name='print'),
 
+    path('get_comp_schedules', views.get_comp_schedules, name='get_comp_schedules'),
+
+    path('get_purchase_requests', views.get_purchase_requests, name='get_purchase_requests'),
+
     #comp schedule
+        re_path('comp_schedule_quotes_upload', views.comp_schedule_quotes_upload, name='comp_schedule_quotes_upload'),
+
     path('comp_schedule', views.comp_schedule, name='comp_schedule'),
     path('comp_schedule_all', views.comp_schedule_all, name='comp_schedule_all'),
     path('comp_schedule_approved', views.comp_schedule_approved, name='comp_schedule_approved'),

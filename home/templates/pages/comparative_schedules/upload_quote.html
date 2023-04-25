@@ -183,7 +183,7 @@
                 <label  class="form-label">Signature:</label>
                 <input type="text" class="form-control" id="tech_person_by_sig" name="tech_person_by_sig" value="" readonly>
             </div>
-
+<!-- 
             <div class="col-md-4">
                 <label  class="form-label">Date:</label>
                 <input type="text" class="form-control" id="tech_person_date" name="tech_person_date" value="" readonly>
@@ -221,7 +221,7 @@
             <div class="col-md-4">
                 <label  class="form-label">Date:</label>
                 <input type="text" class="form-control" id="team_lead_date" name="team_lead_date" value="" readonly>
-            </div>
+            </div> -->
 
 
 <!-- <hr>
@@ -237,7 +237,7 @@
 
 
 
-
+<!-- 
 
             <hr>
 
@@ -255,26 +255,36 @@
                 <label  class="form-label">Date:</label>
                 <input type="text" class="form-control" id="approved_date" name="approved_date" value="" readonly>
             </div>
-            <hr>
-
-            <div class="col-md-4">
-                <label for="certifier" class="form-label">Quotation1</label>
-                <a id="quotation1" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
-            </div>  
-                      <div class="col-md-4">
-                <label for="certifier" class="form-label">Quotation2</label>
-                <a id="quotation2" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
-            </div>     
-            
-            <div class="col-md-4">
-                <label for="certifier" class="form-label">Quotation3</label>
-                <a id="quotation3" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
-            </div>
-
-
+            <hr> -->
           </form> 
 
 
+          <form action="{% url 'comp_schedule_quotes_upload' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+  
+            <div style="display:none;" class="col-md-6">
+            <label for="fname" class="form-label">Request ID</label>
+            <input  type="text" value="" id="request_id" name="request_id" readonly >
+            </div>
+  
+            <div class="col-md-4">
+                <label for="quote" class="form-label">Attach Quotation1</label>
+            <input type="file"  value="" id="quote1" name="quote1" accept="pdf"/>
+                </div>
+
+
+                <div class="col-md-4">
+                    <label for="quote" class="form-label">Attach Quotation2</label>
+                <input type="file"  value="" id="quote2" name="quote2" accept="pdf"/>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="quote" class="form-label">Attach Quotation3</label>
+                    <input type="file"  value="" id="quote3" name="quote3" accept="pdf"/>
+                        </div>
+            <input type="submit" value="Submit" class="form-control" /> 
+  
+      </form>
 
 
           <div class="col-md-12">
@@ -308,10 +318,6 @@
                 
                     // $("#request_id").val(data['request_id']);
                     $("#payee").val(data['payee']);
-
-                    $('#quotation1').attr('href',data['pdf1']);
-                    $('#quotation2').attr('href',data['pdf2']);
-                    $('#quotation3').attr('href',data['pdf3']);
 
                     $("#upload").val(data['upload_name']);
                     $("#company_name_supplier1").val(data['company_name_supplier1']);
