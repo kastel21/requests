@@ -68,29 +68,29 @@
                                 <th>
                                     <td>Requester</td>
                                     <td>Request Date</td>
-                                    <td>Payee</td>
+                                    <td>Requesting Department</td>
                                     <td>Total</td>
-                                    <td>Project Number</td>
-                                    <td>status</td>
+                                    <td>Quantity</td>
+                                    <td>Comparative Schedule ID</td>
 
                                 </th>
 
 
 
-
                                 {% for record in records %}
                                     <tr>
-                                        <form method="POST" action="payment_request_view/{{record.id}}">
+                                        <form method="POST" action="purchase_request_open_record/{{record.id}}">
                                             {% csrf_token %}
+                                            <td></td>
                                             <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
                                             <td> <input type="submit" value="{{record.requester}}" /> </td>
 
                                         </form>
-                                    <td>{{record.request_date}}</td>
-                                    <td>{{record.payee}}</td>
+                                    <td>{{record.date_of_request}}</td>
+                                    <td>{{record.requesting_dpt}}</td>
                                     <td>{{record.total}}</td>
-                                    <td>{{record.project_number}}</td>
-                                    <td>{{record.status}}</td>
+                                    <td>{{record.qnty}}</td>
+                                    <td>{{record.schedule_id}}</td>
 
                                     </tr>
 

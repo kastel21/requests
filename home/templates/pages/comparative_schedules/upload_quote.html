@@ -16,11 +16,11 @@
                 <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
                 
            </div>
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
                 <a href="show_pdf/record.upload">upload {{record.upload}} </a>
 
                 <!-- <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly> -->
-            </div>
+            <!-- </div>  -->
 
             <div class="col-md-12">
                 <label  class="form-label">payee:</label>
@@ -61,16 +61,16 @@
                 <input type="text" class="form-control" id="total_price_supplier1" name="total_price_supplier1" value="" readonly>
             </div>
 
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
                 <label  class="form-label">File for supplier1:</label>
                 <input type="file" class="form-control" id="upload" value="" name="upload" accept=".doc, .docx, .pdf, .txt">
-            </div>
+            </div> -->
 
-            <div class="col-md-4">                
+            <!-- <div class="col-md-4">                
                 <label  class="form-label">File2 for supplier1:</label>
                 {{record.upload_name}}
 
-            </div>
+            </div> -->
 
             <legend>Supplier 2</legend>
             <div class="col-md-6">
@@ -269,18 +269,18 @@
   
             <div class="col-md-4">
                 <label for="quote" class="form-label">Attach Quotation1</label>
-            <input type="file"  value="" id="quote1" name="quote1" accept="pdf"/>
+            <input type="file"  value="" id="quote1" name="quote1" accept=".pdf"/>
                 </div>
 
 
                 <div class="col-md-4">
                     <label for="quote" class="form-label">Attach Quotation2</label>
-                <input type="file"  value="" id="quote2" name="quote2" accept="pdf"/>
+                <input type="file"  value="" id="quote2" name="quote2" accept=".pdf"/>
                     </div>
 
                     <div class="col-md-4">
                         <label for="quote" class="form-label">Attach Quotation3</label>
-                    <input type="file"  value="" id="quote3" name="quote3" accept="pdf"/>
+                    <input type="file"  value="" id="quote3" name="quote3" accept=".pdf"/>
                         </div>
             <input type="submit" value="Submit" class="form-control" /> 
   
@@ -316,7 +316,7 @@
                             
                             if (data['message']=="success"){
                 
-                    // $("#request_id").val(data['request_id']);
+                    $("#request_id").val(data['request_id']);
                     $("#payee").val(data['payee']);
 
                     $("#upload").val(data['upload_name']);

@@ -78,6 +78,8 @@
                                     <tr>
                                         <form method="POST" action="purchase_request_open_record/{{record.id}}">
                                             {% csrf_token %}
+                                            <td></td>
+                                            <td>{{record.id}}</td>
                                             <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
                                             <td> <input type="submit" value="{{record.requester}}" /> </td>
 

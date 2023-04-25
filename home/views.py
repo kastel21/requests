@@ -173,9 +173,10 @@ def purchase_request_pending(request):
 
 @login_required(login_url='login')
 def purchase_request_approved(request):
-    form = PuchaseRequest.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/purchase_request.html', context)
+    username = request.user.username
+    records = PuchaseRequest.objects.filter( (Q(requester =username)& ~Q(accounts_clerk_approved_date="None"))  |  (Q(supervisor_approved =username)& ~Q(accounts_clerk_approved_date="None")) | (Q(accounts_clerk_approved =username)& ~Q(accounts_clerk_approved_date="None")) )
+    context = {'records':records}
+    return render(request, 'pages/purchase_requests/list_approved.html', context)
 
 @login_required(login_url='login')
 def purchase_request_add(request):
@@ -482,9 +483,10 @@ def comp_schedule_super(request):
 
 @login_required(login_url='login')
 def comp_schedule_approved(request):
-    form = ComparativeSchedule.objects.all()
-    context = {'form':form}
-    return render(request, 'pages/payment_request.html', context)
+    username = request.user.username
+    records = ComparativeSchedule.objects.filter( (Q(requested_by =username )& ~Q(approved_date="None"))  |  (Q(tech_person_by =username )& ~Q(approved_date="None")) | (Q(dpt_head_by =username )& ~Q(approved_date="None")) | (Q(team_lead_by =username )& ~Q(approved_date="None")) | (Q(approved_by =username )& ~Q(approved_date="None")))
+    context = {'records':records}
+    return render(request, 'pages/comparative_schedules/list_approved.html', context)
 
 @login_required(login_url='login')
 def comp_schedule_add(request):
@@ -643,12 +645,12 @@ def comp_schedule_get_record(request):
 
       try:
         _id = request.POST.get('id',default=None)
-        pdf = CompScheduleQuotation()
+        pdf = CompScheduleQuotation.objects.get(id=1)
 
         try:
           pdf = CompScheduleQuotation.objects.get(request_id=_id)
-        except:
-          pass
+        except Exception as e:
+          print(str(e))
         # record = PaymentRequest.objects.get(id=_id)
 
         record = ComparativeSchedule.objects.get(id=_id)
@@ -950,14 +952,25 @@ def comp_schedule_quotes_upload(request):
 
         request_id = request.POST.get('request_id')
         
+        import os
+        path = "uploads/comp_schedules/"+str(request_id)
+        # Check whether the specified path exists or not
+        isExist = os.path.exists(path)
+        if not isExist:
+
+          # Create a new directory because it does not exist
+          os.makedirs(path)
+
+
+
         fs = FileSystemStorage()
-        filename1 = fs.save("uploads/comp_schedules/"+request_id+"/"+myfile1.name, myfile1)
+        filename1 = fs.save(path+"/"+myfile1.name, myfile1)
         uploaded_file_url1 = fs.url(filename1)
 
-        filename2 = fs.save("uploads/comp_schedules/"+request_id+"/"+myfile2.name, myfile2)
+        filename2 = fs.save(path+"/"+myfile2.name, myfile2)
         uploaded_file_url2 = fs.url(filename2)
 
-        filename3 = fs.save("uploads/comp_schedules/"+request_id+"/"+myfile3.name, myfile3)
+        filename3 = fs.save(path+"/"+myfile3.name, myfile3)
         uploaded_file_url3 = fs.url(filename3)
 
         record = CompScheduleQuotation()

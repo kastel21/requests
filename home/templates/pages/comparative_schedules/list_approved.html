@@ -66,36 +66,34 @@
   
                             <table style="margin: 2%;">
                                 <th>
-
-                                    <td>ID</td>
                                     <td>Requester</td>
-                                    <td>Requesting Department</td>
-                                    <td>Request Justification</td>
-                                    <td>Total</td>
-                                    <td>status</td>
-                                    <td></td>
+                                    <td>Request Date</td>
+                                    <td>Department/Project</td>
+                                    <td>Recommended Supplier</td>
+                                    <td>Project Number</td>
+                                    <td>Payee</td>
 
                                 </th>
+
+
+
+
                                 {% for record in records %}
                                     <tr>
-                                        <form method="POST" action="purchase_request_edit_options/{{record.id}}">
+                                        <form method="POST" action="comp_schedule_open_record/{{record.id}}">
                                             {% csrf_token %}
-                                            <td></td>
-                                            <td>{{record.id}}</td>
-
+                                    <td>{{requested_by}}</td>
                                             <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
-                                            <td> <input type="submit" value="{{record.requester}}" /> </td>
-                                            <td>{{record.requester}}</td>
-                                            <td>{{record.requesting_dpt}}</td>
-                                            <td>{{record.request_justification}}</td>
-                                            <td>{{record.total}}</td>
-                                            <td>{{record.status}}</td>
-        
-                                            </tr>
-                                        </form>
-                                      
+                                            <td> <input type="submit" value="{{record.requested_by}}" /> </td>
 
- 
+                                        </form>
+                                    <td>{{record.requested_by_date}}</td>
+                                    <td>{{record.dpt_project_requesting}}</td>
+                                    <td>{{record.recommended_supplier}}</td>
+                                    <td>{{record.project_number}}</td>
+                                    <td>{{record.payee}}</td>
+
+                                    </tr>
 
 
                                 {% endfor %}

@@ -1,8 +1,8 @@
 from django.db import models
 
 # Create your models here.
-
-
+# /Users/it/requests/uploads/comp_schedules/1
+# uploads/comp_schedules/1
 
 class PuchaseRequest(models.Model):
 
