@@ -404,17 +404,17 @@ def purchase_request_edit_options(request):
       _id = request.POST.get('id',default=None)
 
         # objs = Record.objects.get(id=_id)
-      record = PurchaseOrder.objects.get(id=_id)
+      record = PuchaseRequest.objects.get(id=_id)
       context = {'record':record}
       print("IN POST")
-      if record.required_by_date == "None" and record.required_by == request.user.username:
+      if record.supervisor_approved_date == "None" and record.supervisor_approved == request.user.username:
          print("certified")
-         return render(request, 'pages/purchase_orders/pi.html', context)
+         return render(request, 'pages/purchase_requests/pi.html', context)
       
-      elif record.approved_by_date == "None" and record.approved_by == request.user.username:
+      elif record.accounts_clerk_approved_date == "None" and record.accounts_clerk_approved == request.user.username:
          print("cleared")
 
-         return render(request, 'pages/purchase_orders/clerk.html', context)
+         return render(request, 'pages/purchase_requests/clerk.html', context)
       else:
          return render(request, 'pages/comparative_schedules/not_auth.html', {})
       
@@ -1729,19 +1729,20 @@ def purchase_order_view(request):
       
 @login_required(login_url='login')
 def purchase_order_edit_options(request):
+    
     if request.method == "POST":
       
       _id = request.POST.get('id',default=None)
 
         # objs = Record.objects.get(id=_id)
-      record = PaymentRequest.objects.get(id=_id)
+      record = PurchaseOrder.objects.get(id=_id)
       context = {'record':record}
       print("IN POST")
-      if record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man_date == request.user.username:
+      if record.required_by_date == "None" and record.required_by == request.user.username:
          print("certified")
-         return render(request, 'pages/purchase_orders/pi.html', context)
+         return render(request, 'pages/purchase_orders/view_record.html', context)
       
-      elif record.approved_by_project_man_date == "None" and record.approved_by_project_man_date == request.user.username:
+      elif record.approved_by_date == "None" and record.approved_by == request.user.username:
          print("cleared")
 
          return render(request, 'pages/purchase_orders/clerk.html', context)
@@ -1750,7 +1751,8 @@ def purchase_order_edit_options(request):
       
 
     else:
-         return redirect("purchase_request_pending")
+         return redirect("purchase_order_pending")
+    
 
 
 @login_required(login_url="login")
@@ -1912,7 +1914,7 @@ def purchase_order_clearance(request):
       _id = request.POST.get('id',default=None)
 
         # objs = Record.objects.get(id=_id)
-      record = PurchaseOrder.objects.get(id=_id)
+      record = PurchaseOrder .objects.get(id=_id)
       context = {'record':record}
       return render(request, 'pages/purchase_orders/view.html', context)
     else:
@@ -2099,7 +2101,7 @@ def purchase_order_approve(request):
 @login_required(login_url='login')
 def purchase_order_pending(request):
     username = request.user.username
-    records = PurchaseOrder.objects.filter((Q(approved_by=username) & Q (approved_by_date="None")) | (Q(certified_by=username) & Q (certified_by_date="None")) | (Q(cleared_by_fin_man=username) & Q (cleared_by_fin_man_date="None")))
+    records = PurchaseOrder.objects.filter((Q(approved_by=username) & Q (approved_by_date="None")) | (Q(required_by=username) & Q (required_by_date="None")) | (Q(ordered_by=username) & Q (ordered_by_date="None")))
     context = {'records':records}
     return render(request, 'pages/purchase_orders/list_pending.html', context)
 
