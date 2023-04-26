@@ -384,10 +384,9 @@ def purchase_request_view(request):
 @login_required(login_url="login")
 def purchase_request_open_record(request):
     if request.method == "POST":
-      
+
       _id = request.POST.get('id',default=None)
 
-        # objs = Record.objects.get(id=_id)
       record = PuchaseRequest.objects.get(id=_id)
       context = {'record':record}
       print("IN POST")
@@ -405,17 +404,17 @@ def purchase_request_edit_options(request):
       _id = request.POST.get('id',default=None)
 
         # objs = Record.objects.get(id=_id)
-      record = PuchaseRequest.objects.get(id=_id)
+      record = PurchaseOrder.objects.get(id=_id)
       context = {'record':record}
       print("IN POST")
-      if record.supervisor_approved_date == "None" and record.supervisor_approved == request.user.username:
+      if record.required_by_date == "None" and record.required_by == request.user.username:
          print("certified")
-         return render(request, 'pages/purchase_requests/pi.html', context)
+         return render(request, 'pages/purchase_orders/pi.html', context)
       
-      elif record.accounts_clerk_approved_date == "None" and record.accounts_clerk_approved == request.user.username:
+      elif record.approved_by_date == "None" and record.approved_by == request.user.username:
          print("cleared")
 
-         return render(request, 'pages/purchase_requests/clerk.html', context)
+         return render(request, 'pages/purchase_orders/clerk.html', context)
       else:
          return render(request, 'pages/comparative_schedules/not_auth.html', {})
       
@@ -1682,7 +1681,7 @@ def purchase_order(request):
 def purchase_order_all(request):
     username = request.user.username
     user_id = request.user.id
-    records = PaymentRequest.objects.filter( Q(compiled_by=username) | Q(certified_by= username) | Q(approved_by=username) | Q(cleared_by_fin_man=username))
+    records = PurchaseOrder.objects.filter( Q(ordered_by=username) | Q(required_by= username) | Q(approved_by=username))
     context = {'records':records}
     return render(request, 'pages/purchase_orders/list2.html', context)
 
@@ -1761,7 +1760,7 @@ def purchase_order_open_record(request):
       _id = request.POST.get('id',default=None)
 
         # objs = Record.objects.get(id=_id)
-      record = PaymentRequest.objects.get(id=_id)
+      record = PurchaseOrder.objects.get(id=_id)
       context = {'record':record}
       print("IN POST")
       return render(request, 'pages/purchase_orders/view_record.html', context)
@@ -1822,28 +1821,31 @@ def purchase_order_print(request):
         # _id = request.POST.get(x)
         # print(_id)
 
-        record = PaymentRequest.objects.get(id=x)
+        record = PurchaseOrder.objects.get(id=x)
         
-        data = {"payee": record.payee,
-        "compiled_by": record.compiled_by,
-        "date_of_request": record.date_of_request,
-        "payment_type": record.payment_type,
-        "project_number": record.project_number,
-        "account_code": record.account_code,
-        "details": record.details,
-        "amount": record.amount,
-        "total": record.total,
-        "certified_by": record.certified_by,
-        "certified_by_date": record.certified_by_date,
-        "cleared_by_fin_man": record.cleared_by_fin_man,
-        "cleared_by_fin_man_date": record.cleared_by_fin_man_date,
-        "approved_by_project_man": record.approved_by_project_man,
-        "approved_by_project_man_date": record.approved_by_project_man_date,
-        "approved_by": record.approved_by,
-        "approved_by_date": record.approved_by_date,
+        data = {
+        "purchase_id": record.purchase_id,
+
+        "name": record.name,
+        "contact_person":record.contact_person,
+        "contact_number":record.contact_number,
+        "address": record.address,
+        "project":record.project,
+        "date": record.date,
+        "budget_line_item": record.budget_line_item,
+
+        "item": record.item,
+        "dept":record.dept,
+        "description":record.description,
+        "quantity":record.quantity,
+        "unit_cost":record.unit_cost,
+        "total_cost": record.total_cost,
+
+        "ordered_by":record.ordered_by,
+        "required_by":record.required_by,
+        "approved_by":record.approved_by,
         
         "message":"success"}   
-
 
         pdf = render_to_pdf('pages/purchase_orders/print.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
@@ -1864,13 +1866,13 @@ def purchase_order_print(request):
     #   return render(request, 'pages/purchase_orders/print.html', context)
 @login_required(login_url='login')
 def purchase_order_super(request):
-    records = PaymentRequest.objects.all()
+    records = PurchaseOrder.objects.all()
     context = {'records':records}
     return render(request, 'pages/purchase_orders/list2.html', context)
 
 @login_required(login_url='login')
 def purchase_order_edit(request):
-    form = PaymentRequest.objects.all()
+    form = PurchaseOrder.objects.all()
     context = {'form':form}
     return render(request, 'pages/purchase_orders/add.html', context)
 
@@ -1887,7 +1889,7 @@ def purchase_order_certification(request):
       _id = request.POST.get('id',default=None)
 
         # objs = Record.objects.get(id=_id)
-      record = PaymentRequest.objects.get(id=_id)
+      record = PurchaseOrder.objects.get(id=_id)
       context = {'record':record}
       return render(request, 'pages/purchase_orders/view.html', context)
     else:
@@ -1910,7 +1912,7 @@ def purchase_order_clearance(request):
       _id = request.POST.get('id',default=None)
 
         # objs = Record.objects.get(id=_id)
-      record = PaymentRequest.objects.get(id=_id)
+      record = PurchaseOrder.objects.get(id=_id)
       context = {'record':record}
       return render(request, 'pages/purchase_orders/view.html', context)
     else:
