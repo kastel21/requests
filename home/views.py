@@ -302,6 +302,7 @@ def purchase_request_get_record(request):
 
 
 
+
 @login_required(login_url='login')
 @csrf_exempt
 def purchase_request_pi_approve(request):
@@ -2099,7 +2100,7 @@ def purchase_order_approve(request):
 @login_required(login_url='login')
 def purchase_order_pending(request):
     username = request.user.username
-    records = PurchaseOrder.objects.filter((Q(approved_by=username) & Q (approved_by_date="None")) | (Q(certified_by=username) & Q (certified_by_date="None")) | (Q(cleared_by_fin_man=username) & Q (cleared_by_fin_man_date="None")))
+    records = PurchaseOrder.objects.filter((Q(approved_by=username) & Q (approved_by_date="None")) )
     context = {'records':records}
     return render(request, 'pages/purchase_orders/list_pending.html', context)
 
@@ -2271,6 +2272,8 @@ def purchase_order_send_record(request):
             f.close()
             return JsonResponse({'message':"failed"})
 
+
+
 @login_required(login_url='login')
 @csrf_exempt
 def purchase_order_edit_record(request):
@@ -2341,3 +2344,54 @@ def purchase_order_edit_record(request):
             f.write(str(e))
             f.close()
             return JsonResponse({'message':"failed"})
+        
+
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def purchase_order_approve(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+      # clerk = request.POST.get('clerk',default=None)
+      username = request.user.username
+        # objs = Record.objects.get(id=_id)
+      record = PurchaseOrder.objects.get(id=_id)
+      # record.accounts_clerk_approved = clerk
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.approved_by= "{:%B %d, %Y  %H:%M:%S}".format(d)
+
+      record.save()
+
+      notice = Notifications()
+      notice.to = record.ordered_by
+      notice.message = " "+ username +" updated Approved your Purchase Order."
+      notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      notice.trigger = username
+      notice.save()
+
+
+
+
+      return JsonResponse( {'message':"success"})
+    else:
+      return render(request, 'pages/purchase_orders/list.html', {})
+    
+
+
+@login_required(login_url='login')
+def purchase_order_view(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = PurchaseOrder.objects.get(id=_id)
+      context = {'record':record}
+
+      return render(request, 'pages/purchase_orders/approve.html', context)
+    else:
+        return render(request, 'pages/comparative_schedules/not_auth.html', {})
+

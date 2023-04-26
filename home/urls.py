@@ -86,6 +86,8 @@ urlpatterns = [
     path('comp_schedule_all', views.comp_schedule_all, name='comp_schedule_all'),
     path('comp_schedule_approved', views.comp_schedule_approved, name='comp_schedule_approved'),
     
+        path('purchase_order_approve', views.purchase_order_approve, name='purchase_order_approve'),
+
     path('comp_schedule_approve', views.comp_schedule_approve, name='comp_schedule_approve'),
 
     path('comp_schedule_pending', views.comp_schedule_pending, name='comp_schedule_pending'),

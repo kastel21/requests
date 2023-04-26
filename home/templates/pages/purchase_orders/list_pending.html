@@ -67,11 +67,11 @@
                             <table style="margin: 2%;">
                                 <th>
                                     <td>Requester</td>
-                                    <td>Certifier</td>
-                                    <td>Payee</td>
+                                    <td>Department</td>
+                                    <td>name</td>
                                     <td>Total</td>
-                                    <td>Project Number</td>
-                                    <td>status</td>
+                                    <td>Quantity</td>
+                                    <td>Approver</td>
 
                                 </th>
 
@@ -80,20 +80,20 @@
 
                                 {% for record in records %}
 
-                                <form method="POST" action="payment_request_view/{{record.id}}">
+                                <form method="POST" action="purchase_order_view/{{record.id}}">
 
                                     <tr>
                                             {% csrf_token %}
                                             <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
                                             <td></td>
-                                            <td> <input type="submit" value="{{record.compiled_by}}" /> </td>
+                                            <td> <input type="submit" value="{{record.ordered_by}}" /> </td>
 
                                         
-                                    <td>{{record.certified_by}}</td>
-                                    <td>{{record.payee}}</td>
+                                    <td>{{record.dept}}</td>
+                                    <td>{{record.name}}</td>
                                     <td>{{record.total}}</td>
-                                    <td>{{record.project_number}}</td>
-                                    <td>{{record.status}}</td>
+                                    <td>{{record.quantity}}</td>
+                                    <td>{{record.approved_by}}</td>
                                     <td></td>
 
                                     </tr>
