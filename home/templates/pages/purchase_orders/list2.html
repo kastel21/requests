@@ -77,7 +77,7 @@
                                 </th>
                                 {% for record in records %}
                                     <tr>
-                                        <form method="POST" action="purchase_request_edit_options/{{record.id}}">
+                                        <form method="POST" action="purchase_order_edit_options/{{record.id}}">
                                             {% csrf_token %}
                                             <input type="text" name="id" id="id" value="{{record.id}}" />
                                             <td> <input type="submit" value="{{record.ordered_by}}" /> </td>
