@@ -141,7 +141,7 @@
 
 // populate the users dropdown
 
-// const url = "http://localhost:8000/get_users"
+// const url = "http://www.lorkas.co.zw:8006/get_users"
 //                     const data = {
 //                       'id':"case_id",
 //                     }
@@ -179,7 +179,7 @@
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "http://localhost:8000/purchase_request_get_record"
+                                    const url = "http://www.lorkas.co.zw:8006/purchase_request_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -260,7 +260,7 @@
                         console.log(case_id);
                         if (case_id == "add"){
                 
-                        const url = "http://localhost:8000/purchase_request_clerk_approve";
+                        const url = "http://www.lorkas.co.zw:8006/purchase_request_clerk_approve";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -279,12 +279,12 @@
                             alert("success");
                             $('#overlay').fadeOut();
 
-                            window.location.href="http://localhost:8000/purchase_request_all";
+                            window.location.href="http://www.lorkas.co.zw:8006/purchase_request_all";
                         }else{
                             alert(data['message']);
                             $('#overlay').fadeOut();
 
-                            window.location.href="http://localhost:8000/purchase_requests_all";
+                            window.location.href="http://www.lorkas.co.zw:8006/purchase_requests_all";
                 
                         }
                 
