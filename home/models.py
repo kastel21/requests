@@ -27,6 +27,35 @@ class PuchaseRequest(models.Model):
     accounts_clerk_approved= models.CharField(max_length=150, default="None")
     accounts_clerk_approved_date= models.CharField(max_length=150, default="None")
 
+
+
+
+class ServiceRequest(models.Model):
+
+    # schedule_id = models.CharField(max_length=30, default="None")
+    requester = models.CharField(max_length=30, default="None")
+    date_of_request = models.CharField(max_length=25, default="2023")
+    requesting_dpt = models.CharField(max_length=150, default="None")
+    request_justification = models.CharField(max_length=450, default="None")
+    # name_address_of_supplier = models.CharField(max_length=550, default="None")
+    # budget_line_item = models.CharField(max_length=150, default="None")
+   
+    qnty = models.CharField(max_length=150, default="None")
+    q1 = models.FileField(default="None")
+
+    # item_number = models.CharField(max_length=150, default="None")
+    description = models.CharField(max_length=150, default="None")
+    # unit_price = models.CharField(max_length=150, default="None")
+    # total = models.CharField(max_length=150, default="None")
+   
+    supervisor_approved = models.CharField(max_length=150, default="None")
+    supervisor_approved_date= models.CharField(max_length=150, default="None")
+    supervisor_disapproved_date= models.CharField(max_length=150, default="None")
+    supervisor_disapproved_message= models.CharField(max_length=1500, default=".")
+
+
+
+
 class PurchaseOrder(models.Model):
     purchase_id = models.CharField(max_length=30, default="None")
     name = models.CharField(max_length=30, default="None")

@@ -1,0 +1,364 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock title %}
+{% block content %}
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    <div class="pc-content">
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+       
+        <form class="row g-3">
+
+            <div id="overlay">
+                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
+                
+           </div>
+<!-- 
+            <div class="col-md-12">
+                <label for="fname" class="form-label">Add From Comparative Schedule:</label>
+                <select class="form-control" name="comp_schedule" id="comp_schedule">
+                    <option value="None">..</option>
+    
+                    </select>           
+             </div> -->
+
+            <!-- <div class="col-md-6">
+                <label for="fname" class="form-label">Requestor:</label>
+                <input type="text" class="form-control" id="requester" name="requester" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Date:</label>
+                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="">
+            </div>
+            <p></p> -->
+
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Requesting Department:</label>
+                <input type="text" class="form-control" id="requesting_dpt" name="requesting_dpt" value="">
+            </div>
+
+            <!-- <div class="col-md-6">
+                <label for="fname" class="form-label">Budget Line Item (Where applicable):</label>
+                <input type="text" class="form-control" id="budget_line_item" name="budget_line_item" value="">
+            </div> -->
+
+            <div class="col-md-6">
+                <label for="lname" class="form-label">Request Justification:</label>
+                <input type="text" class="form-control" id="request_justification" name="request_justification" value="">
+            </div>
+
+            <!-- <div class="col-md-6">
+                <label for="fname" class="form-label">Name and address of Supplier:</label>
+                <input type="text" class="form-control" id="name_address_of_supplier" name="name_address_of_supplier" value="">
+            </div> -->
+
+            <p></p>
+
+            <!-- <center><p style="color:red;">Purchase Request Must be Approved by the DH/PI before a purchase Order is to be issued.</p></center> -->
+
+            <p></p>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">QTY:</label>
+                <input type="number" class="form-control" id="qnty" name="qnty" value="">
+            </div>
+
+            <!-- <div class="col-md-6">
+                <label for="lname" class="form-label">Item No.</label>
+                <input type="number" class="form-control" id="item_number" name="item_number" value="">
+            </div> -->
+
+            <!-- <div class="col-md-12">
+                <label for="fname" class="form-label">Description of item to be purchased:</label>
+                <textarea type="text" class="form-control" id="description" name="description" value=""></textarea>
+            </div> -->
+
+            <p></p>
+
+            <!-- <div class="col-md-6">
+                <label for="lname" class="form-label">Unit Price</label>
+                <input type="number" class="form-control" id="unit_price" name="unit_price" value="">
+            </div> -->
+<!--             
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Total Price:</label>
+                <input type="number" class="form-control" id="total" name="total" value="">
+            </div> -->
+
+            <p></p>
+<!-- 
+            <div class="col-md-4">
+                <label for="q1" class="form-label">Quotaion 1:</label>
+
+                <input type="file" accept="application/pdf, application/vnd.ms-excel" class="form-control" id="q1" name="q1" value="John">
+            </div> -->
+
+            <!-- <div class="col-md-4">
+                <label for="q2" class="form-label">Quotaion 2:</label>
+                <input type="file" accept="application/pdf, application/vnd.ms-excel" class="form-control" id="q2" name="q2" value="John">
+            </div>
+
+            <div class="col-md-4">
+                <label for="q3" class="form-label">Quotaion 3:</label>
+                <input type="file" accept="application/pdf, application/vnd.ms-excel" class="form-control" id="q3" name="q3" value="John">
+            </div> -->
+
+
+
+
+<!-- 
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Date:</label>
+                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="">
+            </div> -->
+
+
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Select PI/Supervisor</label>
+                <select class="form-control" name="pi" id="pi">
+                <option value="None">..</option>
+
+                </select>
+            </div>
+
+            <!-- <div class="col-md-6">
+                <label for="fname" class="form-label">Signature of PI/Supervisor:</label>
+                <input type="text" class="form-control" id="supervisor_approved" name="supervisor_approved" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="lname" class="form-label">Date:</label>
+                <input type="text" class="form-control" id="supervisor_approved_date" name="supervisor_approved_date" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Signature of Accounts Clerk</label>
+                <input type="text" class="form-control" id="accounts_clerk_approved" name="accounts_clerk_approved" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Date</label>
+                <input type="text" class="form-control" id="accounts_clerk_approved_date" name="accounts_clerk_approved_date" value="">
+            </div> -->
+
+          </form>
+
+          <div class="col-md-12">
+            <a onclick="sendEdit();" class="btn btn-primary"> SUBMIT</a>
+
+            <script  language="JavaScript" type="text/javascript">
+
+
+
+
+// $('#comp_schedule').on('change', function(event) {
+//        alert("This is the value selected in solutions: " + $(this).val());
+
+
+//   });
+
+
+
+// populate the users dropdown
+//     const url = "http://www.lorkas.co.zw:8006/get_comp_schedules"
+//                     const data = {
+//                       'id':"case_id",
+//                     }
+            
+//                       $.post(url,data, function(data,status){
+            
+
+// console.log(data)
+
+
+//                         $.each(data, function(val, text) {
+//                             $('#comp_schedule').append( new Option(text,val) );
+//                         });
+
+            
+  
+    
+//                         // $('#overlay').fadeOut();
+
+
+//         });
+
+const url1 = "http://www.lorkas.co.zw:8006/get_users"
+                    const data1 = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url1,data1, function(data1,status){
+            
+
+console.log(data1)
+
+
+                        $.each(data1, function(val, text) {
+                            $('#pi').append( new Option(text,val) );
+                        });
+
+            
+  
+    
+                        $('#overlay').fadeOut();
+
+
+        });
+
+    
+
+
+
+
+
+function get_rec_and_populate(id){
+
+                // populating the already existing records
+                
+                            // current_url = window.location.href;
+                            //             arr = current_url.split("/");
+                                        case_id = id
+                                    console.log(case_id);
+                                    const url = "http://www.lorkas.co.zw:8006/comp_schedule_get_record"
+                                    const data = {
+                                      'id':case_id,
+                                    }
+                            
+                    $.post(url,data, function(data,status){
+                            
+                    if (data['message']=="success"){
+                
+                
+                
+                    // $("#requester").val(data['requester']);
+                    // $("#date_of_request").val(data['date_of_request']);
+                    $("#requesting_dpt").val(data['requesting_dpt']);
+                    $("#budget_line_item").val(data['budget_line_item']);
+                    $("#request_justification").val(data['request_justification']);
+    
+                    $("#name_address_of_supplier").val(data['recommended_supplier']); 
+                   
+                    // $("#qnty").val(data['qnty']);
+                    $("#item_number").val(data['item_number']);
+                    $("#description").val(data['description']);
+                    $("#unit_price").val(data['unit_price']);
+                    $("#total").val(data['total']);
+
+                    $("#supervisor_approved").val(data['supervisor_approved']);
+                    $("#supervisor_approved_date").val(data['supervisor_approved_date']);
+
+                    $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
+                   $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);   
+
+                        }
+                        else{
+                            alert("failed to auto populate populate the record manually");
+                
+                        }
+                
+                        });
+                    }
+                
+                    function sendEdit(){
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                        $('#overlay').fadeIn();
+
+                        // var request_id= document.getElementById('request_id').value;
+                        // var comp_schedule= document.getElementById('comp_schedule').value;
+                        // var comp_schedule= document.getElementById('q1').files[0];
+                        var requesting_dpt= document.getElementById('requesting_dpt').value;
+                        // var budget_line_item= document.getElementById('budget_line_item').value;
+                        var request_justification= document.getElementById('request_justification').value;
+
+                        // var item_number= document.getElementById('item_number').value;
+                        var description= document.getElementById('description').value;
+                        
+
+                
+                        // var name_address_of_supplier= document.getElementById('name_address_of_supplier').value; 
+                        var qnty = document.getElementById('qnty').value;
+    
+                        // var unit_price = document.getElementById('unit_price').value;
+                        // var total=      document.getElementById('total').value;
+
+                
+                        var supervisor_approved= document.getElementById('pi').value;
+                        // var supervisor_approved_date= document.getElementById('supervisor_approved_date').value;
+                
+                        // var accounts_clerk_approved= document.getElementById('accounts_clerk_approved').value;
+                        // var accounts_clerk_approved_date= document.getElementById('accounts_clerk_approved_date').value;
+      
+                            current_url = window.location.href;
+                            arr = current_url.split("_");
+                            case_id = arr.at(-1);
+                        if (case_id == "add"){
+                
+                        const url = "http://www.lorkas.co.zw:8006/service_request_send_record";
+                        // current_url = window.location.href;
+                        // arr = current_url.split("/");
+                        // case_id = arr.at(-1);
+                        // month_id =arr[arr.length - 2];
+                        console.log("after url");
+                        const data = {
+                            // "comp_schedule": comp_schedule,
+                                            // "q1": q1,
+                                            "requesting_dpt": requesting_dpt,
+                                            // "date_of_request": date_of_request,
+                                            // "budget_line_item": budget_line_item,
+                                            // "item_number":item_number,
+                                            "description":description,
+                
+                                            "request_justification": request_justification,
+                                            // "name_address_of_supplier":name_address_of_supplier,
+
+                                            "qnty": qnty,
+                                            "id": case_id,
+                                            // "unit_price": unit_price,
+                                            // "total": total,
+                
+                                            "supervisor_approved": supervisor_approved,
+                                            // "supervisor_approved_date": supervisor_approved_date,
+                
+                                            // "accounts_clerk_approved": accounts_clerk_approved,
+                                            // "accounts_clerk_approved_date": accounts_clerk_approved_date,
+                
+                                           }
+                
+                                console.log("after dict");
+
+
+                        // $.post(url,data, function(data,status){
+                        // if (data['message']=="success"){
+                        //     alert("success");
+                        //     $('#overlay').fadeOut();
+
+                        //     window.location.href="http://www.lorkas.co.zw:8006/purchase_request_quote_upload/"+data['id'];
+                        // }else{
+                        //     alert(data['message']);
+                        //     console,log("err")
+                        //     $('#overlay').fadeOut();
+
+                        //     window.location.href="http://www.lorkas.co.zw:8006/purchase_requests_all";
+                
+                        // }
+                
+                        // });
+                        // alert("stop hee");
+                    }
+                
+                    }
+                        </script>
+                
+                
+                
+                
+
+
+{% endblock content %}
