@@ -125,6 +125,30 @@ urlpatterns = [
     re_path('purchase_request_open_record', views.purchase_request_open_record, name='purchase_request_open_record'),
     re_path('purchase_request_view', views.purchase_request_view, name='purchase_request_view'),
 
+
+    #service request
+    path('service_requests', views.service_requests, name='service_requests'),
+    path('service_request_all', views.service_requests_all, name='service_request_all'),
+    path('service_request_approved', views.service_request_approved, name='service_request_approved'),
+    path('service_request_pending', views.service_request_pending, name='service_request_pending'),
+    # path('service_request_super', views.service_request_super, name='service_request_super'),
+    path('service_request_add', views.service_request_add, name='service_request_add'),
+    path('service_request_send_record', views.service_request_send_record, name='service_request_send_record'),
+
+    # re_path('purchase_request_quote_upload', views.purchase_request_quote_upload, name='purchase_request_quote_upload'),
+
+    re_path('service_request_edit_options', views.service_request_edit_options, name='service_request_edit_options'),
+
+    path('service_request_get_record', views.service_request_get_record, name='service_request_get_record'),
+
+    re_path('service_request_dh_approve', views.service_request_dh_approve, name='service_request_dh_approve'),
+    re_path('service_request_dh_disapprove', views.service_request_dh_disapprove, name='service_request_dh_disapprove'),
+    re_path('service_request_open_record', views.service_request_open_record, name='service_request_open_record'),
+    re_path('service_request_view', views.service_request_view, name='service_request_view'),
+
+
+
+
     #purchase order request
     path('purchase_order', views.purchase_order, name='purchase_order'),
     path('purchase_order_all', views.purchase_order_all, name='purchase_order_all'),

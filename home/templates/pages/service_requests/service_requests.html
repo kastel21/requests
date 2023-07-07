@@ -157,7 +157,7 @@
         <ul class="list-group list-group-horizontal">
 
           <li  class="list-group-item">
-            <a href="{% url 'purchase_request_add' %}" class="pc-link">
+            <a href="{% url 'service_request_add' %}" class="pc-link">
 
               <span class="pc-micon"><i class="ti ti-plus"></i></span>
         
@@ -167,15 +167,15 @@
 
 
           <li  class="list-group-item">
-            <a href="{% url 'purchase_request_view' %}" class="pc-link">
+            <a href="{% url 'service_request_view' %}" class="pc-link">
 
               <span class="pc-micon"><i class="ti ti-float-center"></i></span>
         
-              <span class="pc-mtext">Purchase Requests</span></a>
+              <span class="pc-mtext">Service Requests</span></a>
         
           </li>
           <li class="list-group-item">
-            <a href="{% url 'purchase_request_pending' %}" class="pc-link">
+            <a href="{% url 'service_request_pending' %}" class="pc-link">
 
               <span class="pc-micon"><i class="ti ti-refresh-alert"></i></span>
         
@@ -183,7 +183,7 @@
         
           </li> 
            <li class="list-group-item">
-            <a href="{% url 'purchase_request_approved' %}" class="pc-link">
+            <a href="{% url 'service_request_approved' %}" class="pc-link">
 
               <span class="pc-micon"><i class="ti ti-check"></i></span>
         
@@ -195,7 +195,7 @@
           {% if request.user.is_superuser %}
 
           <li class="list-group-item">
-            <a href="{% url 'purchase_request_super' %}" class="pc-link">
+            <a href="{% url 'service_requests' %}" class="pc-link">
 
               <span class="pc-micon"><i class="ti ti-code"></i></span>
         
@@ -204,9 +204,6 @@
           </li>  
           {% endif %}
 
-
-
-        
         </ul>
       
       </div>

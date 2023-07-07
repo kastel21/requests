@@ -451,11 +451,11 @@ def get_purchase_requests(request):
 #***************************************************************************
 
 
-# @login_required(login_url='login')
-# def service_requests(request):
-#     form = ServiceRequest.objects.all()
-#     context = {'form':form}
-#     return render(request, 'pages/service_requests/service_requests.html', context)
+@login_required(login_url='login')
+def service_requests(request):
+    form = ServiceRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/service_requests/service_requests.html', context)
 
 @login_required(login_url='login')
 def service_requests_all(request):
@@ -2725,3 +2725,31 @@ def purchase_order_view(request):
     else:
         return render(request, 'pages/comparative_schedules/not_auth.html', {})
 
+from PIL import Image, ImageDraw, ImageFont
+
+
+def gen_sig(request):
+    
+  if request.method == "POST":
+      
+    _id = request.POST.get('name',default=None)
+   # -*- coding: utf-8 -*-
+
+    iw, ih = 500, 120
+    text = _id
+    img = Image.new("RGB", (iw, ih), color="white")
+    dctx = ImageDraw.Draw(img)
+
+    # courbi.ttf: Courier New Bold Italic (on Microsoft Windows)
+    ttf = ImageFont.truetype("courbi.ttf", 100)
+    w, h = ttf.getsize(text)
+    off_x, off_y = ttf.getoffset(text)
+    mx, my = (iw - w) // 2, (ih - h) // 2
+
+    dctx.line(((mx + off_x, my + off_y), (iw - mx, my + off_y)),
+              fill="blue")
+
+    dctx.rectangle(((mx, my), (iw - mx, ih - my)), outline="red")
+    dctx.text((mx, my), text, font=ttf, fill="black")
+    #img.show()
+    img.save("result/ImageFont_getoffset_01.png")
