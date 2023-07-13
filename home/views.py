@@ -2703,8 +2703,6 @@ def purchase_order_approve(request):
       notice.save()
 
 
-
-
       return JsonResponse( {'message':"success"})
     else:
       return render(request, 'pages/purchase_orders/list.html', {})
@@ -2725,31 +2723,127 @@ def purchase_order_view(request):
     else:
         return render(request, 'pages/comparative_schedules/not_auth.html', {})
 
+
+
 from PIL import Image, ImageDraw, ImageFont
+import os
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
+
+username = "timesheet@brti.co.zw"
+password = "p@s3w0rd?1995"
+
+def send_otp(otp,email):
+                
+                message = "Thank you for Generating your signature with us!\n Your code is: "+otp+" \nSincerely,\nBiomedical Research and Training Institute"
+                mimemsg = MIMEMultipart()
+                mimemsg['From']="authenticator@brti.co.zw"
+                mimemsg['To']=email
+                # mimemsg['Cc']=liliosa
+                #
+                mimemsg['Subject']="Signature Generation OTP"
+                mimemsg.attach(MIMEText(message, 'plain'))
+
+                # with open(mail_attachment, "rb") as attachment:
+                #     mimefile = MIMEBase('application', 'octet-stream')
+                #     #mimefile.set_payload((attachment).read())
+                # #     encoders.encode_base64(mimefile)
+                # #     mimefile.add_header('Content-Disposition', "attachment; filename= %s" % mail_attachment_name)
+                #     #mimemsg.attach(mimefile)
+                connection = smtplib.SMTP(host='smtp.office365.com', port=587)
+                connection.starttls()
+                connection.login('authenticator@brti.co.zw','p@s3w0rd?1995')
+                connection.send_message(mimemsg)
+                connection.quit()
+
+import random
+
+def gen_number():
+   otp = random.randint(1000,9999)
+
+   return str(otp)
 
 
+def generateOTP(email):
+  otp = gen_number()
+
+  send_otp(otp,email)
+
+  return otp
+
+
+
+@csrf_exempt
+def verify_otp(request):
+   if request.method == "POST":
+      input = request.POST.get('input',default=None)
+      otp = request.session.get('otp')
+
+      if input == otp:
+          return JsonResponse( {'message':"success"})
+      else:
+          return JsonResponse( {'message':"fail"})
+   else:
+        return render(request, 'pages/comparative_schedules/verify.html', {})
+
+
+
+
+
+   
+
+
+@csrf_exempt
 def gen_sig(request):
-    
-  if request.method == "POST":
+
+
+    otp = generateOTP(request.user.email)
+    request.session['otp'] = otp
+
+    return redirect("/verify_otp")
+
+
+
+
+@csrf_exempt
+def save_sig(request):
+   
+    fullname = request.user.first_name +" "+ request.user.last_name
+  # print(fullname)
+    username = request.user.username
       
-    _id = request.POST.get('name',default=None)
+    # _id = request.POST.get('name',default=None)
    # -*- coding: utf-8 -*-
+    path = str(username)
+
+
 
     iw, ih = 500, 120
-    text = _id
+    text = fullname
     img = Image.new("RGB", (iw, ih), color="white")
     dctx = ImageDraw.Draw(img)
 
     # courbi.ttf: Courier New Bold Italic (on Microsoft Windows)
-    ttf = ImageFont.truetype("courbi.ttf", 100)
+    ttf = ImageFont.truetype("home/fonts/CheGuevaraSign-Regular.ttf", 100)
+  
     w, h = ttf.getsize(text)
     off_x, off_y = ttf.getoffset(text)
     mx, my = (iw - w) // 2, (ih - h) // 2
 
-    dctx.line(((mx + off_x, my + off_y), (iw - mx, my + off_y)),
-              fill="blue")
+    # dctx.line(((mx + off_x, my + off_y), (iw - mx, my + off_y)),
+    #           fill="blue")
 
-    dctx.rectangle(((mx, my), (iw - mx, ih - my)), outline="red")
+    # dctx.rectangle(((mx, my), (iw - mx, ih - my)), outline="red")
     dctx.text((mx, my), text, font=ttf, fill="black")
     #img.show()
-    img.save("result/ImageFont_getoffset_01.png")
+    new_path = os.path.join("signatures",path)
+    if os.path.exists:
+       pass
+    else:
+      os.mkdir(new_path)
+
+    img.save(os.path.join(new_path,path+".png"))
+    return redirect("/")

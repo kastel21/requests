@@ -2,6 +2,8 @@ from django.urls import path,  re_path
 from django.conf import settings
 from django.conf.urls.static import static 
 from . import views
+from django.contrib import admin
+
 from django.contrib.auth import views as auth_views
 
 
@@ -9,6 +11,7 @@ urlpatterns = [
 
     path('', views.index, name='index'),
         path('', views.index, name='index'),
+    path("admin/", admin.site.urls),
 
         path('typography/', views.typography, name='typography'),
     path('color/', views.color, name='color'),
@@ -169,5 +172,16 @@ urlpatterns = [
     # re_path('purchase_order_open_record', views.purchase_order_open_record, name='purchase_order_open_record'),
     re_path('purchase_order_view', views.purchase_order_view, name='purchase_order_view'),
 
-    
+
+
+
+
+#signatures
+    path('gen_sig', views.gen_sig, name='gen_sig'),
+    path('verify_otp', views.verify_otp, name='verify_otp'),
+    path('save_sig', views.save_sig, name='save_sig'),
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

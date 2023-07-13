@@ -121,10 +121,15 @@
               class="pc-mtext">User Pages</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
           <ul class="pc-submenu">
             {% if request.user.is_superuser %}
+            <li class="pc-item"><a class="pc-link" href="{% url 'gen_sig' %}">Generate Signature</a></li>
+
               <li class="pc-item"><a class="pc-link" href="{% url 'admin:password_change' %}">Change Password</a></li>
               <li class="pc-item"><a class="pc-link" href="{% url 'admin:logout' %}">Logout</a></li>
             {% else %}
               {% if request.user.is_authenticated %}
+
+              <li class="pc-item"><a class="pc-link" href="{% url 'gen_sig' %}">Generate Signature</a></li>
+
               <li class="pc-item"><a class="pc-link" href="{% url 'password_change' %}">Change Password</a></li>
               <li class="pc-item"><a class="pc-link" href="{% url 'logout' %}">Logout</a></li>
               {% else %}
