@@ -247,7 +247,7 @@
 
 // populate the users dropdown
 
-const url = "http://localhost:8003/get_users"
+const url = "https://lorkas.co.zw:8003/get_users"
                     const data = {
                       'id':"case_id",
                     }
@@ -279,7 +279,7 @@ console.log(data)
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "http://localhost:8003/comp_schedule_get_record"
+                                    const url = "https://lorkas.co.zw:8003/comp_schedule_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -402,7 +402,7 @@ console.log(data)
                         console.log(case_id);
                         if (case_id == "add"){
                 
-                        const url = "http://localhost:8003/comp_schedule_send_record";
+                        const url = "https://lorkas.co.zw:8003/comp_schedule_send_record";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -462,10 +462,10 @@ console.log(data)
                         $.post(url,data, function(data,status){
                         if (data['message']=="success"){
                             console.log("success")
-                            window.location.href="http://localhost:8003/comp_schedule_quotes_upload/"+data['id'];
+                            window.location.href="https://lorkas.co.zw:8003/comp_schedule_quotes_upload/"+data['id'];
                         }else{
                             console.log(data['message'])
-                            window.location.href="http://localhost:8003/comp_schedule_all";
+                            window.location.href="https://lorkas.co.zw:8003/comp_schedule_all";
                 
                         }
                 
@@ -473,7 +473,7 @@ console.log(data)
                         // alert("stop hee");
                     }else{
                 
-                        const url = "http://localhost:8003/purchase_request_edit_record/";
+                        const url = "https://lorkas.co.zw:8003/purchase_request_edit_record/";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -539,15 +539,15 @@ console.log(data)
                       
                 
                         $.post(url,data, function(data,status){
-                          window.location.replace("http://localhost:8003/comp_schedule_view/"+case_id);
+                          window.location.replace("https://lorkas.co.zw:8003/comp_schedule_view/"+case_id);
                 
                         console.log(data);
                         if (data['message']=="success"){
                             alert("success");
-                            window.location.replace("http://localhost:8003/comp_schedule_view/"+case_id);
+                            window.location.replace("https://lorkas.co.zw:8003/comp_schedule_view/"+case_id);
                         }else{
                             alert(data['message']);
-                            window.location.replace("http://localhost:8003/comp_schedule_view/"+case_id);
+                            window.location.replace("https://lorkas.co.zw:8003/comp_schedule_view/"+case_id);
                 
                             // window.location.href="/view_record/"+case_id;
                 
