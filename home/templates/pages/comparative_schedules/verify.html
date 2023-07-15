@@ -90,7 +90,11 @@ function submit(){
 
 input = document.getElementById("input").value;
 
+if (input.length == 0){
+    $("#message").toggle();
 
+
+}else{
 
                                     const url = "http://localhost:8006/verify_otp"
                                     const data = {
@@ -115,7 +119,7 @@ input = document.getElementById("input").value;
 
                                     });
 
-
+                                }
 
 
 }

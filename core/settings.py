@@ -23,16 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 # if not SECRET_KEY:
 #     SECRET_KEY = ''.join(random.choice( string.ascii_lowercase  ) for i in range( 32 ))
 
-SECRET_KEY = "django-insecure-eg7puj+gfi6en_z0a(+=c9nu@#ph8uafsh*12%znz&(p*qp6o("
+#SECRET_KEY = "django-insecure-eg7puj+gfi6en_z0a(+=c9nu@#ph8uafsh*12%znz&(p*qp6o("
 
 # Render Deployment Code
 DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['www.lorkas.co.zw','lorkas.co.zw']
+CSRF_TRUSTED_ORIGINS = ['https://lorkas.co.zw/*','https://www.lorkas.co.zw/*']
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:    
@@ -89,54 +90,59 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+
+
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'requests',
+#        'USER': 'admin',
+#        'PASSWORD': 'p@s3w0rd?1995',
+#        'HOST': 'lorkas.co.zw',
+#        'PORT': '3306',
+#    },#
+
+#    'sqlite': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+
+
+#}
 
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'requests',
-        'USER': 'admin',
-        'PASSWORD': 'p@s3w0rd?1995',
-        'HOST': 'lorkas.co.zw',
-        'PORT': '3306',
-    },
+DB_ENGINE   = os.getenv('DB_ENGINE'   , None)
+DB_USERNAME = os.getenv('DB_USERNAME' , None)
+DB_PASS     = os.getenv('DB_PASS'     , None)
+DB_HOST     = os.getenv('DB_HOST'     , None)
+DB_PORT     = os.getenv('DB_PORT'     , None)
+DB_NAME     = os.getenv('DB_NAME'     , None)
 
-    'sqlite': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-
-
-}
-
-
-
-# DB_ENGINE   = os.getenv('DB_ENGINE'   , None)
-# DB_USERNAME = os.getenv('DB_USERNAME' , None)
-# DB_PASS     = os.getenv('DB_PASS'     , None)
-# DB_HOST     = os.getenv('DB_HOST'     , None)
-# DB_PORT     = os.getenv('DB_PORT'     , None)
-# DB_NAME     = os.getenv('DB_NAME'     , None)
-
-# if DB_ENGINE and DB_NAME and DB_USERNAME:
-#     DATABASES = { 
-#       'default': {
-#         'ENGINE'  : 'django.db.backends.' + DB_ENGINE, 
-#         'NAME'    : DB_NAME,
-#         'USER'    : DB_USERNAME,
-#         'PASSWORD': DB_PASS,
-#         'HOST'    : DB_HOST,
-#         'PORT'    : DB_PORT,
-#         }, 
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': 'db.sqlite3',
-#         }
-#     }
+if DB_ENGINE and DB_NAME and DB_USERNAME:
+     DATABASES = { 
+       'default': {
+         'ENGINE'  : 'django.db.backends.' + DB_ENGINE, 
+         'NAME'    : DB_NAME,
+         'USER'    : DB_USERNAME,
+         'PASSWORD': DB_PASS,
+         'HOST'    : DB_HOST,
+         'PORT'    : DB_PORT,
+         }, 
+     }
+else:
+     DATABASES = {
+         'default': {
+             'ENGINE': 'django.db.backends.sqlite3',
+             'NAME': 'db.sqlite3',
+         }
+     }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
