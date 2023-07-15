@@ -90,9 +90,13 @@ function submit(){
 
 input = document.getElementById("input").value;
 
+if (input.length == 0){
+    $("#message").toggle();
 
 
-                                    const url = "http://localhost:8006/verify_otp"
+}else{
+
+                                    const url = "http://localhost:8003/verify_otp"
                                     const data = {
                                       'input':input,
                                     }
@@ -115,7 +119,7 @@ input = document.getElementById("input").value;
 
                                     });
 
-
+                                }
 
 
 }
