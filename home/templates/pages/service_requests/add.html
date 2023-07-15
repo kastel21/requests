@@ -165,7 +165,7 @@
 
 
 // populate the users dropdown
-//     const url = "https://lorkas.co.zw:8003/get_comp_schedules"
+//     const url = "https://lorkas.co.zw/get_comp_schedules"
 //                     const data = {
 //                       'id':"case_id",
 //                     }
@@ -188,7 +188,7 @@
 
 //         });
 
-const url1 = "https://lorkas.co.zw:8003/get_users"
+const url1 = "https://lorkas.co.zw/get_users"
                     const data1 = {
                       'id':"case_id",
                     }
@@ -225,7 +225,7 @@ function get_rec_and_populate(id){
                             //             arr = current_url.split("/");
                                         case_id = id
                                     console.log(case_id);
-                                    const url = "https://lorkas.co.zw:8003/comp_schedule_get_record"
+                                    const url = "https://lorkas.co.zw/comp_schedule_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -304,7 +304,7 @@ function get_rec_and_populate(id){
                             case_id = arr.at(-1);
                         if (case_id == "add"){
                 
-                        const url = "https://lorkas.co.zw:8003/service_request_send_record";
+                        const url = "https://lorkas.co.zw/service_request_send_record";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -343,13 +343,13 @@ function get_rec_and_populate(id){
                         //     alert("success");
                         //     $('#overlay').fadeOut();
 
-                        //     window.location.href="https://lorkas.co.zw:8003/purchase_request_quote_upload/"+data['id'];
+                        //     window.location.href="https://lorkas.co.zw/purchase_request_quote_upload/"+data['id'];
                         // }else{
                         //     alert(data['message']);
                         //     console,log("err")
                         //     $('#overlay').fadeOut();
 
-                        //     window.location.href="https://lorkas.co.zw:8003/purchase_requests_all";
+                        //     window.location.href="https://lorkas.co.zw/purchase_requests_all";
                 
                         // }
                 
