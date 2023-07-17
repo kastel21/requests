@@ -729,7 +729,15 @@ def service_request_open_record(request):
       record = ServiceRequest.objects.get(id=_id)
       context = {'record':record}
       print("IN POST")
-      return render(request, 'pages/service_requests/view_record.html', context)
+
+      if record.supervisor_approved == request.user.username and record.supervisor_approved_date == "None":
+        return render(request, 'pages/service_requests/pi.html', context)
+
+      elif record.supervisor_approved == request.user.username and record.supervisor_approved_date != "None" or record.requester == request.user.username:
+        return render(request, 'pages/service_requests/view_record.html', context)
+      else:
+      
+         return render(request, 'pages/comparative_schedules/not_auth.html', {})
     else:
        redirect("service_request_all")
 
