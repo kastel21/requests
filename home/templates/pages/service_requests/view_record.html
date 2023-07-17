@@ -36,24 +36,24 @@
                 <input type="text" class="form-control" id="requesting_dpt" name="requesting_dpt" value="" readonly >
             </div>
 
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
                 <label for="fname" class="form-label">Budget Line Item (Where applicable):</label>
                 <input type="text" class="form-control" id="budget_line_item" name="budget_line_item" value="" readonly >
-            </div>
+            </div> -->
 
             <div class="col-md-6">
                 <label for="lname" class="form-label">Request Justification:</label>
                 <input type="text" class="form-control" id="request_justification" name="request_justification" value="" readonly >
             </div>
 
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
                 <label for="fname" class="form-label">Name and address of Supplier:</label>
                 <input type="text" class="form-control" id="name_address_of_supplier" name="name_address_of_supplier" value="" readonly >
-            </div>
+            </div> -->
 
             <p></p>
 
-            <center><p style="color:red;">Purchase Request Must be Approved by the DH/PI before a purchase Order is to be issued.</p></center>
+            <!-- <center><p style="color:red;">Purchase Request Must be Approved by the DH/PI before a purchase Order is to be issued.</p></center> -->
 
             <p></p>
 
@@ -62,10 +62,10 @@
                 <input type="text" class="form-control" id="qnty" name="qnty" value="" readonly >
             </div>
 
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
                 <label for="lname" class="form-label">Item No.</label>
                 <input type="text" class="form-control" id="item_number" name="item_number" value="" readonly >
-            </div>
+            </div> -->
 
             <div class="col-md-12">
                 <label for="fname" class="form-label">Description of item to be purchased:</label>
@@ -74,7 +74,7 @@
 
             <p></p>
 
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
                 <label for="lname" class="form-label">Unit Price</label>
                 <input type="text" class="form-control" id="unit_price" name="unit_price" value="" readonly >
             </div>
@@ -82,7 +82,7 @@
             <div class="col-md-6">
                 <label for="fname" class="form-label">Total Price:</label>
                 <input type="text" class="form-control" id="total" name="total" value="" readonly >
-            </div>
+            </div> -->
 
             <p></p>
 
@@ -100,7 +100,7 @@
 
 
            <div class="col-md-6">
-                <label for="supervisor_approved" class="form-label">Signature of PI/Supervisor:</label>
+                <label for="supervisor_approved" class="form-label">Signature Supervisor:</label>
                 <input type="text" class="form-control" id="supervisor_approved" name="supervisor_approved" value="" readonly >
             </div>
 
@@ -110,7 +110,7 @@
             </div>
 
 
-            <div class="col-md-12">
+            <!-- <div class="col-md-12">
                 <label for="certifier" class="form-label">Quotation</label>
                 <a id="quotation" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
             </div>
@@ -123,7 +123,7 @@
             <div class="col-md-6">
                 <label for="fname" class="form-label">Date</label>
                 <input type="text" class="form-control" id="accounts_clerk_approved_date" name="accounts_clerk_approved_date" value="" readonly >
-            </div>
+            </div> -->
 
           </form>
 
@@ -179,7 +179,7 @@
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "https://lorkas.co.zw/purchase_request_get_record"
+                                    const url = "https://lorkas.co.zw/service_request_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -194,24 +194,24 @@
                     $("#requester").val(data['requester']);
                     $("#date_of_request").val(data['date_of_request']);
                     $("#requesting_dpt").val(data['requesting_dpt']);
-                    $("#budget_line_item").val(data['budget_line_item']);
+                    // $("#budget_line_item").val(data['budget_line_item']);
                     $("#request_justification").val(data['request_justification']);
     
-                    $("#name_address_of_supplier").val(data['name_address_of_supplier']); 
+                    // $("#name_address_of_supplier").val(data['name_address_of_supplier']); 
                     // $("#quotation").val(data['pdf']); 
-                    $('#quotation').attr('href',data['pdf']);
+                    // $('#quotation').attr('href',data['pdf']);
 
                     $("#qnty").val(data['qnty']);
-                    $("#item_number").val(data['item_number']);
+                    // $("#item_number").val(data['item_number']);
                     $("#description").val(data['description']);
-                    $("#unit_price").val(data['unit_price']);
-                    $("#total").val(data['total']);
+                    // $("#unit_price").val(data['unit_price']);
+                    // $("#total").val(data['total']);
 
                     $("#supervisor_approved").val(data['supervisor_approved']);
                     $("#supervisor_approved_date").val(data['supervisor_approved_date']);
 
-                    $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
-                   $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);   
+                    // $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
+                //    $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);   
                    $('#overlay').fadeOut();
      
                 }else{
