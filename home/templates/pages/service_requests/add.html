@@ -73,10 +73,10 @@
                 <input type="number" class="form-control" id="item_number" name="item_number" value="">
             </div> -->
 
-            <!-- <div class="col-md-12">
+            <div class="col-md-12">
                 <label for="fname" class="form-label">Description of item to be purchased:</label>
                 <textarea type="text" class="form-control" id="description" name="description" value=""></textarea>
-            </div> -->
+            </div>
 
             <p></p>
 
@@ -282,7 +282,7 @@ function get_rec_and_populate(id){
                         var request_justification= document.getElementById('request_justification').value;
 
                         // var item_number= document.getElementById('item_number').value;
-                        // var description= document.getElementById('description').value;
+                        var description= document.getElementById('description').value;
                         
 
                 
@@ -317,7 +317,7 @@ function get_rec_and_populate(id){
                                             // "date_of_request": date_of_request,
                                             // "budget_line_item": budget_line_item,
                                             // "item_number":item_number,
-                                            // "description":description,
+                                            "description":description,
                 
                                             "request_justification": request_justification,
                                             // "name_address_of_supplier":name_address_of_supplier,
