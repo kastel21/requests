@@ -1079,7 +1079,7 @@ def service_request_open_record(request):
 
       record = ServiceRequest.objects.get(id=_id)
       context = {'record':record}
-      print("IN POST")
+
 
       if record.supervisor_approved == request.user.username and record.supervisor_approved_date == "None":
         return render(request, 'pages/service_requests/pi.html', context)
