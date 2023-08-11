@@ -445,6 +445,357 @@ def get_purchase_requests(request):
 
 
 
+
+#***************************************************************************
+
+# procurement Requests
+#***************************************************************************
+
+
+@login_required(login_url='login')
+def procurement_requests(request):
+    form = ProcurementRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/procurement_requests/procurement_requests.html', context)
+
+@login_required(login_url='login')
+def procurement_requests_all(request):
+    records = ProcurementRequest.objects.all()
+    context = {'records':records}
+    return render(request, 'pages/procurement_requests/list.html', context)
+
+# @login_required(login_url='login')
+# def purchase_request_super(request):
+#     form = PuchaseRequest.objects.all()
+#     context = {'form':form}
+#     return render(request, 'pages/purchase_requests/list.html', context)
+
+
+
+@login_required(login_url='login')
+def procurement_request_pending(request):
+      username = request.user.username
+
+      records = ProcurementRequest.objects.filter((Q(procurement_officer=username) & Q (procurement_officer_accept="None")) )
+      context = {'records':records}
+
+      return render(request, 'pages/procurement_requests/list2.html', context)
+
+@login_required(login_url='login')
+def procurement_request_approved(request):
+    username = request.user.username
+    records = ProcurementRequest.objects.filter((Q(procurement_officer=username) & ~(Q (procurement_officer_accept="None")) ))
+    context = {'records':records}
+    return render(request, 'pages/procurement_requests/list_approved.html', context)
+
+@login_required(login_url='login')
+def procurement_request_add(request):
+    form = ProcurementRequest.objects.all()
+    context = {'form':form}
+    return render(request, 'pages/procurement_requests/add.html', context)
+
+@login_required(login_url='login')
+@csrf_exempt
+@app.route("/send_record")
+def procurement_request_send_record(request):
+
+    with app.app_context():
+        try:
+        
+          service_request_id= request.POST.get('service_request_id',default=None)
+          requester= request.user.username
+          date_of_request= request.POST.get('date_of_request',default=None)
+          # requesting_dpt= request.POST.get('requesting_dpt',default=None)
+          # q1= request.FILES["q1"]comp_schedule
+
+          cost_category= request.POST.get('cost_category',default=None) 
+          procurement_officer = request.POST.get('procurement_officer',default=None)
+          # budget_line_item= request.POST.get('budget_line_item',default=None)
+
+          # qnty= request.POST.get('qnty',default=None)
+          # item_number= request.POST.get('item_number',default=None)
+
+          # description= request.POST.get('description',default=None)
+          # unit_price=  request.POST.get('unit_price',default=None)
+
+          # supervisor_approved= request.POST.get('supervisor_approved',default=None)
+          # comp_schedule= request.POST.get('comp_schedule',default=None)
+
+          # accounts_clerk_approved= request.POST.get('accounts_clerk_approved',default=None)
+          # accounts_clerk_approved_date= request.POST.get('accounts_clerk_approved_date',default=None)
+
+          record = ProcurementRequest()
+
+          record.procurement_officer = procurement_officer
+          # record.schedule_id= comp_schedule
+          record.requester= requester
+          record.date_of_request= date_of_request
+          record.service_request_id= service_request_id
+          # record.q1 = q1
+
+          record.cost_category= cost_category 
+          # record.name_address_of_supplier = name_address_of_supplier
+          # record.budget_line_item= budget_line_item
+
+          # record.qnty= qnty
+          # record.item_number= item_number
+
+          # record.description= description
+          # record.unit_price= unit_price
+
+          # record.supervisor_approved = supervisor_approved
+          # record.supervisor_approved_date= supervisor_approved_date
+
+          # record.accounts_clerk_approved= accounts_clerk_approved
+          d = datetime.datetime.now()
+          record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+          # record.accounts_clerk_approved_date= accounts_clerk_approved_date
+          
+          record.save()
+       
+          _id = record.pk
+          return JsonResponse( {'message':"success",'id':_id})
+
+        except Exception as e  :
+            f= open("service1.txt","w")
+            f.write(str(e))
+            f.close()
+            print(str(e))
+            return JsonResponse({'message':(str(e))})
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def procurement_request_get_record(request):
+    context={}
+    if request.method == "POST":
+        _id = request.POST.get('id',default=None)
+        # pdf = PuchaseRequestQuotation.objects.get(id=2)
+
+        # try:
+        #   pdf = None
+        # except:
+        #   pass
+        record = ProcurementRequest.objects.get(id=_id)
+
+        dic = {
+                                            # "pdf":pdf.quote_path,
+                                            "service_request_id":record.service_request_id,
+                                            "date_of_request":record.date_of_request,
+                                            "requester":record.requester,
+                                            "cost_category":record.cost_category,
+                                            "procurement_officer":record.procurement_officer,
+                                            "procurement_officer_reject":record.procurement_officer_reject,
+
+                
+                                            "procurement_officer_accept":record.procurement_officer_accept,
+                                            # "name_address_of_supplier": record.name_address_of_supplier,
+
+                                            # "qnty":record.qnty,
+                                            # "unit_price":record.unit_price,
+                                            # "total":record.total,
+                
+                                            # "supervisor_approved":record.supervisor_approved,
+                                            # "supervisor_approved_date": record.supervisor_approved_date,
+                
+                                            # "accounts_clerk_approved": record.accounts_clerk_approved,
+                                            # "accounts_clerk_approved_date": record.accounts_clerk_approved_date,
+          "message":"success",
+        }
+
+        # print(record.supervisor_approved)
+        context = {'addTabActive': True, "record":""}
+        return JsonResponse(dic)
+    else:
+        return redirect('/procurement_requests')
+    
+
+
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def procurement_request_officer_approve(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+      # dh = request.POST.get('dh',default=None)
+      username = request.user.username
+        # objs = Record.objects.get(id=_id)
+      record = ProcurementRequest.objects.get(id=_id)
+      # record.supervisor_approved = dh
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.procurement_officer_accept= "{:%B %d, %Y  %H:%M:%S}".format(d)
+
+      record.save()
+
+      notice = Notifications()
+      notice.to = record.requester
+      notice.message = " "+ username +" has accepted your Procurement Request"
+      notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      notice.trigger = username
+      notice.save()
+
+
+
+
+      return JsonResponse( {'message':"success"})
+    else:
+      return render(request, 'pages/procurement_requests/list.html', {})
+
+@login_required(login_url='login')
+@csrf_exempt
+def procurement_request_officer_disapprove(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+      msg = request.POST.get('msg',default=None)
+      username = request.user.username
+        # objs = Record.objects.get(id=_id)
+      record = ProcurementRequest.objects.get(id=_id)
+      # record.supervisor_approved = dh
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.procurement_officer_reject= "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.procurement_officer_reject_msg = msg
+      record.save()
+
+      notice = Notifications()
+      notice.to = record.requester
+      notice.message = " "+ username +" has rejected your Procurement Request open request to view messages."
+      notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      notice.trigger = username
+      notice.save()
+
+
+
+
+      return JsonResponse( {'message':"success"})
+    else:
+      return render(request, 'pages/procurement_requests/list.html', {})
+
+# @login_required(login_url='login')
+# @csrf_exempt
+# def purchase_request_clerk_approve(request):
+#     if request.method == "POST":
+      
+#       _id = request.POST.get('id',default=None)
+#       # clerk = request.POST.get('clerk',default=None)
+#       username = request.user.username
+#         # objs = Record.objects.get(id=_id)
+#       record = PuchaseRequest.objects.get(id=_id)
+#       # record.accounts_clerk_approved = clerk
+#       d = datetime.datetime.now()
+#           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+#       record.accounts_clerk_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+#       notice = Notifications()
+#       notice.to = record.requester
+#       record.save()
+
+  
+#       notice.message = " "+ username +" has Approved your Purchse Request."
+#       notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+#       notice.trigger = username
+#       notice.save()
+
+
+
+
+#       return JsonResponse( {'message':"success"})
+#     else:
+#       return render(request, 'pages/purchase_requests/list.html', {})
+    
+
+
+
+
+@login_required(login_url='login')
+def procurement_request_view(request):
+      username = request.user.username
+      records = ProcurementRequest.objects.filter(Q(requester = username) | Q(procurement_officer =username) )
+      context = {'records':records}
+
+
+      return render(request, 'pages/procurement_requests/list.html', context)
+
+
+
+@login_required(login_url="login")
+def procurement_request_open_record(request):
+    if request.method == "POST":
+
+      _id = request.POST.get('id',default=None)
+
+      record = ProcurementRequest.objects.get(id=_id)
+      context = {'record':record}
+      
+
+      if record.procurement_officer == request.user.username and record.procurement_officer_accept == "None" and record.procurement_officer_reject == "None":
+        return render(request, 'pages/procurement_requests/pi.html', context)
+
+      elif record.procurement_officer == request.user.username and record.procurement_officer_accept != "None" or record.procurement_officer_reject != "None":
+        return render(request, 'pages/procurement_requests/view_record.html', context)
+      elif record.requester == request.user.username :
+        return render(request, 'pages/procurement_requests/view_record.html', context)
+      
+      elif record.procurement_officer == request.user.username and  record.procurement_officer_accept != "None" and record.cost_category == "None":
+        return render(request, 'pages/procurement_requests/edit_record.html', context)
+      
+      else:
+      
+         return render(request, 'pages/comparative_schedules/not_auth.html', {})
+    else:
+       redirect("procurement_request_all")
+
+
+# make some error so this name is unique to purchase only
+
+@login_required(login_url='login')
+def procurement_request_edit_options(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+
+        # objs = Record.objects.get(id=_id)
+      record = ProcurementRequest.objects.get(id=_id)
+      context = {'record':record}
+      print("IN POST")
+      if record.procurement_officer_accept == "None" and record.procurement_officer == request.user.username:
+         print("certified")
+         return render(request, 'pages/procurement_requests/pi.html', context)
+      
+      else:
+         return render(request, 'pages/comparative_schedules/not_auth.html', {})
+      
+
+    else:
+         return redirect("service_request_pending")
+
+
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def get_procurement_requests(request):
+   try:
+      dic = {}
+      # User = get_user_model()
+      schedules = ProcurementRequest.objects.filter(~Q(procurement_officer_accept = "None"))
+
+      for schedule in schedules: 
+          dic[schedule.id]= schedule.id +" : raised by "+ schedule.requester+" : raised on "+schedule.date_of_request +" : cost category"+ schedule.cost_category
+      return JsonResponse(dic)
+   except Exception as e:
+          return JsonResponse(str(e)) 
+
+
+
+
+
+
+
+
 #***************************************************************************
 
 # service Requests
