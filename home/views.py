@@ -54,6 +54,13 @@ def payment_request(request):
     return render(request, 'pages/payment_requests/payment_requests.html')
 
 
+
+@login_required(login_url='login')
+def cm(request):
+      return JsonResponse( {'message':"ALVSeuuWa5aXqWtjDLfBgU3FdxTMb4Z2YL8pLmSyu2Q.RuEKtPWKHBIYysMx6MgzRDdsJa4D9GKCpw-7cQNjy_k
+"})
+
+
 def typography(request):
   return render(request, 'pages/typography.html')
 
