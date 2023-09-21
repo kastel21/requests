@@ -1175,7 +1175,7 @@ def get_service_requests(request):
       schedules = ServiceRequest.objects.filter(~Q(supervisor_approved_date = "None"))
 
       for schedule in schedules: 
-          dic[schedule.id]= schedule.id +" raised by : "+ schedule.requester+" raised on : "+schedule.date_of_request+" Department  : "+schedule.requesting_dpt
+          dic[schedule.id]= " raised by : "+ schedule.requester+" raised on : "+schedule.date_of_request+" Department  : "+schedule.requesting_dpt
       return JsonResponse(dic)
    except Exception as e:
           return JsonResponse(str(e)) 
