@@ -1017,7 +1017,7 @@ def service_request_po_approve(request):
           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
       # record.supervisor_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
       record.po_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
-      record.po= po
+      # record.po= po
 
       record.save()
 
