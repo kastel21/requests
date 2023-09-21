@@ -1131,7 +1131,7 @@ def service_request_open_record(request):
       elif record.po == request.user.username and record.po_approved_date == "None":
         return render(request, 'pages/service_requests/po.html', context)
 
-      elif record.supervisor_approved == request.user.username and record.supervisor_approved_date != "None" or record.requester == request.user.username:
+      elif record.supervisor_approved == request.user.username and record.supervisor_approved_date != "None" or record.requester == request.user.username or record.po == request.user.username and record.po_approved_date != "None":
         return render(request, 'pages/service_requests/view_record.html', context)
       else:
       
