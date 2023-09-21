@@ -49,7 +49,7 @@ class ServiceRequest(models.Model):
 
     # schedule_id = models.CharField(max_length=30, default="None")
     requester = models.CharField(max_length=30, default="None")
-    date_of_request = models.CharField(max_length=25, default="2023")
+    date_of_request = models.CharField(max_length=100, default="2023")
     requesting_dpt = models.CharField(max_length=150, default="None")
     request_justification = models.CharField(max_length=450, default="None")
     # name_address_of_supplier = models.CharField(max_length=550, default="None")
