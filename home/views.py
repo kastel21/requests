@@ -876,8 +876,8 @@ def service_request_send_record(request):
           supervisor_approved= request.POST.get('supervisor_approved',default=None)
           # comp_schedule= request.POST.get('comp_schedule',default=None)
 
-          # accounts_clerk_approved= request.POST.get('accounts_clerk_approved',default=None)
-          # accounts_clerk_approved_date= request.POST.get('accounts_clerk_approved_date',default=None)
+          po= request.POST.get('po',default=None)
+          po_approved_date= request.POST.get('po_approved_date',default=None)
 
           record = ServiceRequest()
 
@@ -896,10 +896,10 @@ def service_request_send_record(request):
           # record.item_number= item_number
 
           record.description= description
-          # record.unit_price= unit_price
+          record.po= po
 
           record.supervisor_approved = supervisor_approved
-          # record.supervisor_approved_date= supervisor_approved_date
+          record.po_approved_date= po_approved_date
 
           # record.accounts_clerk_approved= accounts_clerk_approved
           d = datetime.datetime.now()
@@ -937,7 +937,7 @@ def service_request_get_record(request):
                                             # "pdf":pdf.quote_path,
                                             "requesting_dpt":record.requesting_dpt,
                                             "date_of_request":record.date_of_request,
-                                            # "budget_line_item":record.budget_line_item,
+                                            "po":record.po,
                                             # "item_number":record.item_number,
                                             "description":record.description,
                                             "requester":record.requester,
@@ -954,7 +954,7 @@ def service_request_get_record(request):
                                             "supervisor_approved_date": record.supervisor_approved_date,
                 
                                             # "accounts_clerk_approved": record.accounts_clerk_approved,
-                                            # "accounts_clerk_approved_date": record.accounts_clerk_approved_date,
+                                            "po_approved_date": record.po_approved_date,
           "message":"success",
         }
 
@@ -974,7 +974,8 @@ def service_request_dh_approve(request):
     if request.method == "POST":
       
       _id = request.POST.get('id',default=None)
-      # dh = request.POST.get('dh',default=None)
+      po = request.POST.get('po',default=None)
+      # po_approved_date = request.POST.get('po_approved_date',default=None)
       username = request.user.username
         # objs = Record.objects.get(id=_id)
       record = ServiceRequest.objects.get(id=_id)
@@ -982,12 +983,47 @@ def service_request_dh_approve(request):
       d = datetime.datetime.now()
           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
       record.supervisor_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+      # record.po_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.po= po
 
       record.save()
 
       notice = Notifications()
-      notice.to = record.requester
-      notice.message = " "+ username +" has approved your Service Request"
+      notice.to = record.po
+      notice.message = " "+ username +" has approved a Service Request"
+      notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      notice.trigger = username
+      notice.save()
+
+      return JsonResponse( {'message':"success"})
+    else:
+      return render(request, 'pages/service_requests/list.html', {})
+
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def service_request_po_approve(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+      # po = request.POST.get('po',default=None)
+      # po_approved_date = request.POST.get('po_approved_date',default=None)
+      username = request.user.username
+        # objs = Record.objects.get(id=_id)
+      record = ServiceRequest.objects.get(id=_id)
+      # record.supervisor_approved = dh
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      # record.supervisor_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.po_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.po= po
+
+      record.save()
+
+      notice = Notifications()
+      notice.to = record.supervisor_approved
+      notice.message = " "+ username +" has approved a Service Request"
       notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice.trigger = username
       notice.save()
@@ -998,6 +1034,9 @@ def service_request_dh_approve(request):
       return JsonResponse( {'message':"success"})
     else:
       return render(request, 'pages/service_requests/list.html', {})
+
+
+
 
 @login_required(login_url='login')
 @csrf_exempt
