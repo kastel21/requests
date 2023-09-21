@@ -1396,7 +1396,7 @@ def comp_schedule_get_record(request):
       "pdf3":pdf.quote3_path,
 
       "message":"success",
-      "request_id":record.service_request,
+      "request_id":record.id,
 
       "company_name_supplier1":record.company_name_supplier1,
       "item_number_supplier1":record.item_number_supplier1,
