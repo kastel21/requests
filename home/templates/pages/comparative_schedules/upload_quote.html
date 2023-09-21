@@ -313,7 +313,7 @@
                                       $.post(url,data, function(data,status){
                             
                             if (data['message']=="success"){
-                
+                alert(data['request_id']);
                     $("#request_id").val(data['request_id']);
                     $("#payee").val(data['payee']);
 
