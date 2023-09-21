@@ -19,7 +19,7 @@
             <!-- <div class="col-md-6">
                 <a href="show_pdf/record.upload">upload {{record.upload}} </a>
 
-                <!-- <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly> -->
+                 <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly> -->
             <!-- </div>  -->
 
             <div class="col-md-12">
@@ -262,7 +262,7 @@
           <form action="{% url 'comp_schedule_quotes_upload' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
   
-            <div style="display:none;" class="col-md-6">
+            <div style="" class="col-md-6">
             <label for="fname" class="form-label">Request ID</label>
             <input  type="text" value="" id="request_id" name="request_id" readonly >
             </div>

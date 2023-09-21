@@ -1691,6 +1691,7 @@ def comp_schedule_quotes_upload(request):
         import os
         path = "uploads/comp_schedules/"+str(request_id)
         # Check whether the specified path exists or not
+        print("path ",path)
         isExist = os.path.exists(path)
         if not isExist:
 
