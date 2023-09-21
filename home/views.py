@@ -1107,7 +1107,7 @@ def service_request_dh_disapprove(request):
 @login_required(login_url='login')
 def service_request_view(request):
       username = request.user.username
-      records = ServiceRequest.objects.filter(Q(requester = username) | Q(supervisor_approved =username) )
+      records = ServiceRequest.objects.filter(Q(requester = username) | Q(supervisor_approved =username) | Q(po=username) )
       context = {'records':records}
 
 
