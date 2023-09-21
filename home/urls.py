@@ -138,7 +138,7 @@ urlpatterns = [
     path('service_request_add', views.service_request_add, name='service_request_add'),
     path('service_request_send_record', views.service_request_send_record, name='service_request_send_record'),
 
-    # re_path('purchase_request_quote_upload', views.purchase_request_quote_upload, name='purchase_request_quote_upload'),
+    re_path('service_request_po_approve', views.service_request_po_approve, name='service_request_po_approve'),
 
     re_path('service_request_edit_options', views.service_request_edit_options, name='service_request_edit_options'),
 
