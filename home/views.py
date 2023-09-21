@@ -1175,7 +1175,7 @@ def get_service_requests(request):
       schedules = ServiceRequest.objects.filter(~Q(supervisor_approved_date = "None"))
 
       for schedule in schedules: 
-          dic[schedule.id]= schedule.id +" : raised by "+ schedule.requester+" : raised on "+schedule.date_of_request
+          dic[schedule.id]= schedule.id +" raised by : "+ schedule.requester+" raised on : "+schedule.date_of_request+" Department  : "+schedule.requesting_dpt
       return JsonResponse(dic)
    except Exception as e:
           return JsonResponse(str(e)) 
@@ -1237,7 +1237,7 @@ def comp_schedule_send_record(request):
         try:
           import os
           app.config['UPLOAD_FOLDER'] = "/uploads"
-          # request_id= request.POST.get('request_id',default=None)
+          service_request= request.POST.get('service_request',default=None)
           payee= request.POST.get('payee',default=None)
 
           # for filename in  request.FILES.items():
@@ -1274,7 +1274,7 @@ def comp_schedule_send_record(request):
           recommended_supplier_reason= request.POST.get('recommended_supplier_reason',default=None)
           dpt_project_requesting= request.POST.get('dpt_project_requesting',default=None)
 
-          # requested_by= request.POST.get('requested_by',default=None)
+          # service_request= request.POST.get('requested_by',default=None)
           # requested_by_sig= request.POST.get('requested_by_sig',default=None)
           # requested_by_date= request.POST.get('requested_by_date',default=None)
 
@@ -1300,7 +1300,7 @@ def comp_schedule_send_record(request):
         #   record.compiled_by = request.user.username
           # record.request_id= request_id
           record.payee= payee
-          # record.upload_name= filename
+          record.service_request= service_request
           record.company_name_supplier1= company_name_supplier1
           record.item_number_supplier1= item_number_supplier1
           record.desc_supplier1= desc_supplier1
@@ -1432,6 +1432,8 @@ def comp_schedule_get_record(request):
       "dpt_head_by":record.dpt_head_by,
       "dpt_head_by_sig":record.dpt_head_by_sig,
       "dpt_head_date":record.dpt_head_date,
+            "service_request":record.service_request,
+
 
       "team_lead_by":record.team_lead_by,
       "team_lead_by_sig":record.team_lead_by_sig,

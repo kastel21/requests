@@ -134,7 +134,7 @@ urlpatterns = [
     path('service_request_all', views.service_requests_all, name='service_request_all'),
     path('service_request_approved', views.service_request_approved, name='service_request_approved'),
     path('service_request_pending', views.service_request_pending, name='service_request_pending'),
-    # path('service_request_super', views.service_request_super, name='service_request_super'),
+    path('get_service_requests', views.get_service_requests, name='get_service_requests'),
     path('service_request_add', views.service_request_add, name='service_request_add'),
     path('service_request_send_record', views.service_request_send_record, name='service_request_send_record'),
 

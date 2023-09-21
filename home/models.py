@@ -154,6 +154,8 @@ class CompScheduleQuotation(models.Model):
     quote3_path = models.CharField(max_length=500, default=".")
 
 class ComparativeSchedule(models.Model):
+    service_request = models.CharField(max_length=100, default="None")
+
     request_id = models.CharField(max_length=30, default="None")
     payee = models.CharField(max_length=150, default="None")
    
