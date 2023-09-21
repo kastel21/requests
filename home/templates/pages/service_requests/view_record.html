@@ -110,6 +110,18 @@
             </div>
 
 
+
+            <div class="col-md-6">
+                <label for="supervisor_approved" class="form-label"> Procurement Officer:</label>
+                <input type="text" class="form-control" id="po" name="po" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="lname" class="form-label">Date:</label>
+                <input type="text" class="form-control" id="po_approved_date" name="po_approved_date" value="" readonly >
+            </div>
+
+
             <!-- <div class="col-md-12">
                 <label for="certifier" class="form-label">Quotation</label>
                 <a id="quotation" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
@@ -210,8 +222,8 @@
                     $("#supervisor_approved").val(data['supervisor_approved']);
                     $("#supervisor_approved_date").val(data['supervisor_approved_date']);
 
-                    // $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
-                //    $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);   
+                    $("#po").val(data['po']);
+                   $("#po_approved_date").val(data['po_approved_date']);   
                    $('#overlay').fadeOut();
      
                 }else{
