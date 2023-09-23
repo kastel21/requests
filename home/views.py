@@ -2486,20 +2486,20 @@ def purchase_order_view(request):
       _id = request.POST.get('id',default=None)
 
         # objs = Record.objects.get(id=_id)
-      record = PaymentRequest.objects.get(id=_id)
+      record = PaymentOrder.objects.get(id=_id)
       context = {'record':record}
-      print("IN POST")
-      if record.certified_by_date == "None" and record.certified_by == request.user.username:
-         print("certified")
-         return render(request, 'pages/purchase_orders/certify.html', context)
+      # print("IN POST")
+      if record.required_by_date == "None" and record.required_by == request.user.username:
+        #  print("certified")
+         return render(request, 'pages/purchase_orders/required.html', context)
       
-      elif record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man == request.user.username:
-         print("cleared")
+      elif record.ordered_by_date == "None" and record.order_by == request.user.username:
+        #  print("cleared")
 
-         return render(request, 'pages/purchase_orders/clear.html', context)
+         return render(request, 'pages/purchase_orders/ordered.html', context)
       
       elif record.approved_by_date == "None" and record.approved_by == request.user.username:
-         print("approved")
+        #  print("approved")
 
          return render(request, 'pages/purchase_orders/approve.html', context)
       else:
@@ -2523,12 +2523,12 @@ def purchase_order_edit_options(request):
       elif record.approved_by_date == "None" and record.approved_by == request.user.username:
         #  print("cleared")
 
-         return render(request, 'pages/purchase_orders/clerk.html', context)
+         return render(request, 'pages/purchase_orders/approve.html', context)
 
       elif record.ordered_by_date == "None" and record.ordered_by == request.user.username:
         #  print("cleared")
 
-         return render(request, 'pages/purchase_orders/clerk.html', context)
+         return render(request, 'pages/purchase_orders/ordered.html', context)
       else:
          return render(request, 'pages/comparative_schedules/not_auth.html', {})
       
@@ -2845,6 +2845,84 @@ def purchase_order_clear(request):
        return JsonResponse( {'message':"failed"})
 
 
+
+@login_required(login_url='login')
+@csrf_exempt
+def purchase_order_required(request):
+    
+    try:
+      if request.method == "POST":
+        
+        _id = request.POST.get('id',default=None)
+
+          # objs = Record.objects.get(id=_id)
+        record = PurchaseOrder.objects.get(id=_id)
+        record.required_by = request.user.username
+        # record.certified_by_date = request.user.username
+        d = datetime.datetime.now()
+            # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        record.required_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+
+
+
+        notice = Notifications()
+        notice.to = record.compiled_by
+        record.save()
+
+        notice.message = " "+ request.user.username +" Updated your Purchase Order."
+        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        notice.trigger = request.user.username
+        notice.save()
+
+        return JsonResponse( {'message':"success"})
+      else:
+        return render(request, 'pages/purchase_orders/list.html', {})
+
+
+    except:
+       return JsonResponse( {'message':"failed"})
+
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def purchase_order_ordered(request):
+    
+    try:
+      if request.method == "POST":
+        
+        _id = request.POST.get('id',default=None)
+
+          # objs = Record.objects.get(id=_id)
+        record = PurchaseOrder.objects.get(id=_id)
+        record.ordered_by = request.user.username
+        # record.certified_by_date = request.user.username
+        d = datetime.datetime.now()
+            # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        record.ordered_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+
+
+
+        notice = Notifications()
+        notice.to = record.compiled_by
+        record.save()
+
+        notice.message = " "+ request.user.username +" Updated your Purchase Order."
+        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        notice.trigger = request.user.username
+        notice.save()
+
+        return JsonResponse( {'message':"success"})
+      else:
+        return render(request, 'pages/purchase_orders/list.html', {})
+
+
+    except:
+       return JsonResponse( {'message':"failed"})
+
+
+
+
 @login_required(login_url='login')
 @csrf_exempt
 def purchase_order_approve(request):
@@ -2855,7 +2933,7 @@ def purchase_order_approve(request):
         _id = request.POST.get('id',default=None)
 
           # objs = Record.objects.get(id=_id)
-        record = PaymentRequest.objects.get(id=_id)
+        record = PurchaseOrder.objects.get(id=_id)
         record.approved_by = request.user.username
         # record.certified_by_date = request.user.username
         d = datetime.datetime.now()
@@ -2868,7 +2946,7 @@ def purchase_order_approve(request):
         notice.to = record.compiled_by
         record.save()
 
-        notice.message = " "+ request.user.username +" Approved your Payement Request."
+        notice.message = " "+ request.user.username +" Updated your Purchase Order."
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
@@ -2884,7 +2962,7 @@ def purchase_order_approve(request):
 @login_required(login_url='login')
 def purchase_order_pending(request):
     username = request.user.username
-    records = PurchaseOrder.objects.filter((Q(approved_by=username) & Q (approved_by_date="None")) )
+    records = PurchaseOrder.objects.filter((Q(approved_by=username) & Q (approved_by_date="None")) | (Q(required_by=username) & Q (required_by_date="None") | (Q(ordered_by=username) & Q (ordered_by_date="None")) )   )
     context = {'records':records}
     return render(request, 'pages/purchase_orders/list_pending.html', context)
 
@@ -3132,34 +3210,34 @@ def purchase_order_edit_record(request):
 
 
 
-@login_required(login_url='login')
-@csrf_exempt
-def purchase_order_approve(request):
-    if request.method == "POST":
+# @login_required(login_url='login')
+# @csrf_exempt
+# def purchase_order_approve(request):
+#     if request.method == "POST":
       
-      _id = request.POST.get('id',default=None)
-      # clerk = request.POST.get('clerk',default=None)
-      username = request.user.username
-        # objs = Record.objects.get(id=_id)
-      record = PurchaseOrder.objects.get(id=_id)
-      # record.accounts_clerk_approved = clerk
-      d = datetime.datetime.now()
-          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
-      record.approved_by= "{:%B %d, %Y  %H:%M:%S}".format(d)
+#       _id = request.POST.get('id',default=None)
+#       # clerk = request.POST.get('clerk',default=None)
+#       username = request.user.username
+#         # objs = Record.objects.get(id=_id)
+#       record = PurchaseOrder.objects.get(id=_id)
+#       # record.accounts_clerk_approved = clerk
+#       d = datetime.datetime.now()
+#           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+#       record.approved_by= "{:%B %d, %Y  %H:%M:%S}".format(d)
 
-      record.save()
+#       record.save()
 
-      notice = Notifications()
-      notice.to = record.ordered_by
-      notice.message = " "+ username +" updated Approved your Purchase Order."
-      notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
-      notice.trigger = username
-      notice.save()
+#       notice = Notifications()
+#       notice.to = record.ordered_by
+#       notice.message = " "+ username +" updated Approved your Purchase Order."
+#       notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+#       notice.trigger = username
+#       notice.save()
 
 
-      return JsonResponse( {'message':"success"})
-    else:
-      return render(request, 'pages/purchase_orders/list.html', {})
+#       return JsonResponse( {'message':"success"})
+#     else:
+#       return render(request, 'pages/purchase_orders/list.html', {})
     
 
 

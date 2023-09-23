@@ -76,7 +76,7 @@ class ServiceRequest(models.Model):
 
 class PurchaseOrder(models.Model):
     purchase_id = models.CharField(max_length=30, default="None")
-    name = models.CharField(max_length=30, default="None")
+    name = models.CharField(max_length=100, default="None")
     contact_person = models.CharField(max_length=30, default="None")
     contact_number = models.CharField(max_length=25, default="2023")
     address = models.CharField(max_length=150, default="None")
@@ -84,6 +84,9 @@ class PurchaseOrder(models.Model):
     date = models.CharField(max_length=550, default="None")
     budget_line_item = models.CharField(max_length=150, default="None")
    
+
+    compiled_by = models.CharField(max_length=150, default="None")
+
     item = models.CharField(max_length=150, default="None")
     dept = models.FileField(default="None")
     quantity = models.CharField(max_length=150, default="None")

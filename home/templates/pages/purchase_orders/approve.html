@@ -32,7 +32,7 @@
             <p></p> -->
 
             <div class="col-md-6">
-                <label for="fname" class="form-label">Comparative Schedule:</label>
+                <label for="fname" class="form-label">From Purchase Request:</label>
                 <input type="text" class="form-control" id="purchase_id" name="purchase_id" value="" readonly >
             </div>
 
@@ -242,13 +242,18 @@
                     $('#overlay').fadeOut();
 
                             alert(data['message']);
-                            window.location.href="/purchase_request_all";
+                            window.location.href="/purchase_order_all";
                 
                         }
                 
                         });
                     }
 
+
+
+
+
+                    
                     function print(){
 
                         current_url = window.location.href;
