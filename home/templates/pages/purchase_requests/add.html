@@ -284,7 +284,7 @@ function get_rec_and_populate(id){
 
                         if (service_request == "None"){
                             alert("Service Request Field is Mandetory");
-                            // return;
+                            $('#overlay').fadeOut();
                         }else{
 
                                 var service_request= document.getElementById('service_request').value;

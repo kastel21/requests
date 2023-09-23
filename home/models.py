@@ -7,7 +7,7 @@ from django.db import models
 class PuchaseRequest(models.Model):
 
     schedule_id = models.CharField(max_length=30, default="None")
-    service_request_id = models.CharField(max_length=30, default="None")
+    service_request = models.CharField(max_length=30, default="None")
     requester = models.CharField(max_length=30, default="None")
     date_of_request = models.CharField(max_length=25, default="2023")
     requesting_dpt = models.CharField(max_length=150, default="None")
