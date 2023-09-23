@@ -146,7 +146,7 @@ def purchase_request_quote_upload(request):
 
         record = PuchaseRequestQuotation()
         record.request_id = request_id
-        record.quote_path = uploaded_file_url
+        record.quote_path = uploaded_file_url1
         record.save()
 
     #     return render(request, 'core/simple_upload.html', {'uploaded_file_url': uploaded_file_url})
@@ -301,6 +301,8 @@ def purchase_request_get_record(request):
                                             "item_number":record.item_number,
                                             "description":record.description,
                                             "requester":record.requester,
+                                            "service_request":record.service_request,
+                                            "comp_schedule":record.schedule_id,
 
                 
                                             "request_justification":record.request_justification,
