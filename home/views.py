@@ -1771,7 +1771,7 @@ def payment_request_quote_upload(request):
         uploaded_file_url = fs.url(filename)
         record = PaymentRequestQuotation()
         record.request_id = request_id
-        record.quote_path = uploaded_file_url
+        record.quote_path = uploaded_file_url1
         record.save()
         return redirect('/payment_request')
     else:
@@ -2473,7 +2473,7 @@ def purchase_order_quote_upload(request):
 
         record = PurchaseOrderQuotation()
         record.request_id = request_id
-        record.quote_path = uploaded_file_url
+        record.quote_path = uploaded_file_url1
         record.save()
         return redirect('/purchase_order')
     else:
