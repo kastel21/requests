@@ -30,7 +30,15 @@
                 <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="" readonly >
             </div>
             <p></p> -->
+            <div class="col-md-6">
+                <label for="fname" class="form-label">From Schedule:</label>
+                <input type="text" class="form-control" id="comp_schedule" name="comp_schedule" value="" readonly >
+            </div> 
 
+            <div class="col-md-6">
+                <label for="fname" class="form-label">From Service Request:</label>
+                <input type="text" class="form-control" id="service_request" name="service_request" value="" readonly >
+            </div>
             <div class="col-md-6">
                 <label for="fname" class="form-label">Requesting Department:</label>
                 <input type="text" class="form-control" id="requesting_dpt" name="requesting_dpt" value="" readonly >
@@ -208,7 +216,8 @@
                     $("#requesting_dpt").val(data['requesting_dpt']);
                     $("#budget_line_item").val(data['budget_line_item']);
                     $("#request_justification").val(data['request_justification']);
-    
+                    $("#service_request").val(data['service_request']);
+                    $("#comp_schedule").val(data['comp_schedule']);
                     $("#name_address_of_supplier").val(data['name_address_of_supplier']); 
                    
                     $("#qnty").val(data['qnty']);

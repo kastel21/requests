@@ -21,7 +21,15 @@
                 <label  class="form-label">request_id:</label>
                 <input type="text" class="form-control" id="request_id" name="request_id" value="">
             </div> -->
+            <div class="col-md-6">
+                <label for="fname" class="form-label">From Schedule:</label>
+                <input type="text" class="form-control" id="comp_schedule" name="comp_schedule" value="" readonly >
+            </div> 
 
+            <div class="col-md-6">
+                <label for="fname" class="form-label">From Service Request:</label>
+                <input type="text" class="form-control" id="service_request" name="service_request" value="" readonly >
+            </div>
             <div class="col-md-6">
                 <label  class="form-label">Payee:</label>
                 <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
@@ -206,7 +214,8 @@
     $("#payment_type").val(data['payment_type']);
     $("#amount").val(data['amount']);
     $("#project_number").val(data['project_number']);
-   
+    $("#service_request").val(data['service_request']);
+                                    $("#comp_schedule").val(data['comp_schedule']);
     $("#account_code").val(data['account_code']); 
     $("#details").val(data['details']);
     // $("#amount ").val(data['pat_name']);

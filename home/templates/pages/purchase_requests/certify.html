@@ -21,7 +21,15 @@
                 <label  class="form-label">request_id:</label>
                 <input type="text" class="form-control" id="request_id" name="request_id" value="">
             </div> -->
+            <div class="col-md-6">
+                <label for="fname" class="form-label">From Schedule:</label>
+                <input type="text" class="form-control" id="comp_schedule" name="comp_schedule" value="" readonly >
+            </div> 
 
+            <div class="col-md-6">
+                <label for="fname" class="form-label">From Service Request:</label>
+                <input type="text" class="form-control" id="service_request" name="service_request" value="" readonly >
+            </div>
             <div class="col-md-6">
                 <label  class="form-label">Payee:</label>
                 <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
@@ -222,7 +230,8 @@ const url = "https://lorkas.co.zw/get_users"
 
     // $("#date_of_request").val(data['date_of_request']);
     $('#quotation').attr('href',data['pdf']);
-
+    $("#service_request").val(data['service_request']);
+                                    $("#comp_schedule").val(data['comp_schedule']);
     $("#payee").val(data['payee']);
     $("#payment_type").val(data['payment_type']);
     $("#amount").val(data['amount']);
