@@ -3159,6 +3159,26 @@ def purchase_order_view(request):
 
 
 
+
+@login_required(login_url='login')
+@csrf_exempt
+def get_purchase_orders(request):
+   try:
+      dic = {}
+      # User = get_user_model()
+      schedules = PuchaseOrder.objects.filter(~Q(approved_by_date = "None"))
+
+      for schedule in schedules: 
+          dic[schedule.id]= schedule.item+", "+schedule.project + ", Total Cost : "+ schedule.total_cost +", raised by : "+ schedule.requester+", raised on : "+schedule.date
+      return JsonResponse(dic)
+   except Exception as e:
+          return JsonResponse(str(e)) 
+
+
+
+
+
+
 from PIL import Image, ImageDraw, ImageFont
 import os
 import smtplib

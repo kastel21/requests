@@ -172,6 +172,7 @@ urlpatterns = [
     # re_path('purchase_order_open_record', views.purchase_order_open_record, name='purchase_order_open_record'),
     re_path('purchase_order_view', views.purchase_order_view, name='purchase_order_view'),
 
+    re_path('get_purchase_orders', views.get_purchase_orders, name='get_purchase_orders'),
 
 
 
