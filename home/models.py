@@ -94,7 +94,7 @@ class PurchaseOrder(models.Model):
     ordered_by = models.CharField(max_length=150, default="None")
     ordered_by_date= models.CharField(max_length=150, default="None")
     
-    required_by= models.CharField(max_length=150, default="None")
+    required_by = models.CharField(max_length=150, default="None")
     required_by_date= models.CharField(max_length=150, default="None")
 
     approved_by= models.CharField(max_length=150, default="None")

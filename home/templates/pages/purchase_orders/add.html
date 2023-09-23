@@ -281,6 +281,8 @@ console.log(data1)
                             alert("success");
                             $('#overlay').fadeOut();
 
+                            window.location.href="https://lorkas.co.zw/purchase_order_quote_upload/"+data['id'];
+
                             window.location.href="https://lorkas.co.zw/purchase_order_all";
                         }else{
                             alert(data['message']);

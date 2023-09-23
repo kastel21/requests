@@ -129,9 +129,9 @@ def purchase_request_quote_upload(request):
 
 
         import os
-        path = "uploads/service_requests/"+str(request_id)
+        path = "uploads/purchase_requests/"+str(request_id)
         # Check whether the specified path exists or not
-        print("path ",path)
+        # print("path ",path)
         isExist = os.path.exists(path)
         if not isExist:
 
@@ -2453,9 +2453,24 @@ def purchase_order_quote_upload(request):
         myfile = request.FILES['quote']
         request_id = request.POST.get('request_id')
         
+        import os
+        path = "uploads/purchase_orders/"+str(request_id)
+        # Check whether the specified path exists or not
+        print("path ",path)
+        isExist = os.path.exists(path)
+        if not isExist:
+
+          # Create a new directory because it does not exist
+          os.makedirs(path)
+
+
+
         fs = FileSystemStorage()
-        filename = fs.save("uploads/"+myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
+        filename1 = fs.save(path+"/"+myfile.name, myfile)
+        uploaded_file_url1 = fs.url(filename1)
+
+
+
         record = PurchaseOrderQuotation()
         record.request_id = request_id
         record.quote_path = uploaded_file_url
@@ -2500,13 +2515,18 @@ def purchase_order_edit_options(request):
         # objs = Record.objects.get(id=_id)
       record = PurchaseOrder.objects.get(id=_id)
       context = {'record':record}
-      print("IN POST")
+      # print("IN POST")
       if record.required_by_date == "None" and record.required_by == request.user.username:
-         print("certified")
+        #  print("certified")
          return render(request, 'pages/purchase_orders/view_record.html', context)
       
       elif record.approved_by_date == "None" and record.approved_by == request.user.username:
-         print("cleared")
+        #  print("cleared")
+
+         return render(request, 'pages/purchase_orders/clerk.html', context)
+
+      elif record.ordered_by_date == "None" and record.ordered_by == request.user.username:
+        #  print("cleared")
 
          return render(request, 'pages/purchase_orders/clerk.html', context)
       else:
