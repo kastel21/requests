@@ -71,7 +71,7 @@ urlpatterns = [
     path('payment_request_certify', views.payment_request_certify, name='payment_request_certify'),
     path('payment_request_clear', views.payment_request_clear, name='payment_request_clear'),
     path('payment_request_approve', views.payment_request_approve, name='payment_request_approve'),
-    path('payment_request_delievery_note_upload', views.payment_request_delievery_note_upload, name='payment_request_delievery_note_upload'),
+    path('payment_request_delivery_note_upload', views.payment_request_delivery_note_upload, name='payment_request_delivery_note_upload'),
 
     path('payment_request_pop_upload', views.payment_request_pop_upload, name='payment_request_pop_upload'),
     path('payment_request_voucher_upload', views.payment_request_voucher_upload, name='payment_request_voucher_upload'),
