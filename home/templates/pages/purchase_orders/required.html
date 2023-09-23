@@ -31,22 +31,22 @@
             </div>
             <p></p> -->
 
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <label for="fname" class="form-label">From Purchase Request:</label>
                 <input type="text" class="form-control" id="purchase_id" name="purchase_id" value="" readonly >
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="fname" class="form-label">Name:</label>
                 <input type="text" class="form-control" id="name" name="name" value="" readonly >
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="lname" class="form-label">Contact Person:</label>
                 <input type="text" class="form-control" id="contact_person" name="contact_person" value="" readonly >
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="fname" class="form-label">Contact Number:</label>
                 <input type="text" class="form-control" id="contact_number" name="contact_number" value="" readonly >
             </div>
@@ -67,39 +67,38 @@
                 <input type="text" class="form-control" id="project" name="project" value="" readonly >
             </div>
 
-            <div class="col-md-12">
+            <!-- <div class="col-md-12">
                 <label for="fname" class="form-label">Date</label>
                 <textarea type="text" class="form-control" id="date" name="date" value="" readonly ></textarea>
-            </div>
+            </div> -->
 
             <p></p>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="lname" class="form-label">Budget Line Item</label>
                 <input type="text" class="form-control" id="budget_line_item" name="budget_line_item" value="" readonly >
             </div>
             
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="fname" class="form-label">Item:</label>
                 <input type="text" class="form-control" id="item" name="item" value="" readonly >
             </div>
 
-            <p></p>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="fname" class="form-label">Quantity:</label>
                 <input type="text" class="form-control" id="quantity" name="quantity" value="" readonly>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <label for="fname" class="form-label">Date:</label>
-                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="" readonly >
+                <input type="text" class="form-control" id="date" name="date" value="" readonly >
             </div>
 
 
 
 
-           <div class="col-md-6">
+           <div class="col-md-12">
                 <label for="supervisor_approved" class="form-label">description:</label>
                 <input type="text" class="form-control" id="description" name="description" value="" readonly >
             </div>
@@ -122,6 +121,12 @@
             <div class="col-md-6">
                 <label for="fname" class="form-label">Total Cost</label>
                 <input type="text" class="form-control" id="total_cost" name="total_cost" value="" readonly >
+            </div>
+
+
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Quotation</label>
+                <a id="quotation" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
             </div>
 
             <div class="col-md-6">
@@ -149,10 +154,10 @@
                 <input type="text" class="form-control" id="approved_by" name="approved_by" value="" readonly >
             </div>
 
-            <!-- <div class="col-md-6">
+            <div class="col-md-6">
                 <label for="fname" class="form-label">Approved Date:</label>
                 <input type="text" class="form-control" id="approved_by_date" name="approved_by_date" value="" readonly >
-            </div> -->
+            </div>
 
           </form>
 <hr>
@@ -208,6 +213,7 @@
 
                 
                     $("#purchase_id").val(data['purchase_id']);
+                    $('#quotation').attr('href',data['pdf']);
 
                     $("#name").val(data['name']);
                     $("#contact_person").val(data['contact_person']);
@@ -233,7 +239,7 @@
                     $("#ordered_by_date").val(data['ordered_by_date']); 
                     
                     $("#approved_by").val(data['approved_by']);
-                    // $("#approved_by_date").val(data['approved_by_date']); 
+                    $("#approved_by_date").val(data['approved_by_date']); 
 
                    
                    $('#overlay').fadeOut();
