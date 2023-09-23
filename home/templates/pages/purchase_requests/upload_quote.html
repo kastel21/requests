@@ -18,18 +18,18 @@
             <!-- <div class="col-md-6">
                 <label for="fname" class="form-label">request_id:</label>
                 <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly >
-            </div>
+            </div> -->
 
             <div class="col-md-6">
-                <label for="fname" class="form-label">Requestor:</label>
-                <input type="text" class="form-control" id="requester" name="requester" value="" readonly >
-            </div>
+                <label for="fname" class="form-label">From Schedule:</label>
+                <input type="text" class="form-control" id="comp_schedule" name="comp_schedule" value="" readonly >
+            </div> 
 
             <div class="col-md-6">
-                <label for="fname" class="form-label">Date:</label>
-                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="" readonly >
+                <label for="fname" class="form-label">From Service Request:</label>
+                <input type="text" class="form-control" id="service_request" name="service_request" value="" readonly >
             </div>
-            <p></p> -->
+            <p></p> 
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Requesting Department:</label>
@@ -159,45 +159,6 @@
             <script  language="JavaScript" type="text/javascript">
 
 
-
-
-
-
-
-
-// populate the users dropdown
-
-// const url = "https://lorkas.co.zw/get_users"
-//                     const data = {
-//                       'id':"case_id",
-//                     }
-            
-//                       $.post(url,data, function(data,status){
-            
-
-// console.log(data)
-
-
-//                         $.each(data, function(val, text) {
-//                             $('#accounts_clerk_approved').append( new Option(text,val) );
-//                         });
-
-            
-  
-    
-//                         $('#overlay').fadeOut();
-
-
-//         });
-
-    
-
-
-
-
-
-
-
                 // populating the already existing records
                 
                             current_url = window.location.href;
@@ -217,107 +178,42 @@
                 
                                 // console.log(data);
 
-                
-                    $("#requester").val(data['requester']);
-                    $("#date_of_request").val(data['date_of_request']);
-                    $("#requesting_dpt").val(data['requesting_dpt']);
-                    $("#budget_line_item").val(data['budget_line_item']);
-                    $("#request_justification").val(data['request_justification']);
-    
-                    $("#name_address_of_supplier").val(data['name_address_of_supplier']); 
-                   
-                    $("#qnty").val(data['qnty']);
-                    $("#item_number").val(data['item_number']);
-                    $("#description").val(data['description']);
-                    $("#unit_price").val(data['unit_price']);
-                    $("#total").val(data['total']);
+                                    $("#service_request").val(data['service_request']);
+                                    $("#comp_schedule").val(data['comp_schedule']);
+                                    $("#requester").val(data['requester']);
+                                    $("#date_of_request").val(data['date_of_request']);
+                                    $("#requesting_dpt").val(data['requesting_dpt']);
+                                    $("#budget_line_item").val(data['budget_line_item']);
+                                    $("#request_justification").val(data['request_justification']);
+                    
+                                    $("#name_address_of_supplier").val(data['name_address_of_supplier']); 
+                                
+                                    $("#qnty").val(data['qnty']);
+                                    $("#item_number").val(data['item_number']);
+                                    $("#description").val(data['description']);
+                                    $("#unit_price").val(data['unit_price']);
+                                    $("#total").val(data['total']);
 
-                    $("#supervisor_approved").val(data['supervisor_approved']);
-                    $("#supervisor_approved_date").val(data['supervisor_approved_date']);
+                                    $("#supervisor_approved").val(data['supervisor_approved']);
+                                    $("#supervisor_approved_date").val(data['supervisor_approved_date']);
 
-                    $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
-                   $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);   
-                   $('#overlay').fadeOut();
-     
-                }else{
-                    $('#overlay').fadeOut();
+                                    $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
+                                    $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);   
 
-                            alert(data['message']);
-                            window.location.href="/purchase_request_all";
-                
-                        }
-                
-                        });
-                    }
-                
-                    function sendEdit(){
-                        $('#overlay').fadeIn();
+                                    $('#overlay').fadeOut();
+                    
+                                    }else{
+                                            $('#overlay').fadeOut();
 
-    
-                        // var request_id= document.getElementById('request_id').value;
-                        // var requester= document.getElementById('requester').value;
-                        // var date_of_request= document.getElementById('date_of_request').value;
-                        var requesting_dpt= document.getElementById('requesting_dpt').value;
-                        var budget_line_item= document.getElementById('budget_line_item').value;
-                        var request_justification= document.getElementById('request_justification').value;
-
-                        var item_number= document.getElementById('item_number').value;
-                        var description= document.getElementById('description').value;
-                        
-
+                                            alert(data['message']);
+                                            window.location.href="/purchase_request_all";
+                                
+                                        }
+                                
+                                });
+                            }
                 
-                        var name_address_of_supplier= document.getElementById('name_address_of_supplier').value; 
-                        var qnty = document.getElementById('qnty').value;
-    
-                        var unit_price = document.getElementById('unit_price').value;
-                        var total=      document.getElementById('total').value;
-
-                
-                        var supervisor_approved = document.getElementById('pi').value;
-                        // var supervisor_approved_date= document.getElementById('supervisor_approved_date').value;
-                
-                        var accounts_clerk_approved= document.getElementById('accounts_clerk_approved').value;
-                        // var accounts_clerk_approved_date= document.getElementById('accounts_clerk_approved_date').value;
-      
-                            current_url = window.location.href;
-                            arr = current_url.split("/");
-                            case_id = arr.at(-1);
-                        console.log(case_id);
-                        if (case_id == "add"){
-                
-                        const url = "https://lorkas.co.zw/purchase_request_clerk_approve";
-                        // current_url = window.location.href;
-                        // arr = current_url.split("/");
-                        // case_id = arr.at(-1);
-                        // month_id =arr[arr.length - 2];
-                        console.log("after url");
-                        const data = {
-                            // "request_id": request_id,
-                                            "id": case_id,
-
-                
-                                           }
-                
-                                console.log("after dict");
-                        $.post(url,data, function(data,status){
-                        if (data['message']=="success"){
-                            alert("success");
-                            $('#overlay').fadeOut();
-
-                            window.location.href="https://lorkas.co.zw/purchase_request_all";
-                        }else{
-                            alert(data['message']);
-                            $('#overlay').fadeOut();
-
-                            window.location.href="https://lorkas.co.zw/purchase_requests_all";
-                
-                        }
-                
-                        });
-                        // alert("stop hee");
-                    }
-                
-                    }
+                    
                         </script>
                 
                 

@@ -17,13 +17,21 @@
                 
            </div>
 
-            <div class="col-md-12">
-                <label for="fname" class="form-label">Add From Comparative Schedule:</label>
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Add Comparative Schedule:</label>
                 <select class="form-control" name="comp_schedule" id="comp_schedule">
                     <option value="None">..</option>
     
-                    </select>            </div>
+                    </select>            
+                </div>
 
+                    <div class="col-md-6">
+                        <label for="fname" class="form-label">Add Service/Goods Request:</label>
+                        <select class="form-control" name="service_request" id="service_request">
+                            <option value="None">..</option>
+            
+                            </select>            
+                        </div>
             <!-- <div class="col-md-6">
                 <label for="fname" class="form-label">Requestor:</label>
                 <input type="text" class="form-control" id="requester" name="requester" value="">
@@ -162,29 +170,34 @@
 
 
 
-// populate the users dropdown
+// populate the com schedule dropdown
     const url = "https://lorkas.co.zw/get_comp_schedules"
                     const data = {
                       'id':"case_id",
                     }
-            
                       $.post(url,data, function(data,status){
-            
-
-console.log(data)
-
-
+                        console.log(data)
                         $.each(data, function(val, text) {
                             $('#comp_schedule').append( new Option(text,val) );
                         });
-
-            
-  
-    
-                        // $('#overlay').fadeOut();
-
-
         });
+
+
+// populate the users dropdown
+    const url2 = "https://lorkas.co.zw/get_service_requests"
+                    const data2 = {
+                      'id':"case_id",
+                    }
+                      $.post(url2,data2, function(data2,status){
+                        console.log(data2)
+                        $.each(data2, function(val, text) {
+                            $('#service_request').append( new Option(text,val) );
+                        });
+        });
+        
+
+
+
 
 const url1 = "https://lorkas.co.zw/get_users"
                     const data1 = {
@@ -267,88 +280,94 @@ function get_rec_and_populate(id){
                         window.scrollTo({ top: 0, behavior: 'smooth' });
 
                         $('#overlay').fadeIn();
+                        var service_request= document.getElementById('service_request').value;
 
-                        // var request_id= document.getElementById('request_id').value;
-                        var comp_schedule= document.getElementById('comp_schedule').value;
-                        // var comp_schedule= document.getElementById('q1').files[0];
-                        var requesting_dpt= document.getElementById('requesting_dpt').value;
-                        var budget_line_item= document.getElementById('budget_line_item').value;
-                        var request_justification= document.getElementById('request_justification').value;
-
-                        var item_number= document.getElementById('item_number').value;
-                        var description= document.getElementById('description').value;
-                        
-
-                
-                        var name_address_of_supplier= document.getElementById('name_address_of_supplier').value; 
-                        var qnty = document.getElementById('qnty').value;
-    
-                        var unit_price = document.getElementById('unit_price').value;
-                        var total=      document.getElementById('total').value;
-
-                
-                        var supervisor_approved= document.getElementById('pi').value;
-                        // var supervisor_approved_date= document.getElementById('supervisor_approved_date').value;
-                
-                        // var accounts_clerk_approved= document.getElementById('accounts_clerk_approved').value;
-                        // var accounts_clerk_approved_date= document.getElementById('accounts_clerk_approved_date').value;
-      
-                            current_url = window.location.href;
-                            arr = current_url.split("_");
-                            case_id = arr.at(-1);
-                        if (case_id == "add"){
-                
-                        const url = "https://lorkas.co.zw/purchase_request_send_record";
-                        // current_url = window.location.href;
-                        // arr = current_url.split("/");
-                        // case_id = arr.at(-1);
-                        // month_id =arr[arr.length - 2];
-                        console.log("after url");
-                        const data = {
-                            "comp_schedule": comp_schedule,
-                                            // "q1": q1,
-                                            "requesting_dpt": requesting_dpt,
-                                            // "date_of_request": date_of_request,
-                                            "budget_line_item": budget_line_item,
-                                            "item_number":item_number,
-                                            "description":description,
-                
-                                            "request_justification": request_justification,
-                                            "name_address_of_supplier":name_address_of_supplier,
-
-                                            "qnty": qnty,
-                                            "id": case_id,
-                                            "unit_price": unit_price,
-                                            "total": total,
-                
-                                            "supervisor_approved": supervisor_approved,
-                                            // "supervisor_approved_date": supervisor_approved_date,
-                
-                                            // "accounts_clerk_approved": accounts_clerk_approved,
-                                            // "accounts_clerk_approved_date": accounts_clerk_approved_date,
-                
-                                           }
-                
-                                console.log("after dict");
-                        $.post(url,data, function(data,status){
-                        if (data['message']=="success"){
-                            alert("success");
-                            $('#overlay').fadeOut();
-
-                            window.location.href="https://lorkas.co.zw/purchase_request_quote_upload/"+data['id'];
+                        if (service_request == "None"){
+                            alert("Service Request Field is Mandetory");
+                            // return;
                         }else{
-                            alert(data['message']);
-                            console,log("err")
-                            $('#overlay').fadeOut();
 
-                            window.location.href="https://lorkas.co.zw/purchase_requests_all";
-                
+                                var service_request= document.getElementById('service_request').value;
+                                var comp_schedule= document.getElementById('comp_schedule').value;
+                                // var comp_schedule= document.getElementById('q1').files[0];
+                                var requesting_dpt= document.getElementById('requesting_dpt').value;
+                                var budget_line_item= document.getElementById('budget_line_item').value;
+                                var request_justification= document.getElementById('request_justification').value;
+
+                                var item_number= document.getElementById('item_number').value;
+                                var description= document.getElementById('description').value;
+                                
+
+                        
+                                var name_address_of_supplier= document.getElementById('name_address_of_supplier').value; 
+                                var qnty = document.getElementById('qnty').value;
+            
+                                var unit_price = document.getElementById('unit_price').value;
+                                var total=      document.getElementById('total').value;
+
+                        
+                                var supervisor_approved= document.getElementById('pi').value;
+                                // var supervisor_approved_date= document.getElementById('supervisor_approved_date').value;
+                        
+                                // var accounts_clerk_approved= document.getElementById('accounts_clerk_approved').value;
+                                // var accounts_clerk_approved_date= document.getElementById('accounts_clerk_approved_date').value;
+            
+                                    current_url = window.location.href;
+                                    arr = current_url.split("_");
+                                    case_id = arr.at(-1);
+                                if (case_id == "add"){
+                        
+                                const url = "https://lorkas.co.zw/purchase_request_send_record";
+                                // current_url = window.location.href;
+                                // arr = current_url.split("/");
+                                // case_id = arr.at(-1);
+                                // month_id =arr[arr.length - 2];
+                                console.log("after url");
+                                const data = {
+                                    "comp_schedule": comp_schedule,
+                                                    // "q1": q1,
+                                                    "requesting_dpt": requesting_dpt,
+                                                    "service_request": service_request,
+                                                    "budget_line_item": budget_line_item,
+                                                    "item_number":item_number,
+                                                    "description":description,
+                        
+                                                    "request_justification": request_justification,
+                                                    "name_address_of_supplier":name_address_of_supplier,
+
+                                                    "qnty": qnty,
+                                                    "id": case_id,
+                                                    "unit_price": unit_price,
+                                                    "total": total,
+                        
+                                                    "supervisor_approved": supervisor_approved,
+                                                    // "supervisor_approved_date": supervisor_approved_date,
+                        
+                                                    // "accounts_clerk_approved": accounts_clerk_approved,
+                                                    // "accounts_clerk_approved_date": accounts_clerk_approved_date,
+                        
+                                                }
+                        
+                                        console.log("after dict");
+                                $.post(url,data, function(data,status){
+                                if (data['message']=="success"){
+                                    alert("success");
+                                    $('#overlay').fadeOut();
+
+                                    window.location.href="https://lorkas.co.zw/purchase_request_quote_upload/"+data['id'];
+                                }else{
+                                    alert(data['message']);
+                                    console,log("err")
+                                    $('#overlay').fadeOut();
+
+                                    window.location.href="https://lorkas.co.zw/purchase_requests_all";
+                        
+                                }
+                        
+                                });
+                                // alert("stop hee");
+                            }
                         }
-                
-                        });
-                        // alert("stop hee");
-                    }
-                
                     }
                         </script>
                 

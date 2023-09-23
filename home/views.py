@@ -121,9 +121,29 @@ def purchase_request_quote_upload(request):
         myfile = request.FILES['quote']
         request_id = request.POST.get('request_id')
         
+        # fs = FileSystemStorage()
+
+        # filename = fs.save("uploads/"+myfile.name, myfile)
+        # uploaded_file_url = fs.url(filename)
+
+
+
+        import os
+        path = "uploads/service_requests/"+str(request_id)
+        # Check whether the specified path exists or not
+        print("path ",path)
+        isExist = os.path.exists(path)
+        if not isExist:
+
+          # Create a new directory because it does not exist
+          os.makedirs(path)
+
+
+
         fs = FileSystemStorage()
-        filename = fs.save("uploads/"+myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
+        filename1 = fs.save(path+"/"+myfile.name, myfile)
+        uploaded_file_url1 = fs.url(filename1)
+
         record = PuchaseRequestQuotation()
         record.request_id = request_id
         record.quote_path = uploaded_file_url
@@ -197,7 +217,7 @@ def purchase_request_send_record(request):
     with app.app_context():
         try:
         
-          # request_id= request.POST.get('request_id',default=None)
+          service_request= request.POST.get('service_request',default=None)
           requester= request.user.username
           date_of_request= request.POST.get('date_of_request',default=None)
           requesting_dpt= request.POST.get('requesting_dpt',default=None)
@@ -221,7 +241,7 @@ def purchase_request_send_record(request):
 
           record = PuchaseRequest()
 
-        #   record.compiled_by = request.user.username
+          record.service_request = service_request
           record.schedule_id= comp_schedule
           record.requester= requester
           record.date_of_request= date_of_request

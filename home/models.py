@@ -7,6 +7,7 @@ from django.db import models
 class PuchaseRequest(models.Model):
 
     schedule_id = models.CharField(max_length=30, default="None")
+    service_request_id = models.CharField(max_length=30, default="None")
     requester = models.CharField(max_length=30, default="None")
     date_of_request = models.CharField(max_length=25, default="2023")
     requesting_dpt = models.CharField(max_length=150, default="None")
@@ -106,6 +107,8 @@ class PurchaseOrderQuotation(models.Model):
 class PuchaseRequestQuote(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
     quote = models.FileField(upload_to='documents/')
+
+
 
 class PuchaseRequestQuotation(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
