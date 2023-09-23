@@ -6,14 +6,14 @@ from django.db import models
 
 class PuchaseRequest(models.Model):
 
-    schedule_id = models.CharField(max_length=30, default="None")
-    service_request = models.CharField(max_length=30, default="None")
-    requester = models.CharField(max_length=30, default="None")
-    date_of_request = models.CharField(max_length=25, default="2023")
+    schedule_id = models.CharField(max_length=310, default="None")
+    service_request = models.CharField(max_length=100, default="None")
+    requester = models.CharField(max_length=100, default="None")
+    date_of_request = models.CharField(max_length=200, default="2023")
     requesting_dpt = models.CharField(max_length=150, default="None")
-    request_justification = models.CharField(max_length=450, default="None")
+    request_justification = models.CharField(max_length=2000, default="None")
     name_address_of_supplier = models.CharField(max_length=550, default="None")
-    budget_line_item = models.CharField(max_length=150, default="None")
+    budget_line_item = models.CharField(max_length=200, default="None")
    
     qnty = models.CharField(max_length=150, default="None")
     q1 = models.FileField(default="None")
