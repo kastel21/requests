@@ -2493,7 +2493,7 @@ def purchase_order_view(request):
 
 
       return render(request, 'pages/purchase_orders/view_record.html', context)
-      else:
+    else:
          return redirect("purchase_order_pending")
       
 @login_required(login_url='login')
