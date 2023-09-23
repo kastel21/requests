@@ -1761,14 +1761,140 @@ def payment_request_all(request):
     context = {'records':records}
     return render(request, 'pages/payment_requests/list2.html', context)
 
-def payment_request_quote_upload(request):
+
+
+@login_required(login_url='login')
+def payment_request_pop_upload(request):
     if request.method == 'POST' and request.FILES['quote']:
-        myfile = request.FILES['quote']
+        myfile1 = request.FILES['quote']
         request_id = request.POST.get('request_id')
         
+        import os
+        path = "uploads/payment_requests/pops/"+str(request_id)
+        # Check whether the specified path exists or not
+        # print("path ",path)
+        isExist = os.path.exists(path)
+        if not isExist:
+
+          # Create a new directory because it does not exist
+          os.makedirs(path)
+
+
+
         fs = FileSystemStorage()
-        filename = fs.save("uploads/"+myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
+        filename1 = fs.save(path+"/"+myfile1.name, myfile1)
+        uploaded_file_url1 = fs.url(filename1)
+
+
+
+
+        record = PaymentRequestQuotation()
+        record.request_id = request_id
+        record.quote_path = uploaded_file_url1
+        record.save()
+        return redirect('/payment_request')
+    else:
+          return render(request, 'pages/payment_requests/upload_quote.html')
+
+
+
+
+@login_required(login_url='login')
+def payment_request_voucher_upload(request):
+    if request.method == 'POST' and request.FILES['quote']:
+        myfile1 = request.FILES['quote']
+        request_id = request.POST.get('request_id')
+        
+        import os
+        path = "uploads/payment_requests/vouchers/"+str(request_id)
+        # Check whether the specified path exists or not
+        # print("path ",path)
+        isExist = os.path.exists(path)
+        if not isExist:
+
+          # Create a new directory because it does not exist
+          os.makedirs(path)
+
+
+
+        fs = FileSystemStorage()
+        filename1 = fs.save(path+"/"+myfile1.name, myfile1)
+        uploaded_file_url1 = fs.url(filename1)
+
+
+
+
+        record = PaymentRequestQuotation()
+        record.request_id = request_id
+        record.quote_path = uploaded_file_url1
+        record.save()
+        return redirect('/payment_request')
+    else:
+          return render(request, 'pages/payment_requests/upload_quote.html')
+
+
+
+@login_required(login_url='login')
+def payment_request_delivery_note_upload(request):
+    if request.method == 'POST' and request.FILES['quote']:
+        myfile1 = request.FILES['quote']
+        request_id = request.POST.get('request_id')
+        
+        import os
+        path = "uploads/payment_requests/delivery_notes/"+str(request_id)
+        # Check whether the specified path exists or not
+        # print("path ",path)
+        isExist = os.path.exists(path)
+        if not isExist:
+
+          # Create a new directory because it does not exist
+          os.makedirs(path)
+
+
+
+        fs = FileSystemStorage()
+        filename1 = fs.save(path+"/"+myfile1.name, myfile1)
+        uploaded_file_url1 = fs.url(filename1)
+
+
+
+
+        record = PaymentRequestQuotation()
+        record.request_id = request_id
+        record.quote_path = uploaded_file_url1
+        record.save()
+        return redirect('/payment_request')
+    else:
+          return render(request, 'pages/payment_requests/upload_quote.html')
+
+
+
+
+@login_required(login_url='login')
+def payment_request_quote_upload(request):
+    if request.method == 'POST' and request.FILES['quote']:
+        myfile1 = request.FILES['quote']
+        request_id = request.POST.get('request_id')
+        
+        import os
+        path = "uploads/payment_requests/quotations/"+str(request_id)
+        # Check whether the specified path exists or not
+        # print("path ",path)
+        isExist = os.path.exists(path)
+        if not isExist:
+
+          # Create a new directory because it does not exist
+          os.makedirs(path)
+
+
+
+        fs = FileSystemStorage()
+        filename1 = fs.save(path+"/"+myfile1.name, myfile1)
+        uploaded_file_url1 = fs.url(filename1)
+
+
+
+
         record = PaymentRequestQuotation()
         record.request_id = request_id
         record.quote_path = uploaded_file_url1
@@ -2257,7 +2383,7 @@ def payment_request_get_record(request):
           "account_code": record.account_code, 
           "details": record.details,
           "qnty": record.qnty,
-          # "unit_price ": record.unit_price,
+          "type_of_payment ": record.type_of_payment,
           "total": record.total,
 
           "certified_by": record.certified_by,
@@ -2299,7 +2425,7 @@ def payment_request_send_record(request):
           total= request.POST.get('total',default=None)
 
           certified_by= request.POST.get('certified_by',default=None)
-          # certified_by_date= request.POST.get('certified_by_date',default=None)
+          type_of_payment= request.POST.get('type_of_payment',default=None)
 
           # cleared_by_fin_man= request.POST.get('cleared_by_fin_man',default=None)
           # cleared_by_fin_man_date= request.POST.get('cleared_by_fin_man_date',default=None)
@@ -2325,7 +2451,7 @@ def payment_request_send_record(request):
           record.total= total
 
           record.certified_by= certified_by
-          # record.certified_by_date= certified_by_date
+          record.type_of_payment= type_of_payment
 
           # record.cleared_by_fin_man= cleared_by_fin_man
           # record.cleared_by_fin_man_date= cleared_by_fin_man_date

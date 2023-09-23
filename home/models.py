@@ -124,7 +124,7 @@ class PaymentRequest(models.Model):
     date_of_request = models.CharField(max_length=25, default="None")
     payee = models.CharField(max_length=150, default="None")
     payment_type = models.CharField(max_length=450, default="None")
-    # amount = models.CharField(max_length=550, default="None")
+    type_of_payment = models.CharField(max_length=550, default="None")
     project_number = models.CharField(max_length=150, default="None")
    
     account_code = models.CharField(max_length=150, default="None")

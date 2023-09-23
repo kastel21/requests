@@ -23,12 +23,24 @@
                 <label  class="form-label">request_id:</label>
                 <input type="text" class="form-control" id="request_id" name="request_id" value="">
             </div> -->
-            <div class="col-md-12">
-                <label for="fname" class="form-label">Add From Purchase Request:</label>
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Add From Purchase Order:</label>
                 <select class="form-control" name="purchase_request" id="purchase_request">
                     <option value="None">..</option>
     
-                    </select>            </div>
+                    </select>           
+                 </div>
+                 <div class="col-md-6">
+                    <label for="fname" class="form-label">Type of Payment:</label>
+                    <select class="form-control" name="type_of_payment" id="type_of_payment">
+                        <option value="pre">Pre Payment</option>
+                        <option value="part">Part Payment</option>
+                        <option value="cod">Cash On Delivery</option>
+                        <option value="post">Post Payment</option>
+
+                        </select>           
+                     </div>
+
             <div class="col-md-6">
                 <label  class="form-label">Payee:</label>
                 <input type="text" class="form-control" id="payee" name="payee" value="">
@@ -48,7 +60,6 @@
                 <!-- <input type="text" class="form-control" id="payment_type" name="payment_type" value=""> -->
                 <select class="form-control" name="payment_type" id="payment_type">
                     <option value="TRANSFER">TRANSFER</option>
-
                     <option value="CHEQUE">CHEQUE</option>
                     <option value="CASH">CASH</option>
 
@@ -263,7 +274,7 @@ console.log(data)
      $("#qnty ").val(data['qnty']);
     $("#total").val(data['total']);
    
-    // $("#certified_by").val(data['certified_by']);
+    $("#type_of_payment").val(data['type_of_payment']);
 //     $("#certified_by_date").val(data['certified_by_date']);
 
 //     $("#cleared_by_fin_man").val(data['cleared_by_fin_man']);
@@ -310,7 +321,7 @@ console.log(data)
         var account_code= document.getElementById('account_code').value; 
         var details = document.getElementById('details').value;
         var qnty = document.getElementById('qnty').value;
-        // var unit_price = document.getElementById('unit_price').value;
+        var type_of_payment = document.getElementById('type_of_payment').value;
         var total= document.getElementById('total').value;
 
         var certified_by= document.getElementById('certified_by').value;
@@ -376,7 +387,9 @@ console.log(data)
 
         if (data['message']=="success"){
             console.log("success");
-            window.location.href="https://lorkas.co.zw/payment_request_all";
+
+            alert("success");
+            window.location.href="https://lorkas.co.zw/payment_request_quote_upload/"+data['id'];
         }else{
             console.log(data['message']);
             window.location.href="https://lorkas.co.zw/payment_request_all";
