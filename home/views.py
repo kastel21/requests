@@ -1384,11 +1384,12 @@ def comp_schedule_get_record(request):
         try:
           pdf = CompScheduleQuotation.objects.get(request_id=_id)
         except Exception as e:
-          print(str(e))
+          # print(str(e))
+          pass
         # record = PaymentRequest.objects.get(id=_id)
 
         record = ComparativeSchedule.objects.get(id=_id)
-        print(record.upload_name)
+        # print(record.upload_name)
         dic = {
       "payee":record.payee,
       "pdf1":pdf.quote1_path,
@@ -1627,7 +1628,7 @@ def comp_schedule_open_record(request):
         # objs = Record.objects.get(id=_id)
       record = ComparativeSchedule.objects.get(id=_id)
       context = {'record':record}
-      print("IN POST")
+      # print("IN POST")
       return render(request, 'pages/comparative_schedules/view_record.html', context)
     else:
        redirect("payment_request_all")
@@ -1643,31 +1644,31 @@ def comp_schedule_pending_view(request):
       record = ComparativeSchedule.objects.get(id=_id)
       context = {'record':record}
 
-      print("IN POST")
+      # print("IN POST")
 
       if record.tech_person_date == "None" and record.tech_person_by == request.user.username:
-         print("certified")
+        #  print("certified")
          return render(request, 'pages/comparative_schedules/tech_approve.html', context)
       
       elif record.dpt_head_date == "None" and record.dpt_head_by == request.user.username:
-         print("cleared")
+        #  print("cleared")
 
          return render(request, 'pages/comparative_schedules/head_approve.html', context)
       
 
       elif record.team_lead_date == "None" and record.team_lead_by != "None" and record.team_lead_by == request.user.username:
-         print("approved")
+        #  print("approved")
 
          return render(request, 'pages/comparative_schedules/lead_approve.html', context)
       
 
       elif record.team_lead_by == "None" and record.team_lead_date == "None" and record.approved_by == "None" and record.dpt_head_by == request.user.username:
-         print("approved")
+        #  print("approved")
 
          return render(request, 'pages/comparative_schedules/head_approve.html', context)
       
       elif record.approved_date == "None" and record.approved_by != "None" and record.approved_by == request.user.username: 
-         print("approved")
+        #  print("approved")
 
          return render(request, 'pages/comparative_schedules/pi_approve.html', context)
       else:
