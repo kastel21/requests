@@ -2444,9 +2444,11 @@ def purchase_order(request):
 def purchase_order_all(request):
     username = request.user.username
     user_id = request.user.id
-    records = PurchaseOrder.objects.filter( Q(ordered_by=username) | Q(required_by= username) | Q(approved_by=username))
+    records = PurchaseOrder.objects.all()
+
+    # records = PurchaseOrder.objects.filter( Q(ordered_by=username) | Q(required_by= username) | Q(approved_by=username))
     context = {'records':records}
-    return render(request, 'pages/purchase_orders/list2.html', context)
+    return render(request, 'pages/purchase_orders/list.html', context)
 
 def purchase_order_quote_upload(request):
     if request.method == 'POST' and request.FILES['quote']:
@@ -2486,22 +2488,11 @@ def purchase_order_view(request):
       _id = request.POST.get('id',default=None)
 
         # objs = Record.objects.get(id=_id)
-      record = PaymentOrder.objects.get(id=_id)
+      record = PurchaseOrder.objects.get(id=_id)
       context = {'record':record}
-      # print("IN POST")
-      if record.required_by_date == "None" and record.required_by == request.user.username:
-        #  print("certified")
-         return render(request, 'pages/purchase_orders/required.html', context)
-      
-      elif record.ordered_by_date == "None" and record.order_by == request.user.username:
-        #  print("cleared")
 
-         return render(request, 'pages/purchase_orders/ordered.html', context)
-      
-      elif record.approved_by_date == "None" and record.approved_by == request.user.username:
-        #  print("approved")
 
-         return render(request, 'pages/purchase_orders/approve.html', context)
+      return render(request, 'pages/purchase_orders/view_record.html', context)
       else:
          return redirect("purchase_order_pending")
       
@@ -2518,7 +2509,7 @@ def purchase_order_edit_options(request):
       # print("IN POST")
       if record.required_by_date == "None" and record.required_by == request.user.username:
         #  print("certified")
-         return render(request, 'pages/purchase_orders/view_record.html', context)
+         return render(request, 'pages/purchase_orders/required.html', context)
       
       elif record.approved_by_date == "None" and record.approved_by == request.user.username:
         #  print("cleared")
@@ -3241,19 +3232,19 @@ def purchase_order_edit_record(request):
     
 
 
-@login_required(login_url='login')
-def purchase_order_view(request):
-    if request.method == "POST":
+# @login_required(login_url='login')
+# def purchase_order_view(request):
+#     if request.method == "POST":
       
-      _id = request.POST.get('id',default=None)
+#       _id = request.POST.get('id',default=None)
 
-        # objs = Record.objects.get(id=_id)
-      record = PurchaseOrder.objects.get(id=_id)
-      context = {'record':record}
+#         # objs = Record.objects.get(id=_id)
+#       record = PurchaseOrder.objects.get(id=_id)
+#       context = {'record':record}
 
-      return render(request, 'pages/purchase_orders/approve.html', context)
-    else:
-        return render(request, 'pages/comparative_schedules/not_auth.html', {})
+#       return render(request, 'pages/purchase_orders/approve.html', context)
+#     else:
+#         return render(request, 'pages/comparative_schedules/not_auth.html', {})
 
 
 

@@ -66,29 +66,31 @@
   
                             <table style="margin: 2%;">
                                 <th>
-                                    <td>ID</td>
-                                    <td>Requester</td>
+                                    <td>Ordered By</td>
+                                    <td>Project</td>
+                                    <td>Budget Line Item </td>
                                     <td>Requesting Department</td>
-                                    <td>Request Justification</td>
-                                    <td>Total</td>
-                                    <td>status</td>
+                                    <td>Description</td>
+                                    <td>Total Cost</td>
+                                    <td>Required By</td>
 
                                 </th>
                                 {% for record in records %}
                                     <tr>
-                                        <form method="POST" action="purchase_request_open_record/{{record.id}}">
+                                        <form method="POST" action="purchase_order_view/{{record.id}}">
                                             {% csrf_token %}
-                                            <td></td>
-                                            <td>{{record.id}}</td>
                                             <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
-                                            <td> <input type="submit" value="{{record.requester}}" /> </td>
+                                            <td> <input type="submit" value="{{record.ordered_by}}" /> </td>
 
                                         </form>
-                                    <td>{{record.requester}}</td>
-                                    <td>{{record.requesting_dpt}}</td>
-                                    <td>{{record.request_justification}}</td>
-                                    <td>{{record.total}}</td>
-                                    <td>{{record.status}}</td>
+                                    <td>{{record.ordered_by}}</td>
+                                    <td>{{record.project}}</td>
+                                    <td>{{record.budget_line_item}}</td>
+                                    <td>{{record.dept}}</td>
+                                    <td>{{record.description}}</td>
+                                    <td>{{record.total_cost}}</td>
+                                    <td>{{record.required_by}}</td>
+                                    
 
                                     </tr>
 
