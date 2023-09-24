@@ -1944,7 +1944,7 @@ def payment_request_quote_upload(request):
 
         record = PaymentRequestQuotation()
         record.request_id = request_id
-        record.quote_path = uploaded_file_url1
+        record.quote_path1 = uploaded_file_url1
         record.save()
         return redirect('/payment_request')
     else:
@@ -2017,7 +2017,7 @@ def payment_request_open_record(request):
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
       context = {'record':record}
-      print("IN POST")
+      # print("IN POST")
       return render(request, 'pages/payment_requests/view_record.html', context)
     else:
        redirect("payment_request_all")
