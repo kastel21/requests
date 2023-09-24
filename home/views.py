@@ -3439,7 +3439,7 @@ def get_purchase_orders(request):
       schedules = PurchaseOrder.objects.filter(~Q(approved_by_date = "None"))
 
       for schedule in schedules: 
-          dic[schedule.id]= schedule.item+", "+schedule.project + ", Total Cost : "+ schedule.total_cost +", raised by : "+ schedule.requester+", raised on : "+schedule.date
+          dic[schedule.id]= schedule.item+", "+schedule.project + ", Total Cost : "+ schedule.total_cost +", raised by : "+ schedule.compiled_by+", raised on : "+schedule.date
       return JsonResponse(dic)
    except Exception as e:
           return JsonResponse(str(e)) 
