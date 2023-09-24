@@ -2427,6 +2427,8 @@ def payment_request_get_record(request):
           "pdf1":pdf.quote_path1,
           "pdf2":pdf.quote_path2,
 
+          "purchase_id": record.purchase_id,
+
           "date_of_request": record.date_of_request,
           "payee": record.payee,
           "payment_type": record.payment_type,
