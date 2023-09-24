@@ -1841,7 +1841,7 @@ def payment_request_delivery_note_upload(request):
         request_id = request.POST.get('request_id')
         
         import os
-        path = "uploads/payment_requests/delivery_notes/"+str(request_id)
+        path = "uploads/payment_requests/delivery_note/"+str(request_id)
         # Check whether the specified path exists or not
         # print("path ",path)
         isExist = os.path.exists(path)
@@ -1868,6 +1868,53 @@ def payment_request_delivery_note_upload(request):
           return render(request, 'pages/payment_requests/upload_quote.html')
 
 
+
+
+@login_required(login_url='login')
+def payment_request_quote_upload1(request):
+    if request.method == 'POST' and request.FILES['quote1'] and request.FILES['quote2']:
+        myfile1 = request.FILES['quote1']
+        myfile2 = request.FILES['quote2']
+
+        request_id = request.POST.get('request_id')
+        
+        import os
+        path1 = "uploads/payment_requests/quotations/"+str(request_id)
+        path2 = "uploads/payment_requests/delivery_notes/"+str(request_id)
+
+        # Check whether the specified path exists or not
+        # print("path ",path)
+        isExist1 = os.path.exists(path1)
+        if not isExist1:
+
+          # Create a new directory because it does not exist
+          os.makedirs(path1)
+
+        isExist2 = os.path.exists(path2)
+        if not isExist2:
+
+          # Create a new directory because it does not exist
+          os.makedirs(path2)
+
+
+        fs = FileSystemStorage()
+        filename1 = fs.save(path1+"/"+myfile1.name, myfile1)
+        uploaded_file_url1 = fs.url(filename1)
+
+        fs2 = FileSystemStorage()
+        filename2 = fs.save(path2+"/"+myfile2.name, myfile2)
+        uploaded_file_url2 = fs.url(filename2)
+
+
+        record = PaymentRequestQuotation1()
+        record.request_id = request_id
+        record.quote_path1 = uploaded_file_url1
+        record.quote_path2 = uploaded_file_url2
+
+        record.save()
+        return redirect('/payment_request')
+    else:
+          return render(request, 'pages/payment_requests/upload_delivery_note.html')
 
 
 @login_required(login_url='login')
@@ -2361,17 +2408,25 @@ def payment_request_get_record(request):
     context={}
     if request.method == "POST":
         _id = request.POST.get('id',default=None)
+
+        record = PaymentRequest.objects.get(id=_id)
+
         pdf = PaymentRequestQuotation.objects.get(id=1)
 
         try:
-          pdf = PaymentRequestQuotation.objects.get(request_id=_id)
+          if record.type_of_payment == "post" or record.type_of_payment == "cod":
+              pdf = PaymentRequestQuotation1.objects.get(request_id=_id)
+          else:
+              pdf = PaymentRequestQuotation.objects.get(request_id=_id)
+
         except:
           pass
-        record = PaymentRequest.objects.get(id=_id)
 
         dic = {
            
-          "pdf":pdf.quote_path,
+          "pdf1":pdf.quote_path1,
+          "pdf2":pdf.quote_path2,
+
           "date_of_request": record.date_of_request,
           "payee": record.payee,
           "payment_type": record.payment_type,
@@ -2421,7 +2476,7 @@ def payment_request_send_record(request):
           account_code= request.POST.get('account_code',default=None) 
           details = request.POST.get('details',default=None)
           qnty = request.POST.get('qnty',default=None)
-          purchase_request = request.POST.get('purchase_request',default=None)
+          purchase_order = request.POST.get('purchase_order',default=None)
           total= request.POST.get('total',default=None)
 
           certified_by= request.POST.get('certified_by',default=None)
@@ -2446,7 +2501,7 @@ def payment_request_send_record(request):
 
           record.account_code= account_code 
           record.details = details
-          record.purchase_id = purchase_request
+          record.purchase_id = purchase_order
           record.qnty = qnty
           record.total= total
 

@@ -25,7 +25,7 @@
             </div> -->
             <div class="col-md-6">
                 <label for="fname" class="form-label">Add From Purchase Order:</label>
-                <select class="form-control" name="purchase_request" id="purchase_request">
+                <select class="form-control" name="purchase_order" id="purchase_order">
                     <option value="None">..</option>
     
                     </select>           
@@ -251,7 +251,7 @@ console.log(data)
 
 
                     }else{
-                    const url = "https://lorkas.co.zw/payment_request_get_record"
+                    const url = "https://lorkas.co.zw/request_get_record"
                     const data = {
                       'id':case_id,
                     }
@@ -312,7 +312,7 @@ console.log(data)
     $('#add').prop('disabled', true);
    $('#overlay').fadeIn();
 
-        var purchase_request= document.getElementById('purchase_request').value;
+        var purchase_request= document.getElementById('purchase_order').value;
         var payee= document.getElementById('payee').value;
         var payment_type= document.getElementById('payment_type').value;
         var amount= document.getElementById('amount').value;
@@ -369,7 +369,7 @@ console.log(data)
                             "total": total,
 
                             "certified_by": certified_by,
-                            "purchase_request": purchase_request,
+                            "purchase_order": purchase_order,
 
                             // "cleared_by_fin_man": cleared_by_fin_man,
                             // "cleared_by_fin_man_date": cleared_by_fin_man_date,
@@ -389,7 +389,23 @@ console.log(data)
             console.log("success");
 
             alert("success");
-            window.location.href="https://lorkas.co.zw/payment_request_quote_upload/"+data['id'];
+
+            if (type_of_payment == "cod" || type_of_payment == "post"){
+
+                window.location.href="https://lorkas.co.zw/payment_request_quote_upload1/"+data['id'];
+            }
+            if (type_of_payment == "pre" || type_of_payment == "part" ){
+
+                window.location.href="https://lorkas.co.zw/payment_request_quote_upload/"+data['id'];
+            }
+
+
+
+
+
+
+
+
         }else{
             console.log(data['message']);
             window.location.href="https://lorkas.co.zw/payment_request_all";
@@ -446,6 +462,7 @@ console.log(data)
         console.log(data);
         if (data['message']=="success"){
             alert("success");
+
             window.location.href="https://lorkas.co.zw/payment_request_quote_upload/"+data['id'];
         }else{
             alert(data['message']);

@@ -151,7 +151,14 @@ class PaymentRequest(models.Model):
 
 class PaymentRequestQuotation(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
-    quote_path = models.CharField(max_length=500, default=".")
+    quote_path1 = models.CharField(max_length=500, default=".")
+    quote_path2 = models.CharField(max_length=500, default="#")
+
+class PaymentRequestQuotation1(models.Model):
+    request_id = models.CharField(max_length=255, blank=True)
+    quote_path1 = models.CharField(max_length=500, default=".")
+    quote_path2 = models.CharField(max_length=500, default=".")
+
 
 class CompScheduleQuotation(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
