@@ -33,9 +33,9 @@ class PuchaseRequest(models.Model):
 
 class ProcurementRequest(models.Model):
 
-    service_request_id = models.CharField(max_length=30, default="None")
-    requester = models.CharField(max_length=30, default="None")
-    date_of_request = models.CharField(max_length=25, default="2023")
+    service_request_id = models.CharField(max_length=300, default="None")
+    requester = models.CharField(max_length=300, default="None")
+    date_of_request = models.CharField(max_length=250, default="2023")
     cost_category = models.CharField(max_length=150, default="None")
     procurement_officer = models.CharField(max_length=150, default="None")
     procurement_officer_accept = models.CharField(max_length=150, default="None")
@@ -49,7 +49,7 @@ class ProcurementRequest(models.Model):
 class ServiceRequest(models.Model):
 
     # schedule_id = models.CharField(max_length=30, default="None")
-    requester = models.CharField(max_length=30, default="None")
+    requester = models.CharField(max_length=300, default="None")
     date_of_request = models.CharField(max_length=100, default="2023")
     requesting_dpt = models.CharField(max_length=150, default="None")
     request_justification = models.CharField(max_length=450, default="None")
@@ -75,10 +75,10 @@ class ServiceRequest(models.Model):
 
 
 class PurchaseOrder(models.Model):
-    purchase_id = models.CharField(max_length=30, default="None")
+    purchase_id = models.CharField(max_length=300, default="None")
     name = models.CharField(max_length=100, default="None")
-    contact_person = models.CharField(max_length=30, default="None")
-    contact_number = models.CharField(max_length=25, default="2023")
+    contact_person = models.CharField(max_length=300, default="None")
+    contact_number = models.CharField(max_length=250, default="2023")
     address = models.CharField(max_length=150, default="None")
     project = models.CharField(max_length=450, default="None")
     date = models.CharField(max_length=550, default="None")
@@ -118,10 +118,10 @@ class PuchaseRequestQuotation(models.Model):
     quote_path = models.CharField(max_length=500,default=".")
 
 class PaymentRequest(models.Model):
-    purchase_id= models.CharField(max_length=30, default="None")
-    request_id = models.CharField(max_length=30, default="None")
-    compiled_by = models.CharField(max_length=30, default="None")
-    date_of_request = models.CharField(max_length=25, default="None")
+    purchase_id= models.CharField(max_length=300, default="None")
+    request_id = models.CharField(max_length=300, default="None")
+    compiled_by = models.CharField(max_length=300, default="None")
+    date_of_request = models.CharField(max_length=100, default="None")
     payee = models.CharField(max_length=150, default="None")
     payment_type = models.CharField(max_length=450, default="None")
     type_of_payment = models.CharField(max_length=550, default="None")
@@ -137,13 +137,13 @@ class PaymentRequest(models.Model):
     certified_by_date = models.CharField(max_length=150, default="None")
 
     cleared_by_fin_man= models.CharField(max_length=150, default="None")
-    cleared_by_fin_man_date= models.CharField(max_length=25, default="None")
+    cleared_by_fin_man_date= models.CharField(max_length=250, default="None")
 
     approved_by_project_man= models.CharField(max_length=250, default="None")
-    approved_by_project_man_date= models.CharField(max_length=25, default="None")
+    approved_by_project_man_date= models.CharField(max_length=250, default="None")
 
     approved_by= models.CharField(max_length=150, default="None")
-    approved_by_date= models.CharField(max_length=25, default="None")
+    approved_by_date= models.CharField(max_length=250, default="None")
 
 # class PaymentRequest(models.Model):
 #     request_id = models.CharField(max_length=255, blank=True)
@@ -169,7 +169,7 @@ class CompScheduleQuotation(models.Model):
 class ComparativeSchedule(models.Model):
     service_request = models.CharField(max_length=100, default="None")
 
-    request_id = models.CharField(max_length=30, default="None")
+    request_id = models.CharField(max_length=300, default="None")
     payee = models.CharField(max_length=150, default="None")
    
     company_name_supplier1 = models.CharField(max_length=450, default="None")
@@ -198,34 +198,34 @@ class ComparativeSchedule(models.Model):
     total_price_supplier2 = models.CharField(max_length=450, default="None")
     total_price_supplier3 = models.CharField(max_length=450, default="None")
 
-    recommended_supplier = models.CharField(max_length=15, default="2023")
+    recommended_supplier = models.CharField(max_length=150, default="2023")
     recommended_supplier_reason = models.CharField(max_length=150, default="None")
 
     upload_name = models.CharField(max_length=550, default="None")
 
-    dpt_project_requesting = models.CharField(max_length=15, default="2023")
+    dpt_project_requesting = models.CharField(max_length=150, default="2023")
 
-    requested_by = models.CharField(max_length=30, default="None")
-    requested_by_sig = models.CharField(max_length=30, default="None")
-    requested_by_date = models.CharField(max_length=30, default="None")
+    requested_by = models.CharField(max_length=300, default="None")
+    requested_by_sig = models.CharField(max_length=300, default="None")
+    requested_by_date = models.CharField(max_length=300, default="None")
 
 
     
-    tech_person_by = models.CharField(max_length=30, default="None")
-    tech_person_by_sig = models.CharField(max_length=30, default="None")
-    tech_person_date = models.CharField(max_length=30, default="None")
+    tech_person_by = models.CharField(max_length=300, default="None")
+    tech_person_by_sig = models.CharField(max_length=300, default="None")
+    tech_person_date = models.CharField(max_length=300, default="None")
 
-    dpt_head_by = models.CharField(max_length=30, default="None")
-    dpt_head_by_sig = models.CharField(max_length=30, default="None")
-    dpt_head_date = models.CharField(max_length=30, default="None")
+    dpt_head_by = models.CharField(max_length=300, default="None")
+    dpt_head_by_sig = models.CharField(max_length=300, default="None")
+    dpt_head_date = models.CharField(max_length=300, default="None")
 
-    team_lead_by = models.CharField(max_length=30, default="None")
-    team_lead_by_sig = models.CharField(max_length=30, default="None")
-    team_lead_date = models.CharField(max_length=30, default="None")
+    team_lead_by = models.CharField(max_length=300, default="None")
+    team_lead_by_sig = models.CharField(max_length=300, default="None")
+    team_lead_date = models.CharField(max_length=300, default="None")
 
-    approved_by = models.CharField(max_length=30, default="None")
-    approved_by_sig = models.CharField(max_length=30, default="None")
-    approved_date = models.CharField(max_length=30, default="None")
+    approved_by = models.CharField(max_length=300, default="None")
+    approved_by_sig = models.CharField(max_length=300, default="None")
+    approved_date = models.CharField(max_length=300, default="None")
 
     project_number = models.CharField(max_length=150, default="None")
 
