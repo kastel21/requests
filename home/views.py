@@ -2013,7 +2013,7 @@ def payment_request_open_record(request):
     if request.method == "POST":
       finance = False
       _id = request.POST.get('id',default=None)
-      if user.groups.all()[0].name == "finance":
+      if request.user.groups.all()[0].name == "finance":
           finance = True
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
