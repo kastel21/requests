@@ -17,10 +17,10 @@
                 <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
                 
            </div>
-            <!-- <div class="col-md-6">
-                <label  class="form-label">request_id:</label>
-                <input type="text" class="form-control" id="request_id" name="request_id" value="">
-            </div> -->
+            <div class="col-md-6">
+                <label  class="form-label">From Purchase Order:</label>
+                <input type="text" class="form-control" id="purchase_order" name="purchase_order" value="" readonly>
+            </div>
 
             <div class="col-md-6">
                 <label  class="form-label">Payee:</label>
@@ -57,7 +57,6 @@
             </div>
 
 
-
             <div class="col-md-12">
                 <label  class="form-label">Details of Expenditure:</label>
                 <input type="text" class="form-control" id="details" name="details" value="" style="height:90px;" readonly>
@@ -69,7 +68,6 @@
                 <input type="text" class="form-control" id="qnty" name="qnty" value="" readonly>
             </div>
 
-            
             <div class="col-md-4">
                 <label  class="form-label">Unit Amount:</label>
                 <input type="text" class="form-control" id="amount" name="amount" value="" readonly>
@@ -82,58 +80,54 @@
 
             <hr>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label  class="form-label">Compiled By:</label>
                 <input type="text" class="form-control" id="compiled_by" name="compiled_by" value="" readonly>
             </div>
 
-
-
-                <!-- <label  class="form-label">Certified By:</label>
-                <input type="text" class="form-control" id="certified_by" name="certified_by" value=""> -->
             
-
-
-
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label  class="form-label">Date:</label>
                 <input type="text" class="form-control" id="compiled_by_date" name="compiled_by_date" value="" readonly>
             </div>
-            <div class="col-md-4">
-                <label  class="form-label">Signed:</label>
-                <input type="text" class="form-control" id="compiled_by" name="compiled_by" value="" readonly>
+
+            <hr>
+            <div class="col-md-6">
+                <label  class="form-label">Certified By:</label>
+                <input type="text" class="form-control" id="certified_by" name="certified_by" value="" readonly>
+            </div>
+            <div class="col-md-6">
+                <label  class="form-label">Date:</label>
+                <input type="text" class="form-control" id="certified_by_date" name="certified_by_date" value="" readonly>
             </div>
 
-            <div class="col-md-12">
-                <label for="certifier" class="form-label">Quotation</label>
-                <a id="quotation" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
 
+
+
+            <hr>
+
+            <div class="col-md-6">
+                <label  class="form-label">Cleared by Finance Manager:</label>
+                <input type="text" class="form-control" id="cleared_by_fin_man" name="cleared_by_fin_man" value="" readonly>
             </div>
 
-            <div class="col-md-12">
-                <label for="cleared_by" class="form-label">Select Clearing Finance </label>
-                <select class="form-control" name="cleared_by" id="cleared_by">
+            <div class="col-md-6">
+                <label  class="form-label">Date:</label>
+                <input type="text" class="form-control" id="cleared_by_fin_man_date" name="cleared_by_fin_man_date" value="" readonly>
+            </div>
+
+             <hr>
+
+
+<!-- 
+             <div class="col-md-12">
+                <label for="certifier" class="form-label">Select 2nd Approver </label>
+                <select class="form-control" name="approved_by" id="approved_by">
                 <option value="None">..</option>
 
                 </select>
-            </div>
-
-
-
-            <!-- <hr>
-
-            <div class="col-md-12">
-                <label  class="form-label">Cleared by Finance Manager:</label>
-                <input type="text" class="form-control" id="cleared_by_fin_man" name="cleared_by_fin_man" value="">
             </div> -->
-<!-- 
-            <div class="col-md-6">
-                <label  class="form-label">Date:</label>
-                <input type="text" class="form-control" id="cleared_by_fin_man_date" name="cleared_by_fin_man_date" value="">
-            </div> -->
-
-            <!-- <hr>
-
+<!--
             <div class="col-md-12">
                 <label  class="form-label">Approved by Project Lead/Manager:</label>
                 <input type="text" class="form-control" id="approved_by_project_man" name="approved_by_project_man" value="">
@@ -144,24 +138,48 @@
                 <input type="text" class="form-control" id="approved_by_project_man_date" name="approved_by_project_man_date" value="">
             </div> -->
             
-            <!-- <hr>
+            <hr>
 
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label  class="form-label">Approved By:</label>
-                <input type="text" class="form-control" id="approved_by" name="approved_by" value="">
-            </div> -->
+                <input type="text" class="form-control" id="approved_by" name="approved_by" value="" readonly>
+            </div> 
 
-            <!-- <div class="col-md-6">
+            <div class="col-md-6">
                 <label  class="form-label">Date:</label>
-                <input type="text" class="form-control" id="approved_by_date" name="approved_by_date" value="">
-            </div> -->
+                <input type="text" class="form-control" id="approved_by_date" name="approved_by_date" value="" readonly>
+            </div>
 
-            <!-- <hr> -->
+            <hr>
           </form> 
 
-            <div style="margin-top: 2%;" class="col-md-12">
-                <a onclick="sendEdit();" id="certify" class="btn btn-primary"> Certify </a>
-            </div>
+          <form action="{% url 'payment_request_quote_and_dnote_upload' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="col-md-6">
+          <label for="fname" class="form-label">Request ID</label>
+          <input style="display:none;" type="text" value="" id="request_id" name="request_id" readonly >
+          </div>
+
+          <div class="col-md-6">
+              <label for="quote" class="form-label">Attach Quotation</label>
+          <input type="file"  value="" id="quote1" name="quote1" accept=".pdf" required/>
+              </div>
+
+              <div class="col-md-6">
+                <label for="quote" class="form-label">Attach Delivery Note</label>
+            <input type="file"  value="" id="quote2" name="quote2" accept=".pdf" required/>
+                </div>
+
+
+          <input type="submit" value="Submit" class="form-control" /> 
+
+    </form>
+
+            <!-- <div style="margin-top: 2%;" class="col-md-12"> -->
+                <!-- <a onclick="edit()" class="btn btn-primary"> Edit Record</a> -->
+                <!-- <a onclick="print();" id="approve" class="btn btn-primary"> Print </a>
+            </div> -->
 
 
 
@@ -175,7 +193,7 @@
 
 // populate the users dropdown
 
-const url = "http://localhost:8000/get_users"
+const url = "https://lorkas.co.zw/get_users"
                     const data = {
                       'id':"case_id",
                     }
@@ -186,10 +204,8 @@ const url = "http://localhost:8000/get_users"
                         console.log(data)
 
                         $.each(data, function(val, text) {
-                            $('#cleared_by').append( new Option(text,val) );
+                            $('#approved_by').append( new Option(text,val) );
                         });
-                        $('#overlay').fadeOut();
-
 
         });
 
@@ -209,7 +225,7 @@ const url = "http://localhost:8000/get_users"
                         case_id = arr.at(-1);
                     console.log(case_id);
                     if (case_id == "add"){}else{
-                    const url = "http://localhost:8000/payment_request_get_record"
+                    const url = "https://lorkas.co.zw/payment_request_get_record"
                     const data = {
                       'id':case_id,
                     }
@@ -218,11 +234,9 @@ const url = "http://localhost:8000/get_users"
             
             if (data['message']=="success"){
 
+    console.log(data)
 
-
-    // $("#date_of_request").val(data['date_of_request']);
-    $('#quotation').attr('href',data['pdf']);
-
+    $("#request_id").val(case_id);
     $("#payee").val(data['payee']);
     $("#payment_type").val(data['payment_type']);
     $("#amount").val(data['amount']);
@@ -230,43 +244,27 @@ const url = "http://localhost:8000/get_users"
    
     $("#account_code").val(data['account_code']); 
     $("#details").val(data['details']);
+    $("#purchase_order").val(data['purchase_id']);
+     $("#qnty").val(data['qnty']);
+    $("#total").val(data['total']);
     $("#compiled_by").val(data['compiled_by']);
      $("#compiled_by_date").val(data['compiled_by_date']);
-    $("#total").val(data['total']);
-   
-    $("#qnty").val(data['qnty']);
-//     $("#certified_by_date").val(data['certified_by_date']);
+    $("#certified_by").val(data['certified_by']);
+    $("#certified_by_date").val(data['certified_by_date']);
 
-//     $("#cleared_by_fin_man").val(data['cleared_by_fin_man']);
-//     $("#cleared_by_fin_man_date").val(data['cleared_by_fin_man_date']);
+    $("#cleared_by_fin_man").val(data['cleared_by_fin_man']);
+    $("#cleared_by_fin_man_date").val(data['cleared_by_fin_man_date']);
 
 //     $("#approved_by_project_man").val(data['approved_by_project_man']);
 //     $("#approved_by_project_man_date").val(data['approved_by_project_man_date']);
 
-//    $("#approved_by").val(data['approved_by']);
-//     $("#approved_by_date").val(data['approved_by_date']);
+   $("#approved_by").val(data['approved_by']);
+    $("#approved_by_date").val(data['approved_by_date']);
 
-            
+    $('#overlay').fadeOut();
+
   
-    // populate the users dropdown
-
-const url = "http://localhost:8000/get_users"
-                    const data1 = {
-                      'id':"case_id",
-                    }
-            
-                      $.post(url,data1, function(data1,status){
-            
-
-                        console.log(data1)
-
-                        $.each(data1, function(val, text) {
-                            $('#cleared_by').append( new Option(text,val) );
-                        });
-                        $('#overlay').fadeOut();
-
-
-        });
+    
                 
         }else{
             alert(data['message']);
@@ -282,36 +280,52 @@ const url = "http://localhost:8000/get_users"
 
 
 
+    function print(){
 
+current_url = window.location.href;
+                    arr = current_url.split("/");
+                    case_id = arr.at(-1);
+
+window.location.href="https://lorkas.co.zw/payment_request_print/"+case_id;
+
+
+
+}
+
+function edit(){
+
+current_url = window.location.href;
+                    arr = current_url.split("/");
+                    case_id = arr.at(-1);
+window.location.href="https://lorkas.co.zw/payment_request_view/"+case_id;
+
+
+
+}
 
 
     function sendEdit(){
-        $('#overlay').fadeIn();
+        $('#approve').prop('disabled', true);
 
-        window.scrollTo({ top: 0, behavior: 'smooth' });
 
             current_url = window.location.href;
             arr = current_url.split("/");
             case_id = arr.at(-1);
             console.log(case_id);
 
-        const url = "http://localhost:8000/payment_request_certify";
+        const url = "https://lorkas.co.zw/payment_request_approve";
         const data={
-                "clear":document.getElementById('cleared_by').value,
+                // "clear":document.getElementById('cleared_by').value,
                 "id":case_id,
 
             }
         $.post(url,data, function(data,status){
         if (data['message']=="success"){
-            alert("success");
-            $('#overlay').fadeOut();
-
-            window.location.href="http://localhost:8000/payment_request_all";
+            console.log("success")
+            window.location.href="https://lorkas.co.zw/payment_request_all";
         }else{
-            $('#overlay').fadeOut();
-
-            alert(data['message']);
-            window.location.href="http://localhost:8000/payment_request_all";
+            console.log(data['message'])
+            window.location.href="https://lorkas.co.zw/payment_request_all";
 
         }
 

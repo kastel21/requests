@@ -19,7 +19,7 @@
             <!-- <div class="col-md-6">
                 <a href="show_pdf/record.upload">upload {{record.upload}} </a>
 
-                <!-- <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly> -->
+                 <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly> -->
             <!-- </div>  -->
 
             <div class="col-md-12">
@@ -262,33 +262,31 @@
           <form action="{% url 'comp_schedule_quotes_upload' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
   
-            <div style="display:none;" class="col-md-6">
+            <div style="" class="col-md-6">
             <label for="fname" class="form-label">Request ID</label>
             <input  type="text" value="" id="request_id" name="request_id" readonly >
             </div>
   
             <div class="col-md-4">
                 <label for="quote" class="form-label">Attach Quotation1</label>
-            <input type="file"  value="" id="quote1" name="quote1" accept=".pdf"/>
+            <input class="form-control" type="file"  value="" id="quote1" name="quote1" accept=".pdf"/>
                 </div>
 
 
                 <div class="col-md-4">
                     <label for="quote" class="form-label">Attach Quotation2</label>
-                <input type="file"  value="" id="quote2" name="quote2" accept=".pdf"/>
+                <input  class="form-control" type="file"  value="" id="quote2" name="quote2" accept=".pdf"/>
                     </div>
 
                     <div class="col-md-4">
                         <label for="quote" class="form-label">Attach Quotation3</label>
-                    <input type="file"  value="" id="quote3" name="quote3" accept=".pdf"/>
+                    <input class="form-control" type="file"  value="" id="quote3" name="quote3" accept=".pdf"/>
                         </div>
-            <input type="submit" value="Submit" class="form-control" /> 
+            <input style="margin-top:2% ;" type="submit" value="Submit" class="form-control" /> 
   
       </form>
 
 
-          <div class="col-md-12">
-            <a onclick="print();" id="approve" class="btn btn-primary"> Print</a>
 
             <script  language="JavaScript" type="text/javascript">
 
@@ -307,7 +305,7 @@
 
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "http://localhost:8000/comp_schedule_get_record"
+                                    const url = "https://lorkas.co.zw/comp_schedule_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -315,7 +313,7 @@
                                       $.post(url,data, function(data,status){
                             
                             if (data['message']=="success"){
-                
+                alert(data['request_id']);
                     $("#request_id").val(data['request_id']);
                     $("#payee").val(data['payee']);
 
@@ -368,7 +366,7 @@
                     
                     // populate the users dropdown
 
-const url = "http://localhost:8000/get_users"
+const url = "https://lorkas.co.zw/get_users"
                     const data1 = {
                       'id':"case_id",
                     }
@@ -416,7 +414,7 @@ const url = "http://localhost:8000/get_users"
             case_id = arr.at(-1);
             console.log(case_id);
 
-        const url = "http://localhost:8000/comp_schedule_approve_pi";
+        const url = "https://lorkas.co.zw/comp_schedule_approve_pi";
         const data={
                 // "lead":document.getElementById('team_lead_by').value,
                 // "pi":document.getElementById('approved_by').value,
@@ -427,10 +425,10 @@ const url = "http://localhost:8000/get_users"
         $.post(url,data, function(data,status){
         if (data['message']=="success"){
             console.log("success")
-            window.location.href="http://localhost:8000/comp_schedule_all";
+            window.location.href="https://lorkas.co.zw/comp_schedule_all";
         }else{
             console.log(data['message'])
-            window.location.href="http://localhost:8000/comp_schedule_all";
+            window.location.href="https://lorkas.co.zw/comp_schedule_all";
 
         }
 

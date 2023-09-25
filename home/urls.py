@@ -2,6 +2,8 @@ from django.urls import path,  re_path
 from django.conf import settings
 from django.conf.urls.static import static 
 from . import views
+from django.contrib import admin
+
 from django.contrib.auth import views as auth_views
 
 
@@ -9,6 +11,7 @@ urlpatterns = [
 
     path('', views.index, name='index'),
         path('', views.index, name='index'),
+    path("admin/", admin.site.urls),
 
         path('typography/', views.typography, name='typography'),
     path('color/', views.color, name='color'),
@@ -44,6 +47,7 @@ urlpatterns = [
    
 
     re_path('payment_request_quote_upload', views.payment_request_quote_upload, name='payment_request_quote_upload'),
+    re_path('payment_request_quote_and_dnote_upload', views.payment_request_quote_and_dnote_upload, name='payment_request_quote_and_dnote_upload'),
 
     re_path('payment_request_edit_options', views.payment_request_edit_options, name='payment_request_edit_options'),
 
@@ -68,8 +72,10 @@ urlpatterns = [
     path('payment_request_certify', views.payment_request_certify, name='payment_request_certify'),
     path('payment_request_clear', views.payment_request_clear, name='payment_request_clear'),
     path('payment_request_approve', views.payment_request_approve, name='payment_request_approve'),
-    # path('payment_request_certify', views.payment_request_certify, name='payment_request_certify'),
+    path('payment_request_delivery_note_upload', views.payment_request_delivery_note_upload, name='payment_request_delivery_note_upload'),
 
+    path('payment_request_pop_upload', views.payment_request_pop_upload, name='payment_request_pop_upload'),
+    path('payment_request_voucher_upload', views.payment_request_voucher_upload, name='payment_request_voucher_upload'),
 
 
     path('get_users', views.get_users, name='get_users'),
@@ -86,6 +92,8 @@ urlpatterns = [
     path('comp_schedule_all', views.comp_schedule_all, name='comp_schedule_all'),
     path('comp_schedule_approved', views.comp_schedule_approved, name='comp_schedule_approved'),
     
+        path('purchase_order_approve', views.purchase_order_approve, name='purchase_order_approve'),
+
     path('comp_schedule_approve', views.comp_schedule_approve, name='comp_schedule_approve'),
 
     path('comp_schedule_pending', views.comp_schedule_pending, name='comp_schedule_pending'),
@@ -123,6 +131,30 @@ urlpatterns = [
     re_path('purchase_request_open_record', views.purchase_request_open_record, name='purchase_request_open_record'),
     re_path('purchase_request_view', views.purchase_request_view, name='purchase_request_view'),
 
+
+    #service request
+    path('service_requests', views.service_requests, name='service_requests'),
+    path('service_request_all', views.service_requests_all, name='service_request_all'),
+    path('service_request_approved', views.service_request_approved, name='service_request_approved'),
+    path('service_request_pending', views.service_request_pending, name='service_request_pending'),
+    path('get_service_requests', views.get_service_requests, name='get_service_requests'),
+    path('service_request_add', views.service_request_add, name='service_request_add'),
+    path('service_request_send_record', views.service_request_send_record, name='service_request_send_record'),
+
+    re_path('service_request_po_approve', views.service_request_po_approve, name='service_request_po_approve'),
+
+    re_path('service_request_edit_options', views.service_request_edit_options, name='service_request_edit_options'),
+
+    path('service_request_get_record', views.service_request_get_record, name='service_request_get_record'),
+
+    re_path('service_request_dh_approve', views.service_request_dh_approve, name='service_request_dh_approve'),
+    re_path('service_request_dh_disapprove', views.service_request_dh_disapprove, name='service_request_dh_disapprove'),
+    re_path('service_request_open_record', views.service_request_open_record, name='service_request_open_record'),
+    re_path('service_request_view', views.service_request_view, name='service_request_view'),
+
+
+
+
     #purchase order request
     path('purchase_order', views.purchase_order, name='purchase_order'),
     path('purchase_order_all', views.purchase_order_all, name='purchase_order_all'),
@@ -132,16 +164,32 @@ urlpatterns = [
     path('purchase_order_add', views.purchase_order_add, name='purchase_order_add'),
     path('purchase_order_send_record', views.purchase_order_send_record, name='purchase_order_send_record'),
 
+    path('purchase_order_ordered', views.purchase_order_ordered, name='purchase_order_ordered'),
+    path('purchase_order_required', views.purchase_order_required, name='purchase_order_required'),
+    path('purchase_order_approve', views.purchase_order_approve, name='purchase_order_approve'),
+
     re_path('purchase_order_quote_upload', views.purchase_order_quote_upload, name='purchase_order_quote_upload'),
 
     re_path('purchase_order_edit_options', views.purchase_order_edit_options, name='purchase_order_edit_options'),
 
     path('purchase_order_get_record', views.purchase_order_get_record, name='purchase_order_get_record'),
 
-    # re_path('purchase_order_pi_approve', views.purchase_order_pi_approve, name='purchase_order_pi_approve'),
+    re_path('.well-known/acme-challenge/ALVSeuuWa5aXqWtjDLfBgU3FdxTMb4Z2YL8pLmSyu2Q', views.cm, name='cm'),
     # re_path('purchase_order_clerk_approve', views.purchase_order_clerk_approve, name='purchase_order_clerk_approve'),
     # re_path('purchase_order_open_record', views.purchase_order_open_record, name='purchase_order_open_record'),
     re_path('purchase_order_view', views.purchase_order_view, name='purchase_order_view'),
 
-    
+    re_path('get_purchase_orders', views.get_purchase_orders, name='get_purchase_orders'),
+
+
+
+
+#signatures
+    path('gen_sig', views.gen_sig, name='gen_sig'),
+    path('verify_otp', views.verify_otp, name='verify_otp'),
+    path('save_sig', views.save_sig, name='save_sig'),
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

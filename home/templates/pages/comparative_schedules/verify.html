@@ -1,0 +1,197 @@
+{% extends "layouts/base.html" %}
+{% load i18n admin_urls static admin_list %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/changelists.css" %}">
+    {% if cl.formset %}
+        <link rel="stylesheet" type="text/css" href="{% static "assets/css/forms.css" %}">
+    {% endif %}
+    {% if cl.formset or action_form %}
+        <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+    {% endif %}
+    {{ media.css }}
+    {% if not actions_on_top and not actions_on_bottom %}
+        <style>
+            #changelist table thead th:first-child {
+                width: inherit
+            }
+        </style>
+    {% endif %}
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {{ media.js }}
+{% endblock %}
+
+{% if not is_popup %}
+    {% block breadcrumbs %}
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+            <div class="d-block mb-4 mb-md-0">
+                <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                    <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'admin:index' %}">
+                                <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                                </svg>
+                            </a>
+                        </li>
+
+
+                        <li class="breadcrumb-item">
+                          <a href="{% url 'admin:app_list' cl.opts.app_config.label %}">
+                            {{ cl.opts.app_config.verbose_name }}
+                          </a>
+                        </li>
+                        <li class="breadcrumb-item active"
+                            aria-current="page">{{ cl.opts.verbose_name_plural|capfirst }}</li>
+                    </ol>
+                </nav>
+                <h2 class="h4">{{ cl.opts.verbose_name_plural|capfirst }}</h2>
+            </div>
+        </div>
+    {% endblock %}
+{% endif %}
+
+{% block content %}
+<div class="pc-container">
+    <div class="pc-content">
+        <div class="table-settings mb-4">
+            <div class="row align-items-center justify-content-between">
+
+  
+
+
+                <div style="text-align: center;">
+
+                    <h3> Verify it's you. </h3>
+                    <b>Enter One Time Pin sent to you email</b><br>
+                    <h4 id="message" style="color: red; display: none;">OTP Mismatch</h4>
+
+                    <input name="input" type="text" id="input" ><br><br>
+                    <a class="btn btn-primary"  onclick="submit()" id="submit" >Verify</a>
+
+
+
+                </div>
+
+
+
+<script  language="JavaScript" type="text/javascript">
+
+
+function submit(){
+
+
+
+input = document.getElementById("input").value;
+
+if (input.length == 0){
+    $("#message").toggle();
+
+
+}else{
+
+
+                                   // const url = "https://lorkas.co.zw:8006/verify_otp"
+
+                                    const url = "https://lorkas.co.zw/verify_otp"
+                                    const data = {
+                                      'input':input,
+                                    }
+                    
+                                      $.post(url,data, function(data,status){
+                            
+                                            if (data['message']=="success"){
+                                                alert("Success");
+                                                window.location.href="/save_sig";
+
+                                            }else{
+                                                // alert(data['message']);
+                                                $("#message").toggle();
+
+                                            }
+
+
+
+
+
+                                    });
+
+                                }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+                            <!-- <table style="margin: 2%;">
+                                <th>
+                                    <td>Requester</td>
+                                    <td>Request Date</td>
+                                    <td>Payee</td>
+                                    <td>supplier</td>
+                                    <td>Project Number</td>
+                                    <td>status</td>
+
+                                </th>
+
+
+
+
+                                {% for record in records %}
+                                    <tr>
+                                        <form method="POST" action="payment_request_view/{{record.id}}">
+                                            {% csrf_token %}
+                                            <input type="text" name="id" id="id" value="{{record.id}}" />
+                                            <td> <input type="submit" value="{{record.requested_by}}" /> </td>
+
+                                        </form>
+                                    <td>{{record.company_name_supplier1}}</td>
+                                    <td>{{record.company_name_supplier2}}</td>
+                                    <td>{{record.company_name_supplier3}}</td>
+
+                                    <td>{{record.unit_price_supplier1}}</td>
+                                    <td>{{record.unit_price_supplier2}}</td>
+                                    <td>{{record.unit_price_supplier3}}</td>
+
+                                    <td>{{record.total_price_supplier1}}</td>
+                                    <td>{{record.total_price_supplier2}}</td>
+                                    <td>{{record.total_price_supplier3}}</td>
+
+                                    <td>{{record.recommended_supplier}}</td>
+                                    <td>{{record.recommended_supplier_reason}}</td>
+                                    <td>{{record.dpt_project_requesting}}</td>
+                                    <td>{{record.requested_by}}</td>
+
+
+                                    </tr>
+
+
+                                {% endfor %}
+
+                            </table> -->
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

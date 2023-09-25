@@ -30,7 +30,15 @@
                 <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="" readonly >
             </div>
             <p></p> -->
+            <div class="col-md-6">
+                <label for="fname" class="form-label">From Schedule:</label>
+                <input type="text" class="form-control" id="comp_schedule" name="comp_schedule" value="" readonly >
+            </div> 
 
+            <div class="col-md-6">
+                <label for="fname" class="form-label">From Service Request:</label>
+                <input type="text" class="form-control" id="service_request" name="service_request" value="" readonly >
+            </div>
             <div class="col-md-6">
                 <label for="fname" class="form-label">Requesting Department:</label>
                 <input type="text" class="form-control" id="requesting_dpt" name="requesting_dpt" value="" readonly >
@@ -153,7 +161,7 @@
 
 // populate the users dropdown
 
-// const url = "http://localhost:8000/get_users"
+// const url = "https://lorkas.co.zw/get_users"
 //                     const data = {
 //                       'id':"case_id",
 //                     }
@@ -191,7 +199,7 @@
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "http://localhost:8000/purchase_request_get_record"
+                                    const url = "https://lorkas.co.zw/purchase_request_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -208,7 +216,8 @@
                     $("#requesting_dpt").val(data['requesting_dpt']);
                     $("#budget_line_item").val(data['budget_line_item']);
                     $("#request_justification").val(data['request_justification']);
-    
+                    $("#service_request").val(data['service_request']);
+                    $("#comp_schedule").val(data['comp_schedule']);
                     $("#name_address_of_supplier").val(data['name_address_of_supplier']); 
                    
                     $("#qnty").val(data['qnty']);
@@ -271,7 +280,7 @@
                         console.log(case_id);
                         if (case_id == "add"){}else{
                 
-                        const url = "http://localhost:8000/purchase_request_clerk_approve";
+                        const url = "https://lorkas.co.zw/purchase_request_clerk_approve";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -290,12 +299,12 @@
                             $('#overlay').fadeOut();
 
                             alert("success");
-                            window.location.href="http://localhost:8000/purchase_request_all";
+                            window.location.href="https://lorkas.co.zw/purchase_request_all";
                         }else{
                             alert(data['message']);
                             $('#overlay').fadeOut();
 
-                            window.location.href="http://localhost:8000/purchase_requests_all";
+                            window.location.href="https://lorkas.co.zw/purchase_requests_all";
                 
                         }
                 

@@ -31,8 +31,8 @@
             </div>
             <p></p> -->
 
-            <div class="col-md-6">
-                <label for="fname" class="form-label">Comparative Schedule:</label>
+            <div class="col-md-12">
+                <label for="fname" class="form-label">From Purchase Request:</label>
                 <input type="text" class="form-control" id="purchase_id" name="purchase_id" value="" readonly >
             </div>
             <p></p>
@@ -201,7 +201,7 @@
                                     console.log(case_id);
                                     $("#request_id").val(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "http://localhost:8000/purchase_order_get_record"
+                                    const url = "https://lorkas.co.zw/purchase_order_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -261,7 +261,7 @@
                                             arr = current_url.split("/");
                                             case_id = arr.at(-1);
 
-                        window.location.href="http://localhost:8000/purchase_order_print/"+case_id;
+                        window.location.href="https://lorkas.co.zw/purchase_order_print/"+case_id;
 
 
 
@@ -272,7 +272,7 @@
                         current_url = window.location.href;
                                             arr = current_url.split("/");
                                             case_id = arr.at(-1);
-                        window.location.href="http://localhost:8000/purchase_order_view/"+case_id;
+                        window.location.href="https://lorkas.co.zw/purchase_order_view/"+case_id;
 
 
 
@@ -310,7 +310,7 @@
                         console.log(case_id);
                         if (case_id == "add"){
                 
-                        const url = "http://localhost:8000/purchase_order_clerk_approve";
+                        const url = "https://lorkas.co.zw/purchase_order_clerk_approve";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -329,12 +329,12 @@
                             alert("success");
                             $('#overlay').fadeOut();
 
-                            window.location.href="http://localhost:8000/purchase_order_all";
+                            window.location.href="https://lorkas.co.zw/purchase_order_all";
                         }else{
                             alert(data['message']);
                             $('#overlay').fadeOut();
 
-                            window.location.href="http://localhost:8000/purchase_order_all";
+                            window.location.href="https://lorkas.co.zw/purchase_order_all";
                 
                         }
                 
