@@ -2013,15 +2013,15 @@ def payment_request_open_record(request):
     if request.method == "POST":
       finance = False
 
-      user = request.user
+      # user = request.user
     
     # Get the groups the user belongs to
-      groups = user.groups.all()
+      # groups = user.groups.all()
 
-      
+
       _id = request.POST.get('id',default=None)
-      if request.user.groups.all()[0].name == "finance":
-          finance = True
+      # if request.user.groups.all()[0].name == "finance":
+      #     finance = True
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
       context = {'record':record, "finance":finance}
