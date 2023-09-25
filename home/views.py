@@ -2017,9 +2017,9 @@ def payment_request_open_record(request):
           finance = True
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
-      context = {'record':record}
-      # print("IN POST")
-      return render(request, 'pages/payment_requests/view_record.html', context={"finance":finance})
+      context = {'record':record, "finance":finance}
+      print("finance",finance)
+      return render(request, 'pages/payment_requests/view_record.html', context)
     else:
        redirect("payment_request_all")
 
