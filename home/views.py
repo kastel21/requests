@@ -14,7 +14,16 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
 from .utils import *
 from django.contrib.auth.decorators import login_required
+import qrcode
 
+# Data to be encoded
+data = 'QR Code using make() function'
+ 
+# Encoding data using make() function
+img = qrcode.make(data)
+ 
+# Saving as an image file
+img.save('MyQRCode1.png')
 
 app = Flask(__name__)
 
@@ -2343,3 +2352,5 @@ def purchase_order_edit_record(request):
             f.write(str(e))
             f.close()
             return JsonResponse({'message':"failed"})
+
+

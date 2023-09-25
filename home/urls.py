@@ -41,7 +41,7 @@ urlpatterns = [
     path('payment_request_approved', views.payment_request_approved, name='payment_request_approved'),
     path('payment_request_pending', views.payment_request_pending, name='payment_request_pending'),
     path('payment_request_pending_view', views.payment_request_pending_view, name='payment_request_pending_view'),
-
+   
 
     re_path('payment_request_quote_upload', views.payment_request_quote_upload, name='payment_request_quote_upload'),
 
