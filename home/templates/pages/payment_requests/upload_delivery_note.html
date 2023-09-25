@@ -17,10 +17,10 @@
                 <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
                 
            </div>
-            <!-- <div class="col-md-6">
-                <label  class="form-label">request_id:</label>
-                <input type="text" class="form-control" id="request_id" name="request_id" value="">
-            </div> -->
+            <div class="col-md-6">
+                <label  class="form-label">From Purchase Order:</label>
+                <input type="text" class="form-control" id="purchase_order" name="purchase_order" value="" readonly>
+            </div>
 
             <div class="col-md-6">
                 <label  class="form-label">Payee:</label>
@@ -163,12 +163,12 @@
 
           <div class="col-md-6">
               <label for="quote" class="form-label">Attach Quotation</label>
-          <input type="file"  value="" id="quote1" name="quote1" accept="pdf" required/>
+          <input type="file"  value="" id="quote1" name="quote1" accept=".pdf" required/>
               </div>
 
               <div class="col-md-6">
                 <label for="quote" class="form-label">Attach Delivery Note</label>
-            <input type="file"  value="" id="quote2" name="quote2" accept="pdf" required/>
+            <input type="file"  value="" id="quote2" name="quote2" accept=".pdf" required/>
                 </div>
 
 
@@ -236,7 +236,7 @@ const url = "https://lorkas.co.zw/get_users"
 
     console.log(data)
 
-    // $("#date_of_request").val(data['date_of_request']);
+    $("#request_id").val(case_id);
     $("#payee").val(data['payee']);
     $("#payment_type").val(data['payment_type']);
     $("#amount").val(data['amount']);
@@ -244,7 +244,7 @@ const url = "https://lorkas.co.zw/get_users"
    
     $("#account_code").val(data['account_code']); 
     $("#details").val(data['details']);
-    // $("#amount ").val(data['pat_name']);
+    $("#purchase_order").val(data['purchase_id']);
      $("#qnty").val(data['qnty']);
     $("#total").val(data['total']);
     $("#compiled_by").val(data['compiled_by']);

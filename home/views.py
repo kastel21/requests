@@ -1883,7 +1883,7 @@ def payment_request_quote_and_dnote_upload(request):
         path2 = "uploads/payment_requests/delivery_notes/"+str(request_id)
 
         # Check whether the specified path exists or not
-        # print("path ",path)
+        print("path ",path)
         isExist1 = os.path.exists(path1)
         if not isExist1:
 
