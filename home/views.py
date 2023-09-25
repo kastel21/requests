@@ -2011,14 +2011,15 @@ def payment_request_edit_options(request):
 @login_required(login_url="login")
 def payment_request_open_record(request):
     if request.method == "POST":
-      
+      finance = False
       _id = request.POST.get('id',default=None)
-
+      if user.groups.filter(name='groupname').exists():
+          finance = True
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
       context = {'record':record}
       # print("IN POST")
-      return render(request, 'pages/payment_requests/view_record.html', context)
+      return render(request, 'pages/payment_requests/view_record.html', context={"finance":finance})
     else:
        redirect("payment_request_all")
 

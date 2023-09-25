@@ -180,7 +180,7 @@
                 <a onclick="print();" id="approve" class="btn btn-primary"> Print </a>
             </div>
 
-            {%if user.groups.all.0.name == "finance" %}
+            {%if finance %}
             <div style="margin-top: 2%;" class="col-md-12">
                 <!-- <a onclick="edit()" class="btn btn-primary"> Edit Record</a> -->
                 <a onclick="pop();" id="approve" class="btn btn-primary"> Add POP </a>
