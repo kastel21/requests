@@ -1871,7 +1871,7 @@ def payment_request_delivery_note_upload(request):
 
 
 @login_required(login_url='login')
-def payment_request_quote_upload1(request):
+def payment_request_quote_and_dnote_upload(request):
     if request.method == 'POST' and request.FILES['quote1'] and request.FILES['quote2']:
         myfile1 = request.FILES['quote1']
         myfile2 = request.FILES['quote2']

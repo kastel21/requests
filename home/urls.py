@@ -46,8 +46,8 @@ urlpatterns = [
     path('payment_request_pending_view', views.payment_request_pending_view, name='payment_request_pending_view'),
 
 
-    path('payment_request_quote_upload', views.payment_request_quote_upload, name='payment_request_quote_upload'),
-    path('payment_request_quote_upload1', views.payment_request_quote_upload1, name='payment_request_quote_upload1'),
+    re_path('payment_request_quote_upload', views.payment_request_quote_upload, name='payment_request_quote_upload'),
+    re_path('payment_request_quote_and_dnote_upload', views.payment_request_quote_and_dnote_upload, name='payment_request_quote_and_dnote_upload'),
 
     re_path('payment_request_edit_options', views.payment_request_edit_options, name='payment_request_edit_options'),
 
