@@ -158,7 +158,7 @@
 
           <div class="col-md-6">
           <label for="fname" class="form-label">Request ID</label>
-          <input style="display:none;" type="text" value="" id="request_id" name="request_id" readonly >
+          <input style="" type="text" value="" id="request_id" name="request_id" readonly >
           </div>
 
           <div class="col-md-6">
@@ -239,7 +239,7 @@ const url = "https://lorkas.co.zw/get_users"
    
     $("#account_code").val(data['account_code']); 
     $("#details").val(data['details']);
-    // $("#amount ").val(data['pat_name']);
+    $("#request_id ").val(data['request_id']);
      $("#qnty").val(data['qnty']);
     $("#total").val(data['total']);
     $("#compiled_by").val(data['compiled_by']);
@@ -250,7 +250,7 @@ const url = "https://lorkas.co.zw/get_users"
     $("#cleared_by_fin_man").val(data['cleared_by_fin_man']);
     $("#cleared_by_fin_man_date").val(data['cleared_by_fin_man_date']);
 
-//     $("#approved_by_project_man").val(data['approved_by_project_man']);
+    $("#request_id").val(case_id);
 //     $("#approved_by_project_man_date").val(data['approved_by_project_man_date']);
 
    $("#approved_by").val(data['approved_by']);

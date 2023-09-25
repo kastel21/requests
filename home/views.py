@@ -1926,7 +1926,7 @@ def payment_request_quote_upload(request):
         import os
         path = "uploads/payment_requests/quotations/"+str(request_id)
         # Check whether the specified path exists or not
-        # print("path ",path)
+        print("path ",path)
         isExist = os.path.exists(path)
         if not isExist:
 
@@ -2428,6 +2428,7 @@ def payment_request_get_record(request):
           "pdf2":pdf.quote_path2,
 
           "purchase_id": record.purchase_id,
+          "request_id": record.id,
 
           "date_of_request": record.date_of_request,
           "payee": record.payee,
