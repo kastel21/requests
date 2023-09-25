@@ -2012,6 +2012,13 @@ def payment_request_edit_options(request):
 def payment_request_open_record(request):
     if request.method == "POST":
       finance = False
+
+      user = request.user
+    
+    # Get the groups the user belongs to
+      groups = user.groups.all()
+
+      
       _id = request.POST.get('id',default=None)
       if request.user.groups.all()[0].name == "finance":
           finance = True
