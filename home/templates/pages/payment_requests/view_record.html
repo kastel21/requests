@@ -175,7 +175,16 @@
                 <a onclick="print();" id="approve" class="btn btn-primary"> Print </a>
             </div>
 
-
+                        <div style="margin-top: 2%;" class="col-md-12">
+                <!-- <a onclick="edit()" class="btn btn-primary"> Edit Record</a> -->
+                <a onclick="print();" id="approve" class="btn btn-primary"> Print </a>
+            </div>
+            {%if request.user.groups.all.0.name == "finance" %}
+            <div style="margin-top: 2%;" class="col-md-12">
+                <!-- <a onclick="edit()" class="btn btn-primary"> Edit Record</a> -->
+                <a onclick="pop();" id="approve" class="btn btn-primary"> Add POP </a>
+            </div>
+            {%endif%}
 
 
 
@@ -288,6 +297,13 @@ window.location.href="https://lorkas.co.zw/payment_request_print/"+case_id;
 
 
 
+}
+
+
+function pop(){
+
+
+    alert("opo");
 }
 
 function edit(){
