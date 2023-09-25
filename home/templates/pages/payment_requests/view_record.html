@@ -19,7 +19,7 @@
            </div>
             <div class="col-md-6">
                 <label  class="form-label">From Purchase Order:</label>
-                <input type="text" class="form-control" id="request_id" name="request_id" value="">
+                <input type="text" class="form-control" id="purchase_order" name="purchase_order" value="" readonly>
             </div>
 
             <div class="col-md-6">
@@ -229,6 +229,7 @@ const url = "https://lorkas.co.zw/get_users"
             if (data['message']=="success"){
 
     console.log(data)
+    $("#purchase_order").val(data['purchase_id']);
 
     // $("#date_of_request").val(data['date_of_request']);
     $("#payee").val(data['payee']);
