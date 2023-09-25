@@ -160,6 +160,10 @@ class PaymentRequestQuotation1(models.Model):
     quote_path2 = models.CharField(max_length=500, default=".")
 
 
+class PaymentRequestPOP(models.Model):
+    request_id = models.CharField(max_length=255, blank=True)
+    quote_path1 = models.CharField(max_length=500, default=".")
+
 class CompScheduleQuotation(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
     quote1_path = models.CharField(max_length=500, default=".")

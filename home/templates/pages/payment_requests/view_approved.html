@@ -176,7 +176,12 @@
             </div>
 
 
-
+            {%if request.user.is_superuser %}
+            <div style="margin-top: 2%;" class="col-md-12">
+                <!-- <a onclick="edit()" class="btn btn-primary"> Edit Record</a> -->
+                <a onclick="pop();" id="approve" class="btn btn-primary"> Add POP </a>
+            </div>
+            {%endif%}
 
 
 
