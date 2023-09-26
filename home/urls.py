@@ -44,7 +44,7 @@ urlpatterns = [
     path('payment_request_approved', views.payment_request_approved, name='payment_request_approved'),
     path('payment_request_pending', views.payment_request_pending, name='payment_request_pending'),
     path('payment_request_pending_view', views.payment_request_pending_view, name='payment_request_pending_view'),
-
+   
 
     re_path('payment_request_quote_upload', views.payment_request_quote_upload, name='payment_request_quote_upload'),
     re_path('payment_request_quote_and_dnote_upload', views.payment_request_quote_and_dnote_upload, name='payment_request_quote_and_dnote_upload'),
@@ -118,6 +118,9 @@ urlpatterns = [
         re_path('comp_schedule_approve_lead', views.comp_schedule_approve_lead, name='comp_schedule_approve_lead'),
         re_path('comp_schedule_approve_pi', views.comp_schedule_approve_pi, name='comp_schedule_approve_pi'),
 
+    path('comp_schedule_print', views.comp_schedule_print, name='comp_schedule_print'),
+    re_path('comp_schedule_print', views.comp_schedule_print, name='comp_schedule_print'),
+
 
     #purchase request
     path('purchase_request', views.purchase_request, name='purchase_request'),
@@ -159,6 +162,9 @@ urlpatterns = [
     re_path('service_request_dh_disapprove', views.service_request_dh_disapprove, name='service_request_dh_disapprove'),
     re_path('service_request_open_record', views.service_request_open_record, name='service_request_open_record'),
     re_path('service_request_view', views.service_request_view, name='service_request_view'),
+
+    path('service_request_print', views.service_request_print, name='service_request_print'),
+    re_path('service_request_print', views.service_request_print, name='service_request_print'),
 
 
 

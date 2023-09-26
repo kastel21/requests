@@ -14,7 +14,16 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
 from .utils import *
 from django.contrib.auth.decorators import login_required
+import qrcode
 
+# Data to be encoded
+data = 'QR Code using make() function'
+ 
+# Encoding data using make() function
+img = qrcode.make(data)
+ 
+# Saving as an image file
+img.save('MyQRCode1.png')
 
 app = Flask(__name__)
 
@@ -1161,6 +1170,40 @@ def service_request_open_record(request):
     else:
        redirect("service_request_all")
 
+@login_required(login_url='login')
+@csrf_exempt
+def service_request_print(request):
+    # if request.method == "POST":
+        current_url = request.path
+        x= current_url.split("/")[-1]
+        print(x)
+
+        # _id = request.POST.get(x)
+        # print(_id)
+
+        record = ServiceRequest.objects.get(id=x)
+        
+        data = {"requester": record.requester,
+        "date_of_request": record.date_of_request,
+        "requesting_dpt": record.requesting_dpt,
+        "request_justification": record.request_justification,
+        "qnty": record.qnty,
+        "q1": record.q1,
+        "po": record.po,
+        "po_approved_date": record.po_approved_date,
+        "description": record.description,
+        "supervisor_approved": record.supervisor_approved,
+        "supervisor_approved_date": record.supervisor_approved_date,
+        "supervisor_disapproved_date": record.supervisor_disapproved_date,
+        "supervisor_disapproved_message": record.supervisor_disapproved_message,
+        
+        "message":"success"}   
+
+
+        pdf = render_to_pdf('pages/service_requests/print.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
+
+
 
 # make some error so this name is unique to purchase only
 
@@ -1236,6 +1279,78 @@ def comp_schedule_super(request):
 #     form = ComparativeSchedule.objects.all()
 #     context = {'form':form}
 #     return render(request, 'pages/payment_request.html', context)
+
+@login_required(login_url='login')
+@csrf_exempt
+def comp_schedule_print(request):
+    # if request.method == "POST":
+        current_url = request.path
+        x= current_url.split("/")[-1]
+        print(x)
+
+        record = ComparativeSchedule.objects.get(id=x)
+        
+        data = {"service_request": record.service_request,
+        "request_id": record.request_id,
+        "payee": record.payee,
+
+        "company_name_supplier1": record.company_name_supplier1,
+        "company_name_supplier2": record.company_name_supplier2,
+        "company_name_supplier3": record.company_name_supplier3,
+
+        "item_number_supplier1": record.item_number_supplier1,
+        "item_number_supplier2": record.item_number_supplier2,
+        "item_number_supplier3": record.item_number_supplier3,
+
+        "desc_supplier1": record.desc_supplier1,
+        "desc_supplier2": record.desc_supplier2,
+        "desc_supplier3": record.desc_supplier3,
+
+        "qnty_supplier1": record.qnty_supplier1,
+        "qnty_supplier2": record.qnty_supplier2,
+        "qnty_supplier3": record.qnty_supplier3,
+
+        "unit_price_supplier1": record.unit_price_supplier1,
+        "unit_price_supplier2": record.unit_price_supplier2,
+        "unit_price_supplier3": record.unit_price_supplier3,
+
+        "total_price_supplier1": record.total_price_supplier1,
+        "total_price_supplier2": record.total_price_supplier2,
+        "total_price_supplier3": record.total_price_supplier3,
+
+        "requested_by": record.requested_by,
+        "requested_by_sig": record.requested_by_sig,
+        "requested_by_date": record.requested_by_date,
+
+        "tech_person_by": record.tech_person_by,
+        "tech_person_by_sig": record.tech_person_by_sig,
+        "tech_person_date": record.tech_person_date,
+
+        "dpt_head_by": record.dpt_head_by,
+        "dpt_head_by_sig": record.dpt_head_by_sig,
+        "dpt_head_date": record.dpt_head_date,
+
+        "team_lead_by": record.team_lead_by,
+        "team_lead_by_sig": record.team_lead_by_sig,
+        "team_lead_date": record.team_lead_date,
+
+        "approved_by": record.approved_by,
+        "approved_by_sig": record.approved_by_sig,
+        "approved_date": record.approved_date,
+
+        "recommended_supplier": record.recommended_supplier,
+        "recommended_supplier_reason": record.recommended_supplier_reason,
+
+        "upload_name": record.upload_name,
+
+        "dpt_project_requesting": record.dpt_project_requesting,
+
+        "project_number": record.project_number,
+        
+        "message":"success"}   
+
+        pdf = render_to_pdf('pages/comparative_schedules/print.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
 
 @login_required(login_url='login')
 def comp_schedule_approved(request):
