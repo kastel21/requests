@@ -1968,7 +1968,7 @@ def payment_request_open_approved(request):
 
           return render(request, 'pages/payment_requests/view_approved.html', context={"record":record})
       else:
-        print("not post")
+         print("not post")
          return redirect("payment_request_approved")
 
 
