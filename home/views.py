@@ -1765,8 +1765,8 @@ def payment_request_all(request):
 
 @login_required(login_url='login')
 def payment_request_pop_upload(request):
-    if request.method == 'POST' and request.FILES['quote']:
-        myfile1 = request.FILES['quote']
+    if request.method == 'POST' and request.FILES['quote1']:
+        myfile1 = request.FILES['quote1']
         request_id = request.POST.get('request_id')
 
         
