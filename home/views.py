@@ -1815,6 +1815,7 @@ def payment_request_pop_upload(request):
     if request.method == 'POST' and request.FILES['quote']:
         myfile1 = request.FILES['quote']
         request_id = request.POST.get('request_id')
+
         
         import os
         path = "uploads/payment_requests/pops/"+str(request_id)
@@ -1835,13 +1836,13 @@ def payment_request_pop_upload(request):
 
 
 
-        record = PaymentRequestQuotation()
+        record = PaymentRequestPOP()
         record.request_id = request_id
-        record.quote_path = uploaded_file_url1
+        record.quote_path1 = uploaded_file_url1
         record.save()
         return redirect('/payment_request')
     else:
-          return render(request, 'pages/payment_requests/upload_quote.html')
+          return render(request, 'pages/payment_requests/upload_pop.html')
 
 
 
@@ -2003,6 +2004,19 @@ def payment_request(request):
     context = {'form':form}
     return render(request, 'pages/payment_requests/payment_requests.html', context)
 
+
+@login_required(login_url='login')
+def payment_request_view_approved(request):
+      if request.method == "POST":
+          _id = request.POST.get('id',default=None)
+          record = PaymentRequest.objects.get(id=_id)
+          return render(request, 'pages/payment_requests/view_approved.html', context={"record":record})
+      else:
+         return redirect("payment_request_approved")
+
+
+
+
 @login_required(login_url='login')
 def payment_request_view(request):
     if request.method == "POST":
@@ -2058,13 +2072,21 @@ def payment_request_edit_options(request):
 @login_required(login_url="login")
 def payment_request_open_record(request):
     if request.method == "POST":
-      
-      _id = request.POST.get('id',default=None)
+      finance = False
 
+      # user = request.user
+    
+    # Get the groups the user belongs to
+      # groups = user.groups.all()
+
+
+      _id = request.POST.get('id',default=None)
+      # if request.user.groups.all()[0].name == "finance":
+      #     finance = True
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
-      context = {'record':record}
-      # print("IN POST")
+      context = {'record':record, "finance":finance}
+      print("finance",finance)
       return render(request, 'pages/payment_requests/view_record.html', context)
     else:
        redirect("payment_request_all")
@@ -2409,7 +2431,7 @@ def payment_request_approved(request):
 
     records = PaymentRequest.objects.filter( (Q(approved_by=username) & ~Q(approved_by_date="None") ) | (Q(compiled_by=username) & ~Q(approved_by_date="None") ) |  (Q(certified_by=username) & ~Q(approved_by_date="None") ) | (Q(cleared_by_fin_man=username) & ~Q(approved_by_date="None") )  )
     context = {'records':records}
-    return render(request, 'pages/payment_requests/list2.html', context)
+    return render(request, 'pages/payment_requests/list_approved.html', context)
 
 @login_required(login_url='login')
 def payment_request_add(request):

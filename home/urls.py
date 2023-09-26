@@ -58,6 +58,8 @@ urlpatterns = [
     re_path('payment_request_view', views.payment_request_view, name='payment_request_view'),
     re_path('payment_request_open_record', views.payment_request_open_record, name='payment_request_open_record'),
 
+    re_path('payment_request_view_approved', views.payment_request_view_approved, name='payment_request_view_approved'),
+
     re_path('show_pdf', views.show_pdf, name='show_pdf'),
 
     path('payment_request_print', views.payment_request_print, name='payment_request_print'),
