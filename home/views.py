@@ -1766,7 +1766,7 @@ def payment_request_all(request):
 def payment_request_completed(request):
     username = request.user.username
     user_id = request.user.id
-    records = PaymentRequest.objects.filter( completed="1") )
+    records = PaymentRequest.objects.filter( completed="1") 
 
 
 
