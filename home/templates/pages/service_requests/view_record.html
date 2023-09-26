@@ -112,7 +112,7 @@
 
 
             <div class="col-md-6">
-                <label for="supervisor_approved" class="form-label"> Procurement Officer:</label>
+                <label for="supervisor_approved" class="form-label"> Procurement Officer: jdj</label>
                 <input type="text" class="form-control" id="po" name="po" value="" readonly >
             </div>
 
@@ -140,7 +140,7 @@
           </form>
 
           <div class="col-md-12">
-            <a onclick="" class="btn btn-primary"> Print</a>
+            <a onclick="print();" id="approve" class="btn btn-primary"> Print </a>
 
             <script  language="JavaScript" type="text/javascript">
 
@@ -180,7 +180,17 @@
 
 
 
+function print(){
 
+current_url = window.location.href;
+                    arr = current_url.split("/");
+                    case_id = arr.at(-1);
+
+window.location.href="https://lorkas.co.zw/service_request_print/"+case_id;
+
+
+
+}
 
 
 

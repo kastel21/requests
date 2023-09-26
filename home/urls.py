@@ -152,6 +152,9 @@ urlpatterns = [
     re_path('service_request_open_record', views.service_request_open_record, name='service_request_open_record'),
     re_path('service_request_view', views.service_request_view, name='service_request_view'),
 
+    path('service_request_print', views.service_request_print, name='service_request_print'),
+    re_path('service_request_print', views.service_request_print, name='service_request_print'),
+
 
 
 
