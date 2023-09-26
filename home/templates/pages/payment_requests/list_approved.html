@@ -80,10 +80,10 @@
 
                                 {% for record in records %}
                                     <tr>
-                                        <form method="POST" action="payment_request_view_approved/{{record.id}}">
+                                        <form method="POST" action="payment_request_open_approved/{{record.id}}">
                                             {% csrf_token %}
-                                            <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
-                                            <td> <input type="submit" value="{{record.requester}}" /> </td>
+                                            <input style="" type="text" name="id" id="id" value="{{record.id}}" />
+                                            <td> <input type="submit" value="{{record.id }}" /> </td>
 
                                         </form>
                                     <td>{{record.request_date}}</td>

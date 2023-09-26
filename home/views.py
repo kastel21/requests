@@ -1877,11 +1877,21 @@ def payment_request_all(request):
     return render(request, 'pages/payment_requests/list2.html', context)
 
 
+@login_required(login_url='login')
+def payment_request_completed(request):
+    username = request.user.username
+    user_id = request.user.id
+    records = PaymentRequest.objects.filter( completed="1") 
+
+
+
+    context = {'records':records}
+    return render(request, 'pages/payment_requests/list2.html', context)
 
 @login_required(login_url='login')
 def payment_request_pop_upload(request):
-    if request.method == 'POST' and request.FILES['quote']:
-        myfile1 = request.FILES['quote']
+    if request.method == 'POST' and request.FILES['quote1']:
+        myfile1 = request.FILES['quote1']
         request_id = request.POST.get('request_id')
 
         
@@ -1908,6 +1918,11 @@ def payment_request_pop_upload(request):
         record.request_id = request_id
         record.quote_path1 = uploaded_file_url1
         record.save()
+
+        rec = PaymentRequest.objects.get(id=request_id)
+        rec.completed = "1"
+        rec.save()
+
         return redirect('/payment_request')
     else:
           return render(request, 'pages/payment_requests/upload_pop.html')
@@ -2074,12 +2089,16 @@ def payment_request(request):
 
 
 @login_required(login_url='login')
-def payment_request_view_approved(request):
+def payment_request_open_approved(request):
       if request.method == "POST":
+
           _id = request.POST.get('id',default=None)
           record = PaymentRequest.objects.get(id=_id)
+          print(" posted")
+
           return render(request, 'pages/payment_requests/view_approved.html', context={"record":record})
       else:
+         print("not post")
          return redirect("payment_request_approved")
 
 

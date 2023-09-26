@@ -58,7 +58,7 @@ urlpatterns = [
     re_path('payment_request_view', views.payment_request_view, name='payment_request_view'),
     re_path('payment_request_open_record', views.payment_request_open_record, name='payment_request_open_record'),
 
-    re_path('payment_request_view_approved', views.payment_request_view_approved, name='payment_request_view_approved'),
+    re_path('payment_request_open_approved', views.payment_request_open_approved, name='payment_request_open_approved'),
 
     re_path('show_pdf', views.show_pdf, name='show_pdf'),
 
@@ -76,7 +76,9 @@ urlpatterns = [
     path('payment_request_approve', views.payment_request_approve, name='payment_request_approve'),
     path('payment_request_delivery_note_upload', views.payment_request_delivery_note_upload, name='payment_request_delivery_note_upload'),
 
-    path('payment_request_pop_upload', views.payment_request_pop_upload, name='payment_request_pop_upload'),
+    path('payment_request_completed', views.payment_request_completed, name='payment_request_completed'),
+
+    re_path('payment_request_pop_upload', views.payment_request_pop_upload, name='payment_request_pop_upload'),
     path('payment_request_voucher_upload', views.payment_request_voucher_upload, name='payment_request_voucher_upload'),
 
 

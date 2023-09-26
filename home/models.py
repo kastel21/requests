@@ -118,6 +118,8 @@ class PuchaseRequestQuotation(models.Model):
     quote_path = models.CharField(max_length=500,default=".")
 
 class PaymentRequest(models.Model):
+    completed= models.CharField(max_length=5, default="0")
+
     purchase_id= models.CharField(max_length=300, default="None")
     request_id = models.CharField(max_length=300, default="None")
     compiled_by = models.CharField(max_length=300, default="None")
@@ -162,6 +164,7 @@ class PaymentRequestQuotation1(models.Model):
 
 class PaymentRequestPOP(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
+
     quote_path1 = models.CharField(max_length=500, default=".")
 
 class CompScheduleQuotation(models.Model):
