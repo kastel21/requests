@@ -197,34 +197,6 @@
 
 
 
-
-// populate the users dropdown
-
-const url = "https://lorkas.co.zw/get_users"
-                    const data = {
-                      'id':"case_id",
-                    }
-            
-                      $.post(url,data, function(data,status){
-            
-
-                        console.log(data)
-
-                        $.each(data, function(val, text) {
-                            $('#approved_by').append( new Option(text,val) );
-                        });
-
-        });
-
-    
-
-
-
-
-
-
-
-
 // populating the already existing records
 
             current_url = window.location.href;
