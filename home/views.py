@@ -1762,6 +1762,16 @@ def payment_request_all(request):
     return render(request, 'pages/payment_requests/list2.html', context)
 
 
+@login_required(login_url='login')
+def payment_request_completed(request):
+    username = request.user.username
+    user_id = request.user.id
+    records = PaymentRequest.objects.filter( completed="1") )
+
+
+
+    context = {'records':records}
+    return render(request, 'pages/payment_requests/list2.html', context)
 
 @login_required(login_url='login')
 def payment_request_pop_upload(request):
@@ -1793,6 +1803,11 @@ def payment_request_pop_upload(request):
         record.request_id = request_id
         record.quote_path1 = uploaded_file_url1
         record.save()
+
+        rec = PaymentRequest.objects.get(id=request_id)
+        rec.completed = "1"
+        rec.save()
+
         return redirect('/payment_request')
     else:
           return render(request, 'pages/payment_requests/upload_pop.html')
