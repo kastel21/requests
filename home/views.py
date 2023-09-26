@@ -1959,12 +1959,16 @@ def payment_request(request):
 
 
 @login_required(login_url='login')
-def payment_request_view_approved(request):
+def payment_request_open_approved(request):
       if request.method == "POST":
+
           _id = request.POST.get('id',default=None)
           record = PaymentRequest.objects.get(id=_id)
+          print(" posted")
+
           return render(request, 'pages/payment_requests/view_approved.html', context={"record":record})
       else:
+        print("not post")
          return redirect("payment_request_approved")
 
 
