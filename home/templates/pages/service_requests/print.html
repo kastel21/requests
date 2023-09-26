@@ -2,26 +2,29 @@
 <html>
     <head>
         <title>Payment Request</title>
-    <style type="text/css">
-
-table {
-  width: 100%;
-  border: 1px solid;
-}
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-} 
-
-div.absolute {
-  position: absolute;
-  width: 50%;
-  bottom: 1px;
-  border: 3px solid #8AC007;
-}
-        </style>
+        <style type="">
+            .border-class { border-bottom-color: grey; border-bottom-style: solid; border-bottom-width: 1px; }
+            @page {
+        border-collapse: separate;
+        size: letter portrait;
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+        } 
+      
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+        }    
+    }
+    body {
+              font-size:11pt;
+              line-height:13pt;
+              font-family:Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+          }
+            </style>
         </head>
         <body>
-            <h3 style="text-align: right;">FM/QMS/24     Version 3: June  2017    </h3>
+            <h3 style="text-align: right;">FM/QMS/Not controlled &nbsp;     Version 3: Not controlled   </h3>
 
             <table >
                 <tr style="text-align: right;">
@@ -31,21 +34,21 @@ div.absolute {
                 </tr>
             </table>
 
-            <h3 style="text-align: center; margin-bottom: -10px; margin-top:15px;">Payment Request </h3>
+            <h3 style="text-align: center; margin-bottom: -10px; margin-top:15px;">Service Request </h3>
             <br>
             <br>
 
             
 
-            <table>
+            <table style="margin-top: 5%; margin-bottom: 1%; padding: 6px; border-collapse: collapse;" border="0.4">
                 <tbody>
                     <tr>
-                        <td><b>Payee:</b> &nbsp;&nbsp; &nbsp; &nbsp;{{payee}}</td>
+                        <td><b>Requester:</b> &nbsp;&nbsp; &nbsp; &nbsp;{{requester}}</td>
                         <td><b>Date:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{date_of_request}}</td>
                     </tr>
                     <tr>
-                        <td><b>Payment Type:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{payment_type}}</td>
-                        <td><b>Project Number:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{project_number}}</td>
+                        <td><b>Requesting Dept:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{requesting_dpt}}</td>
+                        <td><b>Request_justification:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{request_justification}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -53,86 +56,40 @@ div.absolute {
             <br>
             <br>
 
-            <table>
+            <table style="margin-top: 5%; margin-bottom: 1%; padding: 6px; border-collapse: collapse;" border="0.4">
                 <tr>
-                    <td><b>Account Code</b></td>
-                    <td><b>Details</b></td>
-                    <td><b>Amount</b></td>
+                    <td><b>Quantity</b></td>
+                    <td><b>Description</b></td>
+                    <td><b>View Uploaded files</b></td>
                 </tr>
                 <tr>
-                    <td>{{account_code}}</td>
-                    <td>{{details}}</td>
-                    <td>{{amount}}</td>
+                    <td>{{qnty}}</td>
+                    <td>{{description}}</td>
+                    <td>{{q1}}</td>
                 </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <th>Total</th>
-                    <td>{{total}}</td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    
-                </tr>
-                
-                
             </table>
             <br>
             <br>
 
-            
-
-            <table>
+            <table style="margin-top: 5%; margin-bottom: 1%; padding: 6px; border-collapse: collapse;" border="0.4">
                 <tbody>
                     <tr>
-                        <td><b>Compiled By:</b> &nbsp;&nbsp; &nbsp; &nbsp;{{compiled_by}}</td>
+                        <td><b> Supervisor:</b> &nbsp;&nbsp; &nbsp; &nbsp;{{supervisor_approved}}</td>
+                        <td><b>Date:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{supervisor_approved_date}}</td>
                     </tr>
                     <tr>
-                        <td><b>Certified by:</b> &nbsp;&nbsp; &nbsp; &nbsp;{{certified_by}}</td>
-                        <td><b>Date:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{certified_by_date}}</td>
+                        <td><b> P.O:</b> &nbsp;&nbsp; &nbsp; &nbsp;{{po}}</td>
+                        <td><b>Date:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{po_approved_date}}</td>
                     </tr>
                     <tr>
-                        <td><b>Cleared by finance Manager:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{cleared_by_fin_man}}</td>
-                        <td><b>Date:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{cleared_by_fin_man_date}}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Approved by project manager/lead manager:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{approved_by_project_man.}}</td>
-                        <td><b>Date:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{approved_by_project_man_date}}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Approved by:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{Approved_by}}</td>
-                        <td><b>Date:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{approved_by_date}}</td>
+                        <td><b>Supervisor Disapprove:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{supervisor_disapproved_date}}</td>
+                        <td><b>Reason for Disapproval:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{supervisor_disapproved_message.}}</td>
                     </tr>
                 </tbody>
             </table>
             <p> </p>
-
-            <!-- <footer>
-                <p>SOP Reference: Procedure M06<br>
-            </footer>
-
-            <div style="position: relative;background-color: blue; width: 600px; height: 800px;">    
-
-                <div style="position: absolute; bottom: -80%; background-color: green">
-                TEST (C) 2010
-                </div>
-            </div> -->
-
-            <!-- <div class="parent">
-                <div class="absolute"><strong>position: absolute and bottom 10px</strong><br>This div's bottom edge is placed 10 pixels above the bottom edge of the containing element.</div>
-              </div>
-              <br> -->
-        
-             
-             
-
-            
-            
-
-            
-            
-
-            
-            
-
+            <div id="footer_content">SOP Reference: Procedure M06 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Page  <pdf:pagenumber>
+                of <pdf:pagecount>
+            </div>
         </body>
 </html>

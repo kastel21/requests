@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Comparative schedule</title>
+    <style type="">
+        .border-class { border-bottom-color: grey; border-bottom-style: solid; border-bottom-width: 1px; }
+@page {
+        border-collapse: separate;
+        size: letter portrait;
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+        } 
+      
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+        }    
+    }
+    
+body {
+          font-size:11pt;
+          line-height:13pt;
+          font-family:Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+      }
+        </style>
+        </head>
+        <body>
+            <h3 style="text-align: right;">FM/QMS/24     Version 3: June  2017    </h3>
+
+            <table >
+                <tr style="text-align: right;">
+                    <td style="border-color:#ffffff;"> <img src="https://brti.co.zw/wp-content/uploads/2020/12/brti.png" width="50" height="50"> </td>
+                    <td style="padding: 8px; width: 80%; text-align: center;"> <b>Biomedical Research and Training Institute</b> </td>
+                    <td style="border-color:#ffffff;"> <img src="https://brti.co.zw/wp-content/uploads/2020/12/brti.png" width="50" height="50"> </td>
+                </tr>
+            </table>
+
+            <h3 style="text-align: center; margin-bottom: -10px; margin-top:15px;">Payment Request </h3>
+            <br>
+            <br>
+            
+            <div id="footer_content">(c) - page <pdf:pagenumber>
+                of <pdf:pagecount>
+            </div>
+        "tech_person_by": record.tech_person_by,
+        "tech_person_by_sig": record.tech_person_by_sig,
+        "tech_person_date": record.tech_person_date,
+
+        "dpt_head_by": record.dpt_head_by,
+        "dpt_head_by_sig": record.dpt_head_by_sig,
+        "dpt_head_date": record.dpt_head_date,
+
+        "team_lead_by": record.team_lead_by,
+        "team_lead_by_sig": record.team_lead_by_sig,
+        "team_lead_date": record.team_lead_date,
+
+        "approved_by": record.approved_by,
+        "approved_by_sig": record.approved_by_sig,
+        "approved_date": record.approved_date,
+
+        "recommended_supplier": record.recommended_supplier,
+        "recommended_supplier_reason": record.recommended_supplier_reason,
+
+        "upload_name": record.upload_name,
+
+        "dpt_project_requesting": record.dpt_project_requesting,
+
+        "project_number": record.project_number,
+
+            <table style="margin-top: 5%; margin-bottom: 1%; padding: 6px; border-collapse: collapse;" border="0.4">
+                <tbody>
+                    <tr>
+                        <td><b>Service Request:</b> &nbsp;&nbsp; &nbsp; &nbsp;{{service_request}}</td>
+                        <td><b>Request ID:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{request_id}}</td>
+                        <td><b>Payee:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{payee}}</td>
+                        
+                    </tr>
+                    <tr>
+                        <td><b>Payment Type:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{payment_type}}</td>
+                        <td><b>Project Number:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{project_number}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br>
+            <br>
+
+            <table style="margin-top: 5%; margin-bottom: 1%; padding: 6px; border-collapse: collapse;" border="0.4" >
+                <tr>
+                    <td><b>Company Name</b></td>
+                    <td><b>Item number</b></td>
+                    <td><b>Description</b></td>
+                    <td><b>Quantity</b></td>
+                    <td><b>Unit Price</b></td>
+                    <td><b>Total Price</b></td>
+
+                </tr>
+                <tr>
+                    <td>{{company_name_supplier1}}</td>
+                    <td>{{item_number_supplier1}}</td>
+                    <td>{{desc_supplier1}}</td>
+                    <td>{{qnty_supplier1}}</td>
+                    <td>{{unit_price_supplier1}}</td>
+                    <td>{{total_price_supplier1}}</td>
+                </tr>    
+                <tr>
+                    <td>{{company_name_supplier2}}</td>
+                    <td>{{item_number_supplier2}}</td>
+                    <td>{{desc_supplier2}}</td>
+                    <td>{{qnty_supplier2}}</td>
+                    <td>{{unit_price_supplier2}}</td>
+                    <td>{{total_price_supplier2}}</td>
+                </tr>
+                <tr>
+                    <td>{{company_name_supplier3}}</td>
+                    <td>{{item_number_supplier3}}</td>
+                    <td>{{desc_supplier3}}</td>
+                    <td>{{qnty_supplier3}}</td>
+                    <td>{{unit_price_supplier3}}</td>
+                    <td>{{total_price_supplier3}}</td>
+                </tr>
+            </table>
+            <br>
+            <br>
+
+            
+
+            <table style="margin-top: 5%; margin-bottom: 1%; padding-top: 6px; border-collapse: collapse;" border="0.4">
+                <tbody>
+                    <tr>
+                        <td><b>Requested By:</b> &nbsp;&nbsp; &nbsp; &nbsp;{{requested_by}}</td>
+                        <td><b>Signature:</b> &nbsp;&nbsp; &nbsp; &nbsp;{{requested_by_sig}}</td>
+                        <td><b>Date:</b> &nbsp;&nbsp; &nbsp; &nbsp;{{requested_by_date}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Certified by:</b> &nbsp;&nbsp; &nbsp; &nbsp;{{certified_by}}</td>
+                        <td><b>Date:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{certified_by_date}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Cleared by finance Manager:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{cleared_by_fin_man}}</td>
+                        <td><b>Date:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{cleared_by_fin_man_date}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Approved by project manager/lead manager:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{approved_by_project_man.}}</td>
+                        <td><b>Date:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{approved_by_project_man_date}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Approved by:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{Approved_by}}</td>
+                        <td><b>Date:</b>&nbsp;&nbsp; &nbsp; &nbsp;{{approved_by_date}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p> </p>
+
+            <div id="footer_content">SOP Reference: Procedure M06 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Page  <pdf:pagenumber>
+                of <pdf:pagecount>
+            </div>
+
+        </body>
+</html>

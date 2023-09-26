@@ -112,6 +112,9 @@ urlpatterns = [
         re_path('comp_schedule_approve_lead', views.comp_schedule_approve_lead, name='comp_schedule_approve_lead'),
         re_path('comp_schedule_approve_pi', views.comp_schedule_approve_pi, name='comp_schedule_approve_pi'),
 
+    path('comp_schedule_print', views.comp_schedule_print, name='comp_schedule_print'),
+    re_path('comp_schedule_print', views.comp_schedule_print, name='comp_schedule_print'),
+
 
     #purchase request
     path('purchase_request', views.purchase_request, name='purchase_request'),
