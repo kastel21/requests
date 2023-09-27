@@ -2590,7 +2590,7 @@ def payment_request_get_record(request):
         record = PaymentRequest.objects.get(id=_id)
 
         pdf = PaymentRequestQuotation.objects.get(id=1)
-
+        pop = PaymentRequestPOP.objects.get(id=1)
         try:
           if record.type_of_payment == "post" or record.type_of_payment == "cod":
               pdf = PaymentRequestQuotation1.objects.get(request_id=_id)
@@ -2600,10 +2600,18 @@ def payment_request_get_record(request):
         except:
           pass
 
+        try:
+              pop = PaymentRequestPOP.objects.get(request_id=_id)
+
+
+        except:
+          pass
+
         dic = {
            
           "pdf1":pdf.quote_path1,
           "pdf2":pdf.quote_path2,
+          "pop":pop.quote_path1,
 
           "purchase_id": record.purchase_id,
           "request_id": record.id,
