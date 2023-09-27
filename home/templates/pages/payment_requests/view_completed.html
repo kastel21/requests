@@ -245,9 +245,9 @@ const url = "https://lorkas.co.zw/get_users"
    
 
     $('#quotation1').attr('href',data['pdf1']);
-    $("#quotation1").off('click');
-
-
+    $("#quotation1").prop('disabled', true);
+;
+    
     $('#quotation2').attr('href',data['pdf2']);
     $('#pop').attr('href',data['pop']);
 
