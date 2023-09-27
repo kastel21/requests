@@ -2104,7 +2104,7 @@ def payment_request_open_approved(request):
 
 
 @login_required(login_url='login')
-def payment_request_view_completed(request):
+def payment_request_kas_completed(request):
       if request.method == "POST":
 
           _id = request.POST.get('id',default=None)

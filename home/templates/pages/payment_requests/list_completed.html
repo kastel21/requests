@@ -80,7 +80,7 @@
 
                                 {% for record in records %}
                                     <tr>
-                                        <form method="POST" action="payment_request_open_approved/{{record.id}}">
+                                        <form method="POST" action="payment_request_kas_completed/{{record.id}}">
                                             {% csrf_token %}
                                             <input style="" type="text" name="id" id="id" value="{{record.id}}" />
                                             <td> <input type="submit" value="{{record.id }}" /> </td>
