@@ -105,7 +105,7 @@ class PurchaseOrder(models.Model):
 
 class PurchaseOrderQuotation(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
-    quote_path = models.CharField(max_length=500,default=".")
+    quote_path = models.CharField(max_length=500,default="#")
 
 class PuchaseRequestQuote(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
@@ -115,7 +115,7 @@ class PuchaseRequestQuote(models.Model):
 
 class PuchaseRequestQuotation(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
-    quote_path = models.CharField(max_length=500,default=".")
+    quote_path = models.CharField(max_length=500,default="#")
 
 class PaymentRequest(models.Model):
     completed= models.CharField(max_length=5, default="0")
@@ -153,25 +153,25 @@ class PaymentRequest(models.Model):
 
 class PaymentRequestQuotation(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
-    quote_path1 = models.CharField(max_length=500, default=".")
+    quote_path1 = models.CharField(max_length=500, default="#")
     quote_path2 = models.CharField(max_length=500, default="#")
 
 class PaymentRequestQuotation1(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
-    quote_path1 = models.CharField(max_length=500, default=".")
-    quote_path2 = models.CharField(max_length=500, default=".")
+    quote_path1 = models.CharField(max_length=500, default="#")
+    quote_path2 = models.CharField(max_length=500, default="#")
 
 
 class PaymentRequestPOP(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
 
-    quote_path1 = models.CharField(max_length=500, default=".")
+    quote_path1 = models.CharField(max_length=500, default="#")
 
 class CompScheduleQuotation(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
-    quote1_path = models.CharField(max_length=500, default=".")
-    quote2_path = models.CharField(max_length=500, default=".")
-    quote3_path = models.CharField(max_length=500, default=".")
+    quote1_path = models.CharField(max_length=500, default="#")
+    quote2_path = models.CharField(max_length=500, default="#")
+    quote3_path = models.CharField(max_length=500, default="#")
 
 class ComparativeSchedule(models.Model):
     service_request = models.CharField(max_length=100, default="None")
