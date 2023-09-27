@@ -1886,7 +1886,7 @@ def payment_request_completed(request):
 
 
     context = {'records':records}
-    return render(request, 'pages/payment_requests/list2.html', context)
+    return render(request, 'pages/payment_requests/list_completed.html', context)
 
 @login_required(login_url='login')
 def payment_request_pop_upload(request):
@@ -2102,6 +2102,19 @@ def payment_request_open_approved(request):
          return redirect("payment_request_approved")
 
 
+
+@login_required(login_url='login')
+def payment_request_kas_completed(request):
+      if request.method == "POST":
+
+          _id = request.POST.get('id',default=None)
+          record = PaymentRequest.objects.get(id=_id)
+          print(" posted")
+
+          return render(request, 'pages/payment_requests/view_completed.html', context={"record":record})
+      else:
+         print("not post")
+         return redirect("payment_request_completed")
 
 
 @login_required(login_url='login')
@@ -2521,6 +2534,15 @@ def payment_request_approved(request):
     return render(request, 'pages/payment_requests/list_approved.html', context)
 
 @login_required(login_url='login')
+def payment_request_completed(request):
+    username = request.user.username
+
+    records = PaymentRequest.objects.filter( (Q(approved_by=username) & ~Q(approved_by_date="None") ) | (Q(compiled_by=username) & ~Q(approved_by_date="None") ) |  (Q(certified_by=username) & ~Q(approved_by_date="None") ) | (Q(cleared_by_fin_man=username) & ~Q(approved_by_date="None") )  )
+    context = {'records':records}
+    return render(request, 'pages/payment_requests/list_completed.html', context)
+
+
+@login_required(login_url='login')
 def payment_request_add(request):
     
     form = PaymentRequest.objects.all()
@@ -2568,7 +2590,7 @@ def payment_request_get_record(request):
         record = PaymentRequest.objects.get(id=_id)
 
         pdf = PaymentRequestQuotation.objects.get(id=1)
-
+        pop = PaymentRequestPOP.objects.get(id=1)
         try:
           if record.type_of_payment == "post" or record.type_of_payment == "cod":
               pdf = PaymentRequestQuotation1.objects.get(request_id=_id)
@@ -2578,10 +2600,18 @@ def payment_request_get_record(request):
         except:
           pass
 
+        try:
+              pop = PaymentRequestPOP.objects.get(request_id=_id)
+
+
+        except:
+          pass
+
         dic = {
            
           "pdf1":pdf.quote_path1,
           "pdf2":pdf.quote_path2,
+          "pop":pop.quote_path1,
 
           "purchase_id": record.purchase_id,
           "request_id": record.id,
