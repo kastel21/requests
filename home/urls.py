@@ -187,8 +187,8 @@ urlpatterns = [
     re_path('procurement_request_open_record', views.procurement_request_open_record, name='procurement_request_open_record'),
     re_path('procurement_request_view', views.procurement_request_view, name='procurement_request_view'),
 
-    path('procurement_request_print', views.procurement_request_print, name='procurement_request_print'),
-    re_path('procurement_request_print', views.procurement_request_print, name='procurement_request_print'),
+    # path('procurement_request_print', views.procurement_request_print, name='procurement_request_print'),
+    # re_path('procurement_request_print', views.procurement_request_print, name='procurement_request_print'),
 
     #purchase order request
     path('purchase_order', views.purchase_order, name='purchase_order'),
