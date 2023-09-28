@@ -1286,7 +1286,7 @@ def comp_schedule_print(request):
     # if request.method == "POST":
         current_url = request.path
         x= current_url.split("/")[-1]
-        print(x)
+        # print(x)
 
         record = ComparativeSchedule.objects.get(id=x)
         
