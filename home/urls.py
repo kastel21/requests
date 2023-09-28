@@ -183,7 +183,7 @@ urlpatterns = [
     path('procurement_request_get_record', views.procurement_request_get_record, name='procurement_request_get_record'),
 
     re_path('procurement_request_officer_approve', views.procurement_request_officer_approve, name='procurement_request_officer_approve'),
-    re_path('procurement_request_po_disapprove', views.procurement_request_po_disapprove, name='procurement_request_po_disapprove'),
+    re_path('procurement_request_officer_disapprove', views.procurement_request_officer_disapprove, name='procurement_request_officer_disapprove'),
     re_path('procurement_request_open_record', views.procurement_request_open_record, name='procurement_request_open_record'),
     re_path('procurement_request_view', views.procurement_request_view, name='procurement_request_view'),
 
