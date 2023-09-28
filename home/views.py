@@ -512,10 +512,10 @@ def procurement_requests_all(request):
 def procurement_request_pending(request):
       username = request.user.username
 
-      records = ProcurementRequest.objects.filter((Q(procurement_officer=username) & Q (procurement_officer_accept="None")) )
+      records = ProcurementRequest.objects.filter((Q(procurement_officer=username) & Q (procurement_officer_accept="None") & Q (procurement_officer_reject="None") ) )
       context = {'records':records}
 
-      return render(request, 'pages/procurement_requests/list2.html', context)
+      return render(request, 'pages/procurement_requests/list_pending.html', context)
 
 @login_required(login_url='login')
 def procurement_request_approved(request):
@@ -526,8 +526,8 @@ def procurement_request_approved(request):
 
 @login_required(login_url='login')
 def procurement_request_add(request):
-    form = ProcurementRequest.objects.all()
-    context = {'form':form}
+    # form = ProcurementRequest.objects.all()
+    context = {}
     return render(request, 'pages/procurement_requests/add.html', context)
 
 @login_required(login_url='login')
@@ -622,8 +622,10 @@ def procurement_request_get_record(request):
                                             "cost_category":record.cost_category,
                                             "procurement_officer":record.procurement_officer,
                                             "procurement_officer_reject":record.procurement_officer_reject,
+                                            "procurement_officer_reject_date":record.procurement_officer_reject_date,
 
-                
+                                            "procurement_officer_accept_date":record.procurement_officer_accept_date,
+
                                             "procurement_officer_accept":record.procurement_officer_accept,
                                             "requesting_dpt": record.requesting_dpt,
 
@@ -662,7 +664,9 @@ def procurement_request_officer_approve(request):
       # record.supervisor_approved = dh
       d = datetime.datetime.now()
           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
-      record.procurement_officer_accept= "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.procurement_officer_accept= "1"
+
+      record.procurement_officer_accept_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
 
       record.save()
 
@@ -692,8 +696,8 @@ def procurement_request_officer_disapprove(request):
       record = ProcurementRequest.objects.get(id=_id)
       # record.supervisor_approved = dh
       d = datetime.datetime.now()
-          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
-      record.procurement_officer_reject= "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.procurement_officer_reject_date = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.procurement_officer_reject= "1"
       record.procurement_officer_reject_msg = msg
       record.save()
 
@@ -770,13 +774,13 @@ def procurement_request_open_record(request):
       if record.procurement_officer == request.user.username and record.procurement_officer_accept == "None" and record.procurement_officer_reject == "None":
         return render(request, 'pages/procurement_requests/pi.html', context)
 
-      elif record.procurement_officer == request.user.username and record.procurement_officer_accept != "None" or record.procurement_officer_reject != "None":
+      elif record.procurement_officer == request.user.username and record.procurement_officer_accept == "None" or record.procurement_officer_reject != "None":
         return render(request, 'pages/procurement_requests/view_record.html', context)
       elif record.requester == request.user.username :
         return render(request, 'pages/procurement_requests/view_record.html', context)
       
-      elif record.procurement_officer == request.user.username and  record.procurement_officer_accept != "None" and record.cost_category == "None":
-        return render(request, 'pages/procurement_requests/edit_record.html', context)
+      elif record.procurement_officer == request.user.username and  record.procurement_officer_accept != "None" and record.procurement_officer_reject == "None":
+        return render(request, 'pages/procurement_requests/view_record.html', context)
       
       else:
       
@@ -817,7 +821,7 @@ def get_procurement_requests(request):
    try:
       dic = {}
       # User = get_user_model()
-      schedules = ProcurementRequest.objects.filter(~Q(procurement_officer_accept = "None"))
+      schedules = ProcurementRequest.objects.filter( ~Q(procurement_officer_accept = "None") )
 
       for schedule in schedules: 
           dic[schedule.id]= schedule.id +" : raised by "+ schedule.requester+" : raised on "+schedule.date_of_request +" : cost category"+ schedule.cost_category

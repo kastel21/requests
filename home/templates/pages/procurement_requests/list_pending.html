@@ -67,11 +67,8 @@
                             <table style="margin: 2%;">
                                 <th>
                                     <td>Requester</td>
-                                    <td>Certifier</td>
-                                    <td>Payee</td>
-                                    <td>Total</td>
-                                    <td>Project Number</td>
-                                    <td>status</td>
+                                    <td>Requesting DPT</td>
+                                    <td>Officer</td>
 
                                 </th>
 
@@ -80,7 +77,7 @@
 
                                 {% for record in records %}
 
-                                <form method="POST" action="payment_request_view/{{record.id}}">
+                                <form method="POST" action="procurement_request_open_record/{{record.id}}">
 
                                     <tr>
                                             {% csrf_token %}
@@ -88,14 +85,13 @@
                                             <td></td>
                                             <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
                                             <td></td>
-                                            <td> <input type="submit" value="{{record.compiled_by}}" /> </td>
+                                            <td> <input type="submit" value="{{record.requester}}" /> </td>
 
                                         
-                                    <td>{{record.certified_by}}</td>
-                                    <td>{{record.payee}}</td>
-                                    <td>{{record.total}}</td>
-                                    <td>{{record.project_number}}</td>
-                                    <td>{{record.status}}</td>
+                                    <td>{{record.requesting_dpt}}</td>
+                                    <td>{{record.procurement_officer}}</td>
+
+                                    
                                     <td></td>
 
                                     </tr>

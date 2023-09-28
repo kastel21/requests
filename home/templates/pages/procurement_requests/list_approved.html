@@ -69,9 +69,6 @@
                                     <td>Requester</td>
                                     <td>Request Date</td>
                                     <td>Requesting Department</td>
-                                    <td>Total</td>
-                                    <td>Quantity</td>
-                                    <td>Comparative Schedule ID</td>
 
                                 </th>
 
@@ -79,7 +76,7 @@
 
                                 {% for record in records %}
                                     <tr>
-                                        <form method="POST" action="purchase_request_open_record/{{record.id}}">
+                                        <form method="POST" action="procurement_request_open_record/{{record.id}}">
                                             {% csrf_token %}
                                             <td></td>
                                             <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
@@ -88,9 +85,7 @@
                                         </form>
                                     <td>{{record.date_of_request}}</td>
                                     <td>{{record.requesting_dpt}}</td>
-                                    <td>{{record.total}}</td>
-                                    <td>{{record.qnty}}</td>
-                                    <td>{{record.schedule_id}}</td>
+ 
 
                                     </tr>
 

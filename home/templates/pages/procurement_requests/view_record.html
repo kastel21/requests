@@ -24,12 +24,12 @@
                 <label for="fname" class="form-label">Requestor:</label>
                 <input type="text" class="form-control" id="requester" name="requester" value="" readonly >
             </div>
-
+-->
             <div class="col-md-6">
-                <label for="fname" class="form-label">Date:</label>
-                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="" readonly >
+                <label for="fname" class="form-label">From Service Request:</label>
+                <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly >
             </div>
-            <p></p> -->
+            <p></p> 
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Requesting Department:</label>
@@ -194,7 +194,7 @@
                     $("#requester").val(data['requester']);
                     $("#date_of_request").val(data['date_of_request']);
                     $("#requesting_dpt").val(data['requesting_dpt']);
-                    // $("#budget_line_item").val(data['budget_line_item']);
+                    $("#request_id").val(data['service_request_id']);
                     $("#request_justification").val(data['request_justification']);
     
                     // $("#name_address_of_supplier").val(data['name_address_of_supplier']); 
