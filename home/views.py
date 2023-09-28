@@ -538,14 +538,14 @@ def procurement_request_send_record(request):
     with app.app_context():
         try:
         
-          service_request_id= request.POST.get('service_request_id',default=None)
+          service_request_id= request.POST.get('request_id',default=None)
           requester= request.user.username
-          date_of_request= request.POST.get('date_of_request',default=None)
-          # requesting_dpt= request.POST.get('requesting_dpt',default=None)
+          # date_of_request= request.POST.get('date_of_request',default=None)
+          requesting_dpt= request.POST.get('requesting_dpt',default=None)
           # q1= request.FILES["q1"]comp_schedule
 
           cost_category= request.POST.get('cost_category',default=None) 
-          procurement_officer = request.POST.get('procurement_officer',default=None)
+          procurement_officer = request.POST.get('officer',default=None)
           # budget_line_item= request.POST.get('budget_line_item',default=None)
 
           # qnty= request.POST.get('qnty',default=None)
@@ -570,7 +570,7 @@ def procurement_request_send_record(request):
           # record.q1 = q1
 
           record.cost_category= cost_category 
-          # record.name_address_of_supplier = name_address_of_supplier
+          record.requesting_dpt = requesting_dpt
           # record.budget_line_item= budget_line_item
 
           # record.qnty= qnty
@@ -625,7 +625,7 @@ def procurement_request_get_record(request):
 
                 
                                             "procurement_officer_accept":record.procurement_officer_accept,
-                                            # "name_address_of_supplier": record.name_address_of_supplier,
+                                            "requesting_dpt": record.requesting_dpt,
 
                                             # "qnty":record.qnty,
                                             # "unit_price":record.unit_price,
@@ -1237,7 +1237,7 @@ def get_service_requests(request):
    try:
       dic = {}
       # User = get_user_model()
-      schedules = ServiceRequest.objects.filter(~Q(supervisor_approved_date = "None"))
+      schedules = ServiceRequest.objects.filter(~Q(procurement_officer_accept = "None"))
 
       for schedule in schedules: 
           dic[schedule.id]= " raised by : "+ schedule.requester+" raised on : "+schedule.date_of_request+" Department  : "+schedule.requesting_dpt

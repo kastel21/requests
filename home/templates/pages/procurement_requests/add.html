@@ -35,19 +35,24 @@
                 <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="">
             </div>
             <p></p> -->
-
+            <div class="col-md-12">
+                <label for="fname" class="form-label">Add From Service Request:</label>
+                <select class="form-control" name="request_id" id="request_id">
+                    <option value="None">..</option>
+                </select>
+            </div>
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Requesting Department:</label>
                 <input type="text" class="form-control" id="requesting_dpt" name="requesting_dpt" value="">
             </div>
 
-            <!-- <div class="col-md-6">
-                <label for="fname" class="form-label">Budget Line Item (Where applicable):</label>
-                <input type="text" class="form-control" id="budget_line_item" name="budget_line_item" value="">
-            </div> -->
-
             <div class="col-md-6">
+                <label for="fname" class="form-label">Cost Category:</label>
+                <input type="text" class="form-control" id="cost_category" name="cost_category" value="">
+            </div>
+
+            <div class="col-md-12">
                 <label for="lname" class="form-label">Request Justification:</label>
                 <input type="text" class="form-control" id="request_justification" name="request_justification" value="">
             </div>
@@ -119,7 +124,7 @@
 
 
             <div class="col-md-12">
-                <label for="certifier" class="form-label">Select PI/Supervisor</label>
+                <label for="certifier" class="form-label">Select Procurement Officer</label>
                 <select class="form-control" name="pi" id="pi">
                 <option value="None">..</option>
 
@@ -165,108 +170,32 @@
 
 
 // populate the users dropdown
-//     const url = "https://lorkas.co.zw/get_comp_schedules"
-//                     const data = {
-//                       'id':"case_id",
-//                     }
-            
-//                       $.post(url,data, function(data,status){
-            
+    const url = "https://lorkas.co.zw/get_service_requests"
+                    const data = {
+                      'id':"case_id",
+                    }
+                      $.post(url,data, function(data,status){
+                        console.log(data)
+                        $.each(data, function(val, text) {
+                            $('#request_id').append( new Option(text,val) );
+                        });
+        });
 
-// console.log(data)
-
-
-//                         $.each(data, function(val, text) {
-//                             $('#comp_schedule').append( new Option(text,val) );
-//                         });
-
-            
-  
-    
-//                         // $('#overlay').fadeOut();
-
-
-//         });
 
 const url1 = "https://lorkas.co.zw/get_users"
                     const data1 = {
                       'id':"case_id",
                     }
-            
                       $.post(url1,data1, function(data1,status){
-            
-
-console.log(data1)
-
-
+        
+                        console.log(data1)
                         $.each(data1, function(val, text) {
                             $('#pi').append( new Option(text,val) );
                         });
-
-            
-  
-    
                         $('#overlay').fadeOut();
-
-
         });
 
     
-
-
-
-
-
-function get_rec_and_populate(id){
-
-                // populating the already existing records
-                
-                            // current_url = window.location.href;
-                            //             arr = current_url.split("/");
-                                        case_id = id
-                                    console.log(case_id);
-                                    const url = "https://lorkas.co.zw/comp_schedule_get_record"
-                                    const data = {
-                                      'id':case_id,
-                                    }
-                            
-                    $.post(url,data, function(data,status){
-                            
-                    if (data['message']=="success"){
-                
-                
-                
-                    // $("#requester").val(data['requester']);
-                    // $("#date_of_request").val(data['date_of_request']);
-                    $("#requesting_dpt").val(data['requesting_dpt']);
-                    $("#budget_line_item").val(data['budget_line_item']);
-                    $("#request_justification").val(data['request_justification']);
-    
-                    $("#name_address_of_supplier").val(data['recommended_supplier']); 
-                   
-                    // $("#qnty").val(data['qnty']);
-                    $("#item_number").val(data['item_number']);
-                    $("#description").val(data['description']);
-                    $("#unit_price").val(data['unit_price']);
-                    $("#total").val(data['total']);
-
-                    $("#supervisor_approved").val(data['supervisor_approved']);
-                    $("#supervisor_approved_date").val(data['supervisor_approved_date']);
-
-                    $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
-                   $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);   
-
-                        }
-                        else{
-                            alert("failed to auto populate populate the record manually");
-                
-                        }
-                
-                        });
-                    }
-                
-
-
 
                     
                     function sendEdit(){
@@ -274,8 +203,8 @@ function get_rec_and_populate(id){
 
                         $('#overlay').fadeIn();
 
-                        // var request_id= document.getElementById('request_id').value;
-                        // var comp_schedule= document.getElementById('comp_schedule').value;
+                        var request_id= document.getElementById('request_id').value;
+                        var cost_category= document.getElementById('cost_category').value;
                         // var comp_schedule= document.getElementById('q1').files[0];
                         var requesting_dpt= document.getElementById('requesting_dpt').value;
                         // var budget_line_item= document.getElementById('budget_line_item').value;
@@ -304,7 +233,7 @@ function get_rec_and_populate(id){
                             case_id = arr.at(-1);
                         if (case_id == "add"){
                 
-                        const url = "https://lorkas.co.zw/service_request_send_record";
+                        const url = "https://lorkas.co.zw/procurement_request_send_record";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -314,8 +243,8 @@ function get_rec_and_populate(id){
                             // "comp_schedule": comp_schedule,
                                             // "q1": q1,
                                             "requesting_dpt": requesting_dpt,
-                                            // "date_of_request": date_of_request,
-                                            // "budget_line_item": budget_line_item,
+                                            "request_id": request_id,
+                                            "cost_category": cost_category,
                                             // "item_number":item_number,
                                             "description":description,
                 
@@ -327,7 +256,7 @@ function get_rec_and_populate(id){
                                             // "unit_price": unit_price,
                                             // "total": total,
                 
-                                            "supervisor_approved": supervisor_approved,
+                                            "officer": supervisor_approved,
                                             // "supervisor_approved_date": supervisor_approved_date,
                 
                                             // "accounts_clerk_approved": accounts_clerk_approved,
@@ -343,13 +272,13 @@ function get_rec_and_populate(id){
                             alert("success");
                             $('#overlay').fadeOut();
 
-                            window.location.href="https://lorkas.co.zw/service_request_all";
+                            window.location.href="https://lorkas.co.zw/procurement_request_all";
                         }else{
                             alert(data['message']);
                             console,log("err")
                             $('#overlay').fadeOut();
 
-                            window.location.href="https://lorkas.co.zw/service_request_all";
+                            window.location.href="https://lorkas.co.zw/procurement_request_all";
                 
                         }
                 

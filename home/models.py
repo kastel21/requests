@@ -39,10 +39,14 @@ class ProcurementRequest(models.Model):
     cost_category = models.CharField(max_length=150, default="None")
     procurement_officer = models.CharField(max_length=150, default="None")
     procurement_officer_accept = models.CharField(max_length=150, default="None")
-    procurement_officer_reject = models.CharField(max_length=150, default="None")
-    procurement_officer_reject_msg = models.CharField(max_length=350, default="None")
 
-    # requesting_dpt = models.CharField(max_length=150, default="None")
+    procurement_officer_accept_date = models.CharField(max_length=150, default="None")
+    procurement_officer_reject = models.CharField(max_length=150, default="None")
+    procurement_officer_reject_date = models.CharField(max_length=150, default="None")
+
+    procurement_officer_reject_msg = models.CharField(max_length=500, default=".")
+
+    requesting_dpt = models.CharField(max_length=250, default="None")
 
 
 
