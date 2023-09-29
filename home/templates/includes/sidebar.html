@@ -45,9 +45,9 @@
 
         <li class="pc-item">
           {% if request.user.is_superuser %}
-          <a href="{% url 'service_requests' %}" class="pc-link">
+          <a href="{% url 'procurement_requests' %}" class="pc-link">
           {% else %}
-          <a href="{% url 'service_requests' %}" class="pc-link">
+          <a href="{% url 'procurement_requests' %}" class="pc-link">
           {% endif %}
             <span class="pc-micon"><i class="ti ti-wallet"></i></span>
 
