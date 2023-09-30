@@ -565,7 +565,7 @@ def procurement_request_send_record(request):
           record.procurement_officer = procurement_officer
           # record.schedule_id= comp_schedule
           record.requester= requester
-          record.date_of_request= date_of_request
+          # record.date_of_request= date_of_request
           record.service_request_id= service_request_id
           # record.q1 = q1
 
