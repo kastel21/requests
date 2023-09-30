@@ -81,8 +81,8 @@ class ServiceRequest(models.Model):
     qnty = models.CharField(max_length=150, default="None")
     q1 = models.FileField(default="None")
 
-    po = models.CharField(max_length=150, default="None")
-    po_approved_date= models.CharField(max_length=150, default="None")
+    # po = models.CharField(max_length=150, default="None")
+    # po_approved_date= models.CharField(max_length=150, default="None")
 
     description = models.CharField(max_length=150, default="None")
     # unit_price = models.CharField(max_length=150, default="None")

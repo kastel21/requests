@@ -906,8 +906,8 @@ def service_request_send_record(request):
           supervisor_approved= request.POST.get('supervisor_approved',default=None)
           # comp_schedule= request.POST.get('comp_schedule',default=None)
 
-          po= request.POST.get('po',default=None)
-          po_approved_date= request.POST.get('po_approved_date',default=None)
+          # po= request.POST.get('po',default=None)
+          # po_approved_date= request.POST.get('po_approved_date',default=None)
 
           record = ServiceRequest()
 
@@ -926,10 +926,10 @@ def service_request_send_record(request):
           # record.item_number= item_number
 
           record.description= description
-          record.po= po
+          # record.po= po
 
           record.supervisor_approved = supervisor_approved
-          record.po_approved_date= po_approved_date
+          # record.po_approved_date= po_approved_date
 
           # record.accounts_clerk_approved= accounts_clerk_approved
           d = datetime.datetime.now()
@@ -967,7 +967,7 @@ def service_request_get_record(request):
                                             # "pdf":pdf.quote_path,
                                             "requesting_dpt":record.requesting_dpt,
                                             "date_of_request":record.date_of_request,
-                                            "po":record.po,
+                                            # "po":record.po,
                                             # "item_number":record.item_number,
                                             "description":record.description,
                                             "requester":record.requester,
@@ -984,7 +984,7 @@ def service_request_get_record(request):
                                             "supervisor_approved_date": record.supervisor_approved_date,
                 
                                             # "accounts_clerk_approved": record.accounts_clerk_approved,
-                                            "po_approved_date": record.po_approved_date,
+                                            # "po_approved_date": record.po_approved_date,
           "message":"success",
         }
 

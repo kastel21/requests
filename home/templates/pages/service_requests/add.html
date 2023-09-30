@@ -217,55 +217,6 @@ console.log(data1)
 
 
 
-function get_rec_and_populate(id){
-
-                // populating the already existing records
-                
-                            // current_url = window.location.href;
-                            //             arr = current_url.split("/");
-                                        case_id = id
-                                    console.log(case_id);
-                                    const url = "https://www.lorkas.co.zw/comp_schedule_get_record"
-                                    const data = {
-                                      'id':case_id,
-                                    }
-                            
-                    $.post(url,data, function(data,status){
-                            
-                    if (data['message']=="success"){
-                
-                
-                
-                    // $("#requester").val(data['requester']);
-                    // $("#date_of_request").val(data['date_of_request']);
-                    $("#requesting_dpt").val(data['requesting_dpt']);
-                    $("#budget_line_item").val(data['budget_line_item']);
-                    $("#request_justification").val(data['request_justification']);
-    
-                    $("#name_address_of_supplier").val(data['recommended_supplier']); 
-                   
-                    // $("#qnty").val(data['qnty']);
-                    $("#item_number").val(data['item_number']);
-                    $("#description").val(data['description']);
-                    $("#unit_price").val(data['unit_price']);
-                    $("#total").val(data['total']);
-
-                    $("#supervisor_approved").val(data['supervisor_approved']);
-                    $("#supervisor_approved_date").val(data['supervisor_approved_date']);
-
-                    $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
-                   $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);   
-
-                        }
-                        else{
-                            alert("failed to auto populate populate the record manually");
-                
-                        }
-                
-                        });
-                    }
-                
-
 
 
                     
