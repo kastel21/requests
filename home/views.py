@@ -443,13 +443,13 @@ def purchase_request_edit_options(request):
         # objs = Record.objects.get(id=_id)
       record = PuchaseRequest.objects.get(id=_id)
       context = {'record':record}
-      print("IN POST")
+      # print("IN POST")
       if record.supervisor_approved_date == "None" and record.supervisor_approved == request.user.username:
-         print("certified")
+        #  print("certified")
          return render(request, 'pages/purchase_requests/pi.html', context)
       
       elif record.accounts_clerk_approved_date == "None" and record.accounts_clerk_approved == request.user.username:
-         print("cleared")
+        #  print("cleared")
 
          return render(request, 'pages/purchase_requests/clerk.html', context)
       else:
