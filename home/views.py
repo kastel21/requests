@@ -490,13 +490,13 @@ def get_purchase_requests(request):
 
 @login_required(login_url='login')
 def procurement_requests(request):
-    form = ProcurementRequests.objects.all()
+    form = ProcurementRequests1.objects.all()
     context = {'form':form}
     return render(request, 'pages/procurement_requests/procurement_requests.html', context)
 
 @login_required(login_url='login')
 def procurement_requests_all(request):
-    records = ProcurementRequests.objects.all()
+    records = ProcurementRequests1.objects.all()
     context = {'records':records}
     return render(request, 'pages/procurement_requests/list.html', context)
 
@@ -512,7 +512,7 @@ def procurement_requests_all(request):
 def procurement_request_pending(request):
       username = request.user.username
 
-      records = ProcurementRequests.objects.filter((Q(procurement_officer=username) & Q (procurement_officer_accept="None") & Q (procurement_officer_reject="None") ) )
+      records = ProcurementRequests1.objects.filter((Q(procurement_officer=username) & Q (procurement_officer_accept="None") & Q (procurement_officer_reject="None") ) )
       context = {'records':records}
 
       return render(request, 'pages/procurement_requests/list_pending.html', context)
@@ -520,13 +520,13 @@ def procurement_request_pending(request):
 @login_required(login_url='login')
 def procurement_request_approved(request):
     username = request.user.username
-    records = ProcurementRequests.objects.filter((Q(procurement_officer=username) & ~(Q (procurement_officer_accept="None")) ))
+    records = ProcurementRequests1.objects.filter((Q(procurement_officer=username) & ~(Q (procurement_officer_accept="None")) ))
     context = {'records':records}
     return render(request, 'pages/procurement_requests/list_approved.html', context)
 
 @login_required(login_url='login')
 def procurement_request_add(request):
-    # form = ProcurementRequests.objects.all()
+    # form = ProcurementRequests1.objects.all()
     context = {}
     return render(request, 'pages/procurement_requests/add.html', context)
 
@@ -560,7 +560,7 @@ def procurement_request_send_record(request):
           # accounts_clerk_approved= request.POST.get('accounts_clerk_approved',default=None)
           # accounts_clerk_approved_date= request.POST.get('accounts_clerk_approved_date',default=None)
 
-          record = ProcurementRequests()
+          record = ProcurementRequests1()
 
           record.procurement_officer = procurement_officer
           # record.schedule_id= comp_schedule
@@ -612,7 +612,7 @@ def procurement_request_get_record(request):
         #   pdf = None
         # except:
         #   pass
-        record = ProcurementRequests.objects.get(id=_id)
+        record = ProcurementRequests1.objects.get(id=_id)
 
         dic = {
                                             # "pdf":pdf.quote_path,
@@ -660,7 +660,7 @@ def procurement_request_officer_approve(request):
       # dh = request.POST.get('dh',default=None)
       username = request.user.username
         # objs = Record.objects.get(id=_id)
-      record = ProcurementRequests.objects.get(id=_id)
+      record = ProcurementRequests1.objects.get(id=_id)
       # record.supervisor_approved = dh
       d = datetime.datetime.now()
           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
@@ -693,7 +693,7 @@ def procurement_request_officer_disapprove(request):
       msg = request.POST.get('msg',default=None)
       username = request.user.username
         # objs = Record.objects.get(id=_id)
-      record = ProcurementRequests.objects.get(id=_id)
+      record = ProcurementRequests1.objects.get(id=_id)
       # record.supervisor_approved = dh
       d = datetime.datetime.now()
       record.procurement_officer_reject_date = "{:%B %d, %Y  %H:%M:%S}".format(d)
@@ -753,7 +753,7 @@ def procurement_request_officer_disapprove(request):
 @login_required(login_url='login')
 def procurement_request_view(request):
       username = request.user.username
-      records = ProcurementRequests.objects.filter(Q(requester = username) | Q(procurement_officer =username) )
+      records = ProcurementRequests1.objects.filter(Q(requester = username) | Q(procurement_officer =username) )
       context = {'records':records}
 
 
@@ -767,7 +767,7 @@ def procurement_request_open_record(request):
 
       _id = request.POST.get('id',default=None)
 
-      record = ProcurementRequests.objects.get(id=_id)
+      record = ProcurementRequests1.objects.get(id=_id)
       context = {'record':record}
       
 
@@ -798,7 +798,7 @@ def procurement_request_edit_options(request):
       _id = request.POST.get('id',default=None)
 
         # objs = Record.objects.get(id=_id)
-      record = ProcurementRequests.objects.get(id=_id)
+      record = ProcurementRequests1.objects.get(id=_id)
       context = {'record':record}
       print("IN POST")
       if record.procurement_officer_accept == "None" and record.procurement_officer == request.user.username:
@@ -821,7 +821,7 @@ def get_procurement_requests(request):
    try:
       dic = {}
       # User = get_user_model()
-      schedules = ProcurementRequests.objects.filter( ~Q(procurement_officer_accept = "None") )
+      schedules = ProcurementRequests1.objects.filter( ~Q(procurement_officer_accept = "None") )
 
       for schedule in schedules: 
           dic[schedule.id]= schedule.id +" : raised by "+ schedule.requester+" : raised on "+schedule.date_of_request +" : cost category"+ schedule.cost_category
