@@ -21,12 +21,12 @@
                 <label for="fname" class="form-label">Requestor:</label>
                 <input type="text" class="form-control" id="requester" name="requester" value="" readonly >
             </div>
-
+-->
             <div class="col-md-6">
-                <label for="fname" class="form-label">Date:</label>
+                <label for="fname" class="form-label">From Service Request:</label>
                 <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="" readonly >
             </div>
-            <p></p> -->
+            <p></p> 
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Requesting Department:</label>
@@ -183,7 +183,8 @@
                     $("#description").val(data['description']);
                     // $("#unit_price").val(data['unit_price']);
                     // $("#total").val(data['total']);
-
+                    $("#procurement_officer").val(data['procurement_officer']);
+                    $("#procurement_officer_accept_date").val(data['procurement_officer_accept_date']);
                     // $("#pi").val(data['supervisor_approved']);
                     // $("#supervisor_approved_date").val(data['supervisor_approved_date']);
 
