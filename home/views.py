@@ -1241,7 +1241,7 @@ def get_service_requests(request):
    try:
       dic = {}
       # User = get_user_model()
-      schedules = ServiceRequest.objects.filter(~Q(procurement_officer_accept = "None"))
+      schedules = ServiceRequest.objects.filter(~Q(supervisor_approved = "None"))
 
       for schedule in schedules: 
           dic[schedule.id]= " raised by : "+ schedule.requester+" raised on : "+schedule.date_of_request+" Department  : "+schedule.requesting_dpt
