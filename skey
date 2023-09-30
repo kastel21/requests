@@ -2,6 +2,6 @@ export SECRET_KEY='33cb1ca061eb28b449c20bc89d878998686af990c5ba82d761c67960a06fa
 export DB_ENGINE='mysql'
 export DB_USERNAME='admin'
 export DB_PASS='p@s3w0rd?1995'
-export DB_HOST='lorkas.co.zw'
+export DB_HOST='www.lorkas.co.zw'
 export DB_PORT='3306'
 export DB_NAME='requests'
