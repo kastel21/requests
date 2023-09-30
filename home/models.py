@@ -31,7 +31,7 @@ class PuchaseRequest(models.Model):
 
 
 
-class ProcurementRequest(models.Model):
+class ProcurementRequests(models.Model):
 
     service_request_id = models.CharField(max_length=300, default="None")
     requester = models.CharField(max_length=300, default="None")
