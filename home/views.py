@@ -1004,7 +1004,7 @@ def service_request_dh_approve(request):
     if request.method == "POST":
       
       _id = request.POST.get('id',default=None)
-      po = request.POST.get('po',default=None)
+      # po = request.POST.get('po',default=None)
       # po_approved_date = request.POST.get('po_approved_date',default=None)
       username = request.user.username
         # objs = Record.objects.get(id=_id)
@@ -1014,56 +1014,56 @@ def service_request_dh_approve(request):
           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
       record.supervisor_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
       # record.po_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
-      record.po= po
-
-      record.save()
-
-      notice = Notifications()
-      notice.to = record.po
-      notice.message = " "+ username +" has approved a Service Request"
-      notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
-      notice.trigger = username
-      notice.save()
-
-      return JsonResponse( {'message':"success"})
-    else:
-      return render(request, 'pages/service_requests/list.html', {})
-
-
-
-@login_required(login_url='login')
-@csrf_exempt
-def service_request_po_approve(request):
-    if request.method == "POST":
-      
-      _id = request.POST.get('id',default=None)
-      # po = request.POST.get('po',default=None)
-      # po_approved_date = request.POST.get('po_approved_date',default=None)
-      username = request.user.username
-        # objs = Record.objects.get(id=_id)
-      record = ServiceRequest.objects.get(id=_id)
-      # record.supervisor_approved = dh
-      d = datetime.datetime.now()
-          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
-      # record.supervisor_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
-      record.po_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
       # record.po= po
 
       record.save()
 
       notice = Notifications()
-      notice.to = record.supervisor_approved
+      notice.to = record.requester
       notice.message = " "+ username +" has approved a Service Request"
       notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice.trigger = username
       notice.save()
 
-
-
-
       return JsonResponse( {'message':"success"})
     else:
       return render(request, 'pages/service_requests/list.html', {})
+
+
+
+# @login_required(login_url='login')
+# @csrf_exempt
+# def service_request_po_approve(request):
+#     if request.method == "POST":
+      
+#       _id = request.POST.get('id',default=None)
+#       # po = request.POST.get('po',default=None)
+#       # po_approved_date = request.POST.get('po_approved_date',default=None)
+#       username = request.user.username
+#         # objs = Record.objects.get(id=_id)
+#       record = ServiceRequest.objects.get(id=_id)
+#       # record.supervisor_approved = dh
+#       d = datetime.datetime.now()
+#           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+#       # record.supervisor_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+#       record.po_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+#       # record.po= po
+
+#       record.save()
+
+#       notice = Notifications()
+#       notice.to = record.supervisor_approved
+#       notice.message = " "+ username +" has approved a Service Request"
+#       notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+#       notice.trigger = username
+#       notice.save()
+
+
+
+
+#       return JsonResponse( {'message':"success"})
+#     else:
+#       return render(request, 'pages/service_requests/list.html', {})
 
 
 
