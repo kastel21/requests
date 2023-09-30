@@ -889,7 +889,7 @@ def service_request_send_record(request):
         
           # request_id= request.POST.get('request_id',default=None)
           requester= request.user.username
-          date_of_request= request.POST.get('date_of_request',default=None)
+          # date_of_request= request.POST.get('date_of_request',default=None)
           requesting_dpt= request.POST.get('requesting_dpt',default=None)
           # q1= request.FILES["q1"]comp_schedule
 
@@ -914,7 +914,7 @@ def service_request_send_record(request):
         #   record.compiled_by = request.user.username
           # record.schedule_id= comp_schedule
           record.requester= requester
-          record.date_of_request= date_of_request
+          # record.date_of_request= date_of_request
           record.requesting_dpt= requesting_dpt
           # record.q1 = q1
 
