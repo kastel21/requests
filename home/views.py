@@ -1158,7 +1158,7 @@ def service_request_open_record(request):
       if record.supervisor_approved == request.user.username and record.supervisor_approved_date == "None":
         return render(request, 'pages/service_requests/pi.html', context)
 
-      elif record.supervisor_approved == request.user.username and record.supervisor_approved_date != "None" or record.requester = request.user.username:
+      elif record.supervisor_approved == request.user.username and record.supervisor_approved_date != "None" or record.requester == request.user.username:
         return render(request, 'pages/service_requests/view_record.html', context)
       else:
       
