@@ -98,7 +98,15 @@
             </div>
 
 
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Procurement Officer:</label>
+                <input type="text" class="form-control" id="procurement_officer" name="procurement_officer" value="" readonly>
+            </div>
 
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Accept Date:</label>
+                <input type="text" class="form-control" id="procurement_officer_accept_date" name="procurement_officer_accept_date" value="" readonly >
+            </div><br><br>
 
             <!-- <div class="col-md-12">
                 <label for="certifier" class="form-label">Select Accounts Clerk</label>
@@ -170,6 +178,7 @@
                                       $.post(url,data, function(data,status){
                             
                 if (data['message']=="success"){
+
                     $("#requester").val(data['requester']);
                     $("#date_of_request").val(data['date_of_request']);
                     $("#requesting_dpt").val(data['requesting_dpt']);
