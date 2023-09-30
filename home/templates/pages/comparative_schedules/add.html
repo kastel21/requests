@@ -479,9 +479,11 @@ const url = "https://www.lorkas.co.zw/get_users"
                         $.post(url,data, function(data,status){
                         if (data['message']=="success"){
                             console.log("success")
+                            alert(data['message']);
                             window.location.href="https://www.lorkas.co.zw/comp_schedule_quotes_upload/"+data['id'];
                         }else{
                             console.log(data['message'])
+                            alert(data['message']);
                             window.location.href="https://www.lorkas.co.zw/comp_schedule_all";
                 
                         }

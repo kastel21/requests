@@ -21,8 +21,12 @@
 
                  <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly> -->
             <!-- </div>  -->
+            <div class="col-md-6">
+                <label  class="form-label">From Procurement Request:</label>
+                <input type="text" class="form-control" id="service_request" name="service_request" value="" readonly>
+            </div>
 
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label  class="form-label">payee:</label>
                 <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
             </div>
@@ -262,7 +266,7 @@
           <form action="{% url 'comp_schedule_quotes_upload' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
   
-            <div style="" class="col-md-6">
+            <div style="display: none;" class="col-md-6">
             <label for="fname" class="form-label">Request ID</label>
             <input  type="text" value="" id="request_id" name="request_id" readonly >
             </div>
@@ -313,9 +317,11 @@
                                       $.post(url,data, function(data,status){
                             
                             if (data['message']=="success"){
-                alert(data['request_id']);
+                // alert(data['request_id']);
                     $("#request_id").val(data['request_id']);
                     $("#payee").val(data['payee']);
+                    
+                    $("#service_request").val(data['service_request']);
 
                     $("#upload").val(data['upload_name']);
                     $("#company_name_supplier1").val(data['company_name_supplier1']);

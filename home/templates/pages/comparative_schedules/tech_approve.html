@@ -16,15 +16,15 @@
                 <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
                 
            </div>
-            <!-- <div class="col-md-6">
-                <label  class="form-label">request_id:</label>
-                <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly>
-            </div> -->
+           <div class="col-md-6">
+            <label  class="form-label">From Procurement Request:</label>
+            <input type="text" class="form-control" id="service_request" name="service_request" value="" readonly>
+        </div>
 
-            <div class="col-md-12">
-                <label  class="form-label">payee:</label>
-                <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
-            </div>
+        <div class="col-md-6">
+            <label  class="form-label">payee:</label>
+            <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
+        </div>
 
             <hr>
 
@@ -146,6 +146,19 @@
             </div>
 
             <hr>
+            <div class="col-md-4">
+                <label for="certifier" class="form-label">Quotation1</label>
+                <a id="quotation1" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+            </div>  
+            <div class="col-md-4">
+                <label for="certifier" class="form-label">Quotation2</label>
+                <a id="quotation2" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+            </div>     
+            
+            <div class="col-md-4">
+                <label for="certifier" class="form-label">Quotation3</label>
+                <a id="quotation3" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+            </div>
 
             <div class="col-md-4">
                 <label  class="form-label">Requested By:</label>
@@ -266,6 +279,7 @@
                 
                     // $("#request_id").val(data['request_id']);
                     $("#payee").val(data['payee']);
+                    $("#service_request").val(data['service_request']);
 
                     $("#company_name_supplier1").val(data['company_name_supplier1']);
                     $("#item_number_supplier1").val(data['item_number_supplier1']);
@@ -291,6 +305,11 @@
                     $("#recommended_supplier").val(data['recommended_supplier']);
                     $("#recommended_supplier_reason").val(data['recommended_supplier_reason']);
                     $("#dpt_project_requesting").val(data['dpt_project_requesting']);
+
+
+                    $('#quotation1').attr('href',data['pdf1']);
+                    $('#quotation2').attr('href',data['pdf2']);
+                    $('#quotation3').attr('href',data['pdf3']);
 
                     $("#requested_by").val(data['requested_by']); 
                     $("#requested_by_sig ").val(data['requested_by_sig']);

@@ -1531,6 +1531,7 @@ def comp_schedule_get_record(request):
 
       "message":"success",
       "request_id":record.id,
+      "service_request":record.service_request,
 
       "company_name_supplier1":record.company_name_supplier1,
       "item_number_supplier1":record.item_number_supplier1,
