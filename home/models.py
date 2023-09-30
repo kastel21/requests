@@ -40,9 +40,9 @@ class ProcurementRequest(models.Model):
     procurement_officer = models.CharField(max_length=150, default="None")
     procurement_officer_accept = models.CharField(max_length=150, default="None")
 
-    procurement_officer_accept_date = models.CharField(max_length=200, default="None")
+    procurement_officer_accept_date1 = models.CharField(max_length=200, default="None")
     procurement_officer_reject = models.CharField(max_length=150, default="None")
-    procurement_officer_reject_date = models.CharField(max_length=200, default="None")
+    procurement_officer_reject_date1 = models.CharField(max_length=200, default="None")
 
     procurement_officer_reject_msg = models.CharField(max_length=500, default=".")
 
