@@ -540,18 +540,18 @@ def procurement_request_send_record(request):
         
           service_request_id= request.POST.get('request_id',default=None)
           requester= request.user.username
-          # date_of_request= request.POST.get('date_of_request',default=None)
+          qnty= request.POST.get('qnty',default=None)
           requesting_dpt= request.POST.get('requesting_dpt',default=None)
           # q1= request.FILES["q1"]comp_schedule
 
           cost_category= request.POST.get('cost_category',default=None) 
           procurement_officer = request.POST.get('officer',default=None)
-          # budget_line_item= request.POST.get('budget_line_item',default=None)
+          request_justification= request.POST.get('request_justification',default=None)
 
           # qnty= request.POST.get('qnty',default=None)
           # item_number= request.POST.get('item_number',default=None)
 
-          # description= request.POST.get('description',default=None)
+          description= request.POST.get('description',default=None)
           # unit_price=  request.POST.get('unit_price',default=None)
 
           # supervisor_approved= request.POST.get('supervisor_approved',default=None)
@@ -563,7 +563,7 @@ def procurement_request_send_record(request):
           record = ProcurementRequests1()
 
           record.procurement_officer = procurement_officer
-          # record.schedule_id= comp_schedule
+          record.request_justification= request_justification
           record.requester= requester
           # record.date_of_request= date_of_request
           record.service_request_id= service_request_id
@@ -573,10 +573,10 @@ def procurement_request_send_record(request):
           record.requesting_dpt = requesting_dpt
           # record.budget_line_item= budget_line_item
 
-          # record.qnty= qnty
+          record.qnty= qnty
           # record.item_number= item_number
 
-          # record.description= description
+          record.description= description
           # record.unit_price= unit_price
 
           # record.supervisor_approved = supervisor_approved
@@ -624,9 +624,9 @@ def procurement_request_get_record(request):
                                             "procurement_officer_accept":record.procurement_officer_accept,
                                             "requesting_dpt": record.requesting_dpt,
 
-                                            # "qnty":record.qnty,
-                                            # "unit_price":record.unit_price,
-                                            # "total":record.total,
+                                            "qnty":record.qnty,
+                                            "description":record.description,
+                                            "request_justification":record.request_justification,
                 
                                             # "supervisor_approved":record.supervisor_approved,
                                             # "supervisor_approved_date": record.supervisor_approved_date,

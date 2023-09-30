@@ -62,8 +62,11 @@ class ProcurementRequests1(models.Model):
     procurement_officer_reject_date1 = models.CharField(max_length=200, default="None")
 
     procurement_officer_reject_msg = models.CharField(max_length=500, default=".")
+    description = models.CharField(max_length=500, default="None")
 
     requesting_dpt = models.CharField(max_length=250, default="None")
+    request_justification = models.CharField(max_length=1000, default="None")
+    qnty = models.CharField(max_length=250, default="None")
 
 class ServiceRequest(models.Model):
 
