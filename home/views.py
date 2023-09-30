@@ -606,12 +606,7 @@ def procurement_request_get_record(request):
     context={}
     if request.method == "POST":
         _id = request.POST.get('id',default=None)
-        # pdf = PuchaseRequestQuotation.objects.get(id=2)
 
-        # try:
-        #   pdf = None
-        # except:
-        #   pass
         record = ProcurementRequests1.objects.get(id=_id)
 
         dic = {
@@ -622,9 +617,9 @@ def procurement_request_get_record(request):
                                             "cost_category":record.cost_category,
                                             "procurement_officer":record.procurement_officer,
                                             "procurement_officer_reject":record.procurement_officer_reject,
-                                            "procurement_officer_reject_date":record.procurement_officer_reject_date,
+                                            "procurement_officer_reject_date":record.procurement_officer_reject_date1,
 
-                                            "procurement_officer_accept_date":record.procurement_officer_accept_date,
+                                            "procurement_officer_accept_date":record.procurement_officer_accept_date1,
 
                                             "procurement_officer_accept":record.procurement_officer_accept,
                                             "requesting_dpt": record.requesting_dpt,
@@ -666,7 +661,7 @@ def procurement_request_officer_approve(request):
           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
       record.procurement_officer_accept= "1"
 
-      record.procurement_officer_accept_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.procurement_officer_accept_date1= "{:%B %d, %Y  %H:%M:%S}".format(d)
 
       record.save()
 
@@ -696,7 +691,7 @@ def procurement_request_officer_disapprove(request):
       record = ProcurementRequests1.objects.get(id=_id)
       # record.supervisor_approved = dh
       d = datetime.datetime.now()
-      record.procurement_officer_reject_date = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.procurement_officer_reject_date1 = "{:%B %d, %Y  %H:%M:%S}".format(d)
       record.procurement_officer_reject= "1"
       record.procurement_officer_reject_msg = msg
       record.save()
