@@ -255,7 +255,7 @@ console.log(data1)
 
 
                 
-// var supervisor_approved = document.getElementById('pi').value;
+var msg = document.getElementById('msg').value;
 // var supervisor_approved_date= document.getElementById('supervisor_approved_date').value;
 
 // var accounts_clerk_approved= document.getElementById('accounts_clerk_approved').value;
@@ -276,7 +276,7 @@ console.log("after url");
 const data = {
                     "id": case_id,
 
-                    "clerk": accounts_clerk_approved,
+                    "msg": msg,
 
                    }
 
@@ -284,9 +284,11 @@ const data = {
 $.post(url,data, function(data,status){
 if (data['message']=="success"){
     console.log("success")
+    alert(data['message']);
     window.location.href="https://www.lorkas.co.zw/service_request_all";
 }else{
     console.log(data['message'])
+    alert(data['message']);
     window.location.href="https://www.lorkas.co.zw/service_requests_all";
 
 }
@@ -332,10 +334,13 @@ if (data['message']=="success"){
                                 console.log("after dict");
                         $.post(url,data, function(data,status){
                         if (data['message']=="success"){
-                            console.log("success")
+                            console.log("success");
+                            alert("success");
+
                             window.location.href="https://www.lorkas.co.zw/service_request_all";
                         }else{
                             console.log(data['message'])
+                            alert(data['message']);
                             window.location.href="https://www.lorkas.co.zw/service_requests_all";
                 
                         }

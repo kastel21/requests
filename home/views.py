@@ -819,7 +819,7 @@ def get_procurement_requests(request):
       schedules = ProcurementRequests1.objects.filter( ~Q(procurement_officer_accept = "None") )
 
       for schedule in schedules: 
-          dic[schedule.id]= schedule.id +" : raised by "+ schedule.requester+" : raised on "+schedule.date_of_request +" : cost category"+ schedule.cost_category
+          dic[schedule.id]= "ID : "+str(schedule.id) +", raised by :"+ schedule.requester+", raised on "+schedule.date_of_request +", cost category : "+ schedule.cost_category
       return JsonResponse(dic)
    except Exception as e:
           return JsonResponse(str(e)) 

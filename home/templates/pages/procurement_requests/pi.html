@@ -24,7 +24,7 @@
 -->
             <div class="col-md-6">
                 <label for="fname" class="form-label">From Service Request:</label>
-                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="" readonly >
+                <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly >
             </div>
             <p></p> 
 
@@ -184,7 +184,8 @@
                     $("#requesting_dpt").val(data['requesting_dpt']);
                     // $("#budget_line_item").val(data['budget_line_item']);
                     $("#request_justification").val(data['request_justification']);
-    
+                    $("#request_id").val(data['service_request_id']);
+
                     $("#cost_category").val(data['cost_category']); 
                    
                     $("#qnty").val(data['qnty']);

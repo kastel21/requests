@@ -32,6 +32,11 @@
             <p></p> 
 
             <div class="col-md-6">
+                <label for="fname" class="form-label">Cost Category:</label>
+                <input type="text" class="form-control" id="cost_category" name="cost_category" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
                 <label for="fname" class="form-label">Requesting Department:</label>
                 <input type="text" class="form-control" id="requesting_dpt" name="requesting_dpt" value="" readonly >
             </div>
@@ -67,7 +72,7 @@
                 <input type="text" class="form-control" id="item_number" name="item_number" value="" readonly >
             </div> -->
 
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="fname" class="form-label">Description of item to be purchased:</label>
                 <textarea type="text" class="form-control" id="description" name="description" value="" readonly ></textarea>
             </div>
@@ -96,10 +101,7 @@
                 <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="" readonly >
             </div>
 
-            <div class="col-md-6">
-                <label for="fname" class="form-label">Cost Category:</label>
-                <input type="text" class="form-control" id="cost_category" name="cost_category" value="" readonly >
-            </div>
+
 
             <!-- $("#cost_category").val(data['cost_category']);  -->
 
@@ -113,7 +115,7 @@
                 <label for="lname" class="form-label">Accept Date:</label>
                 <input type="text" class="form-control" id="procurement_officer_accept_date" name="procurement_officer_accept_date" value="" readonly >
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <label for="lname" class="form-label">Reject Date:</label>
                 <input type="text" class="form-control" id="procurement_officer_reject_date" name="procurement_officer_reject_date" value="" readonly >
             </div>
