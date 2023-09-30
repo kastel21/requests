@@ -48,7 +48,22 @@ class ProcurementRequests(models.Model):
 
     requesting_dpt = models.CharField(max_length=250, default="None")
 
+class ProcurementRequests1(models.Model):
 
+    service_request_id = models.CharField(max_length=300, default="None")
+    requester = models.CharField(max_length=300, default="None")
+    date_of_request = models.CharField(max_length=250, default="2023")
+    cost_category = models.CharField(max_length=150, default="None")
+    procurement_officer = models.CharField(max_length=150, default="None")
+    procurement_officer_accept = models.CharField(max_length=150, default="None")
+
+    procurement_officer_accept_date1 = models.CharField(max_length=200, default="None")
+    procurement_officer_reject = models.CharField(max_length=150, default="None")
+    procurement_officer_reject_date1 = models.CharField(max_length=200, default="None")
+
+    procurement_officer_reject_msg = models.CharField(max_length=500, default=".")
+
+    requesting_dpt = models.CharField(max_length=250, default="None")
 
 class ServiceRequest(models.Model):
 
