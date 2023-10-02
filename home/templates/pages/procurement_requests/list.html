@@ -70,13 +70,12 @@
                                     <td>Requester</td>
                                     <td>Requesting Department</td>
                                     <td>Request Justification</td>
-                                    <td>Total</td>
-                                    <td>status</td>
+
 
                                 </th>
                                 {% for record in records %}
                                     <tr>
-                                        <form method="POST" action="service_request_open_record/{{record.id}}">
+                                        <form method="POST" action="procurement_request_open_record/{{record.id}}">
                                             {% csrf_token %}
                                             <td></td>
                                             <td>{{record.id}}</td>
@@ -87,8 +86,7 @@
                                     <td>{{record.requester}}</td>
                                     <td>{{record.requesting_dpt}}</td>
                                     <td>{{record.request_justification}}</td>
-                                    <td>{{record.total}}</td>
-                                    <td>{{record.status}}</td>
+
 
                                     </tr>
 

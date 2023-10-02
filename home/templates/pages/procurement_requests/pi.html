@@ -21,12 +21,12 @@
                 <label for="fname" class="form-label">Requestor:</label>
                 <input type="text" class="form-control" id="requester" name="requester" value="" readonly >
             </div>
-
+-->
             <div class="col-md-6">
-                <label for="fname" class="form-label">Date:</label>
-                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="" readonly >
+                <label for="fname" class="form-label">From Service Request:</label>
+                <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly >
             </div>
-            <p></p> -->
+            <p></p> 
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Requesting Department:</label>
@@ -43,6 +43,10 @@
                 <input type="text" class="form-control" id="request_justification" name="request_justification" value="" readonly >
             </div>
 
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Cost Category:</label>
+                <input type="text" class="form-control" id="cost_category" name="cost_category" value="" readonly>
+            </div>
             <!-- <div class="col-md-6">
                 <label for="fname" class="form-label">Name and address of Supplier:</label>
                 <input type="text" class="form-control" id="name_address_of_supplier" name="name_address_of_supplier" value="" readonly >
@@ -84,7 +88,7 @@
             <p></p>
 
             <div class="col-md-6">
-                <label for="fname" class="form-label">Signature of Requestor:</label>
+                <label for="fname" class="form-label">Requestor:</label>
                 <input type="text" class="form-control" id="requester" name="requester" value="" readonly>
             </div>
 
@@ -94,19 +98,15 @@
             </div>
 
 
-
-
-           <div class="col-md-6">
-                <label for="pi" class="form-label">Signature of DH/Supervisor:</label>
-                <input type="text" class="form-control" id="pi" name="pi" value="" readonly >
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Procurement Officer:</label>
+                <input type="text" class="form-control" id="procurement_officer" name="procurement_officer" value="" readonly>
             </div>
 
             <div class="col-md-6">
-                <label for="lname" class="form-label">Date:</label>
-                <input type="text" class="form-control" id="supervisor_approved_date" name="supervisor_approved_date" value="" readonly >
-            </div>
-
-
+                <label for="fname" class="form-label">Accept Date:</label>
+                <input type="text" class="form-control" id="procurement_officer_accept_date" name="procurement_officer_accept_date" value="" readonly >
+            </div><br><br>
 
             <!-- <div class="col-md-12">
                 <label for="certifier" class="form-label">Select Accounts Clerk</label>
@@ -142,20 +142,12 @@
 
 
             <script  language="JavaScript" type="text/javascript">
-
-
-
-
                 function show(){
 
                     $('#hidden_msg').attr('style','display: normal');
                     $('#yes').attr('style','display: none');
                     $('#show').attr('style','display: none');
                     $('#no').attr('style','display: normal');
-
-
-
-
                 }
 
 
@@ -178,48 +170,46 @@
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "https://lorkas.co.zw/service_request_get_record"
+                                    const url = "https://www.lorkas.co.zw/procurement_request_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
                             
                                       $.post(url,data, function(data,status){
                             
-                            if (data['message']=="success"){
-                
-                
-                
+                if (data['message']=="success"){
+
                     $("#requester").val(data['requester']);
                     $("#date_of_request").val(data['date_of_request']);
                     $("#requesting_dpt").val(data['requesting_dpt']);
                     // $("#budget_line_item").val(data['budget_line_item']);
                     $("#request_justification").val(data['request_justification']);
-    
-                    // $("#name_address_of_supplier").val(data['name_address_of_supplier']); 
+                    $("#request_id").val(data['service_request_id']);
+
+                    $("#cost_category").val(data['cost_category']); 
                    
                     $("#qnty").val(data['qnty']);
                     // $("#item_number").val(data['item_number']);
                     $("#description").val(data['description']);
                     // $("#unit_price").val(data['unit_price']);
                     // $("#total").val(data['total']);
-
-                    $("#pi").val(data['supervisor_approved']);
-                    $("#supervisor_approved_date").val(data['supervisor_approved_date']);
+                    $("#procurement_officer").val(data['procurement_officer']);
+                    $("#procurement_officer_accept_date").val(data['procurement_officer_accept_date']);
+                    // $("#pi").val(data['supervisor_approved']);
+                    // $("#supervisor_approved_date").val(data['supervisor_approved_date']);
 
                 //     $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
                 //    $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);        
                         }
                         else{
                             console.log(data['message'])
-                            window.location.href="/service_request_all";
+                            window.location.href="/procurement_request_all";
                 
                         }
                 
                         });
                     }
                 
-
-
                     function reject(){
 
 
@@ -236,7 +226,7 @@
 console.log(case_id);
 if (case_id == "add"){}else{
 
-const url = "https://lorkas.co.zw/service_request_dh_disapprove";
+const url = "https://www.lorkas.co.zw/procurement_request_officer_disapprove";
 // current_url = window.location.href;
 // arr = current_url.split("/");
 // case_id = arr.at(-1);
@@ -253,10 +243,10 @@ const data = {
 $.post(url,data, function(data,status){
 if (data['message']=="success"){
     console.log("success")
-    window.location.href="https://lorkas.co.zw/service_request_all";
+    window.location.href="https://www.lorkas.co.zw/procurement_request_all";
 }else{
     console.log(data['message'])
-    window.location.href="https://lorkas.co.zw/service_requests_all";
+    window.location.href="https://www.lorkas.co.zw/procurement_requests_all";
 
 }
 
@@ -285,7 +275,7 @@ if (data['message']=="success"){
                         console.log(case_id);
                         if (case_id == "add"){}else{
                 
-                        const url = "https://lorkas.co.zw/service_request_dh_approve";
+                        const url = "https://www.lorkas.co.zw/procurement_request_officer_approve";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -302,10 +292,10 @@ if (data['message']=="success"){
                         $.post(url,data, function(data,status){
                         if (data['message']=="success"){
                             console.log("success")
-                            window.location.href="https://lorkas.co.zw/service_request_all";
+                            window.location.href="https://www.lorkas.co.zw/service_request_all";
                         }else{
                             console.log(data['message'])
-                            window.location.href="https://lorkas.co.zw/service_requests_all";
+                            window.location.href="https://www.lorkas.co.zw/service_requests_all";
                 
                         }
                 

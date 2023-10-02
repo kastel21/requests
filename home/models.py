@@ -31,7 +31,7 @@ class PuchaseRequest(models.Model):
 
 
 
-class ProcurementRequest(models.Model):
+class ProcurementRequests(models.Model):
 
     service_request_id = models.CharField(max_length=300, default="None")
     requester = models.CharField(max_length=300, default="None")
@@ -39,12 +39,34 @@ class ProcurementRequest(models.Model):
     cost_category = models.CharField(max_length=150, default="None")
     procurement_officer = models.CharField(max_length=150, default="None")
     procurement_officer_accept = models.CharField(max_length=150, default="None")
+
+    procurement_officer_accept_date1 = models.CharField(max_length=200, default="None")
     procurement_officer_reject = models.CharField(max_length=150, default="None")
-    procurement_officer_reject_msg = models.CharField(max_length=350, default="None")
+    procurement_officer_reject_date1 = models.CharField(max_length=200, default="None")
 
-    # requesting_dpt = models.CharField(max_length=150, default="None")
+    procurement_officer_reject_msg = models.CharField(max_length=500, default=".")
 
+    requesting_dpt = models.CharField(max_length=250, default="None")
 
+class ProcurementRequests1(models.Model):
+
+    service_request_id = models.CharField(max_length=300, default="None")
+    requester = models.CharField(max_length=300, default="None")
+    date_of_request = models.CharField(max_length=250, default="2023")
+    cost_category = models.CharField(max_length=150, default="None")
+    procurement_officer = models.CharField(max_length=150, default="None")
+    procurement_officer_accept = models.CharField(max_length=150, default="None")
+
+    procurement_officer_accept_date1 = models.CharField(max_length=200, default="None")
+    procurement_officer_reject = models.CharField(max_length=150, default="None")
+    procurement_officer_reject_date1 = models.CharField(max_length=200, default="None")
+
+    procurement_officer_reject_msg = models.CharField(max_length=500, default=".")
+    description = models.CharField(max_length=500, default="None")
+
+    requesting_dpt = models.CharField(max_length=250, default="None")
+    request_justification = models.CharField(max_length=1000, default="None")
+    qnty = models.CharField(max_length=250, default="None")
 
 class ServiceRequest(models.Model):
 
@@ -59,8 +81,8 @@ class ServiceRequest(models.Model):
     qnty = models.CharField(max_length=150, default="None")
     q1 = models.FileField(default="None")
 
-    po = models.CharField(max_length=150, default="None")
-    po_approved_date= models.CharField(max_length=150, default="None")
+    # po = models.CharField(max_length=150, default="None")
+    # po_approved_date= models.CharField(max_length=150, default="None")
 
     description = models.CharField(max_length=150, default="None")
     # unit_price = models.CharField(max_length=150, default="None")

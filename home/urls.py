@@ -152,7 +152,7 @@ urlpatterns = [
     path('service_request_add', views.service_request_add, name='service_request_add'),
     path('service_request_send_record', views.service_request_send_record, name='service_request_send_record'),
 
-    re_path('service_request_po_approve', views.service_request_po_approve, name='service_request_po_approve'),
+    # re_path('service_request_po_approve', views.service_request_po_approve, name='service_request_po_approve'),
 
     re_path('service_request_edit_options', views.service_request_edit_options, name='service_request_edit_options'),
 
@@ -167,6 +167,28 @@ urlpatterns = [
     re_path('service_request_print', views.service_request_print, name='service_request_print'),
 
 
+    #procurement request
+    path('procurement_requests', views.procurement_requests, name='procurement_requests'),
+    path('procurement_request_all', views.procurement_requests_all, name='procurement_request_all'),
+    path('procurement_request_approved', views.procurement_request_approved, name='procurement_request_approved'),
+    path('procurement_request_pending', views.procurement_request_pending, name='procurement_request_pending'),
+    path('get_procurement_requests', views.get_procurement_requests, name='get_procurement_requests'),
+    path('procurement_request_add', views.procurement_request_add, name='procurement_request_add'),
+    path('procurement_request_send_record', views.procurement_request_send_record, name='procurement_request_send_record'),
+
+    # re_path('procurement_request_po_approve', views.procurement_request_po_approve, name='procurement_request_po_approve'),
+
+    # re_path('procurement_request_edit_options', views.procurement_request_edit_options, name='procurement_request_edit_options'),
+
+    path('procurement_request_get_record', views.procurement_request_get_record, name='procurement_request_get_record'),
+
+    re_path('procurement_request_officer_approve', views.procurement_request_officer_approve, name='procurement_request_officer_approve'),
+    re_path('procurement_request_officer_disapprove', views.procurement_request_officer_disapprove, name='procurement_request_officer_disapprove'),
+    re_path('procurement_request_open_record', views.procurement_request_open_record, name='procurement_request_open_record'),
+    re_path('procurement_request_view', views.procurement_request_view, name='procurement_request_view'),
+
+    # path('procurement_request_print', views.procurement_request_print, name='procurement_request_print'),
+    # re_path('procurement_request_print', views.procurement_request_print, name='procurement_request_print'),
 
     path('qr_code', views.qr_code, name='qr_code'),
 

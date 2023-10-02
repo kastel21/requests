@@ -24,12 +24,17 @@
                 <label for="fname" class="form-label">Requestor:</label>
                 <input type="text" class="form-control" id="requester" name="requester" value="" readonly >
             </div>
+-->
+            <div class="col-md-6">
+                <label for="fname" class="form-label">From Service Request:</label>
+                <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly >
+            </div>
+            <p></p> 
 
             <div class="col-md-6">
-                <label for="fname" class="form-label">Date:</label>
-                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="" readonly >
+                <label for="fname" class="form-label">Cost Category:</label>
+                <input type="text" class="form-control" id="cost_category" name="cost_category" value="" readonly >
             </div>
-            <p></p> -->
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Requesting Department:</label>
@@ -67,7 +72,7 @@
                 <input type="text" class="form-control" id="item_number" name="item_number" value="" readonly >
             </div> -->
 
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="fname" class="form-label">Description of item to be purchased:</label>
                 <textarea type="text" class="form-control" id="description" name="description" value="" readonly ></textarea>
             </div>
@@ -87,7 +92,7 @@
             <p></p>
 
             <div class="col-md-6">
-                <label for="fname" class="form-label">Signature of Requestor:</label>
+                <label for="fname" class="form-label"> Requestor:</label>
                 <input type="text" class="form-control" id="requester" name="requester" value="" readonly>
             </div>
 
@@ -98,17 +103,22 @@
 
 
 
+            <!-- $("#cost_category").val(data['cost_category']);  -->
+
 
            <div class="col-md-6">
-                <label for="supervisor_approved" class="form-label">Signature Supervisor:</label>
-                <input type="text" class="form-control" id="supervisor_approved" name="supervisor_approved" value="" readonly >
+                <label for="supervisor_approved" class="form-label"> Procurement Officer:</label>
+                <input type="text" class="form-control" id="procurement_officer" name="supervisor_approved" value="" readonly >
             </div>
 
             <div class="col-md-6">
-                <label for="lname" class="form-label">Date:</label>
-                <input type="text" class="form-control" id="supervisor_approved_date" name="supervisor_approved_date" value="" readonly >
+                <label for="lname" class="form-label">Accept Date:</label>
+                <input type="text" class="form-control" id="procurement_officer_accept_date" name="procurement_officer_accept_date" value="" readonly >
             </div>
-
+            <div class="col-md-12">
+                <label for="lname" class="form-label">Reject Date:</label>
+                <input type="text" class="form-control" id="procurement_officer_reject_date" name="procurement_officer_reject_date" value="" readonly >
+            </div>
 
             <!-- <div class="col-md-12">
                 <label for="certifier" class="form-label">Quotation</label>
@@ -116,7 +126,7 @@
             </div>
  
             <div class="col-md-6">
-                <label for="fname" class="form-label">Signature of Accounts Clerk</label>
+                <label for="fname" class="form-label"> Accounts Clerk</label>
                 <input type="text" class="form-control" id="accounts_clerk_approved" name="accounts_clerk_approved" value="" readonly >
             </div>
 
@@ -141,7 +151,7 @@
 
 // populate the users dropdown
 
-// const url = "https://lorkas.co.zw/get_users"
+// const url = "https://www.lorkas.co.zw/get_users"
 //                     const data = {
 //                       'id':"case_id",
 //                     }
@@ -179,7 +189,7 @@
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "https://lorkas.co.zw/service_request_get_record"
+                                    const url = "https://www.lorkas.co.zw/procurement_request_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -194,12 +204,13 @@
                     $("#requester").val(data['requester']);
                     $("#date_of_request").val(data['date_of_request']);
                     $("#requesting_dpt").val(data['requesting_dpt']);
-                    // $("#budget_line_item").val(data['budget_line_item']);
+                    $("#request_id").val(data['service_request_id']);
                     $("#request_justification").val(data['request_justification']);
     
                     // $("#name_address_of_supplier").val(data['name_address_of_supplier']); 
                     // $("#quotation").val(data['pdf']); 
                     // $('#quotation').attr('href',data['pdf']);
+                    $("#cost_category").val(data['cost_category']); 
 
                     $("#qnty").val(data['qnty']);
                     // $("#item_number").val(data['item_number']);
@@ -207,8 +218,9 @@
                     // $("#unit_price").val(data['unit_price']);
                     // $("#total").val(data['total']);
 
-                    $("#supervisor_approved").val(data['supervisor_approved']);
-                    $("#supervisor_approved_date").val(data['supervisor_approved_date']);
+                    $("#procurement_officer").val(data['procurement_officer']);
+                    $("#procurement_officer_accept_date").val(data['procurement_officer_accept_date']);
+                    $("#procurement_officer_reject_date").val(data['procurement_officer_reject_date']);
 
                     // $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
                 //    $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);   
@@ -225,74 +237,74 @@
                         });
                     }
                 
-                    function sendEdit(){
-                        $('#overlay').fadeIn();
+                    // function sendEdit(){
+                    //     $('#overlay').fadeIn();
 
     
-                        // var request_id= document.getElementById('request_id').value;
-                        // var requester= document.getElementById('requester').value;
-                        // var date_of_request= document.getElementById('date_of_request').value;
-                        var requesting_dpt= document.getElementById('requesting_dpt').value;
-                        var budget_line_item= document.getElementById('budget_line_item').value;
-                        var request_justification= document.getElementById('request_justification').value;
+                    //     // var request_id= document.getElementById('request_id').value;
+                    //     // var requester= document.getElementById('requester').value;
+                    //     // var date_of_request= document.getElementById('date_of_request').value;
+                    //     var requesting_dpt= document.getElementById('requesting_dpt').value;
+                    //     var budget_line_item= document.getElementById('budget_line_item').value;
+                    //     var request_justification= document.getElementById('request_justification').value;
 
-                        var item_number= document.getElementById('item_number').value;
-                        var description= document.getElementById('description').value;
+                    //     var item_number= document.getElementById('item_number').value;
+                    //     var description= document.getElementById('description').value;
                         
 
                 
-                        var name_address_of_supplier= document.getElementById('name_address_of_supplier').value; 
-                        var qnty = document.getElementById('qnty').value;
+                    //     var name_address_of_supplier= document.getElementById('name_address_of_supplier').value; 
+                    //     var qnty = document.getElementById('qnty').value;
     
-                        var unit_price = document.getElementById('unit_price').value;
-                        var total=      document.getElementById('total').value;
+                    //     var unit_price = document.getElementById('unit_price').value;
+                    //     var total=      document.getElementById('total').value;
 
                 
-                        var supervisor_approved = document.getElementById('pi').value;
-                        // var supervisor_approved_date= document.getElementById('supervisor_approved_date').value;
+                    //     var supervisor_approved = document.getElementById('pi').value;
+                    //     // var supervisor_approved_date= document.getElementById('supervisor_approved_date').value;
                 
-                        var accounts_clerk_approved= document.getElementById('accounts_clerk_approved').value;
-                        // var accounts_clerk_approved_date= document.getElementById('accounts_clerk_approved_date').value;
+                    //     var accounts_clerk_approved= document.getElementById('accounts_clerk_approved').value;
+                    //     // var accounts_clerk_approved_date= document.getElementById('accounts_clerk_approved_date').value;
       
-                            current_url = window.location.href;
-                            arr = current_url.split("/");
-                            case_id = arr.at(-1);
-                        console.log(case_id);
-                        if (case_id == "add"){
+                    //         current_url = window.location.href;
+                    //         arr = current_url.split("/");
+                    //         case_id = arr.at(-1);
+                    //     console.log(case_id);
+                    //     if (case_id == "add"){
                 
-                        const url = "https://lorkas.co.zw/purchase_request_clerk_approve";
-                        // current_url = window.location.href;
-                        // arr = current_url.split("/");
-                        // case_id = arr.at(-1);
-                        // month_id =arr[arr.length - 2];
-                        console.log("after url");
-                        const data = {
-                            // "request_id": request_id,
-                                            "id": case_id,
+                    //     const url = "https://www.lorkas.co.zw/purchase_request_clerk_approve";
+                    //     // current_url = window.location.href;
+                    //     // arr = current_url.split("/");
+                    //     // case_id = arr.at(-1);
+                    //     // month_id =arr[arr.length - 2];
+                    //     console.log("after url");
+                    //     const data = {
+                    //         // "request_id": request_id,
+                    //                         "id": case_id,
 
                 
-                                           }
+                    //                        }
                 
-                                console.log("after dict");
-                        $.post(url,data, function(data,status){
-                        if (data['message']=="success"){
-                            alert("success");
-                            $('#overlay').fadeOut();
+                    //             console.log("after dict");
+                    //     $.post(url,data, function(data,status){
+                    //     if (data['message']=="success"){
+                    //         alert("success");
+                    //         $('#overlay').fadeOut();
 
-                            window.location.href="https://lorkas.co.zw/purchase_request_all";
-                        }else{
-                            alert(data['message']);
-                            $('#overlay').fadeOut();
+                    //         window.location.href="https://www.lorkas.co.zw/purchase_request_all";
+                    //     }else{
+                    //         alert(data['message']);
+                    //         $('#overlay').fadeOut();
 
-                            window.location.href="https://lorkas.co.zw/purchase_requests_all";
+                    //         window.location.href="https://www.lorkas.co.zw/purchase_requests_all";
                 
-                        }
+                    //     }
                 
-                        });
-                        // alert("stop hee");
-                    }
+                    //     });
+                    //     // alert("stop hee");
+                    // }
                 
-                    }
+                    // }
                         </script>
                 
                 

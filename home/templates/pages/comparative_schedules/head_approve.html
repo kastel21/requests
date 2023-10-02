@@ -16,15 +16,15 @@
                 <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
                 
            </div>
-            <!-- <div class="col-md-6">
-                <label  class="form-label">request_id:</label>
-                <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly>
-            </div> -->
+           <div class="col-md-6">
+            <label  class="form-label">From Procurement Request:</label>
+            <input type="text" class="form-control" id="service_request" name="service_request" value="" readonly>
+        </div>
 
-            <div class="col-md-12">
-                <label  class="form-label">payee:</label>
-                <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
-            </div>
+        <div class="col-md-6">
+            <label  class="form-label">payee:</label>
+            <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
+        </div>
 
             <hr>
 
@@ -145,6 +145,19 @@
                 <input type="text" class="form-control" id="dpt_project_requesting" name="dpt_project_requesting" value="" readonly>
             </div>
 
+            <div class="col-md-4">
+                <label for="certifier" class="form-label">Quotation1</label>
+                <a id="quotation1" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+            </div>  
+            <div class="col-md-4">
+                <label for="certifier" class="form-label">Quotation2</label>
+                <a id="quotation2" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+            </div>     
+            
+            <div class="col-md-4">
+                <label for="certifier" class="form-label">Quotation3</label>
+                <a id="quotation3" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+            </div>
             <hr>
 
             <div class="col-md-4">
@@ -269,7 +282,7 @@
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "https://lorkas.co.zw/comp_schedule_get_record"
+                                    const url = "https://www.lorkas.co.zw/comp_schedule_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -280,6 +293,7 @@
                 
                     // $("#request_id").val(data['request_id']);
                     $("#payee").val(data['payee']);
+                    $("#service_request").val(data['service_request']);
 
                     $("#company_name_supplier1").val(data['company_name_supplier1']);
                     $("#item_number_supplier1").val(data['item_number_supplier1']);
@@ -318,6 +332,10 @@
                     $("#dpt_head_by_sig ").val(data['dpt_head_by_sig']);
                     $("#dpt_head_date").val(data['dpt_head_date']);
 
+                    $('#quotation1').attr('href',data['pdf1']);
+                    $('#quotation2').attr('href',data['pdf2']);
+                    $('#quotation3').attr('href',data['pdf3']);
+
                     // $("#team_lead_by").val(data['team_lead_by']); 
                     // $("#team_lead_by_sig ").val(data['team_lead_by_sig']);
                     // $("#team_lead_date").val(data['team_lead_date']);
@@ -329,7 +347,7 @@
 
                     // populate the users dropdown
 
-const url = "https://lorkas.co.zw/get_users"
+const url = "https://www.lorkas.co.zw/get_users"
                     const data1 = {
                       'id':"case_id",
                     }
@@ -375,7 +393,7 @@ const url = "https://lorkas.co.zw/get_users"
             case_id = arr.at(-1);
             console.log(case_id);
 
-        const url = "https://lorkas.co.zw/comp_schedule_approve_head";
+        const url = "https://www.lorkas.co.zw/comp_schedule_approve_head";
         const data={
                 "lead":document.getElementById('team_lead_by').value,
                 "pi":document.getElementById('approved_by').value,
@@ -388,12 +406,12 @@ const url = "https://lorkas.co.zw/get_users"
             alert("success");
             $('#overlay').fadeOut();
 
-            window.location.href="https://lorkas.co.zw/comp_schedule_all";
+            window.location.href="https://www.lorkas.co.zw/comp_schedule_all";
         }else{
             alert(data['message']);
             $('#overlay').fadeOut();
 
-            window.location.href="https://lorkas.co.zw/comp_schedule_all";
+            window.location.href="https://www.lorkas.co.zw/comp_schedule_all";
 
         }
 
