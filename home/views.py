@@ -1286,7 +1286,7 @@ def comp_schedule_print(request):
 
         record = ComparativeSchedule.objects.get(id=x)
 
-        qr_code(record.id)
+        # qr_code(record.id)
         
         data = {"service_request": record.service_request,
         "request_id": record.request_id,
@@ -3780,7 +3780,7 @@ from time import time
 
 def qr_code(id):
 
-    text="http://127.0.0.1:8000/verify?id="+id
+    text='hie'
 
     img = qrcode.make(text)
     type(img)  # qrcode.image.pil.PilImage
