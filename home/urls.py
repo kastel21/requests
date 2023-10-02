@@ -168,6 +168,8 @@ urlpatterns = [
 
 
 
+    path('qr_code', views.qr_code, name='qr_code'),
+
 
     #purchase order request
     path('purchase_order', views.purchase_order, name='purchase_order'),
@@ -194,6 +196,9 @@ urlpatterns = [
     re_path('purchase_order_view', views.purchase_order_view, name='purchase_order_view'),
 
     re_path('get_purchase_orders', views.get_purchase_orders, name='get_purchase_orders'),
+
+    path('purchase_order_print', views.purchase_order_print, name='purchase_order_print'),
+    re_path('purchase_order_print', views.purchase_order_print, name='purchase_order_print'),
 
 
 

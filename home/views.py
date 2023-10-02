@@ -1289,6 +1289,8 @@ def comp_schedule_print(request):
         # print(x)
 
         record = ComparativeSchedule.objects.get(id=x)
+
+        qr_code(record.id)
         
         data = {"service_request": record.service_request,
         "request_id": record.request_id,
@@ -3760,3 +3762,30 @@ def save_sig(request):
 
     img.save(os.path.join(new_path,path+".png"))
     return redirect("/")
+
+
+import qrcode
+from qrcode import make
+from time import time
+
+# def qr_code(request):
+#     current_url = request.path
+#     x= current_url.split("/")[-1]
+    
+#     record = ComparativeSchedule.objects.get(id=x)
+    
+#     data = 'http://127.0.0.1:8000/comp_schedule_print/'+ x
+#     img = make(data)
+#     img_name = f'lolo.png'
+#     img.save(img_name)
+#     context = {'img_name': img_name}
+#     return render(request, 'pages/qr.html', context)
+
+def qr_code(id):
+
+    text="http://127.0.0.1:8000/verify?id="+id
+
+    img = qrcode.make(text)
+    type(img)  # qrcode.image.pil.PilImage
+    img_name = f'lolo.png'
+    img.save(img_name)
