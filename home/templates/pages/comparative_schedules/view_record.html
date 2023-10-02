@@ -21,11 +21,16 @@
 
                 <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly> -->
             <!-- </div>  -->
+            <div class="col-md-6">
+                <label  class="form-label">From Procurement Request:</label>
+                <input type="text" class="form-control" id="service_request" name="service_request" value="" readonly>
+            </div>
 
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label  class="form-label">payee:</label>
                 <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
             </div>
+ 
 
             <hr>
 
@@ -308,6 +313,7 @@
                 
                     // $("#request_id").val(data['request_id']);
                     $("#payee").val(data['payee']);
+                    $("#service_request").val(data['service_request']);
 
                     $('#quotation1').attr('href',data['pdf1']);
                     $('#quotation2').attr('href',data['pdf2']);
