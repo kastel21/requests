@@ -188,13 +188,13 @@ def purchase_request(request):
 def purchase_request_all(request):
     records = PuchaseRequest.objects.all()
     context = {'records':records}
-    return render(request, 'pages/purchase_requests/list.html', context)
+    return render(request, 'pages/purchase_requests/list2.html', context)
 
 @login_required(login_url='login')
 def purchase_request_super(request):
     form = PuchaseRequest.objects.all()
     context = {'form':form}
-    return render(request, 'pages/purchase_requests/list.html', context)
+    return render(request, 'pages/purchase_requests/list2.html', context)
 
 @login_required(login_url='login')
 def purchase_request_pending(request):
@@ -3422,7 +3422,7 @@ def purchase_order_send_record(request):
           contact_number= request.POST.get('contact_number',default=None)
           address= request.POST.get('address',default=None) 
           project = request.POST.get('project',default=None)
-          date = request.POST.get('date',default=None)
+          # date = request.POST.get('date',default=None)
           budget_line_item = request.POST.get('budget_line_item',default=None)
 
           item= request.POST.get('item',default=None)
@@ -3451,7 +3451,7 @@ def purchase_order_send_record(request):
           record.contact_number= contact_number
           record.address= address 
           record.project = project
-          record.date = date
+          record.date = "{:%B %d, %Y  %H:%M:%S}".format(d)
           record.budget_line_item = budget_line_item
 
           record.item= item
