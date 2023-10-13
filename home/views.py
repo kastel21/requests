@@ -3388,7 +3388,7 @@ def purchase_order_get_record(request):
 
           "item": record.item,
           "quantity": record.quantity,
-          "unit_cost ": record.unit_cost,
+          "unit_cost": record.unit_cost,
           "description": record.description,
           "total_cost": record.total_cost,
 
