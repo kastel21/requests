@@ -203,7 +203,7 @@ def purchase_request_pending(request):
       records = PuchaseRequest.objects.filter((Q(supervisor_approved=username) & Q (supervisor_approved_date="None")) | (Q(accounts_clerk_approved=username) & Q (accounts_clerk_approved_date="None")) )
       context = {'records':records}
 
-      return render(request, 'pages/purchase_requests/list2.html', context)
+      return render(request, 'pages/purchase_requests/list_pending.html', context)
 
 @login_required(login_url='login')
 def purchase_request_approved(request):
@@ -414,7 +414,7 @@ def purchase_request_view(request):
       context = {'records':records}
 
 
-      return render(request, 'pages/purchase_requests/list.html', context)
+      return render(request, 'pages/purchase_requests/list2.html', context)
 
 
 
@@ -861,7 +861,7 @@ def service_requests_all(request):
 def service_request_pending(request):
       username = request.user.username
 
-      records = ServiceRequest.objects.filter((Q(supervisor_approved=username) & Q (supervisor_approved_date="None")) )
+      records = ServiceRequest.objects.filter( (Q(supervisor_approved=username) & Q (supervisor_approved_date="None") & Q (supervisor_disapproved_date="None"))  )
       context = {'records':records}
 
       return render(request, 'pages/service_requests/list2.html', context)
@@ -3781,7 +3781,6 @@ from time import time
 def qr_code(id):
 
     text='hie'
-
     img = qrcode.make(text)
     type(img)  # qrcode.image.pil.PilImage
     img_name = f'lolo.png'
