@@ -169,9 +169,26 @@ class PaymentRequest(models.Model):
     approved_by= models.CharField(max_length=150, default="None")
     approved_by_date= models.CharField(max_length=250, default="None")
 
-# class PaymentRequest(models.Model):
-#     request_id = models.CharField(max_length=255, blank=True)
-#     quote = models.FileField(upload_to='documents/', default="N/A")
+    accepted_by = models.CharField(max_length=150, default="None")
+    accepted_by_date = models.CharField(max_length=150, default="None")
+
+class PaymentTicket(models.Model):
+    payment_request_id = models.CharField(max_length=150, default="None")
+    creator = models.CharField(max_length=150, default="None")
+    date_of_ticket = models.CharField(max_length=150, default="None")
+    status = models.CharField(max_length=150, default="None")
+    
+    amount = models.CharField(max_length=150, default="None")
+    to_name = models.CharField(max_length=150, default="None")
+    to_bank_name = models.CharField(max_length=150, default="None")
+    to_bank_account = models.CharField(max_length=150, default="None")
+    narration = models.CharField(max_length=150, default="None")
+
+class PaymentTicketPOP(models.Model):
+    payment_ticket_id = models.CharField(max_length=150, default="None")
+    pop_path = models.CharField(max_length=500, default="None")
+
+
 
 class PaymentRequestQuotation(models.Model):
     request_id = models.CharField(max_length=255, blank=True)

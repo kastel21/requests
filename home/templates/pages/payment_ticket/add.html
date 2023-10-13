@@ -1,0 +1,185 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock title %}
+{% block content %}
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    <div class="pc-content">
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+       
+        <form class="row g-3">
+
+            <div id="overlay">
+                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
+                
+           </div>
+<!-- 
+            <div class="col-md-12">
+                <label for="fname" class="form-label">Add From Comparative Schedule:</label>
+                <select class="form-control" name="comp_schedule" id="comp_schedule">
+                    <option value="None">..</option>
+    
+                    </select>           
+             </div> -->
+
+            <!-- <div class="col-md-6">
+                <label for="fname" class="form-label">Requestor:</label>
+                <input type="text" class="form-control" id="requester" name="requester" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Date:</label>
+                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="">
+            </div>
+            <p></p> -->
+            <div class="col-md-12">
+                <label for="fname" class="form-label">Add From Payment Request:</label>
+                <select class="form-control" name="request_id" id="request_id">
+                    <option value="None">..</option>
+                </select>
+            </div>
+
+
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Select Status</label>
+                <select class="form-control" name="status" id="status">
+                <option value="None">Processing</option>
+                <option value="None">Completed</option>
+
+                </select>
+            </div>
+
+            < <div class="col-md-6">
+                <label for="fname" class="form-label"> Supplier Name:</label>
+                <input type="text" class="form-control" id="supplier" name="supplier" value="">
+            </div>
+            <div class="col-md-6">
+                <label for="fname" class="form-label"> Bank Name:</label>
+                <input type="text" class="form-control" id="to_bank_name" name="to_bank_name" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Bank Account Number</label>
+                <input type="text" class="form-control" id="to_bank_account" name="to_bank_account" value="">
+            </div> 
+            <div class="col-md-6">
+                <label for="lname" class="form-label">Amount:</label>
+                <input type="text" class="form-control" id="amount" name="amount" value="">
+            </div>
+
+            <div class="col-md-12">
+                <label for="fname" class="form-label">Narration:</label>
+                <input type="text" class="form-control" id="narration" name="narration" value="">
+            </div>
+
+          </form>
+
+          <div class="col-md-12">
+            <a onclick="sendEdit();" class="btn btn-primary"> SUBMIT</a>
+
+            <script  language="JavaScript" type="text/javascript">
+
+
+
+
+// $('#comp_schedule').on('change', function(event) {
+//        alert("This is the value selected in solutions: " + $(this).val());
+
+
+//   });
+
+
+
+// populate the users dropdown
+    const url = "https://www.lorkas.co.zw/get_payment_requests"
+                    const data = {
+                      'id':"case_id",
+                    }
+                      $.post(url,data, function(data,status){
+                        console.log(data)
+                        $.each(data, function(val, text) {
+                            $('#request_id').append( new Option(text,val) );
+                        });
+        });
+
+                    
+                    function sendEdit(){
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                        $('#overlay').fadeIn();
+
+                        var request_id= document.getElementById('request_id').value;
+                        var narration= document.getElementById('narration').value;
+                        var amount= document.getElementById('amount').value;
+                        var supplier= document.getElementById('supplier').value;
+                        var to_bank_name= document.getElementById('to_bank_name').value;
+                        var to_bank_account= document.getElementById('to_bank_account').value;
+
+
+                        var status= document.getElementById('status').value;
+                        
+
+                
+    
+                            current_url = window.location.href;
+                            arr = current_url.split("_");
+                            case_id = arr.at(-1);
+                        if (case_id == "add"){
+                
+                        const url = "https://www.lorkas.co.zw/payment_ticket_send_record";
+                        // current_url = window.location.href;
+                        // arr = current_url.split("/");
+                        // case_id = arr.at(-1);
+                        // month_id =arr[arr.length - 2];
+                        console.log("after url");
+                        const data = {
+                                            "amount": amount,
+                                            "to_name": supplier,
+                                            "request_id": request_id,
+
+                                            "id": case_id,
+                                            "to_bank_name": to_bank_name,
+                                            "to_bank_account": to_bank_account,
+                
+                                            "status": status,
+                                            "narration": narration,
+                
+                                            // "accounts_clerk_approved": accounts_clerk_approved,
+                                            // "accounts_clerk_approved_date": accounts_clerk_approved_date,
+                
+                                           }
+                
+                                console.log("after dict");
+
+
+                        $.post(url,data, function(data,status){
+                        if (data['message']=="success"){
+                            alert("success");
+                            $('#overlay').fadeOut();
+
+                            window.location.href="https://www.lorkas.co.zw/payment_ticket_all";
+                        }else{
+                            alert(data['message']);
+                            console,log("err")
+                            $('#overlay').fadeOut();
+
+                            window.location.href="https://www.lorkas.co.zw/payment_ticket_all";
+                
+                        }
+                
+                        });
+                        // alert("stop hee");
+                    }
+                
+                    }
+                        </script>
+                
+                
+                
+                
+
+
+{% endblock content %}

@@ -2496,6 +2496,7 @@ def payment_request_approve(request):
         d = datetime.datetime.now()
             # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
         record.approved_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+        record.completed="1"
 
 
 
@@ -2503,7 +2504,7 @@ def payment_request_approve(request):
         notice.to = record.compiled_by
         record.save()
 
-        notice.message = " "+ request.user.username +" Approved your Payement Request."
+        notice.message = " "+ request.user.username +" Approved your Payment Request."
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
@@ -2800,6 +2801,187 @@ def payment_request_edit_record(request):
             return JsonResponse({'message':"failed"})
 # ***********************************************************************************************************************
 
+#PAYMENT TICKET
+
+# ************************************************************************************************************************
+@login_required(login_url='login')
+def payment_ticket_view(request):
+      username = request.user.username
+      records = PaymentTicket.objects.filter(Q(creator = username) )
+      context = {'records':records}
+
+
+      return render(request, 'pages/service_requests/list.html', context)
+
+@login_required(login_url="login")
+def payment_ticket_open_record(request):
+    if request.method == "POST":
+      finance = False
+
+      # user = request.user
+    
+    # Get the groups the user belongs to
+      # groups = user.groups.all()
+
+
+      _id = request.POST.get('id',default=None)
+      # if request.user.groups.all()[0].name == "finance":
+      #     finance = True
+        # objs = Record.objects.get(id=_id)
+      record = PaymentTicket.objects.get(id=_id)
+      context = {'record':record, "finance":finance}
+      # print("finance",finance)
+      return render(request, 'pages/payment_ticket/view_record.html', context)
+    else:
+       redirect("payment_tickets_all")
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def payment_ticket_get_record(request):
+    context={}
+    if request.method == "POST":
+        _id = request.POST.get('id',default=None)
+
+        record = PaymentTicket.objects.get(id=_id)
+
+        pdf = PaymentTicketPOP.objects.get(id=1)
+
+        try:
+          pdf = PaymentTicketPOP.objects.get(payment_ticket_id=record.payment_ticket_id)
+        except:
+          pass
+        dic = {
+           
+
+          "pop":pdf.pop_path,
+
+          "request_id": record.payment_request_id,
+
+          "date_of_ticket": record.date_of_ticket,
+          "amount": record.amount,
+          "to_name": record.to_name,
+          "to_bank_name": record.to_bank_name,
+          "to_bank_account": record.to_bank_account,
+          "narration": record.narration,
+
+
+          "creator": record.creator, 
+          "status": record.status,
+
+          "message":"success",
+        }
+        context = {'addTabActive': True, "record":""}
+        return JsonResponse(dic)
+    else:
+        return redirect('/payment_tickets')
+
+@login_required(login_url='login')
+@csrf_exempt
+@app.route("/send_record")
+def payment_ticket_send_record(request):
+
+    with app.app_context():
+        try:
+           
+
+          status= request.POST.get('status',default=None)
+          payment_request_id= request.POST.get('request_id',default=None)
+
+
+
+
+
+          narration= request.POST.get('narration',default=None)
+          to_bank_account= request.POST.get('to_bank_account',default=None)
+
+          to_name= request.POST.get('to_name',default=None)
+          to_bank_name= request.POST.get('to_bank_name',default=None)
+
+          amount= request.POST.get('amount',default=None)
+          # approved_by_date= request.POST.get('approved_by_date',default=None)
+
+          record = PaymentRequest()
+
+          record.creator = request.user.username
+          record.status= status
+
+
+          record.date_of_ticket=  "{:%B %d, %Y  %H:%M:%S}".format(d)
+          record.payment_request_id= payment_request_id
+
+          record.amount= amount
+          record.to_name= to_name
+
+          record.narration= narration
+          record.to_bank_name= to_bank_name
+
+          record.to_bank_account= to_bank_account
+
+          notice = Notifications()
+          notice.to= record.creator
+          notice.trigger = request.user.username
+          notice.message = request.user.username +" has created a Payment ticket for your request"
+
+          d = datetime.datetime.now()
+          record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+          notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+          notice.status = "New"
+          notice.save()
+          # record.approved_by_date= approved_by_date
+
+
+          record.save()
+
+          _id = record.pk
+          return JsonResponse( {'message':"success",'id':_id})
+
+        except Exception as e  :
+            f= open("service1.txt","w")
+            f.write(str(e))
+            f.close()
+            return JsonResponse({'message':"failed"})
+
+@login_required(login_url='login')
+@csrf_exempt
+def payment_ticket_upload_pop(request):
+    if request.method == 'POST' and request.FILES['pop']:
+        myfile1 = request.FILES['pop']
+        request_id = request.POST.get('request_id')
+        
+        import os
+        path = "uploads/payment_tickets/pops/"+str(request_id)
+        # Check whether the specified path exists or not
+        # print("path ",path)
+        isExist = os.path.exists(path)
+        if not isExist:
+
+          # Create a new directory because it does not exist
+          os.makedirs(path)
+
+
+
+        fs = FileSystemStorage()
+        filename1 = fs.save(path+"/"+myfile1.name, myfile1)
+        uploaded_file_url1 = fs.url(filename1)
+
+
+
+
+        record = PaymentTicketPOP()
+        record.payment_request_id = request_id
+        record.pop_path = uploaded_file_url1
+        record.save()
+        return redirect('/payment_tickets')
+    else:
+          return render(request, 'pages/payment_ticket/upload_pop.html')
+
+
+
+# ************************************************************************************************************************* 
+
+#PURCHASE ORDER
+
 
 # ***********************************************************************************************************************
 # purchase order
@@ -2813,9 +2995,9 @@ def purchase_order(request):
 def purchase_order_all(request):
     username = request.user.username
     user_id = request.user.id
-    records = PurchaseOrder.objects.all()
+    # records = PurchaseOrder.objects.all()
 
-    # records = PurchaseOrder.objects.filter( Q(ordered_by=username) | Q(required_by= username) | Q(approved_by=username))
+    records = PurchaseOrder.objects.filter( Q(ordered_by=username) | Q(required_by= username) | Q(approved_by=username))
     context = {'records':records}
     return render(request, 'pages/purchase_orders/list.html', context)
 

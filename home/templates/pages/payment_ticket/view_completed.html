@@ -53,10 +53,8 @@
                 <label  class="form-label"> Type of Payment</label>
                 <!-- <input type="text" class="form-control" id="payment_type" name="payment_type" value=""> -->
                 <select class="form-control" name="type_of_payment" id="type_of_payment" disabled>
-                    <option value="pre">Pre Payment</option>
-                    <option value="part">Part Payment</option>
-                    <option value="cod">Cash On Delivery</option>
-                    <option value="post">Post Payment</option>
+                    <option value="None">...</option>
+
                     </select>
 
 
@@ -137,7 +135,10 @@
                 <label for="certifier" class="form-label">Delivery Note</label>
                 <a id="quotation2" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
             </div>   
-
+            <div class="col-md-4">
+                <label for="certifier" class="form-label"> POP</label>
+                <a id="pop" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+            </div>   
 <!-- 
              <div class="col-md-12">
                 <label for="certifier" class="form-label">Select 2nd Approver </label>
@@ -232,14 +233,17 @@ const url = "https://www.lorkas.co.zw/get_users"
             if (data['message']=="success"){
 
     console.log(data)
-    $("#purchase_order").val(data['purchase_id']);
 
-    // $("#date_of_request").val(data['date_of_request']);
+    $("#purchase_order").val(data['purchase_id']);
+    $('#type_of_payment').append( new Option(data['type_of_payment'],".") );
+
+    // $("#date_of_request").val(data['type_of_payment']);
     $("#payee").val(data['payee']);
     $("#payment_type").val(data['payment_type']);
     $("#amount").val(data['amount']);
     $("#project_number").val(data['project_number']);
    
+
     if ( data['pdf1'] == "#"){
         $('#quotation1').attr('href',"#");
         $("#quotation1").removeAttr("target");
@@ -260,6 +264,12 @@ const url = "https://www.lorkas.co.zw/get_users"
     }else{
         $('#pop').attr('href',data['pop']);
     }
+
+
+
+
+
+    $('#quotation2').attr('href',data['pdf2']);
 
     $("#account_code").val(data['account_code']); 
     $("#details").val(data['details']);
@@ -314,8 +324,42 @@ window.location.href="https://www.lorkas.co.zw/payment_request_print/"+case_id;
 
 function pop(){
 
+    current_url = window.location.href;
+                    arr = current_url.split("/");
+                    case_id = arr.at(-1);
+window.location.href="https://www.lorkas.co.zw/payment_request_pop_upload/"+case_id;
 
-    alert("opo");
+
+
+
+// current_url = window.location.href;
+//             arr = current_url.split("/");
+//             case_id = arr.at(-1);
+//             console.log(case_id);
+
+//         const url = "https://www.lorkas.co.zw/payment_request_approve";
+//         const data={
+//                 // "clear":document.getElementById('cleared_by').value,
+//                 "id":case_id,
+
+//             }
+//         $.post(url,data, function(data,status){
+//         if (data['message']=="success"){
+//             console.log("success")
+//             window.location.href="https://www.lorkas.co.zw/payment_request_all";
+//         }else{
+//             console.log(data['message'])
+//             window.location.href="https://www.lorkas.co.zw/payment_request_all";
+
+//         }
+
+//         });
+
+
+
+
+
+
 }
 
 function edit(){
