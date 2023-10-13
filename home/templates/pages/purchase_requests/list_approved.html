@@ -64,40 +64,53 @@
             <div class="row align-items-center justify-content-between">
 
   
+
+
+
+
+
                             <table style="margin: 2%;">
                                 <th>
+
+                                    <td>ID</td>
                                     <td>Requester</td>
-                                    <td>Request Date</td>
                                     <td>Requesting Department</td>
+                                    <td>Request Justification</td>
                                     <td>Total</td>
-                                    <td>Quantity</td>
-                                    <td>Comparative Schedule ID</td>
+                                    <td>status</td>
+                                    <td></td>
 
                                 </th>
-
-
-
                                 {% for record in records %}
                                     <tr>
                                         <form method="POST" action="purchase_request_open_record/{{record.id}}">
                                             {% csrf_token %}
                                             <td></td>
+                                            <td>{{record.id}}</td>
+
                                             <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
                                             <td> <input type="submit" value="{{record.requester}}" /> </td>
-
+                                            <td>{{record.requester}}</td>
+                                            <td>{{record.requesting_dpt}}</td>
+                                            <td>{{record.request_justification}}</td>
+                                            <td>{{record.total}}</td>
+                                            <td>{{record.status}}</td>
+        
+                                            </tr>
                                         </form>
-                                    <td>{{record.date_of_request}}</td>
-                                    <td>{{record.requesting_dpt}}</td>
-                                    <td>{{record.total}}</td>
-                                    <td>{{record.qnty}}</td>
-                                    <td>{{record.schedule_id}}</td>
+                                      
 
-                                    </tr>
+ 
 
 
                                 {% endfor %}
 
                             </table>
+
+
+
+
+                            
 
             </div>
         </div>
