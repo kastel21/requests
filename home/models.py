@@ -169,8 +169,8 @@ class PaymentRequest(models.Model):
     approved_by= models.CharField(max_length=150, default="None")
     approved_by_date= models.CharField(max_length=250, default="None")
 
-    accepted = models.CharField(max_length=150, default="None")
-    accepted_date = models.CharField(max_length=150, default="None")
+    accepted_by = models.CharField(max_length=150, default="None")
+    accepted_by_date = models.CharField(max_length=150, default="None")
 
 class PaymentTicket(models.Model):
     payment_request_id = models.CharField(max_length=150, default="None")
