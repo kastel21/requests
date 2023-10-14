@@ -177,6 +177,7 @@ urlpatterns = [
     path('payment_ticket_send_record', views.payment_ticket_send_record, name='payment_ticket_send_record'),
 
     path('payment_ticket_upload_pop', views.payment_ticket_upload_pop, name='payment_ticket_upload_pop'),
+    path('payment_ticket_open_record_for_edit', views.payment_ticket_open_record_for_edit, name='payment_ticket_open_record_for_edit'),
 
     #procurement request
     path('procurement_requests', views.procurement_requests, name='procurement_requests'),

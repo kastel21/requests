@@ -177,7 +177,7 @@ class PaymentTicket(models.Model):
     creator = models.CharField(max_length=150, default="None")
     date_of_ticket = models.CharField(max_length=150, default="None")
     status = models.CharField(max_length=150, default="None")
-    
+
     amount = models.CharField(max_length=150, default="None")
     to_name = models.CharField(max_length=150, default="None")
     to_bank_name = models.CharField(max_length=150, default="None")
@@ -186,7 +186,7 @@ class PaymentTicket(models.Model):
 
 class PaymentTicketPOP(models.Model):
     payment_ticket_id = models.CharField(max_length=150, default="None")
-    pop_path = models.CharField(max_length=500, default="None")
+    pop_path = models.CharField(max_length=500, default="#")
 
 
 

@@ -2811,7 +2811,25 @@ def payment_ticket_view(request):
       context = {'records':records}
 
 
-      return render(request, 'pages/service_requests/list.html', context)
+      return render(request, 'pages/payment_ticket/list.html', context)
+
+@login_required(login_url='login')
+def payment_ticket_completed(request):
+      username = request.user.username
+      records = PaymentTicket.objects.filter(Q(creator = username) & Q( status="completed"))
+      context = {'records':records}
+
+
+      return render(request, 'pages/payment_ticket/list_completed.html', context)
+
+@login_required(login_url='login')
+def payment_ticket_pending(request):
+      username = request.user.username
+      records = PaymentTicket.objects.filter(Q(creator = username) )
+      context = {'records':records}
+
+
+      return render(request, 'pages/payment_ticket/list_pending.html', context)
 
 @login_required(login_url="login")
 def payment_ticket_open_record(request):
@@ -2834,6 +2852,55 @@ def payment_ticket_open_record(request):
       return render(request, 'pages/payment_ticket/view_record.html', context)
     else:
        redirect("payment_tickets_all")
+
+
+@login_required(login_url="login")
+def payment_ticket_open_record_for_edit(request):
+    if request.method == "POST":
+      finance = False
+
+      # user = request.user
+    
+    # Get the groups the user belongs to
+      # groups = user.groups.all()
+
+
+      _id = request.POST.get('id',default=None)
+      # if request.user.groups.all()[0].name == "finance":
+      #     finance = True
+        # objs = Record.objects.get(id=_id)
+      record = PaymentTicket.objects.get(id=_id)
+      context = {'record':record, "finance":finance}
+      # print("finance",finance)
+
+      return render(request, 'pages/payment_ticket/edit_record.html', context)
+
+    else:
+      redirect("payment_tickets_all")
+
+
+
+@login_required(login_url="login")
+def payment_ticket_edit_record(request):
+      finance = False
+
+      # user = request.user
+    
+    # Get the groups the user belongs to
+      # groups = user.groups.all()
+
+
+      _id = request.POST.get('id',default=None)
+      status = request.POST.get('status',default=None)
+
+      # if request.user.groups.all()[0].name == "finance":
+      #     finance = True
+        # objs = Record.objects.get(id=_id)
+      record = PaymentTicket.objects.get(id=_id)
+      record.status = status
+      record.save()
+      context = {'record':record, "finance":finance, 'id':record.pk,'message':"success"}
+      return JsonResponse(context)
 
 
 @login_required(login_url='login')

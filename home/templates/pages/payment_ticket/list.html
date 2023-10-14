@@ -64,43 +64,43 @@
             <div class="row align-items-center justify-content-between">
 
   
-                <table style="margin: 2%;">
-                    <th>
-                        <td>Creator</td>
-                        <td>To Supplier</td>
-                        <td>Amount</td>
-                        <td>Status</td>
+                            <table style="margin: 2%;">
+                                <th>
+                                    <td>Creator</td>
+                                    <td>To Supplier</td>
+                                    <td>Amount</td>
+                                    <td>Status</td>
 
-                    </th>
-
-
+                                </th>
 
 
-                    {% for record in records %}
 
-                    <form method="POST" action="payment_ticket_open_record_for_edit/{{record.id}}">
 
-                        <tr>
-                                {% csrf_token %}
+                                {% for record in records %}
 
-                                <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
-                                <td></td>
-                                <td> <input type="submit" value="{{record.creator}}" /> </td>
+                                <form method="POST" action="payment_ticket_open_record/{{record.id}}">
 
-                            
-                        <td>{{record.to_name}}</td>
-                        <td>{{record.amount}}</td>
-                        <td>{{record.status}}</td>
+                                    <tr>
+                                            {% csrf_token %}
 
-                        
-                        <td></td>
+                                            <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
+                                            <td></td>
+                                            <td> <input type="submit" value="{{record.creator}}" /> </td>
 
-                        </tr>
+                                        
+                                    <td>{{record.to_name}}</td>
+                                    <td>{{record.amount}}</td>
+                                    <td>{{record.status}}</td>
 
-                    </form>
-                    {% endfor %}
+                                    
+                                    <td></td>
 
-                </table>
+                                    </tr>
+
+                                </form>
+                                {% endfor %}
+
+                            </table>
 
             </div>
         </div>

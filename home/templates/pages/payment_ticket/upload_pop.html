@@ -17,6 +17,7 @@
                 <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
                 
            </div>
+
             <div class="col-md-6">
                 <label  class="form-label">From Payment Request:</label>
                 <input type="text" class="form-control" id="payment_request_id" name="payment_request_id" value="" readonly>
@@ -113,7 +114,7 @@
 
           <div class="col-md-6">
               <label for="quote" class="form-label">Attach POP</label>
-                <input type="file"  value="" id="quote1" name="quote1" accept=".pdf" required/>
+                <input type="file"  value="" id="pop" name="pop" accept=".pdf" required/>
           </div>
 
 
@@ -144,7 +145,7 @@
                         case_id = arr.at(-1);
                     console.log(case_id);
                     if (case_id == "add"){}else{
-                    const url = "https://www.lorkas.co.zw/payment_request_get_record"
+                    const url = "https://www.lorkas.co.zw/payment_ticket_get_record"
                     const data = {
                       'id':case_id,
                     }
@@ -156,49 +157,38 @@
     console.log(data);
 
     $("#request_id").val(case_id);
-    $("#payee").val(data['payee']);
-    $("#payment_type").val(data['payment_type']);
-    $("#amount").val(data['amount']);
-    $("#project_number").val(data['project_number']);
-    if ( data['pdf1'] == "#"){
-        $('#quotation1').attr('href',"#");
-        $("#quotation1").removeAttr("target");
-    }else{
-        $('#quotation1').attr('href',data['pdf1']);
-    }
+    $("#to_name").val(data['to_name']);
+    $("#to_name_bank").val(data['to_name_bank']);
+    $("#to_name_account").val(data['to_name_account']);
+    // if ( data['pop'] == "#"){
+    //     $('#quotation1').attr('href',"#");
+    //     $("#quotation1").removeAttr("target");
+    // }else{
+    //     $('#quotation1').attr('href',data['pdf1']);
+    // }
 
-    if ( data['pdf2'] == "#"){
-        $('#quotation2').attr('href',"#");
-        $("#quotation2").removeAttr("target");
-    }else{
-        $('#quotation2').attr('href',data['pdf2']);
-    }
+    // if ( data['pdf2'] == "#"){
+    //     $('#quotation2').attr('href',"#");
+    //     $("#quotation2").removeAttr("target");
+    // }else{
+    //     $('#quotation2').attr('href',data['pdf2']);
+    // }
 
-    if ( data['pop'] == "#"){
-        $('#pop').attr('href',"#");
-        $("#pop").removeAttr("target");
-    }else{
-        $('#pop').attr('href',data['pop']);
-    }
+    // if ( data['pop'] == "#"){
+    //     $('#pop').attr('href',"#");
+    //     $("#pop").removeAttr("target");
+    // }else{
+    //     $('#pop').attr('href',data['pop']);
+    // }
 
-    $("#account_code").val(data['account_code']); 
-    $("#details").val(data['details']);
-    $("#purchase_order").val(data['purchase_id']);
-     $("#qnty").val(data['qnty']);
-    $("#total").val(data['total']);
-    $("#compiled_by").val(data['compiled_by']);
-     $("#compiled_by_date").val(data['compiled_by_date']);
-    $("#certified_by").val(data['certified_by']);
-    $("#certified_by_date").val(data['certified_by_date']);
+    $("#amount").val(data['amount']); 
+    $("#date_of_ticket").val(data['date_of_ticket']);
+    $("#creator").val(data['creator']);
 
-    $("#cleared_by_fin_man").val(data['cleared_by_fin_man']);
-    $("#cleared_by_fin_man_date").val(data['cleared_by_fin_man_date']);
 
-//     $("#approved_by_project_man").val(data['approved_by_project_man']);
-//     $("#approved_by_project_man_date").val(data['approved_by_project_man_date']);
+    $("#status").val(data['status']);
+    $("#payment_request_id").val(data['payment_request_id']);
 
-   $("#approved_by").val(data['approved_by']);
-    $("#approved_by_date").val(data['approved_by_date']);
 
     $('#overlay').fadeOut();
 
@@ -209,7 +199,7 @@
             alert(data['message']);
             $('#overlay').fadeOut();
 
-            window.location.href="/payment_request_all";
+            window.location.href="/payment_tickets_all";
 
         }
 
@@ -225,7 +215,7 @@ current_url = window.location.href;
                     arr = current_url.split("/");
                     case_id = arr.at(-1);
 
-window.location.href="https://www.lorkas.co.zw/payment_request_print/"+case_id;
+window.location.href="https://www.lorkas.co.zw/payment_ticket_print/"+case_id;
 
 
 
@@ -236,7 +226,7 @@ function edit(){
 current_url = window.location.href;
                     arr = current_url.split("/");
                     case_id = arr.at(-1);
-window.location.href="https://www.lorkas.co.zw/payment_request_view/"+case_id;
+window.location.href="https://www.lorkas.co.zw/payment_ticket_view/"+case_id;
 
 
 
@@ -261,10 +251,10 @@ window.location.href="https://www.lorkas.co.zw/payment_request_view/"+case_id;
         $.post(url,data, function(data,status){
         if (data['message']=="success"){
             console.log("success")
-            window.location.href="https://www.lorkas.co.zw/payment_request_all";
+            window.location.href="https://www.lorkas.co.zw/payment_tickets_all";
         }else{
             console.log(data['message'])
-            window.location.href="https://www.lorkas.co.zw/payment_request_all";
+            window.location.href="https://www.lorkas.co.zw/payment_tickets_all";
 
         }
 

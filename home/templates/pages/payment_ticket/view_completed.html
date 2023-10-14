@@ -17,158 +17,68 @@
                 <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
                 
            </div>
-            <div class="col-md-6">
-                <label  class="form-label">From Purchase Order:</label>
-                <input type="text" class="form-control" id="purchase_order" name="purchase_order" value="" readonly>
-            </div>
 
-            <div class="col-md-6">
-                <label  class="form-label">Payee:</label>
-                <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
-            </div>
-            <div class="col-md-6">
-                <label  class="form-label">Account Code:</label>
-                <input type="text" class="form-control" id="account_code" name="account_code" value="" readonly>
-            </div>
-
-            <!-- <div class="col-md-4">
-                <label  class="form-label">Date:</label>
-                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="">
-            </div> -->
-
-            <div class="col-md-6">
-                <label  class="form-label"> Payment Type</label>
-                <!-- <input type="text" class="form-control" id="payment_type" name="payment_type" value=""> -->
-                <select class="form-control" name="payment_type" id="payment_type" disabled>
-                    <option value="TRANSFER">TRANSFER</option>
-
-                    <option value="CHEQUE">CHEQUE</option>
-                    <option value="CASH">CASH</option>
-
-                    </select>
-
-
-            </div>
-            <div class="col-md-6">
-                <label  class="form-label"> Type of Payment</label>
-                <!-- <input type="text" class="form-control" id="payment_type" name="payment_type" value=""> -->
-                <select class="form-control" name="type_of_payment" id="type_of_payment" disabled>
-                    <option value="None">...</option>
-
-                    </select>
-
-
-            </div>
-
-            <div class="col-md-6">
-                <label  class="form-label">Project Number:</label>
-                <input type="text" class="form-control" id="project_number" name="project_number" value="" readonly>
-            </div>
-
-
-            <div class="col-md-12">
-                <label  class="form-label">Details of Expenditure:</label>
-                <input type="text" class="form-control" id="details" name="details" value="" style="height:90px;" readonly>
-            </div>
-
-
-            <div class="col-md-4">
-                <label  class="form-label">Quantity:</label>
-                <input type="text" class="form-control" id="qnty" name="qnty" value="" readonly>
-            </div>
-
-            <div class="col-md-4">
-                <label  class="form-label">Unit Amount:</label>
-                <input type="text" class="form-control" id="amount" name="amount" value="" readonly>
-            </div>
-
-            <div class="col-md-4">
-                <label  class="form-label">Total:</label>
-                <input type="text" class="form-control" id="total" name="total" value="" readonly>
-            </div>
-
-
-
-            <hr>
-
-            <div class="col-md-6">
-                <label  class="form-label">Compiled By:</label>
-                <input type="text" class="form-control" id="compiled_by" name="compiled_by" value="" readonly>
-            </div>
-
-            
-            <div class="col-md-6">
-                <label  class="form-label">Date:</label>
-                <input type="text" class="form-control" id="compiled_by_date" name="compiled_by_date" value="" readonly>
-            </div>
-
-            <hr>
-            <div class="col-md-6">
-                <label  class="form-label">Certified By:</label>
-                <input type="text" class="form-control" id="certified_by" name="certified_by" value="" readonly>
-            </div>
-            <div class="col-md-6">
-                <label  class="form-label">Date:</label>
-                <input type="text" class="form-control" id="certified_by_date" name="certified_by_date" value="" readonly>
-            </div>
+           
+           <div class="col-md-6">
+            <label  class="form-label">From Payment Request:</label>
+            <input type="text" class="form-control" id="payment_request_id" name="payment_request_id" value="" readonly>
+        </div>
 
 
 
 
-            <hr>
 
-            <div class="col-md-6">
-                <label  class="form-label">Cleared by Finance Manager:</label>
-                <input type="text" class="form-control" id="cleared_by_fin_man" name="cleared_by_fin_man" value="" readonly>
-            </div>
 
-            <div class="col-md-6">
-                <label  class="form-label">Date:</label>
-                <input type="text" class="form-control" id="cleared_by_fin_man_date" name="cleared_by_fin_man_date" value="" readonly>
-            </div>
+        <div class="col-md-6">
+            <label  class="form-label">Creator:</label>
+            <input type="text" class="form-control" id="creator" name="creator" value="" readonly>
+        </div>
 
-            <div class="col-md-4">
-                <label for="certifier" class="form-label">Profoma Invoice</label>
-                <a id="quotation1" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
-            </div>  
-            <div class="col-md-4">
-                <label for="certifier" class="form-label">Delivery Note</label>
-                <a id="quotation2" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
-            </div>   
-            <div class="col-md-4">
-                <label for="certifier" class="form-label"> POP</label>
-                <a id="pop" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
-            </div>   
-<!-- 
-             <div class="col-md-12">
-                <label for="certifier" class="form-label">Select 2nd Approver </label>
-                <select class="form-control" name="approved_by" id="approved_by">
-                <option value="None">..</option>
 
-                </select>
-            </div> -->
-<!--
-            <div class="col-md-12">
-                <label  class="form-label">Approved by Project Lead/Manager:</label>
-                <input type="text" class="form-control" id="approved_by_project_man" name="approved_by_project_man" value="">
-            </div> -->
+        <div class="col-md-12">
+            <label  class="form-label">Date of Creation:</label>
+            <input type="text" class="form-control" id="date_of_ticket" name="date_of_ticket" value="" readonly>
+        </div>
 
-            <!-- <div class="col-md-6">
-                <label  class="form-label">Date:</label>
-                <input type="text" class="form-control" id="approved_by_project_man_date" name="approved_by_project_man_date" value="">
-            </div> -->
-            
-            <hr>
 
-            <div class="col-md-6">
-                <label  class="form-label">Approved By:</label>
-                <input type="text" class="form-control" id="approved_by" name="approved_by" value="" readonly>
-            </div> 
+        <div class="col-md-4">
+            <label  class="form-label">Status:</label>
+            <input type="text" class="form-control" id="status" name="status" value="" readonly>
+        </div>
 
-            <div class="col-md-6">
-                <label  class="form-label">Date:</label>
-                <input type="text" class="form-control" id="approved_by_date" name="approved_by_date" value="" readonly>
-            </div>
+
+
+        <div class="col-md-6">
+            <label  class="form-label">To Supplier:</label>
+            <input type="text" class="form-control" id="to_name" name="to_name" value="" readonly>
+        </div>
+
+        
+        <div class="col-md-6">
+            <label  class="form-label">Bank Name:</label>
+            <input type="text" class="form-control" id="to_bank_name" name="to_bank_name" value="" readonly>
+        </div>
+
+        <hr>
+        <div class="col-md-6">
+            <label  class="form-label">To Bank Account:</label>
+            <input type="text" class="form-control" id="to_bank_account" name="to_bank_account" value="" readonly>
+        </div>
+        <div class="col-md-6">
+            <label  class="form-label">Amount:</label>
+            <input type="text" class="form-control" id="amount" name="amount" value="" readonly>
+        </div>
+
+
+
+
+        <hr>
+
+        <div class="col-md-6">
+            <label  class="form-label">Narration:</label>
+            <input type="text" class="form-control" id="narration" name="narration" value="" readonly>
+        </div>
+
 
             <hr>
           </form> 
@@ -234,29 +144,40 @@ const url = "https://www.lorkas.co.zw/get_users"
 
     console.log(data)
 
-    $("#purchase_order").val(data['purchase_id']);
-    $('#type_of_payment').append( new Option(data['type_of_payment'],".") );
+    $("#request_id").val(case_id);
+    $("#to_name").val(data['to_name']);
+    $("#to_name_bank").val(data['to_name_bank']);
+    $("#to_name_account").val(data['to_name_account']);
+    // if ( data['pop'] == "#"){
+    //     $('#quotation1').attr('href',"#");
+    //     $("#quotation1").removeAttr("target");
+    // }else{
+    //     $('#quotation1').attr('href',data['pdf1']);
+    // }
 
-    // $("#date_of_request").val(data['type_of_payment']);
-    $("#payee").val(data['payee']);
-    $("#payment_type").val(data['payment_type']);
-    $("#amount").val(data['amount']);
-    $("#project_number").val(data['project_number']);
-   
+    // if ( data['pdf2'] == "#"){
+    //     $('#quotation2').attr('href',"#");
+    //     $("#quotation2").removeAttr("target");
+    // }else{
+    //     $('#quotation2').attr('href',data['pdf2']);
+    // }
 
-    if ( data['pdf1'] == "#"){
-        $('#quotation1').attr('href',"#");
-        $("#quotation1").removeAttr("target");
-    }else{
-        $('#quotation1').attr('href',data['pdf1']);
-    }
+    // if ( data['pop'] == "#"){
+    //     $('#pop').attr('href',"#");
+    //     $("#pop").removeAttr("target");
+    // }else{
+    //     $('#pop').attr('href',data['pop']);
+    // }
 
-    if ( data['pdf2'] == "#"){
-        $('#quotation2').attr('href',"#");
-        $("#quotation2").removeAttr("target");
-    }else{
-        $('#quotation2').attr('href',data['pdf2']);
-    }
+    $("#amount").val(data['amount']); 
+    $("#date_of_ticket").val(data['date_of_ticket']);
+    $("#creator").val(data['creator']);
+
+
+    $("#status").val(data['status']);
+    $("#payment_request_id").val(data['payment_request_id']);
+
+
 
     if ( data['pop'] == "#"){
         $('#pop').attr('href',"#");
@@ -269,26 +190,6 @@ const url = "https://www.lorkas.co.zw/get_users"
 
 
 
-    $('#quotation2').attr('href',data['pdf2']);
-
-    $("#account_code").val(data['account_code']); 
-    $("#details").val(data['details']);
-    // $("#amount ").val(data['pat_name']);
-     $("#qnty").val(data['qnty']);
-    $("#total").val(data['total']);
-    $("#compiled_by").val(data['compiled_by']);
-     $("#compiled_by_date").val(data['compiled_by_date']);
-    $("#certified_by").val(data['certified_by']);
-    $("#certified_by_date").val(data['certified_by_date']);
-
-    $("#cleared_by_fin_man").val(data['cleared_by_fin_man']);
-    $("#cleared_by_fin_man_date").val(data['cleared_by_fin_man_date']);
-
-//     $("#approved_by_project_man").val(data['approved_by_project_man']);
-//     $("#approved_by_project_man_date").val(data['approved_by_project_man_date']);
-
-   $("#approved_by").val(data['approved_by']);
-    $("#approved_by_date").val(data['approved_by_date']);
 
     $('#overlay').fadeOut();
 

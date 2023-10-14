@@ -47,9 +47,13 @@
 </div>
 
 
-<div class="col-md-4">
-    <label  class="form-label">Status:</label>
-    <input type="text" class="form-control" id="status" name="status" value="" readonly>
+<div class="col-md-12">
+    <label for="certifier" class="form-label">Select Status</label>
+    <select class="form-control" name="status" id="status">
+    <option value="processing">Processing</option>
+    <option value="completed">Completed</option>
+
+    </select>
 </div>
 
 
@@ -84,6 +88,21 @@
     <label  class="form-label">Narration:</label>
     <input type="text" class="form-control" id="narration" name="narration" value="" readonly>
 </div>
+
+            <!-- <div class="col-md-12">
+                <label for="certifier" class="form-label">Quotation</label>
+                <a id="quotation" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+            </div>
+ 
+            <div class="col-md-6">
+                <label for="fname" class="form-label"> Accounts Clerk</label>
+                <input type="text" class="form-control" id="accounts_clerk_approved" name="accounts_clerk_approved" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Date</label>
+                <input type="text" class="form-control" id="accounts_clerk_approved_date" name="accounts_clerk_approved_date" value="" readonly >
+            </div> -->
 
           </form>
 
@@ -139,7 +158,7 @@
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "https://www.lorkas.co.zw/procurement_request_get_record"
+                                    const url = "https://www.lorkas.co.zw/procurement_ticket_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -150,8 +169,8 @@
                 
                                 // console.log(data);
 
-                
-    $("#request_id").val(case_id);
+
+                                $("#request_id").val(case_id);
     $("#to_name").val(data['to_name']);
     $("#to_name_bank").val(data['to_name_bank']);
     $("#to_name_account").val(data['to_name_account']);
@@ -185,6 +204,9 @@
     $("#payment_request_id").val(data['payment_request_id']);
 
 
+
+                    // $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
+                //    $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);   
                    $('#overlay').fadeOut();
      
                 }else{
@@ -198,74 +220,68 @@
                         });
                     }
                 
-                    // function sendEdit(){
-                    //     $('#overlay').fadeIn();
+                    function sendEdit(){
+                        $('#overlay').fadeIn();
 
     
-                    //     // var request_id= document.getElementById('request_id').value;
-                    //     // var requester= document.getElementById('requester').value;
-                    //     // var date_of_request= document.getElementById('date_of_request').value;
-                    //     var requesting_dpt= document.getElementById('requesting_dpt').value;
-                    //     var budget_line_item= document.getElementById('budget_line_item').value;
-                    //     var request_justification= document.getElementById('request_justification').value;
+                        // var request_id= document.getElementById('request_id').value;
+                        // var requester= document.getElementById('requester').value;
+                        // var date_of_request= document.getElementById('date_of_request').value;
+                        var status= document.getElementById('status').value;
 
-                    //     var item_number= document.getElementById('item_number').value;
-                    //     var description= document.getElementById('description').value;
-                        
-
-                
-                    //     var name_address_of_supplier= document.getElementById('name_address_of_supplier').value; 
-                    //     var qnty = document.getElementById('qnty').value;
-    
-                    //     var unit_price = document.getElementById('unit_price').value;
-                    //     var total=      document.getElementById('total').value;
-
-                
-                    //     var supervisor_approved = document.getElementById('pi').value;
-                    //     // var supervisor_approved_date= document.getElementById('supervisor_approved_date').value;
-                
-                    //     var accounts_clerk_approved= document.getElementById('accounts_clerk_approved').value;
-                    //     // var accounts_clerk_approved_date= document.getElementById('accounts_clerk_approved_date').value;
       
-                    //         current_url = window.location.href;
-                    //         arr = current_url.split("/");
-                    //         case_id = arr.at(-1);
-                    //     console.log(case_id);
-                    //     if (case_id == "add"){
+                            current_url = window.location.href;
+                            arr = current_url.split("/");
+                            case_id = arr.at(-1);
+                        console.log(case_id);
+                        if (case_id == "add"){
                 
-                    //     const url = "https://www.lorkas.co.zw/purchase_request_clerk_approve";
-                    //     // current_url = window.location.href;
-                    //     // arr = current_url.split("/");
-                    //     // case_id = arr.at(-1);
-                    //     // month_id =arr[arr.length - 2];
-                    //     console.log("after url");
-                    //     const data = {
-                    //         // "request_id": request_id,
-                    //                         "id": case_id,
+                        const url = "https://www.lorkas.co.zw/payment_ticket_edit_record";
+                        // current_url = window.location.href;
+                        // arr = current_url.split("/");
+                        // case_id = arr.at(-1);
+                        // month_id =arr[arr.length - 2];
+                        console.log("after url");
+                        const data = {
+                            // "request_id": request_id,
+                                            "id": case_id,
+                                            "status":status,
 
                 
-                    //                        }
+                                           }
                 
-                    //             console.log("after dict");
-                    //     $.post(url,data, function(data,status){
-                    //     if (data['message']=="success"){
-                    //         alert("success");
-                    //         $('#overlay').fadeOut();
+                                console.log("after dict");
+                        $.post(url,data, function(data,status){
+                        if (data['message']=="success"){
+                            alert("success");
+                            $('#overlay').fadeOut();
 
-                    //         window.location.href="https://www.lorkas.co.zw/purchase_request_all";
-                    //     }else{
-                    //         alert(data['message']);
-                    //         $('#overlay').fadeOut();
+                            if(status == "completed"){
+                                window.location.href="https://www.lorkas.co.zw/payment_ticket_upload_pop/"+data['id'];
 
-                    //         window.location.href="https://www.lorkas.co.zw/purchase_requests_all";
+                                
+
+                            }else{
+
+                                window.location.href="https://www.lorkas.co.zw/payment_tickets_all";
+
+                            }
+
+
+
+                        }else{
+                            alert(data['message']);
+                            $('#overlay').fadeOut();
+
+                            window.location.href="https://www.lorkas.co.zw/payment_tickets_all";
                 
-                    //     }
+                        }
                 
-                    //     });
-                    //     // alert("stop hee");
-                    // }
+                        });
+                        // alert("stop hee");
+                    }
                 
-                    // }
+                    }
                         </script>
                 
                 
