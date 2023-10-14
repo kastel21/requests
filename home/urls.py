@@ -169,9 +169,9 @@ urlpatterns = [
     #payment tickets
     
     path('payment_tickets', views.payment_tickets, name='payment_tickets'),
-    path('payment_tickets_all', views.payment_ticket_all, name='payment_ticket_all'),
-    path('payment_tickets_completed', views.payment_ticket_completed, name='payment_ticket_completed'),
-    path('payment_tickets_pending', views.payment_ticket_pending, name='payment_ticket_pending'),
+    path('payment_tickets_all', views.payment_tickets_all, name='payment_tickets_all'),
+    path('payment_tickets_completed', views.payment_tickets_completed, name='payment_tickets_completed'),
+    path('payment_tickets_pending', views.payment_tickets_pending, name='payment_tickets_pending'),
     path('get_payment_tickets', views.get_payment_tickets, name='get_payment_tickets'),
     path('payment_ticket_add', views.payment_ticket_add, name='payment_ticket_add'),
     path('payment_ticket_send_record', views.payment_ticket_send_record, name='payment_ticket_send_record'),
