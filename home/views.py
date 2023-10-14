@@ -2804,6 +2804,20 @@ def payment_request_edit_record(request):
 #PAYMENT TICKET
 
 # ************************************************************************************************************************
+
+@login_required(login_url='login')
+def payment_tickets(request):
+    return render(request, 'pages/payment_ticket/payment_tickets.html')
+
+@login_required(login_url='login')
+def payment_ticket_add(request):
+      # username = request.user.username
+      # records = PaymentTicket.objects.filter(Q(creator = username) )
+      context = {}
+
+
+      return render(request, 'pages/payment_ticket/add.html', context)
+
 @login_required(login_url='login')
 def payment_ticket_view(request):
       username = request.user.username
