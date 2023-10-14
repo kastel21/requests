@@ -169,8 +169,8 @@ class PaymentRequest(models.Model):
     approved_by= models.CharField(max_length=150, default="None")
     approved_by_date= models.CharField(max_length=250, default="None")
 
-    accepted_by = models.CharField(max_length=150, default="None")
-    accepted_by_date = models.CharField(max_length=150, default="None")
+    accepted = models.CharField(max_length=150, default="None")
+    accepted_date = models.CharField(max_length=150, default="None")
 
 class PaymentTicket(models.Model):
     payment_request_id = models.CharField(max_length=150, default="None")
@@ -182,7 +182,7 @@ class PaymentTicket(models.Model):
     to_name = models.CharField(max_length=150, default="None")
     to_bank_name = models.CharField(max_length=150, default="None")
     to_bank_account = models.CharField(max_length=150, default="None")
-    narration = models.CharField(max_length=150, default="None")
+    narration = models.CharField(max_length=150, default=".")
 
 class PaymentTicketPOP(models.Model):
     payment_ticket_id = models.CharField(max_length=150, default="None")
