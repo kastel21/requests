@@ -2838,7 +2838,7 @@ def payment_ticket_view(request):
       return render(request, 'pages/payment_ticket/list.html', context)
 
 @login_required(login_url='login')
-def payment_ticket_completed(request):
+def payment_tickets_completed(request):
       username = request.user.username
       records = PaymentTicket.objects.filter(Q(creator = username) & Q( status="completed"))
       context = {'records':records}
@@ -2847,7 +2847,7 @@ def payment_ticket_completed(request):
       return render(request, 'pages/payment_ticket/list_completed.html', context)
 
 @login_required(login_url='login')
-def payment_ticket_pending(request):
+def payment_tickets_pending(request):
       username = request.user.username
       records = PaymentTicket.objects.filter(Q(creator = username) )
       context = {'records':records}
