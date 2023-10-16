@@ -2663,6 +2663,9 @@ def payment_request_get_record(request):
           "approved_by_project_man": record.approved_by_project_man,
           "approved_by_project_man_date": record.approved_by_project_man_date,
 
+          "accepted_by": record.accepted_by,
+          "accepted_by_date": record.accepted_by_date,
+
           "approved_by": record.approved_by,
           "approved_by_date": record.approved_by_date,
           "message":"success",

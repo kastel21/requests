@@ -170,6 +170,16 @@
             </div>
 
             <hr>
+
+            <div class="col-md-6">
+                <label  class="form-label">Adopted By:</label>
+                <input type="text" class="form-control" id="accepted_by" name="accepted_by" value="" readonly>
+            </div> 
+
+            <div class="col-md-6">
+                <label  class="form-label">Adoption Date:</label>
+                <input type="text" class="form-control" id="accepted_by_date" name="accepted_by_date" value="" readonly>
+            </div>
           </form> 
 
             <div style="margin-top: 2%;" class="col-md-12">
@@ -263,7 +273,9 @@ const url = "https://www.lorkas.co.zw/get_users"
 
     $("#account_code").val(data['account_code']); 
     $("#details").val(data['details']);
-    // $("#amount ").val(data['pat_name']);
+    $("#accepted_by").val(data['accepted_by']);
+
+    $("#accepted_by_date").val(data['accepted_by_date']);
      $("#qnty").val(data['qnty']);
     $("#total").val(data['total']);
     $("#compiled_by").val(data['compiled_by']);
