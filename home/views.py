@@ -1867,6 +1867,23 @@ def comp_schedule_quotes_upload(request):
 
 # ***********************************************************************************************************************
 # payment request
+
+@login_required(login_url='login')
+@csrf_exempt
+def get_payment_requests(request):
+
+   try:
+      dic = {}
+      # User = get_user_model()
+      schedules = PaymentRequest.objects.filter( accepted_by = request.user.username )
+
+      for schedule in schedules: 
+          dic[schedule.id]= "ID : "+str(schedule.id) +", raised by :"+ schedule.compiled_by+", raised on "+schedule.date_of_request +", amount : "+ schedule.amount
+      return JsonResponse(dic)
+   except Exception as e:
+          return JsonResponse(str(e)) 
+
+
 @login_required(login_url='login')
 def payment_request_all(request):
     username = request.user.username
@@ -2805,6 +2822,7 @@ def payment_request_edit_record(request):
 
 # ************************************************************************************************************************
 
+
 @login_required(login_url='login')
 def payment_tickets(request):
     return render(request, 'pages/payment_ticket/payment_tickets.html')
@@ -2817,6 +2835,7 @@ def payment_tickets_all(request):
 
 
       return render(request, 'pages/payment_ticket/list.html', context)
+
 
 
 @login_required(login_url='login')
@@ -3240,6 +3259,12 @@ def purchase_order_print(request):
         # print(_id)
 
         record = PurchaseOrder.objects.get(id=x)
+        # _id = record.purchase_id
+        # record_purchase_request = PuchaseRequest.objects.get(id=_id)
+        # record_comp_scheuldue  = ComparativeSchedule.objects.get(id=record_purchase_request.request_id)
+
+
+
         
         data = {
         "purchase_id": record.purchase_id,

@@ -172,11 +172,11 @@ urlpatterns = [
     path('payment_tickets_all', views.payment_tickets_all, name='payment_tickets_all'),
     path('payment_tickets_completed', views.payment_tickets_completed, name='payment_tickets_completed'),
     path('payment_tickets_pending', views.payment_tickets_pending, name='payment_tickets_pending'),
-    # path('get_payment_tickets', views.get_payment_tickets, name='get_payment_tickets'),
+    path('payment_tickets_super', views.payment_tickets_super, name='payment_tickets_super'),
     path('payment_ticket_add', views.payment_ticket_add, name='payment_ticket_add'),
     path('payment_ticket_send_record', views.payment_ticket_send_record, name='payment_ticket_send_record'),
 
-    # path('payment_tickets', views.payment_tickets, name='payment_tickets'),
+    path('get_payment_requests', views.get_payment_requests, name='get_payment_requests'),
 
     path('payment_ticket_upload_pop', views.payment_ticket_upload_pop, name='payment_ticket_upload_pop'),
     path('payment_ticket_open_record_for_edit', views.payment_ticket_open_record_for_edit, name='payment_ticket_open_record_for_edit'),
