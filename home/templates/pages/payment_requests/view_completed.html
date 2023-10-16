@@ -396,10 +396,10 @@ window.location.href="https://www.lorkas.co.zw/payment_request_view/"+case_id;
             }
         $.post(url,data, function(data,status){
         if (data['message']=="success"){
-            console.log("success")
+            alert("success");
             window.location.href="https://www.lorkas.co.zw/payment_request_all";
         }else{
-            console.log(data['message'])
+            alert(data['message']);
             window.location.href="https://www.lorkas.co.zw/payment_request_all";
 
         }

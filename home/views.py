@@ -2853,7 +2853,7 @@ def payment_request_adopt(request):
         notice.to = record.compiled_by
         record.save()
 
-        notice.message = " "+ request.user.username +" Approved your Payment Request."
+        notice.message = " "+ request.user.username +" adopted your Payment Request."
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
