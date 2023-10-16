@@ -1904,7 +1904,7 @@ def payment_request_all(request):
 def payment_request_completed(request):
     username = request.user.username
     user_id = request.user.id
-    records = PaymentRequest.objects.filter( completed="1") 
+    records = PaymentRequest.objects.filter( Q(completed="1") & Q(accepted_by_date="None")) 
 
 
 
@@ -2828,6 +2828,43 @@ def payment_request_edit_record(request):
 #PAYMENT TICKET
 
 # ************************************************************************************************************************
+
+
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def payment_request_adopt(request):
+    
+    try:
+      if request.method == "POST":
+        
+        _id = request.POST.get('id',default=None)
+
+          # objs = Record.objects.get(id=_id)
+        record = PaymentRequest.objects.get(id=_id)
+        record.accepted_by = request.user.username
+        # record.certified_by_date = request.user.username
+        d = datetime.datetime.now()
+            # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        record.accepted_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+
+        notice = Notifications()
+        notice.to = record.compiled_by
+        record.save()
+
+        notice.message = " "+ request.user.username +" Approved your Payment Request."
+        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        notice.trigger = request.user.username
+        notice.save()
+
+        return JsonResponse( {'message':"success"})
+      else:
+        return render(request, 'pages/payment_requests/list.html', {})
+
+
+    except:
+       return JsonResponse( {'message':"failed"})
 
 
 @login_required(login_url='login')
