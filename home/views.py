@@ -294,7 +294,7 @@ def purchase_request_get_record(request):
     context={}
     if request.method == "POST":
         _id = request.POST.get('id',default=None)
-        pdf = PuchaseRequestQuotation.objects.get(id=2)
+        pdf = PuchaseRequestQuotation.objects.get(id=0)
 
         try:
           pdf = PuchaseRequestQuotation.objects.get(request_id=_id)
@@ -1767,7 +1767,7 @@ def comp_schedule_open_record(request):
       # print("IN POST")
       return render(request, 'pages/comparative_schedules/view_record.html', context)
     else:
-       redirect("payment_request_all")
+       redirect("comp_schedule_all")
 
 
 @login_required(login_url='login')
