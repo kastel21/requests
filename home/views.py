@@ -1883,6 +1883,13 @@ def get_payment_requests(request):
    except Exception as e:
           return JsonResponse(str(e)) 
 
+@login_required(login_url='login')        
+payment_tickets_super(request):
+    username = request.user.username
+    user_id = request.user.id
+    records = PaymentRequest.objects.filter( Q(compiled_by=username) | Q(certified_by= username) | Q(approved_by=username) | Q(cleared_by_fin_man=username))
+    context = {'records':records}
+    return render(request, 'pages/payment_requests/list2.html', context)
 
 @login_required(login_url='login')
 def payment_request_all(request):
