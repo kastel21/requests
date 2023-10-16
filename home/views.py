@@ -294,7 +294,7 @@ def purchase_request_get_record(request):
     context={}
     if request.method == "POST":
         _id = request.POST.get('id',default=None)
-        pdf = PuchaseRequestQuotation.objects.get(id=0)
+        pdf = PuchaseRequestQuotation.objects.get(id=1)
 
         try:
           pdf = PuchaseRequestQuotation.objects.get(request_id=_id)
