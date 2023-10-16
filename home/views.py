@@ -1884,7 +1884,7 @@ def get_payment_requests(request):
           return JsonResponse(str(e)) 
 
 @login_required(login_url='login')        
-payment_tickets_super(request):
+def payment_tickets_super(request):
     username = request.user.username
     user_id = request.user.id
     records = PaymentRequest.objects.filter( Q(compiled_by=username) | Q(certified_by= username) | Q(approved_by=username) | Q(cleared_by_fin_man=username))
