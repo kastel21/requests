@@ -3748,9 +3748,9 @@ def purchase_order_send_record(request):
           notice.trigger = request.user.username
           notice.message = request.user.username +" has created a Payment Request and assigned you to Certify"
 
-          d = datetime.datetime.now()
-          record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
-          notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+          d1 = datetime.datetime.now()
+          record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d1)
+          notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d1)
           notice.status = "New"
           notice.save()
           # record.approved_by_date= approved_by_date
@@ -3762,7 +3762,7 @@ def purchase_order_send_record(request):
           return JsonResponse( {'message':"success",'id':_id})
 
         except Exception as e  :
-            f= open("service1.txt","w")
+            f= open("service3.txt","w")
             f.write(str(e))
             f.close()
             return JsonResponse({'message':"failed"})
