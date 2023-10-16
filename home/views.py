@@ -864,7 +864,7 @@ def service_request_pending(request):
       records = ServiceRequest.objects.filter( (Q(supervisor_approved=username) & Q (supervisor_approved_date="None") & Q (supervisor_disapproved_date="None"))  )
       context = {'records':records}
 
-      return render(request, 'pages/service_requests/list2.html', context)
+      return render(request, 'pages/service_requests/list_pending.html', context)
 
 @login_required(login_url='login')
 def service_request_approved(request):
