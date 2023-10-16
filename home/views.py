@@ -3715,6 +3715,7 @@ def purchase_order_send_record(request):
           # required_by_date= request.POST.get('required_by_date',default=None)
           
           record = PurchaseOrder()
+          d = datetime.datetime.now()
 
           record.compiled_by = request.user.username
           record.purchase_id= purchase_id
