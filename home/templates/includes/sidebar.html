@@ -101,6 +101,17 @@
 
         </li>
 
+        <li class="pc-item">
+          {% if request.user.is_superuser %}
+          <a href="{% url 'payment_tickets' %}" class="pc-link">
+          {% else %}
+          <a href="{% url 'payment_tickets' %}" class="pc-link">
+          {% endif %}
+            <span class="pc-micon"><i class="ti ti-wallet"></i></span>
+
+            <span class="pc-mtext">Payment Ticket</span></a>
+
+        </li>
 
 
         {% admin_get_menu as app_list %}

@@ -3088,7 +3088,7 @@ def purchase_order_all(request):
     user_id = request.user.id
     # records = PurchaseOrder.objects.all()
 
-    records = PurchaseOrder.objects.filter( Q(ordered_by=username) | Q(required_by= username) | Q(approved_by=username))
+    records = PurchaseOrder.objects.filter( Q(compiled_by=username) | Q(ordered_by=username) | Q(required_by= username) | Q(approved_by=username))
     context = {'records':records}
     return render(request, 'pages/purchase_orders/list.html', context)
 
