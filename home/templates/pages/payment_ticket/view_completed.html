@@ -79,7 +79,10 @@
             <input type="text" class="form-control" id="narration" name="narration" value="" readonly>
         </div>
 
-
+        <div class="col-md-4">
+            <label for="certifier" class="form-label">Proof of Payment</label>
+            <a id="pop" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+        </div>  
             <hr>
           </form> 
 
@@ -171,6 +174,12 @@ const url = "https://www.lorkas.co.zw/get_users"
     //     $('#pop').attr('href',data['pop']);
     // }
 
+    if ( data['pop'] == "#"){
+        $('#pop').attr('href',"#");
+        $("#pop").removeAttr("target");
+    }else{
+        $('#pop').attr('href',data['pop']);
+    }
     $("#amount").val(data['amount']); 
     $("#date_of_ticket").val(data['date_of_ticket']);
     $("#creator").val(data['creator']);

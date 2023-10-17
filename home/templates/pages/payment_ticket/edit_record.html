@@ -243,6 +243,9 @@
                         console.log(case_id);
                         if (case_id == "add"){
                 
+
+                        // alert("stop hee");
+                    }else{
                         const url = "https://www.lorkas.co.zw/payment_ticket_edit_record";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
@@ -253,17 +256,18 @@
                             // "request_id": request_id,
                                             "id": case_id,
                                             "status":status,
-
-                
                                            }
                 
                                 console.log("after dict");
-                        $.post(url,data, function(data,status){
+                        $.post(url,data, function(data,status1){
+
                         if (data['message']=="success"){
                             alert("success");
                             $('#overlay').fadeOut();
+                            console.log(status);
 
                             if(status == "completed"){
+
                                 window.location.href="https://www.lorkas.co.zw/payment_ticket_upload_pop/"+data['id'];
 
                                 
@@ -285,7 +289,8 @@
                         }
                 
                         });
-                        // alert("stop hee");
+
+
                     }
                 
                     }

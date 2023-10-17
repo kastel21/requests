@@ -77,6 +77,9 @@ urlpatterns = [
     path('payment_request_delivery_note_upload', views.payment_request_delivery_note_upload, name='payment_request_delivery_note_upload'),
     path('payment_request_adopt', views.payment_request_adopt, name='payment_request_adopt'),
 
+    re_path('payment_ticket_edit_record', views.payment_ticket_edit_record, name='payment_ticket_edit_record'),
+
+
     path('payment_request_completed', views.payment_request_completed, name='payment_request_completed'),
     re_path('payment_request_open_approved', views.payment_request_open_approved, name='payment_request_open_approved'),
     re_path('payment_request_kas_completed', views.payment_request_kas_completed, name='payment_request_kas_completed'),
@@ -180,7 +183,7 @@ urlpatterns = [
 
     path('get_payment_requests', views.get_payment_requests, name='get_payment_requests'),
 
-    path('payment_ticket_upload_pop', views.payment_ticket_upload_pop, name='payment_ticket_upload_pop'),
+    re_path('payment_ticket_upload_pop', views.payment_ticket_upload_pop, name='payment_ticket_upload_pop'),
     re_path('payment_ticket_open_record_for_edit', views.payment_ticket_open_record_for_edit, name='payment_ticket_open_record_for_edit'),
     re_path('payment_ticket_open_record', views.payment_ticket_open_record, name='payment_ticket_open_record'),
 

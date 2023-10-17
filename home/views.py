@@ -2971,6 +2971,7 @@ def payment_ticket_open_record_for_edit(request):
 
 
 @login_required(login_url="login")
+@csrf_exempt
 def payment_ticket_edit_record(request):
       finance = False
 
@@ -2989,8 +2990,7 @@ def payment_ticket_edit_record(request):
       record = PaymentTicket.objects.get(id=_id)
       record.status = status
       record.save()
-      context = {'record':record, "finance":finance, 'id':record.pk,'message':"success"}
-      return JsonResponse(context)
+      return JsonResponse({"message":"success","id":record.pk})
 
 
 @login_required(login_url='login')
@@ -3005,7 +3005,7 @@ def payment_ticket_get_record(request):
         pdf = PaymentTicketPOP.objects.get(id=1)
 
         try:
-          pdf = PaymentTicketPOP.objects.get(payment_ticket_id=record.payment_ticket_id)
+          pdf = PaymentTicketPOP.objects.get(payment_ticket_id=_id)
         except:
           pass
         dic = {
