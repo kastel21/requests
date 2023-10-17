@@ -4145,16 +4145,20 @@ def transcript(request):
         # print(_id)
 
         record1 = PaymentTicket.objects.get(id=x)
-
         _id = record1.payment_request_id
 
         record2 = PaymentRequest.objects.get(id=_id)
-
         _id2 = record2.purchase_id
 
         record = PurchaseOrder.objects.get(id=_id2)
-        # record_purchase_request = PuchaseRequest.objects.get(id=_id)
-        # record_comp_scheuldue  = ComparativeSchedule.objects.get(id=record_purchase_request.request_id)
+        _id3 = record3.purchase_id
+
+        record4 = PuchaseRequest.objects.get(id=_id3)
+        _id4 = record4.schedule_id
+
+        record5 = ComparativeSchedule.objects.get(id=_id4)
+        _id5 = record5.request_id
+       
 
         data = {
            
@@ -4209,6 +4213,65 @@ def transcript(request):
         "ordered_by":record.ordered_by,
         "required_by":record.required_by,
         "approved_by":record.approved_by,
+
+        #COMPARATIVE SCHEDULE STUFF
+        "service_request": record.service_request,
+        "request_id": record.request_id,
+        "payee": record.payee,
+
+        "company_name_supplier1": record.company_name_supplier1,
+        "company_name_supplier2": record.company_name_supplier2,
+        "company_name_supplier3": record.company_name_supplier3,
+
+        "item_number_supplier1": record.item_number_supplier1,
+        "item_number_supplier2": record.item_number_supplier2,
+        "item_number_supplier3": record.item_number_supplier3,
+
+        "desc_supplier1": record.desc_supplier1,
+        "desc_supplier2": record.desc_supplier2,
+        "desc_supplier3": record.desc_supplier3,
+
+        "qnty_supplier1": record.qnty_supplier1,
+        "qnty_supplier2": record.qnty_supplier2,
+        "qnty_supplier3": record.qnty_supplier3,
+
+        "unit_price_supplier1": record.unit_price_supplier1,
+        "unit_price_supplier2": record.unit_price_supplier2,
+        "unit_price_supplier3": record.unit_price_supplier3,
+
+        "total_price_supplier1": record.total_price_supplier1,
+        "total_price_supplier2": record.total_price_supplier2,
+        "total_price_supplier3": record.total_price_supplier3,
+
+        "requested_by": record.requested_by,
+        "requested_by_sig": record.requested_by_sig,
+        "requested_by_date": record.requested_by_date,
+
+        "tech_person_by": record.tech_person_by,
+        "tech_person_by_sig": record.tech_person_by_sig,
+        "tech_person_date": record.tech_person_date,
+
+        "dpt_head_by": record.dpt_head_by,
+        "dpt_head_by_sig": record.dpt_head_by_sig,
+        "dpt_head_date": record.dpt_head_date,
+
+        "team_lead_by": record.team_lead_by,
+        "team_lead_by_sig": record.team_lead_by_sig,
+        "team_lead_date": record.team_lead_date,
+
+        "approved_by": record.approved_by,
+        "approved_by_sig": record.approved_by_sig,
+        "approved_date": record.approved_date,
+
+        "recommended_supplier": record.recommended_supplier,
+        "recommended_supplier_reason": record.recommended_supplier_reason,
+
+        "upload_name": record.upload_name,
+
+        "dpt_project_requesting": record.dpt_project_requesting,
+
+        "project_number": record.project_number,
+
         
         "message":"success"}   
 
