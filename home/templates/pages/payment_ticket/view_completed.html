@@ -1,0 +1,330 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock title %}
+{% block content %}
+
+
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    <div class="pc-content">
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+       
+        <form class="row g-3">
+            <div id="overlay">
+                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
+                
+           </div>
+
+           
+           <div class="col-md-6">
+            <label  class="form-label">From Payment Request:</label>
+            <input type="text" class="form-control" id="payment_request_id" name="payment_request_id" value="" readonly>
+        </div>
+
+
+
+
+
+
+        <div class="col-md-6">
+            <label  class="form-label">Creator:</label>
+            <input type="text" class="form-control" id="creator" name="creator" value="" readonly>
+        </div>
+
+
+        <div class="col-md-12">
+            <label  class="form-label">Date of Creation:</label>
+            <input type="text" class="form-control" id="date_of_ticket" name="date_of_ticket" value="" readonly>
+        </div>
+
+
+        <div class="col-md-4">
+            <label  class="form-label">Status:</label>
+            <input type="text" class="form-control" id="status" name="status" value="" readonly>
+        </div>
+
+
+
+        <div class="col-md-6">
+            <label  class="form-label">To Supplier:</label>
+            <input type="text" class="form-control" id="to_name" name="to_name" value="" readonly>
+        </div>
+
+        
+        <div class="col-md-6">
+            <label  class="form-label">Bank Name:</label>
+            <input type="text" class="form-control" id="to_bank_name" name="to_bank_name" value="" readonly>
+        </div>
+
+        <hr>
+        <div class="col-md-6">
+            <label  class="form-label">To Bank Account:</label>
+            <input type="text" class="form-control" id="to_bank_account" name="to_bank_account" value="" readonly>
+        </div>
+        <div class="col-md-6">
+            <label  class="form-label">Amount:</label>
+            <input type="text" class="form-control" id="amount" name="amount" value="" readonly>
+        </div>
+
+
+
+
+        <hr>
+
+        <div class="col-md-6">
+            <label  class="form-label">Narration:</label>
+            <input type="text" class="form-control" id="narration" name="narration" value="" readonly>
+        </div>
+
+
+            <hr>
+          </form> 
+
+            <div style="margin-top: 2%;" class="col-md-12">
+                <!-- <a onclick="edit()" class="btn btn-primary"> Edit Record</a> -->
+                <a onclick="print();" id="approve" class="btn btn-primary"> Print </a>
+            </div>
+
+
+
+
+
+
+
+<script  language="JavaScript" type="text/javascript">
+
+
+
+
+// populate the users dropdown
+
+const url = "https://www.lorkas.co.zw/get_users"
+                    const data = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url,data, function(data,status){
+            
+
+                        console.log(data)
+
+                        $.each(data, function(val, text) {
+                            $('#approved_by').append( new Option(text,val) );
+                        });
+
+        });
+
+    
+
+
+
+
+
+
+
+
+// populating the already existing records
+
+            current_url = window.location.href;
+                        arr = current_url.split("/");
+                        case_id = arr.at(-1);
+                    console.log(case_id);
+                    if (case_id == "add"){}else{
+                    const url = "https://www.lorkas.co.zw/payment_ticket_get_record"
+                    const data = {
+                      'id':case_id,
+                    }
+            
+                      $.post(url,data, function(data,status){
+            
+            if (data['message']=="success"){
+
+    console.log(data)
+
+    $("#payment_request_id").val(data['payment_request_id']);
+    $("#to_name").val(data['to_name']);
+    $("#narration").val(data['narration']);
+
+    $("#to_bank_name").val(data['to_bank_name']);
+    $("#to_bank_account").val(data['to_bank_account']);
+    // if ( data['pop'] == "#"){
+    //     $('#quotation1').attr('href',"#");
+    //     $("#quotation1").removeAttr("target");
+    // }else{
+    //     $('#quotation1').attr('href',data['pdf1']);
+    // }
+
+    // if ( data['pdf2'] == "#"){
+    //     $('#quotation2').attr('href',"#");
+    //     $("#quotation2").removeAttr("target");
+    // }else{
+    //     $('#quotation2').attr('href',data['pdf2']);
+    // }
+
+    // if ( data['pop'] == "#"){
+    //     $('#pop').attr('href',"#");
+    //     $("#pop").removeAttr("target");
+    // }else{
+    //     $('#pop').attr('href',data['pop']);
+    // }
+
+    $("#amount").val(data['amount']); 
+    $("#date_of_ticket").val(data['date_of_ticket']);
+    $("#creator").val(data['creator']);
+
+
+    $("#status").val(data['status']);
+    $("#payment_request_id").val(data['payment_request_id']);
+
+
+
+    if ( data['pop'] == "#"){
+        $('#pop').attr('href',"#");
+        $("#pop").removeAttr("target");
+    }else{
+        $('#pop').attr('href',data['pop']);
+    }
+
+
+
+
+
+
+    $('#overlay').fadeOut();
+
+  
+    
+                
+        }else{
+            alert(data['message']);
+            $('#overlay').fadeOut();
+
+            window.location.href="/payment_request_all";
+
+        }
+
+        });
+
+    }
+
+
+
+    function print(){
+
+current_url = window.location.href;
+                    arr = current_url.split("/");
+                    case_id = arr.at(-1);
+
+window.location.href="https://www.lorkas.co.zw/payment_request_print/"+case_id;
+
+
+
+}
+
+
+function pop(){
+
+    current_url = window.location.href;
+                    arr = current_url.split("/");
+                    case_id = arr.at(-1);
+window.location.href="https://www.lorkas.co.zw/payment_request_pop_upload/"+case_id;
+
+
+
+
+// current_url = window.location.href;
+//             arr = current_url.split("/");
+//             case_id = arr.at(-1);
+//             console.log(case_id);
+
+//         const url = "https://www.lorkas.co.zw/payment_request_approve";
+//         const data={
+//                 // "clear":document.getElementById('cleared_by').value,
+//                 "id":case_id,
+
+//             }
+//         $.post(url,data, function(data,status){
+//         if (data['message']=="success"){
+//             console.log("success")
+//             window.location.href="https://www.lorkas.co.zw/payment_request_all";
+//         }else{
+//             console.log(data['message'])
+//             window.location.href="https://www.lorkas.co.zw/payment_request_all";
+
+//         }
+
+//         });
+
+
+
+
+
+
+}
+
+function edit(){
+
+current_url = window.location.href;
+                    arr = current_url.split("/");
+                    case_id = arr.at(-1);
+window.location.href="https://www.lorkas.co.zw/payment_request_view/"+case_id;
+
+
+
+}
+
+
+    function sendEdit(){
+        $('#approve').prop('disabled', true);
+
+
+            current_url = window.location.href;
+            arr = current_url.split("/");
+            case_id = arr.at(-1);
+            console.log(case_id);
+
+        const url = "https://www.lorkas.co.zw/payment_request_approve";
+        const data={
+                // "clear":document.getElementById('cleared_by').value,
+                "id":case_id,
+
+            }
+        $.post(url,data, function(data,status){
+        if (data['message']=="success"){
+            console.log("success")
+            window.location.href="https://www.lorkas.co.zw/payment_request_all";
+        }else{
+            console.log(data['message'])
+            window.location.href="https://www.lorkas.co.zw/payment_request_all";
+
+        }
+
+        });
+        // alert("stop hee");
+
+
+
+    }
+
+        </script>
+
+
+
+
+{% endblock content %} 
+   
+     
+     
+     
+     
+   
+     
+     
+
+    
+    
+
+    

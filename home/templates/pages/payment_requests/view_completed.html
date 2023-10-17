@@ -173,7 +173,12 @@
             <hr>
           </form> 
 
-            <div style="margin-top: 2%;" class="col-md-12">
+          <div style="margin-top: 2%;" class="col-md-6">
+            <!-- <a onclick="edit()" class="btn btn-primary"> Edit Record</a> -->
+            <a onclick="adopt();" id="adopt" class="btn btn-primary"> Adopt </a>
+        </div>
+
+            <div style="margin-top: 2%;" class="col-md-6">
                 <!-- <a onclick="edit()" class="btn btn-primary"> Edit Record</a> -->
                 <a onclick="print();" id="approve" class="btn btn-primary"> Print </a>
             </div>
@@ -374,7 +379,7 @@ window.location.href="https://www.lorkas.co.zw/payment_request_view/"+case_id;
 }
 
 
-    function sendEdit(){
+    function adopt(){
         $('#approve').prop('disabled', true);
 
 
@@ -383,7 +388,7 @@ window.location.href="https://www.lorkas.co.zw/payment_request_view/"+case_id;
             case_id = arr.at(-1);
             console.log(case_id);
 
-        const url = "https://www.lorkas.co.zw/payment_request_approve";
+        const url = "https://www.lorkas.co.zw/payment_request_adopt";
         const data={
                 // "clear":document.getElementById('cleared_by').value,
                 "id":case_id,
@@ -391,10 +396,10 @@ window.location.href="https://www.lorkas.co.zw/payment_request_view/"+case_id;
             }
         $.post(url,data, function(data,status){
         if (data['message']=="success"){
-            console.log("success")
+            alert("success");
             window.location.href="https://www.lorkas.co.zw/payment_request_all";
         }else{
-            console.log(data['message'])
+            alert(data['message']);
             window.location.href="https://www.lorkas.co.zw/payment_request_all";
 
         }

@@ -41,39 +41,36 @@
             </div>
                     <p></p>
                    
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label for="fname" class="form-label">Name:</label>
                 <input type="text" class="form-control" id="name" name="name" value="">
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label for="fname" class="form-label">Contact Person</label>
                 <input type="text" class="form-control" id="contact_person" name="contact_person" value="">
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label for="lname" class="form-label">Contact Number</label>
                 <input type="text" class="form-control" id="contact_number" name="contact_number" value="">
             </div>
 
             <p></p>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label for="fname" class="form-label">Address</label>
                 <input type="text" class="form-control" id="address" name="Address" value="">
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label for="fname" class="form-label">Project:</label>
                 <input type="text" class="form-control" id="project" name="project" value="">
             </div>
 
-            <div class="col-md-4">
-                <label for="lname" class="form-label">Date:</label>
-                <input type="date" class="form-control" id="date" name="date" value="">
-            </div>
 
-            <div class="col-md-4">
+
+            <div class="col-md-6">
                 <label for="lname" class="form-label">Budget Line Item:</label>
                 <input type="text" class="form-control" id="budget_line_item" name="budget_line_item" value="">
             </div>
@@ -81,32 +78,33 @@
 
             <p></p>
 
-            <div class="col-md-1">
+            <div class="col-md-3">
                 <label for="fname" class="form-label">Item:</label>
                 <input type="text" class="form-control" id="item" name="item" value=""></input>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label for="lname" class="form-label">Dept:</label>
                 <input type="text" class="form-control" id="dept" name="dept" value="">
             </div>
             
-            <div class="col-md-1">
+            <div class="col-md-3">
                 <label for="fname" class="form-label">Quantity:</label>
                 <input type="number" class="form-control" id="quantity" name="quantity" value="">
             </div>
 
-            <div class="col-md-4">
+
+            <div class="col-md-8">
                 <label for="lname" class="form-label">Description:</label>
                 <textarea type="text" class="form-control" id="description" name="description" value=""></textarea>
             </div>
             
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <label for="fname" class="form-label">Unit Cost:</label>
                 <input type="number" class="form-control" id="unit_cost" name="unit_cost" value="">
             </div>
 
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <label for="fname" class="form-label">Total:</label>
                 <input type="number" class="form-control" id="total_cost" name="total_cost" value="">
             </div>
@@ -132,7 +130,7 @@
                 </select>
             </div>
             <div class="col-md-4">
-                <label for="certifier" class="form-label">Approved By:</label>
+                <label for="certifier" class="form-label">To be Approved By:</label>
                 <select class="form-control" name="approved_by" id="approved_by">
                 <option value="None">..</option>
 
@@ -215,7 +213,7 @@ console.log(data1)
                         var contact_number= document.getElementById('contact_number').value;
                         var address= document.getElementById('address').value;
                         var project= document.getElementById('project').value; 
-                        var date = document.getElementById('date').value;
+                        // var date = document.getElementById('date').value;
                         var budget_line_item = document.getElementById('budget_line_item').value;
 
                         var item=document.getElementById('item').value;
@@ -251,7 +249,7 @@ console.log(data1)
                                             "contact_number":contact_number,
                                             "address": address,
                                             "project":project,
-                                            "date": date,
+                                            // "date": date,
                                             "budget_line_item": budget_line_item,
 
                                             "id": case_id,

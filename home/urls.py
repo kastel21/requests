@@ -75,6 +75,7 @@ urlpatterns = [
     path('payment_request_clear', views.payment_request_clear, name='payment_request_clear'),
     path('payment_request_approve', views.payment_request_approve, name='payment_request_approve'),
     path('payment_request_delivery_note_upload', views.payment_request_delivery_note_upload, name='payment_request_delivery_note_upload'),
+    path('payment_request_adopt', views.payment_request_adopt, name='payment_request_adopt'),
 
     path('payment_request_completed', views.payment_request_completed, name='payment_request_completed'),
     re_path('payment_request_open_approved', views.payment_request_open_approved, name='payment_request_open_approved'),
@@ -166,6 +167,22 @@ urlpatterns = [
     path('service_request_print', views.service_request_print, name='service_request_print'),
     re_path('service_request_print', views.service_request_print, name='service_request_print'),
 
+    #payment tickets
+    
+    path('payment_tickets', views.payment_tickets, name='payment_tickets'),
+    path('payment_tickets_all', views.payment_tickets_all, name='payment_tickets_all'),
+    path('payment_tickets_completed', views.payment_tickets_completed, name='payment_tickets_completed'),
+    path('payment_tickets_pending', views.payment_tickets_pending, name='payment_tickets_pending'),
+    path('payment_tickets_super', views.payment_tickets_super, name='payment_tickets_super'),
+    path('payment_ticket_add', views.payment_ticket_add, name='payment_ticket_add'),
+    path('payment_ticket_send_record', views.payment_ticket_send_record, name='payment_ticket_send_record'),
+    path('payment_ticket_get_record', views.payment_ticket_get_record, name='payment_ticket_get_record'),
+
+    path('get_payment_requests', views.get_payment_requests, name='get_payment_requests'),
+
+    path('payment_ticket_upload_pop', views.payment_ticket_upload_pop, name='payment_ticket_upload_pop'),
+    re_path('payment_ticket_open_record_for_edit', views.payment_ticket_open_record_for_edit, name='payment_ticket_open_record_for_edit'),
+    re_path('payment_ticket_open_record', views.payment_ticket_open_record, name='payment_ticket_open_record'),
 
     #procurement request
     path('procurement_requests', views.procurement_requests, name='procurement_requests'),
@@ -221,6 +238,10 @@ urlpatterns = [
 
     path('purchase_order_print', views.purchase_order_print, name='purchase_order_print'),
     re_path('purchase_order_print', views.purchase_order_print, name='purchase_order_print'),
+
+    path('transcript', views.transcript, name='transcript'),
+
+
 
 
 

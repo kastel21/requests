@@ -82,7 +82,7 @@
                                     <tr>
                                         <form method="POST" action="payment_request_kas_completed/{{record.id}}">
                                             {% csrf_token %}
-                                            <input style="" type="text" name="id" id="id" value="{{record.id}}" />
+                                            <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
                                             <td> <input type="submit" value="{{record.id }}" /> </td>
 
                                         </form>
@@ -98,6 +98,11 @@
                                 {% endfor %}
 
                             </table>
+
+
+
+
+                            
 
             </div>
         </div>
