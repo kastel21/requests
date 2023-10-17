@@ -260,11 +260,14 @@
                 
                                 console.log("after dict");
                         $.post(url,data, function(data,status){
+
                         if (data['message']=="success"){
                             alert("success");
                             $('#overlay').fadeOut();
+                            console.log(status);
 
                             if(status == "completed"){
+
                                 window.location.href="https://www.lorkas.co.zw/payment_ticket_upload_pop/"+data['id'];
 
                                 
