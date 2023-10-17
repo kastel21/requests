@@ -4146,7 +4146,7 @@ def transcript(request):
 
         record1 = PaymentTicket.objects.get(id=x)
 
-        _id = record1.purchase_id
+        _id = record1.payment_request_id
 
         record2 = PaymentRequest.objects.get(id=_id)
 
