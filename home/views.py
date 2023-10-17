@@ -2878,7 +2878,7 @@ def payment_tickets(request):
 def payment_tickets_all(request):
       username = request.user.username
       records = PaymentTicket.objects.filter(Q(creator = username) )
-      context = {}
+      context = {"records":records}
 
 
       return render(request, 'pages/payment_ticket/list.html', context)
@@ -2915,7 +2915,7 @@ def payment_tickets_completed(request):
 @login_required(login_url='login')
 def payment_tickets_pending(request):
       username = request.user.username
-      records = PaymentTicket.objects.filter(Q(creator = username) )
+      records = PaymentTicket.objects.filter(Q(creator = username) & ~Q(status="completed"))
       context = {'records':records}
 
 
