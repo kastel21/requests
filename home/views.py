@@ -4144,15 +4144,50 @@ def transcript(request):
         # _id = request.POST.get(x)
         # print(_id)
 
-        record = PurchaseOrder.objects.get(id=x)
-        # _id = record.purchase_id
+        
+        record1 = PaymentTicket.objects.get(id=x)
+
+        _id = record.purchase_id
+
+        record2 = PaymentRequest.objects.get(id=_id)
+
+        record = PurchaseOrder.objects.get(id=record2)
         # record_purchase_request = PuchaseRequest.objects.get(id=_id)
         # record_comp_scheuldue  = ComparativeSchedule.objects.get(id=record_purchase_request.request_id)
 
-
-
-        
         data = {
+           
+        #PAYMENT TICKET STUFF
+        "payment_request_id": record1.payment_request_id,
+        "creator":record1.creator,
+        "date_of_ticket": record1.date_of_ticket,
+        "status":record1.status, 
+        "amount":record1.amount,
+        "to_name":record1.to_name,
+        "to_bank_name":record1.to_bank_name,
+        "to_bank_account":record1.to_bank_account,
+        "narration":record1.narration,
+
+        #PAYMENT REQUEST STUFF
+        "payee": record2.payee,
+        "compiled_by": record2.compiled_by,
+        "date_of_request": record2.date_of_request,
+        "payment_type": record2.payment_type,
+        "project_number": record2.project_number,
+        "account_code": record2.account_code,
+        "details": record2.details,
+        "amount": record2.amount,
+        "total": record2.total,
+        "certified_by": record2.certified_by,
+        "certified_by_date": record2.certified_by_date,
+        "cleared_by_fin_man": record2.cleared_by_fin_man,
+        "cleared_by_fin_man_date": record2.cleared_by_fin_man_date,
+        "approved_by_project_man": record2.approved_by_project_man,
+        "approved_by_project_man_date": record2.approved_by_project_man_date,
+        "approved_by": record2.approved_by,
+        "approved_by_date": record2.approved_by_date,
+           
+      #PURCHASE ORDER STUFF
         "purchase_id": record.purchase_id,
 
         "name": record.name,
