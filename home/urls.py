@@ -181,6 +181,7 @@ urlpatterns = [
 
     path('payment_ticket_upload_pop', views.payment_ticket_upload_pop, name='payment_ticket_upload_pop'),
     path('payment_ticket_open_record_for_edit', views.payment_ticket_open_record_for_edit, name='payment_ticket_open_record_for_edit'),
+    path('payment_ticket_open_record', views.payment_ticket_open_record, name='payment_ticket_open_record'),
 
     #procurement request
     path('procurement_requests', views.procurement_requests, name='procurement_requests'),
