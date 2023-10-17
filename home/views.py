@@ -3005,7 +3005,7 @@ def payment_ticket_get_record(request):
         pdf = PaymentTicketPOP.objects.get(id=1)
 
         try:
-          pdf = PaymentTicketPOP.objects.get(payment_ticket_id=record.payment_ticket_id)
+          pdf = PaymentTicketPOP.objects.get(payment_ticket_id=_id)
         except:
           pass
         dic = {
