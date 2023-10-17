@@ -1,9 +1,20 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>Comparative schedule</title>
+        <title>Transcript Schedule</title>
     <style type="">
         .border-class { border-bottom-color: grey; border-bottom-style: solid; border-bottom-width: 1px; }
+        @media print {
+  h2 { 
+    page-break-before: always;
+  }
+  h3, h4 {
+    page-break-after: avoid;
+  }
+  pre, blockquote {
+    page-break-inside: avoid;
+  }
+}
 @page {
         border-collapse: separate;
         size: letter portrait;
@@ -142,7 +153,7 @@ body {
             <p></p>
             <p></p>
             <br>
-            <h3 style="text-align: center; margin-bottom: -10px; margin-top:15px;">Payment Request </h3>
+            <h2 style="text-align: center; margin-bottom: -10px; margin-top:15px;">Payment Request </h2>
             <br>
             <br>
             
