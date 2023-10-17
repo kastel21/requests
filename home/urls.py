@@ -176,6 +176,7 @@ urlpatterns = [
     path('payment_tickets_super', views.payment_tickets_super, name='payment_tickets_super'),
     path('payment_ticket_add', views.payment_ticket_add, name='payment_ticket_add'),
     path('payment_ticket_send_record', views.payment_ticket_send_record, name='payment_ticket_send_record'),
+    path('payment_ticket_get_record', views.payment_ticket_get_record, name='payment_ticket_get_record'),
 
     path('get_payment_requests', views.get_payment_requests, name='get_payment_requests'),
 
