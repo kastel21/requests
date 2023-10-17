@@ -4176,7 +4176,7 @@ def transcript(request):
         
         "message":"success"}   
 
-        pdf = render_to_pdf('pages/purchase_orders/print.html', data)
+        pdf = render_to_pdf('pages/transcript.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
     
     # return render(request,'transcript.html')
