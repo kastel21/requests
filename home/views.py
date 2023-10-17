@@ -4144,7 +4144,6 @@ def transcript(request):
         # _id = request.POST.get(x)
         # print(_id)
 
-        
         record1 = PaymentTicket.objects.get(id=x)
 
         _id = record1.purchase_id
