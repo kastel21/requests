@@ -4150,7 +4150,9 @@ def transcript(request):
 
         record2 = PaymentRequest.objects.get(id=_id)
 
-        record = PurchaseOrder.objects.get(id=record2)
+        _id2 = record2.purchase_id
+
+        record = PurchaseOrder.objects.get(id=_id2)
         # record_purchase_request = PuchaseRequest.objects.get(id=_id)
         # record_comp_scheuldue  = ComparativeSchedule.objects.get(id=record_purchase_request.request_id)
 
