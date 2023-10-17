@@ -1904,7 +1904,7 @@ def payment_request_all(request):
 def payment_request_completed(request):
     username = request.user.username
     user_id = request.user.id
-    records = PaymentRequest.objects.filter( Q(completed="1") & Q(accepted_by_date="None")) 
+    records = PaymentRequest.objects.filter( Q( Q(completed="1") & Q(accepted_by_date="None")) )  
 
 
 
