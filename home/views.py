@@ -2971,6 +2971,7 @@ def payment_ticket_open_record_for_edit(request):
 
 
 @login_required(login_url="login")
+@csrf_exempt
 def payment_ticket_edit_record(request):
       finance = False
 
