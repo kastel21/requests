@@ -2990,8 +2990,7 @@ def payment_ticket_edit_record(request):
       record = PaymentTicket.objects.get(id=_id)
       record.status = status
       record.save()
-      context = {'record':record, "finance":finance, 'id':record.pk,'message':"success"}
-      return JsonResponse(context)
+      return JsonResponse({"message":"success","id":record.pk})
 
 
 @login_required(login_url='login')
