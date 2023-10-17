@@ -3059,7 +3059,7 @@ def payment_ticket_send_record(request):
           amount= request.POST.get('amount',default=None)
           # approved_by_date= request.POST.get('approved_by_date',default=None)
 
-          record = PaymentRequest()
+          record = PaymentTicket()
 
           record.creator = request.user.username
           record.status= status
