@@ -3048,6 +3048,7 @@ def payment_ticket_send_record(request):
 
 
 
+          d = datetime.datetime.now()
 
           narration= request.POST.get('narration',default=None)
           to_bank_account= request.POST.get('to_bank_account',default=None)
