@@ -77,6 +77,9 @@ urlpatterns = [
     path('payment_request_delivery_note_upload', views.payment_request_delivery_note_upload, name='payment_request_delivery_note_upload'),
     path('payment_request_adopt', views.payment_request_adopt, name='payment_request_adopt'),
 
+    re_path('payment_ticket_edit_record', views.payment_ticket_edit_record, name='payment_ticket_edit_record'),
+
+
     path('payment_request_completed', views.payment_request_completed, name='payment_request_completed'),
     re_path('payment_request_open_approved', views.payment_request_open_approved, name='payment_request_open_approved'),
     re_path('payment_request_kas_completed', views.payment_request_kas_completed, name='payment_request_kas_completed'),
