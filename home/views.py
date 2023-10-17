@@ -2557,13 +2557,13 @@ def payment_request_approved(request):
     context = {'records':records}
     return render(request, 'pages/payment_requests/list_approved.html', context)
 
-@login_required(login_url='login')
-def payment_request_completed(request):
-    username = request.user.username
+# @login_required(login_url='login')
+# def payment_request_completed(request):
+#     username = request.user.username
 
-    records = PaymentRequest.objects.filter( (Q(approved_by=username) & ~Q(approved_by_date="None") ) | (Q(compiled_by=username) & ~Q(approved_by_date="None") ) |  (Q(certified_by=username) & ~Q(approved_by_date="None") ) | (Q(cleared_by_fin_man=username) & ~Q(approved_by_date="None") )  )
-    context = {'records':records}
-    return render(request, 'pages/payment_requests/list_completed.html', context)
+#     records = PaymentRequest.objects.filter( (Q(approved_by=username) & ~Q(approved_by_date="None") ) | (Q(compiled_by=username) & ~Q(approved_by_date="None") ) |  (Q(certified_by=username) & ~Q(approved_by_date="None") ) | (Q(cleared_by_fin_man=username) & ~Q(approved_by_date="None") )  )
+#     context = {'records':records}
+#     return render(request, 'pages/payment_requests/list_completed.html', context)
 
 
 @login_required(login_url='login')
