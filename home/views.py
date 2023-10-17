@@ -3013,7 +3013,7 @@ def payment_ticket_get_record(request):
 
           "pop":pdf.pop_path,
 
-          "request_id": record.payment_request_id,
+          "payment_request_id": record.payment_request_id,
 
           "date_of_ticket": record.date_of_ticket,
           "amount": record.amount,
