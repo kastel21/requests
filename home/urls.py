@@ -240,7 +240,7 @@ urlpatterns = [
     re_path('purchase_order_print', views.purchase_order_print, name='purchase_order_print'),
 
     # path('transcript', views.transcript, name='transcript'),
-    re_path('transcript', views.transcript, name='transcript'),
+    re_path('transcript/', views.transcript, name='transcript'),
 
 
 
