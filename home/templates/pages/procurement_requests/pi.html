@@ -170,7 +170,7 @@
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "https://www.lorkas.co.zw/procurement_request_get_record"
+                                    const url = " http://www.lorkas.co.zw/procurement_request_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -226,7 +226,7 @@
 console.log(case_id);
 if (case_id == "add"){}else{
 
-const url = "https://www.lorkas.co.zw/procurement_request_officer_disapprove";
+const url = " http://www.lorkas.co.zw/procurement_request_officer_disapprove";
 // current_url = window.location.href;
 // arr = current_url.split("/");
 // case_id = arr.at(-1);
@@ -243,10 +243,10 @@ const data = {
 $.post(url,data, function(data,status){
 if (data['message']=="success"){
     console.log("success")
-    window.location.href="https://www.lorkas.co.zw/procurement_request_all";
+    window.location.href=" http://www.lorkas.co.zw/procurement_request_all";
 }else{
     console.log(data['message'])
-    window.location.href="https://www.lorkas.co.zw/procurement_requests_all";
+    window.location.href=" http://www.lorkas.co.zw/procurement_requests_all";
 
 }
 
@@ -275,7 +275,7 @@ if (data['message']=="success"){
                         console.log(case_id);
                         if (case_id == "add"){}else{
                 
-                        const url = "https://www.lorkas.co.zw/procurement_request_officer_approve";
+                        const url = " http://www.lorkas.co.zw/procurement_request_officer_approve";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -292,10 +292,10 @@ if (data['message']=="success"){
                         $.post(url,data, function(data,status){
                         if (data['message']=="success"){
                             console.log("success")
-                            window.location.href="https://www.lorkas.co.zw/service_request_all";
+                            window.location.href=" http://www.lorkas.co.zw/service_request_all";
                         }else{
                             console.log(data['message'])
-                            window.location.href="https://www.lorkas.co.zw/service_requests_all";
+                            window.location.href=" http://www.lorkas.co.zw/service_requests_all";
                 
                         }
                 

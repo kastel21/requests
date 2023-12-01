@@ -104,7 +104,7 @@
 
 // populate the users dropdown
 
-const url = "https://www.lorkas.co.zw/get_users"
+const url = " http://www.lorkas.co.zw/get_users"
                     const data = {
                       'id':"case_id",
                     }
@@ -136,7 +136,7 @@ const url = "https://www.lorkas.co.zw/get_users"
                         case_id = arr.at(-1);
                     console.log(case_id);
                     if (case_id == "add"){}else{
-                    const url = "https://www.lorkas.co.zw/payment_ticket_get_record"
+                    const url = " http://www.lorkas.co.zw/payment_ticket_get_record"
                     const data = {
                       'id':case_id,
                     }
@@ -227,7 +227,7 @@ current_url = window.location.href;
                     arr = current_url.split("/");
                     case_id = arr.at(-1);
 
-window.location.href="https://www.lorkas.co.zw/payment_request_print/"+case_id;
+window.location.href=" http://www.lorkas.co.zw/payment_request_print/"+case_id;
 
 
 
@@ -239,7 +239,7 @@ function pop(){
     current_url = window.location.href;
                     arr = current_url.split("/");
                     case_id = arr.at(-1);
-window.location.href="https://www.lorkas.co.zw/payment_request_pop_upload/"+case_id;
+window.location.href=" http://www.lorkas.co.zw/payment_request_pop_upload/"+case_id;
 
 
 
@@ -249,7 +249,7 @@ window.location.href="https://www.lorkas.co.zw/payment_request_pop_upload/"+case
 //             case_id = arr.at(-1);
 //             console.log(case_id);
 
-//         const url = "https://www.lorkas.co.zw/payment_request_approve";
+//         const url = " http://www.lorkas.co.zw/payment_request_approve";
 //         const data={
 //                 // "clear":document.getElementById('cleared_by').value,
 //                 "id":case_id,
@@ -258,10 +258,10 @@ window.location.href="https://www.lorkas.co.zw/payment_request_pop_upload/"+case
 //         $.post(url,data, function(data,status){
 //         if (data['message']=="success"){
 //             console.log("success")
-//             window.location.href="https://www.lorkas.co.zw/payment_request_all";
+//             window.location.href=" http://www.lorkas.co.zw/payment_request_all";
 //         }else{
 //             console.log(data['message'])
-//             window.location.href="https://www.lorkas.co.zw/payment_request_all";
+//             window.location.href=" http://www.lorkas.co.zw/payment_request_all";
 
 //         }
 
@@ -279,7 +279,7 @@ function edit(){
 current_url = window.location.href;
                     arr = current_url.split("/");
                     case_id = arr.at(-1);
-window.location.href="https://www.lorkas.co.zw/payment_request_view/"+case_id;
+window.location.href=" http://www.lorkas.co.zw/payment_request_view/"+case_id;
 
 
 
@@ -295,7 +295,7 @@ window.location.href="https://www.lorkas.co.zw/payment_request_view/"+case_id;
             case_id = arr.at(-1);
             console.log(case_id);
 
-        const url = "https://www.lorkas.co.zw/payment_request_approve";
+        const url = " http://www.lorkas.co.zw/payment_request_approve";
         const data={
                 // "clear":document.getElementById('cleared_by').value,
                 "id":case_id,
@@ -304,10 +304,10 @@ window.location.href="https://www.lorkas.co.zw/payment_request_view/"+case_id;
         $.post(url,data, function(data,status){
         if (data['message']=="success"){
             console.log("success")
-            window.location.href="https://www.lorkas.co.zw/payment_request_all";
+            window.location.href=" http://www.lorkas.co.zw/payment_request_all";
         }else{
             console.log(data['message'])
-            window.location.href="https://www.lorkas.co.zw/payment_request_all";
+            window.location.href=" http://www.lorkas.co.zw/payment_request_all";
 
         }
 
