@@ -30,15 +30,6 @@
 
 
             <div class="col-md-6">
-                <label for="fname" class="form-label">From Schedule:</label>
-                <input type="text" class="form-control" id="comp_schedule" name="comp_schedule" value="" readonly >
-            </div> 
-
-            <div class="col-md-6">
-                <label for="fname" class="form-label">From Service Request:</label>
-                <input type="text" class="form-control" id="service_request" name="service_request" value="" readonly >
-            </div>
-            <div class="col-md-6">
                 <label for="fname" class="form-label">Requesting Department:</label>
                 <input type="text" class="form-control" id="requesting_dpt" name="requesting_dpt" value="" readonly >
             </div>
@@ -53,16 +44,7 @@
                 <input type="text" class="form-control" id="request_justification" name="request_justification" value="" readonly >
             </div>
 
-            <div class="col-md-6">
-                <label for="fname" class="form-label">Name and address of Supplier:</label>
-                <input type="text" class="form-control" id="name_address_of_supplier" name="name_address_of_supplier" value="" readonly >
-            </div>
 
-            <p></p>
-
-            <center><p style="color:red;">Purchase Request Must be Approved by the DH/PI before a purchase Order is to be issued.</p></center>
-
-            <p></p>
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">QTY:</label>
@@ -70,8 +52,8 @@
             </div>
 
             <div class="col-md-6">
-                <label for="lname" class="form-label">Item No.</label>
-                <input type="text" class="form-control" id="item_number" name="item_number" value="" readonly >
+                <label for="lname" class="form-label">Item Name:</label>
+                <input type="text" class="form-control" id="item_name" name="item_name" value="" readonly >
             </div>
 
             <div class="col-md-12">
@@ -79,17 +61,7 @@
                 <textarea type="text" class="form-control" id="description" name="description" value="" readonly ></textarea>
             </div>
 
-            <p></p>
 
-            <div class="col-md-6">
-                <label for="lname" class="form-label">Unit Price</label>
-                <input type="text" class="form-control" id="unit_price" name="unit_price" value="" readonly >
-            </div>
-            
-            <div class="col-md-6">
-                <label for="fname" class="form-label">Total Price:</label>
-                <input type="text" class="form-control" id="total" name="total" value="" readonly >
-            </div>
 
             <p></p>
 
@@ -107,7 +79,7 @@
 
 
            <div class="col-md-6">
-                <label for="pi" class="form-label"> PI/Supervisor:</label>
+                <label for="pi" class="form-label"> Department Head/Designee:</label>
                 <input type="text" class="form-control" id="pi" name="pi" value="" readonly >
             </div>
 
@@ -119,8 +91,8 @@
 
 
             <div class="col-md-12">
-                <label for="certifier" class="form-label">Select Accounts Clerk</label>
-                <select class="form-control" name="accounts_clerk_approved" id="accounts_clerk_approved">
+                <label for="certifier" class="form-label">Select Finance Officer</label>
+                <select class="form-control" name="finance_officer" id="finance_officer">
                 <option value="None">..</option>
 
                 </select>
@@ -152,7 +124,7 @@
 
 // populate the users dropdown
 
-const url = " http://www.lorkas.co.zw/get_users"
+const url = "  http://127.0.0.1:8000/get_users"
                     const data = {
                       'id':"case_id",
                     }
@@ -164,7 +136,7 @@ console.log(data)
 
 
                         $.each(data, function(val, text) {
-                            $('#accounts_clerk_approved').append( new Option(text,val) );
+                            $('#finance_officer').append( new Option(text,val) );
                         });
 
             
@@ -190,7 +162,7 @@ console.log(data)
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = " http://www.lorkas.co.zw/purchase_request_get_record"
+                                    const url = "  http://127.0.0.1:8000/purchase_request_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -207,14 +179,10 @@ console.log(data)
                     $("#budget_line_item").val(data['budget_line_item']);
                     $("#request_justification").val(data['request_justification']);
                     $("#service_request").val(data['service_request']);
-                                    $("#comp_schedule").val(data['comp_schedule']);
-                    $("#name_address_of_supplier").val(data['name_address_of_supplier']); 
                    
                     $("#qnty").val(data['qnty']);
-                    $("#item_number").val(data['item_number']);
+                    $("#item_name").val(data['item_name']);
                     $("#description").val(data['description']);
-                    $("#unit_price").val(data['unit_price']);
-                    $("#total").val(data['total']);
 
                     $("#pi").val(data['supervisor_approved']);
                     $("#supervisor_approved_date").val(data['supervisor_approved_date']);
@@ -237,8 +205,8 @@ console.log(data)
                 
                         // var supervisor_approved = document.getElementById('pi').value;
                         // var supervisor_approved_date= document.getElementById('supervisor_approved_date').value;
-                
-                        var accounts_clerk_approved= document.getElementById('accounts_clerk_approved').value;
+
+                        var accounts_clerk_approved= $("#finance_officer").val();
                         // var accounts_clerk_approved_date= document.getElementById('accounts_clerk_approved_date').value;
       
                             current_url = window.location.href;
@@ -247,7 +215,7 @@ console.log(data)
                         console.log(case_id);
                         if (case_id == "add"){}else{
                 
-                        const url = " http://www.lorkas.co.zw/purchase_request_pi_approve";
+                        const url = "  http://127.0.0.1:8000/purchase_request_pi_approve";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -256,7 +224,7 @@ console.log(data)
                         const data = {
                                             "id": case_id,
                 
-                                            "clerk": accounts_clerk_approved,
+                                            "finance_officer": accounts_clerk_approved,
                 
                                            }
                 
@@ -266,12 +234,12 @@ console.log(data)
                             console.log("success");
                             alert("success");
 
-                            window.location.href=" http://www.lorkas.co.zw/purchase_request_all";
+                            window.location.href="  http://127.0.0.1:8000/purchase_request_all";
                         }else{
                             console.log(data['message']);
                             alert(data['message']);
 
-                            window.location.href=" http://www.lorkas.co.zw/purchase_requests_all";
+                            window.location.href="  http://127.0.0.1:8000/purchase_requests_all";
                 
                         }
                 

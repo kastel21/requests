@@ -38,8 +38,8 @@
             <p></p>
 
             <div class="col-md-6">
-                <label for="fname" class="form-label">Name:</label>
-                <input type="text" class="form-control" id="name" name="name" value="" readonly >
+                <label for="fname" class="form-label">Supplier Name:</label>
+                <input type="text" class="form-control" id="sup_name" name="sup_name" value="" readonly >
             </div>
 
             <div class="col-md-6">
@@ -58,25 +58,10 @@
                 <input type="text" class="form-control" id="address" name="address" value="" readonly >
             </div>
 
-            <div class="col-md-6">
-                <label for="lname" class="form-label">Project</label>.</label>
-                <input type="text" class="form-control" id="project" name="project" value="" readonly >
-            </div>
-
-            <div class="col-md-6">
-                <label for="fname" class="form-label">Date</label>
-                <input type="text" class="form-control" id="date" name="date" value="" readonly >
-            </div>
-
 
             <div class="col-md-4">
-                <label for="lname" class="form-label">Budget Line Item</label>
-                <input type="text" class="form-control" id="budget_line_item" name="budget_line_item" value="" readonly >
-            </div>
-
-            <div class="col-md-4">
-                <label for="fname" class="form-label">Item:</label>
-                <input type="text" class="form-control" id="item" name="item" value="" readonly >
+                <label for="fname" class="form-label">Item Name:</label>
+                <input type="text" class="form-control" id="item_name" name="item_name" value="" readonly >
             </div>
 
 
@@ -190,7 +175,7 @@
                                     console.log(case_id);
                                     $("#request_id").val(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = " http://www.lorkas.co.zw/purchase_order_get_record"
+                                    const url = "http://127.0.0.1:8000/purchase_order_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -204,15 +189,13 @@
 
                     $('#quotation').attr('href',data['pdf']);
 
-                    $("#name").val(data['name']);
+                    $("#sup_name").val(data['sup_name']);
                     $("#contact_person").val(data['contact_person']);
                     $("#contact_number").val(data['contact_number']);
                     $("#address").val(data['address']);
-                    $("#project").val(data['project']); 
                     $("#date").val(data['date']);
-                    $("#budget_line_item").val(data['budget_line_item']);
 
-                    $("#item").val(data['item']);
+                    $("#item_name").val(data['item_name']);
                     $("#quantity").val(data['quantity']);
                     $("#description").val(data['description']);
                     $("#unit_cost").val(data['unit_cost']);
@@ -250,7 +233,7 @@
                                             arr = current_url.split("/");
                                             case_id = arr.at(-1);
 
-                        window.location.href=" http://www.lorkas.co.zw/purchase_order_print/"+case_id;
+                        window.location.href="  http://127.0.0.1:8000/purchase_order_print/"+case_id;
 
 
 
@@ -261,7 +244,7 @@
                         current_url = window.location.href;
                                             arr = current_url.split("/");
                                             case_id = arr.at(-1);
-                        window.location.href=" http://www.lorkas.co.zw/purchase_order_view/"+case_id;
+                        window.location.href="  http://127.0.0.1:8000/purchase_order_view/"+case_id;
 
 
 
@@ -299,7 +282,7 @@
                         console.log(case_id);
                         if (case_id == "add"){
                 
-                        const url = " http://www.lorkas.co.zw/purchase_order_clerk_approve";
+                        const url = "  http://127.0.0.1:8000/purchase_order_clerk_approve";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -318,12 +301,12 @@
                             alert("success");
                             $('#overlay').fadeOut();
 
-                            window.location.href=" http://www.lorkas.co.zw/purchase_order_all";
+                            window.location.href="  http://127.0.0.1:8000/purchase_order_all";
                         }else{
                             alert(data['message']);
                             $('#overlay').fadeOut();
 
-                            window.location.href=" http://www.lorkas.co.zw/purchase_order_all";
+                            window.location.href="  http://127.0.0.1:8000/purchase_order_all";
                 
                         }
                 

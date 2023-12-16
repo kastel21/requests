@@ -24,8 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
-# if not SECRET_KEY:
-#     SECRET_KEY = ''.join(random.choice( string.ascii_lowercase  ) for i in range( 32 ))
+if not SECRET_KEY:
+    SECRET_KEY = ''.join(random.choice( string.ascii_lowercase  ) for i in range( 32 ))
 
 #SECRET_KEY = "django-insecure-eg7puj+gfi6en_z0a(+=c9nu@#ph8uafsh*12%znz&(p*qp6o("
 
@@ -33,7 +33,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = ['lorkas.co.zw','www.lorkas.co.zw','localhost','127.0.0.1','0.0.0.0','41.174.97.68:80']
-CSRF_TRUSTED_ORIGINS = ['https://lorkas.co.zw/*',' http://www.lorkas.co.zw/*']
+CSRF_TRUSTED_ORIGINS = ['https://lorkas.co.zw/*','  http://127.0.0.1/*']
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:    
@@ -196,7 +196,7 @@ LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
-SECURE_HSTS_SECONDS = 30  # Unit is seconds; *USE A SMALL VALUE FOR TESTING!*
+SECURE_HSTS_SECONDS = 2_592_000  # Unit is seconds; *USE A SMALL VALUE FOR TESTING!*
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")

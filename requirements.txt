@@ -2,7 +2,7 @@ django
 gunicorn
 python-dotenv
 whitenoise
-django-admin-berry==1.0.10
-
+reportlab==3.6.13
 psycopg2-binary
 mysqlclient
+xhtml2pdf==0.2.10

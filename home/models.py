@@ -6,27 +6,21 @@ from django.db import models
 
 class PuchaseRequest(models.Model):
 
-    schedule_id = models.CharField(max_length=310, default="None")
-    service_request = models.CharField(max_length=100, default="None")
     requester = models.CharField(max_length=100, default="None")
     date_of_request = models.CharField(max_length=200, default="2023")
     requesting_dpt = models.CharField(max_length=150, default="None")
     request_justification = models.CharField(max_length=2000, default="None")
-    name_address_of_supplier = models.CharField(max_length=550, default="None")
     budget_line_item = models.CharField(max_length=200, default="None")
    
     qnty = models.CharField(max_length=150, default="None")
-    q1 = models.FileField(default="None")
 
-    item_number = models.CharField(max_length=150, default="None")
+    item_name = models.CharField(max_length=450, default="None")
     description = models.CharField(max_length=150, default="None")
-    unit_price = models.CharField(max_length=150, default="None")
-    total = models.CharField(max_length=150, default="None")
    
     supervisor_approved = models.CharField(max_length=150, default="None")
     supervisor_approved_date= models.CharField(max_length=150, default="None")
-    accounts_clerk_approved= models.CharField(max_length=150, default="None")
-    accounts_clerk_approved_date= models.CharField(max_length=150, default="None")
+    finance_officer= models.CharField(max_length=150, default="None")
+    finance_officer_approved_date= models.CharField(max_length=150, default="None")
 
 
 
@@ -98,21 +92,18 @@ class ServiceRequest(models.Model):
 
 class PurchaseOrder(models.Model):
     purchase_id = models.CharField(max_length=300, default="None")
-    name = models.CharField(max_length=100, default="None")
+    sup_name = models.CharField(max_length=200, default="None")
     contact_person = models.CharField(max_length=300, default="None")
     contact_number = models.CharField(max_length=250, default="2023")
     address = models.CharField(max_length=150, default="None")
-    project = models.CharField(max_length=450, default="None")
     date = models.CharField(max_length=550, default="None")
-    budget_line_item = models.CharField(max_length=150, default="None")
    
 
     compiled_by = models.CharField(max_length=150, default="None")
 
-    item = models.CharField(max_length=150, default="None")
-    dept = models.FileField(default="None")
+    item_name = models.CharField(max_length=250, default="None")
     quantity = models.CharField(max_length=150, default="None")
-    description = models.CharField(max_length=150, default="None")
+    description = models.CharField(max_length=550, default="None")
     unit_cost = models.CharField(max_length=150, default="None")
     total_cost = models.CharField(max_length=150, default="None")
    
@@ -122,7 +113,7 @@ class PurchaseOrder(models.Model):
     required_by = models.CharField(max_length=150, default="None")
     required_by_date= models.CharField(max_length=150, default="None")
 
-    approved_by= models.CharField(max_length=150, default="None")
+    approved_by= models.CharField(max_length=250, default="None",null=True)
     approved_by_date= models.CharField(max_length=150, default="None")
 
 class PurchaseOrderQuotation(models.Model):

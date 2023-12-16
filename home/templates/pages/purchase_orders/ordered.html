@@ -37,8 +37,8 @@
             </div>
 
             <div class="col-md-4">
-                <label for="fname" class="form-label">Name:</label>
-                <input type="text" class="form-control" id="name" name="name" value="" readonly >
+                <label for="fname" class="form-label">Supplier Name:</label>
+                <input type="text" class="form-control" id="sup_name" name="sup_name" value="" readonly >
             </div>
 
             <div class="col-md-4">
@@ -62,26 +62,18 @@
                 <input type="text" class="form-control" id="address" name="address" value="" readonly >
             </div>
 
-            <div class="col-md-6">
-                <label for="lname" class="form-label">Project</label>.</label>
-                <input type="text" class="form-control" id="project" name="project" value="" readonly >
-            </div>
+
 
             <!-- <div class="col-md-12">
                 <label for="fname" class="form-label">Date</label>
                 <textarea type="text" class="form-control" id="date" name="date" value="" readonly ></textarea>
             </div> -->
 
-            <p></p>
 
-            <div class="col-md-4">
-                <label for="lname" class="form-label">Budget Line Item</label>
-                <input type="text" class="form-control" id="budget_line_item" name="budget_line_item" value="" readonly >
-            </div>
             
             <div class="col-md-4">
                 <label for="fname" class="form-label">Item:</label>
-                <input type="text" class="form-control" id="item" name="item" value="" readonly >
+                <input type="text" class="form-control" id="item_name" name="item_name" value="" readonly >
             </div>
 
 
@@ -159,6 +151,13 @@
                 <input type="text" class="form-control" id="approved_by_date" name="approved_by_date" value="" readonly >
             </div>
 
+            <div class="col-md-4">
+                <label for="certifier" class="form-label">Required by</label>
+                <select class="form-control" name="required" id="required">
+                <option value="None">..</option>
+
+                </select>
+            </div>
           </form>
 <hr>
 <div style="margin-top: 2%;" class="col-md-12">
@@ -194,6 +193,20 @@
 
 
 
+const url = "  http://127.0.0.1:8000/get_users"
+const data = {
+                      'id':"case_id",
+                    }
+        $.post(url,data, function(data,status){
+            console.log(data)
+                        $.each(data, function(val, text) {
+                            $('#required').append( new Option(text,val) );
+                        });
+                        $('#overlay').fadeOut();
+        });
+
+
+
                 // populating the already existing records
                 
                             current_url = window.location.href;
@@ -202,7 +215,7 @@
                                     console.log(case_id);
                                     $("#request_id").val(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = " http://www.lorkas.co.zw/purchase_order_get_record"
+                                    const url = "  http://127.0.0.1:8000/purchase_order_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -219,9 +232,7 @@
                     $("#contact_person").val(data['contact_person']);
                     $("#contact_number").val(data['contact_number']);
                     $("#address").val(data['address']);
-                    $("#project").val(data['project']); 
                     $("#date").val(data['date']);
-                    $("#budget_line_item").val(data['budget_line_item']);
 
                     $("#item").val(data['item']);
                     $("#quantity").val(data['quantity']);
@@ -261,7 +272,7 @@
                                             arr = current_url.split("/");
                                             case_id = arr.at(-1);
 
-                        window.location.href=" http://www.lorkas.co.zw/purchase_order_print/"+case_id;
+                        window.location.href="  http://127.0.0.1:8000/purchase_order_print/"+case_id;
 
 
 
@@ -272,7 +283,7 @@
                         current_url = window.location.href;
                                             arr = current_url.split("/");
                                             case_id = arr.at(-1);
-                        window.location.href=" http://www.lorkas.co.zw/purchase_order_view/"+case_id;
+                        window.location.href="  http://127.0.0.1:8000/purchase_order_view/"+case_id;
 
 
 
@@ -302,14 +313,14 @@
                         // var ordered_by = document.getElementById('ordered_by').value;
                         // var required_by= document.getElementById('required_by').value;
                         // var approved_by= document.getElementById('approved_by').value;
-                        // var accounts_clerk_approved_date= document.getElementById('accounts_clerk_approved_date').value;
+                        var required = $('#required').val();
       
                             current_url = window.location.href;
                             arr = current_url.split("/");
                             case_id = arr.at(-1);
                         console.log(case_id);
                 
-                        const url = " http://www.lorkas.co.zw/purchase_order_ordered";
+                        const url = "  http://127.0.0.1:8000/purchase_order_ordered";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -318,6 +329,7 @@
                         const data = {
                             // "request_id": request_id,
                                             "id": case_id,
+                                            "required":required,
 
                 
                                            }
@@ -328,12 +340,12 @@
                             alert("success");
                             $('#overlay').fadeOut();
 
-                            window.location.href=" http://www.lorkas.co.zw/purchase_order_all";
+                            window.location.href="  http://127.0.0.1:8000/purchase_order_all";
                         }else{
                             alert(data['message']);
                             $('#overlay').fadeOut();
 
-                            window.location.href=" http://www.lorkas.co.zw/purchase_order_all";
+                            window.location.href="  http://127.0.0.1:8000/purchase_order_all";
                 
                         }
                 

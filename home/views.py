@@ -200,7 +200,7 @@ def purchase_request_super(request):
 def purchase_request_pending(request):
       username = request.user.username
 
-      records = PuchaseRequest.objects.filter((Q(supervisor_approved=username) & Q (supervisor_approved_date="None")) | (Q(accounts_clerk_approved=username) & Q (accounts_clerk_approved_date="None")) )
+      records = PuchaseRequest.objects.filter((Q(supervisor_approved=username) & Q (supervisor_approved_date="None")) | (Q(finance_officer=username) & Q (finance_officer_approved_date="None")) )
       context = {'records':records}
 
       return render(request, 'pages/purchase_requests/list_pending.html', context)
@@ -208,7 +208,7 @@ def purchase_request_pending(request):
 @login_required(login_url='login')
 def purchase_request_approved(request):
     username = request.user.username
-    records = PuchaseRequest.objects.filter( (Q(requester =username)& ~Q(accounts_clerk_approved_date="None"))  |  (Q(supervisor_approved =username)& ~Q(accounts_clerk_approved_date="None")) | (Q(accounts_clerk_approved =username)& ~Q(accounts_clerk_approved_date="None")) )
+    records = PuchaseRequest.objects.filter( (Q(requester =username)& ~Q(finance_officer_approved_date="None"))  |  (Q(supervisor_approved =username)& ~Q(finance_officer_approved_date="None")) | (Q(finance_officer =username)& ~Q(finance_officer_approved_date="None")) )
     context = {'records':records}
     return render(request, 'pages/purchase_requests/list_approved.html', context)
 
@@ -226,46 +226,36 @@ def purchase_request_send_record(request):
     with app.app_context():
         try:
         
-          service_request= request.POST.get('service_request',default=None)
           requester= request.user.username
-          date_of_request= request.POST.get('date_of_request',default=None)
           requesting_dpt= request.POST.get('requesting_dpt',default=None)
           # q1= request.FILES["q1"]comp_schedule
 
           request_justification= request.POST.get('request_justification',default=None) 
-          name_address_of_supplier = request.POST.get('name_address_of_supplier',default=None)
           budget_line_item= request.POST.get('budget_line_item',default=None)
 
           qnty= request.POST.get('qnty',default=None)
-          item_number= request.POST.get('item_number',default=None)
+          item_name= request.POST.get('item_name',default=None)
 
           description= request.POST.get('description',default=None)
-          unit_price=  request.POST.get('unit_price',default=None)
 
           supervisor_approved= request.POST.get('supervisor_approved',default=None)
-          comp_schedule= request.POST.get('comp_schedule',default=None)
 
           # accounts_clerk_approved= request.POST.get('accounts_clerk_approved',default=None)
           # accounts_clerk_approved_date= request.POST.get('accounts_clerk_approved_date',default=None)
 
           record = PuchaseRequest()
 
-          record.service_request = service_request
-          record.schedule_id= comp_schedule
           record.requester= requester
-          record.date_of_request= date_of_request
           record.requesting_dpt= requesting_dpt
           # record.q1 = q1
 
           record.request_justification= request_justification 
-          record.name_address_of_supplier = name_address_of_supplier
           record.budget_line_item= budget_line_item
 
           record.qnty= qnty
-          record.item_number= item_number
+          record.item_name= item_name
 
           record.description= description
-          record.unit_price= unit_price
 
           record.supervisor_approved = supervisor_approved
           # record.supervisor_approved_date= supervisor_approved_date
@@ -293,39 +283,36 @@ def purchase_request_send_record(request):
 def purchase_request_get_record(request):
     context={}
     if request.method == "POST":
-        _id = request.POST.get('id',default=None)
-        pdf = PuchaseRequestQuotation.objects.get(id=1)
 
-        try:
-          pdf = PuchaseRequestQuotation.objects.get(request_id=_id)
-        except:
-          pass
+        _id = request.POST.get('id',default=None)
+
+        # pdf = PuchaseRequestQuotation.objects.get(id=1)
+
+        # try:
+        #   pdf = PuchaseRequestQuotation.objects.get(request_id=_id)
+        # except:
+        #   pass
         record = PuchaseRequest.objects.get(id=_id)
 
         dic = {
-                                            "pdf":pdf.quote_path,
                                             "requesting_dpt":record.requesting_dpt,
                                             "date_of_request":record.date_of_request,
                                             "budget_line_item":record.budget_line_item,
-                                            "item_number":record.item_number,
+                                            "item_name":record.item_name,
                                             "description":record.description,
                                             "requester":record.requester,
-                                            "service_request":record.service_request,
-                                            "comp_schedule":record.schedule_id,
 
                 
                                             "request_justification":record.request_justification,
-                                            "name_address_of_supplier": record.name_address_of_supplier,
 
                                             "qnty":record.qnty,
-                                            "unit_price":record.unit_price,
-                                            "total":record.total,
+
                 
                                             "supervisor_approved":record.supervisor_approved,
                                             "supervisor_approved_date": record.supervisor_approved_date,
                 
-                                            "accounts_clerk_approved": record.accounts_clerk_approved,
-                                            "accounts_clerk_approved_date": record.accounts_clerk_approved_date,
+                                            "finance_officer": record.finance_officer,
+                                            "finance_officer_approved_date": record.finance_officer_approved_date,
           "message":"success",
         }
 
@@ -345,11 +332,11 @@ def purchase_request_pi_approve(request):
     if request.method == "POST":
       
       _id = request.POST.get('id',default=None)
-      clerk = request.POST.get('clerk',default=None)
+      clerk = request.POST.get('finance_officer',default=None)
       username = request.user.username
         # objs = Record.objects.get(id=_id)
       record = PuchaseRequest.objects.get(id=_id)
-      record.accounts_clerk_approved = clerk
+      record.finance_officer = clerk
       d = datetime.datetime.now()
           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
       record.supervisor_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
@@ -385,7 +372,7 @@ def purchase_request_clerk_approve(request):
       # record.accounts_clerk_approved = clerk
       d = datetime.datetime.now()
           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
-      record.accounts_clerk_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.finance_officer_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice = Notifications()
       notice.to = record.requester
       record.save()
@@ -410,7 +397,7 @@ def purchase_request_clerk_approve(request):
 @login_required(login_url='login')
 def purchase_request_view(request):
       username = request.user.username
-      records = PuchaseRequest.objects.filter(Q(requester = username) | Q(supervisor_approved =username) | Q(accounts_clerk_approved = username))
+      records = PuchaseRequest.objects.filter(Q(requester = username) | Q(supervisor_approved =username) | Q(finance_officer = username))
       context = {'records':records}
 
 
@@ -448,7 +435,7 @@ def purchase_request_edit_options(request):
         #  print("certified")
          return render(request, 'pages/purchase_requests/pi.html', context)
       
-      elif record.accounts_clerk_approved_date == "None" and record.accounts_clerk_approved == request.user.username:
+      elif record.finance_officer_approved_date == "None" and record.finance_officer == request.user.username:
         #  print("cleared")
 
          return render(request, 'pages/purchase_requests/clerk.html', context)
@@ -469,10 +456,10 @@ def get_purchase_requests(request):
    try:
       dic = {}
       # User = get_user_model()
-      schedules = PuchaseRequest.objects.filter(~Q(accounts_clerk_approved_date = "None"))
+      schedules = PuchaseRequest.objects.filter(~Q(finance_officer_approved_date="None"))
 
       for schedule in schedules: 
-          dic[schedule.id]= schedule.total +" : raised by "+ schedule.requester+" : raised on "+schedule.date_of_request
+          dic[schedule.id]= schedule.item_name +" : raised by "+ schedule.requester+" : raised on "+schedule.date_of_request
       return JsonResponse(dic)
    except Exception as e:
           return JsonResponse(str(e)) 
@@ -3560,10 +3547,11 @@ def purchase_order_required(request):
       if request.method == "POST":
         
         _id = request.POST.get('id',default=None)
+        approver = request.POST.get('approver',default=None)
 
           # objs = Record.objects.get(id=_id)
         record = PurchaseOrder.objects.get(id=_id)
-        record.required_by = request.user.username
+        record.approved_by = approver
         # record.certified_by_date = request.user.username
         d = datetime.datetime.now()
             # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
@@ -3598,14 +3586,15 @@ def purchase_order_ordered(request):
       if request.method == "POST":
         
         _id = request.POST.get('id',default=None)
+        required = request.POST.get('required',default=None)
 
           # objs = Record.objects.get(id=_id)
         record = PurchaseOrder.objects.get(id=_id)
         record.ordered_by = request.user.username
-        # record.certified_by_date = request.user.username
+        record.required_by = required
         d = datetime.datetime.now()
             # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
-        record.ordered_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+        record.required_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
 
 
 
@@ -3665,6 +3654,48 @@ def purchase_order_approve(request):
     except:
        return JsonResponse( {'message':"failed"})
 
+
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def purchase_ordered_approve(request):
+    
+    try:
+      if request.method == "POST":
+        
+        _id = request.POST.get('id',default=None)
+
+          # objs = Record.objects.get(id=_id)
+        record = PurchaseOrder.objects.get(id=_id)
+        record.ordered_by = request.user.username
+        # record.certified_by_date = request.user.username
+        d = datetime.datetime.now()
+            # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        record.ordered_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+
+
+
+        notice = Notifications()
+        notice.to = record.compiled_by
+        record.save()
+
+        notice.message = " "+ request.user.username +" Updated your Purchase Order."
+        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        notice.trigger = request.user.username
+        notice.save()
+
+        return JsonResponse( {'message':"success"})
+      else:
+        return render(request, 'pages/purchase_orders/list.html', {})
+
+
+    except:
+       return JsonResponse( {'message':"failed"})
+
+
+
+
 @login_required(login_url='login')
 def purchase_order_pending(request):
     username = request.user.username
@@ -3712,6 +3743,8 @@ def purchase_order_get_record(request):
         _id = request.POST.get('id',default=None)
         pdf = PurchaseOrderQuotation()
 
+
+
         try:
           pdf = PurchaseOrderQuotation.objects.get(request_id=_id)
         except:
@@ -3724,15 +3757,13 @@ def purchase_order_get_record(request):
 
           "purchase_id": record.purchase_id,
 
-          "name": record.name,
+          "sup_name": record.sup_name,
           "contact_person": record.contact_person,
           "contact_number": record.contact_number,
-          "project": record.project,
           "address": record.address,
           "date": record.date,
-          "budget_line_item": record.budget_line_item, 
 
-          "item": record.item,
+          "item_name": record.item_name,
           "quantity": record.quantity,
           "unit_cost": record.unit_cost,
           "description": record.description,
@@ -3763,25 +3794,21 @@ def purchase_order_send_record(request):
         try:
           purchase_id= request.POST.get('purchase_id',default=None)
 
-          name= request.POST.get('name',default=None)
+          sup_name= request.POST.get('sup_name',default=None)
           contact_person= request.POST.get('contact_person',default=None)
           contact_number= request.POST.get('contact_number',default=None)
           address= request.POST.get('address',default=None) 
-          project = request.POST.get('project',default=None)
-          # date = request.POST.get('date',default=None)
-          budget_line_item = request.POST.get('budget_line_item',default=None)
 
-          item= request.POST.get('item',default=None)
-          dept= request.POST.get('dept',default=None)
+          item_name= request.POST.get('item_name',default=None)
           description= request.POST.get('description',default=None)
           quantity= request.POST.get('quantity',default=None)
           unit_cost= request.POST.get('unit_cost',default=None)
           total_cost= request.POST.get('total_cost',default=None)
           
-          ordered_by= request.POST.get('ordered_by',default=None)
+          ordered_by= request.user.username
           # ordered_by_date= request.POST.get('ordered_by_date',default=None)
 
-          approved_by= request.POST.get('approved_by',default=None)
+          # approved_by= request.POST.get('approved_by',default=None)
           # approved_by_date= request.POST.get('approved_by_date',default=None)
           
           required_by= request.POST.get('required_by',default=None)
@@ -3793,34 +3820,31 @@ def purchase_order_send_record(request):
           record.compiled_by = request.user.username
           record.purchase_id= purchase_id
 
-          record.name= name
+          record.sup_name= sup_name
           record.contact_person= contact_person
           record.contact_number= contact_number
           record.address= address 
-          record.project = project
           record.date = "{:%B %d, %Y  %H:%M:%S}".format(d)
-          record.budget_line_item = budget_line_item
 
-          record.item= item
-          record.dept= dept
+          record.item_name= item_name
           record.description= description
           record.quantity= quantity
           record.unit_cost= unit_cost
           record.total_cost= total_cost
 
           record.ordered_by= ordered_by
-          # record.ordered_by_date= ordered_by_date
+          record.ordered_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
 
           record.required_by= required_by
-          # record.required_by_date= required_by_date
+          # record.required_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
 
-          record.approved_by= approved_by
+          # record.approved_by= approved_by
           # record.approved_by_date= approved_by_date
 
           notice = Notifications()
-          notice.to= record.approved_by
+          notice.to= record.required_by
           notice.trigger = request.user.username
-          notice.message = request.user.username +" has created a Payment Request and assigned you to Certify"
+          notice.message = request.user.username +" has created a Purchase Order on your behalf to approve."
 
           d1 = datetime.datetime.now()
           record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d1)
