@@ -33,9 +33,16 @@
             </div>
             <p></p> -->
 
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="fname" class="form-label">Add From Purchase Request:</label>
                 <select class="form-control" name="purchase_id" id="purchase_id">
+                    <option value="None">..</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Add From Comperative:</label>
+                <select class="form-control" name="comp_schedule_id" id="comp_schedule_id">
                     <option value="None">..</option>
                 </select>
             </div>
@@ -171,13 +178,59 @@ console.log(data1)
 
 
         });
-                
+
+        
+
+        const url2 = "  http://127.0.0.1:8000/get_comp_schedules"
+                    const data2 = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url1,data2, function(data2,status){
+            
+
+console.log(data2)
+
+
+                        $.each(data2, function(val, text) {
+                            $('#comp_schedule_id').append( new Option(text,val) );
+                        });
+
+            
+  
+    
+                        $('#overlay').fadeOut();
+
+
+        });
+
+
+
+
+
+
 function sendEdit(){
                         window.scrollTo({ top: 0, behavior: 'smooth' });
 
                         $('#overlay').fadeIn();
+                        var total_cost= $("#total_cost").val(); 
 
                         var purchase_id= $("#purchase_id").val();
+          
+                        var comp_schedule_id= $("#comp_schedule_id").val();
+
+
+if (comp_schedule_id == "None" && parseInt(total_cost)  > 1900){
+    alert("this Request Requires a Comperative Schedule");
+    return;
+}
+                     
+if( purchase_id == "None" && comp_schedule_id == "None" ){
+    alert("please select atleast purchase request");
+    return;
+
+}else{
+
 
 var name= $("#sup_name").val();
 var contact_person= $("#contact_person").val();
@@ -209,7 +262,7 @@ var approved_by=$("#approved_by").val();
                         const data = {
  
                                             "purchase_id": purchase_id,
-
+                                            "comp_schedule_id":comp_schedule_id,
                                             "sup_name": name,
                                             "contact_person":contact_person,
                                             "contact_number":contact_number,
@@ -254,6 +307,19 @@ var approved_by=$("#approved_by").val();
                         });
                     }
                 
+
+
+
+                }
+
+
+
+
+
+
+
+
+
                     }
                         </script>
                 

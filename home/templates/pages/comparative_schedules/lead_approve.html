@@ -17,13 +17,8 @@
                 
            </div>
            <div class="col-md-6">
-            <label  class="form-label">From Procurement Request:</label>
-            <input type="text" class="form-control" id="service_request" name="service_request" value="" readonly>
-        </div>
-
-        <div class="col-md-6">
-            <label  class="form-label">payee:</label>
-            <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
+            <label  class="form-label">From Purchase Request:</label>
+            <input type="text" class="form-control" id="purchase_request" name="purchase_request"  readonly>
         </div>
 
             <hr>
@@ -37,7 +32,7 @@
 
             <div class="col-md-6">
                 <label  class="form-label">Item No. (Supplier 1):</label>
-                <input type="text" class="form-control" id="item_number_supplier1" name="item_number_supplier1" value="" readonly>
+                <input type="text" class="form-control" id="item_name_supplier1" name="item_name_supplier1" value="" readonly>
             </div>
 
             <div class="col-md-12">
@@ -70,7 +65,7 @@
 
             <div class="col-md-6">
                 <label  class="form-label">Item No. (supplier 2):</label>
-                <input type="text" class="form-control" id="item_number_supplier2" name="item_number_supplier2" value="" readonly>
+                <input type="text" class="form-control" id="item_name_supplier2" name="item_name_supplier2" value="" readonly>
             </div>
 
             <div class="col-md-12">
@@ -103,7 +98,7 @@
 
             <div class="col-md-6">
                 <label  class="form-label">Supplier 3 (Supplier3):</label>
-                <input type="text" class="form-control" id="item_number_supplier3" name="item_number_supplier3" value="" readonly>
+                <input type="text" class="form-control" id="item_name_supplier3" name="item_name_supplier3" value="" readonly>
             </div>
 
             <div class="col-md-12">
@@ -140,10 +135,7 @@
 
             <hr>
 
-            <div class="col-md-12">
-                <label  class="form-label">Department/Project requesting purchase:</label>
-                <input type="text" class="form-control" id="dpt_project_requesting" name="dpt_project_requesting" value="" readonly>
-            </div>
+
             <div class="col-md-4">
                 <label for="certifier" class="form-label">Quotation1</label>
                 <a id="quotation1" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
@@ -229,7 +221,7 @@
 <hr>
 
             <div class="col-md-6">
-                <label  class="form-label">Select DG/PI</label>
+                <label  class="form-label">Select Chairperson</label>
                 <select class="form-control" name="approved_by" id="approved_by">
                     <option value="None">..</option>
     
@@ -292,21 +284,21 @@
                     $("#service_request").val(data['service_request']);
 
                     $("#company_name_supplier1").val(data['company_name_supplier1']);
-                    $("#item_number_supplier1").val(data['item_number_supplier1']);
+                    $("#item_name_supplier1").val(data['item_name_supplier1']);
                     $("#desc_supplier1").val(data['desc_supplier1']);
                     $("#qnty_supplier1").val(data['qnty_supplier1']); 
                     $("#unit_price_supplier1 ").val(data['unit_price_supplier1']);
                     $("#total_price_supplier1").val(data['total_price_supplier1']);
 
                     $("#company_name_supplier2").val(data['company_name_supplier2']);
-                    $("#item_number_supplier2").val(data['item_number_supplier2']);
+                    $("#item_name_supplier2").val(data['item_name_supplier2']);
                     $("#desc_supplier2").val(data['desc_supplier2']);
                     $("#qnty_supplier2").val(data['qnty_supplier2']); 
                     $("#unit_price_supplier2 ").val(data['unit_price_supplier2']);
                     $("#total_price_supplier2").val(data['total_price_supplier2']);
 
                     $("#company_name_supplier3").val(data['company_name_supplier3']);
-                    $("#item_number_supplier3").val(data['item_number_supplier3']);
+                    $("#item_name_supplier3").val(data['item_name_supplier3']);
                     $("#desc_supplier3").val(data['desc_supplier3']);
                     $("#qnty_supplier3").val(data['qnty_supplier3']); 
                     $("#unit_price_supplier3 ").val(data['unit_price_supplier3']);

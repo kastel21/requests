@@ -91,6 +91,8 @@ class ServiceRequest(models.Model):
 
 
 class PurchaseOrder(models.Model):
+    comp_schedule_id = models.CharField(max_length=300, default="None")
+
     purchase_id = models.CharField(max_length=300, default="None")
     sup_name = models.CharField(max_length=200, default="None")
     contact_person = models.CharField(max_length=300, default="None")
@@ -204,18 +206,16 @@ class CompScheduleQuotation(models.Model):
     quote3_path = models.CharField(max_length=500, default="#")
 
 class ComparativeSchedule(models.Model):
-    service_request = models.CharField(max_length=100, default="None")
+    purchase_request = models.CharField(max_length=100, default="None")
 
-    request_id = models.CharField(max_length=300, default="None")
-    payee = models.CharField(max_length=150, default="None")
    
     company_name_supplier1 = models.CharField(max_length=450, default="None")
     company_name_supplier2 = models.CharField(max_length=450, default="None")
     company_name_supplier3 = models.CharField(max_length=450, default="None")
     
-    item_number_supplier1 = models.CharField(max_length=450, default="None")
-    item_number_supplier2 = models.CharField(max_length=450, default="None")
-    item_number_supplier3 = models.CharField(max_length=450, default="None")
+    item_name_supplier1 = models.CharField(max_length=450, default="None")
+    item_name_supplier2 = models.CharField(max_length=450, default="None")
+    item_name_supplier3 = models.CharField(max_length=450, default="None")
 
     desc_supplier1 = models.CharField(max_length=450, default="None")
     desc_supplier2 = models.CharField(max_length=450, default="None")
@@ -240,7 +240,6 @@ class ComparativeSchedule(models.Model):
 
     upload_name = models.CharField(max_length=550, default="None")
 
-    dpt_project_requesting = models.CharField(max_length=150, default="2023")
 
     requested_by = models.CharField(max_length=300, default="None")
     requested_by_sig = models.CharField(max_length=300, default="None")
@@ -263,8 +262,6 @@ class ComparativeSchedule(models.Model):
     approved_by = models.CharField(max_length=300, default="None")
     approved_by_sig = models.CharField(max_length=300, default="None")
     approved_date = models.CharField(max_length=300, default="None")
-
-    project_number = models.CharField(max_length=150, default="None")
 
 class Notifications(models.Model):
     trigger = models.CharField(max_length=220)

@@ -228,7 +228,7 @@ def purchase_request_send_record(request):
         
           requester= request.user.username
           requesting_dpt= request.POST.get('requesting_dpt',default=None)
-          # q1= request.FILES["q1"]comp_schedule
+
 
           request_justification= request.POST.get('request_justification',default=None) 
           budget_line_item= request.POST.get('budget_line_item',default=None)
@@ -1359,8 +1359,21 @@ def comp_schedule_send_record(request):
         try:
           import os
           app.config['UPLOAD_FOLDER'] = "/uploads"
-          service_request= request.POST.get('service_request',default=None)
-          payee= request.POST.get('payee',default=None)
+          purchase_request= request.POST.get('purchase_request',default=None)
+          #initialize quotations
+          pdf1,pdf = CompScheduleQuotation.objects.get_or_create(
+
+          
+          request_id = "0",
+          quote1_path= "#",
+          quote2_path= "#",
+          quote3_path= "#",
+
+
+        )
+
+
+     
 
           # for filename in  request.FILES.items():
           #   name = request.FILES[filename].name
@@ -1372,21 +1385,21 @@ def comp_schedule_send_record(request):
           # upload.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
           company_name_supplier1= request.POST.get('company_name_supplier1',default=None)
-          item_number_supplier1= request.POST.get('item_number_supplier1',default=None)
+          item_name_supplier1= request.POST.get('item_name_supplier1',default=None)
           desc_supplier1= request.POST.get('desc_supplier1',default=None)
           qnty_supplier1= request.POST.get('qnty_supplier1',default=None) 
           unit_price_supplier1 = request.POST.get('unit_price_supplier1',default=None)
           total_price_supplier1 = request.POST.get('total_price_supplier1',default=None)
 
           company_name_supplier2= request.POST.get('company_name_supplier2',default=None)
-          item_number_supplier2= request.POST.get('item_number_supplier2',default=None)
+          item_name_supplier2= request.POST.get('item_name_supplier2',default=None)
           desc_supplier2= request.POST.get('desc_supplier2',default=None)
           qnty_supplier2= request.POST.get('qnty_supplier2',default=None) 
           unit_price_supplier2 = request.POST.get('unit_price_supplier2',default=None)
           total_price_supplier2 = request.POST.get('total_price_supplier2',default=None)
 
           company_name_supplier3= request.POST.get('company_name_supplier3',default=None)
-          item_number_supplier3= request.POST.get('item_number_supplier3',default=None)
+          item_name_supplier3= request.POST.get('item_name_supplier3',default=None)
           desc_supplier3= request.POST.get('desc_supplier3',default=None)
           qnty_supplier3= request.POST.get('qnty_supplier3',default=None) 
           unit_price_supplier3 = request.POST.get('unit_price_supplier3',default=None)
@@ -1394,7 +1407,6 @@ def comp_schedule_send_record(request):
 
           recommended_supplier= request.POST.get('recommended_supplier',default=None)
           recommended_supplier_reason= request.POST.get('recommended_supplier_reason',default=None)
-          dpt_project_requesting= request.POST.get('dpt_project_requesting',default=None)
 
           # service_request= request.POST.get('requested_by',default=None)
           # requested_by_sig= request.POST.get('requested_by_sig',default=None)
@@ -1421,24 +1433,23 @@ def comp_schedule_send_record(request):
 
         #   record.compiled_by = request.user.username
           # record.request_id= request_id
-          record.payee= payee
-          record.service_request= service_request
+          record.purchase_request= purchase_request
           record.company_name_supplier1= company_name_supplier1
-          record.item_number_supplier1= item_number_supplier1
+          record.item_name_supplier1= item_name_supplier1
           record.desc_supplier1= desc_supplier1
           record.qnty_supplier1= qnty_supplier1 
           record.unit_price_supplier1 = unit_price_supplier1
           record.total_price_supplier1= total_price_supplier1
 
           record.company_name_supplier2= company_name_supplier2
-          record.item_number_supplier2= item_number_supplier2
+          record.item_name_supplier2= item_name_supplier2
           record.desc_supplier2= desc_supplier2
           record.qnty_supplier2= qnty_supplier2 
           record.unit_price_supplier2 = unit_price_supplier2
           record.total_price_supplier2= total_price_supplier2
         
           record.company_name_supplier3= company_name_supplier3
-          record.item_number_supplier3= item_number_supplier3
+          record.item_name_supplier3= item_name_supplier3
           record.desc_supplier3= desc_supplier3
           record.qnty_supplier3= qnty_supplier3 
           record.unit_price_supplier3 = unit_price_supplier3
@@ -1446,7 +1457,6 @@ def comp_schedule_send_record(request):
 
           record.recommended_supplier= recommended_supplier
           record.recommended_supplier_reason= recommended_supplier_reason
-          record.dpt_project_requesting= dpt_project_requesting
           username = request.user.username 
           record.requested_by= username
 
@@ -1513,31 +1523,30 @@ def comp_schedule_get_record(request):
         record = ComparativeSchedule.objects.get(id=_id)
         # print(record.upload_name)
         dic = {
-      "payee":record.payee,
       "pdf1":pdf.quote1_path,
       "pdf2":pdf.quote2_path,
       "pdf3":pdf.quote3_path,
 
       "message":"success",
       "request_id":record.id,
-      "service_request":record.service_request,
+      "purchase_request":record.purchase_request,
 
       "company_name_supplier1":record.company_name_supplier1,
-      "item_number_supplier1":record.item_number_supplier1,
+      "item_name_supplier1":record.item_name_supplier1,
       "desc_supplier1":record.desc_supplier1,
       "qnty_supplier1":record.qnty_supplier1,
       "unit_price_supplier1":record.unit_price_supplier1,
       "total_price_supplier1":record.total_price_supplier1,
 
       "company_name_supplier2":record.company_name_supplier2,
-      "item_number_supplier2":record.item_number_supplier2,
+      "item_name_supplier2":record.item_name_supplier2,
       "desc_supplier2":record.desc_supplier2,
       "qnty_supplier2":record.qnty_supplier2,
       "unit_price_supplier2":record.unit_price_supplier2,
       "total_price_supplier2":record.total_price_supplier2,
 
       "company_name_supplier3":record.company_name_supplier3,
-      "item_number_supplier3":record.item_number_supplier3,
+      "item_name_supplier3":record.item_name_supplier3,
       "desc_supplier3":record.desc_supplier3,
       "qnty_supplier3":record.qnty_supplier3,
       "unit_price_supplier3":record.unit_price_supplier3,
@@ -1545,7 +1554,6 @@ def comp_schedule_get_record(request):
 
       "recommended_supplier":record.recommended_supplier,
       "recommended_supplier_reason":record.recommended_supplier_reason,
-      "dpt_project_requesting":record.dpt_project_requesting,
 
       "requested_by":record.requested_by,
       "requested_by_sig":record.requested_by_sig,
@@ -1558,12 +1566,9 @@ def comp_schedule_get_record(request):
       "dpt_head_by":record.dpt_head_by,
       "dpt_head_by_sig":record.dpt_head_by_sig,
       "dpt_head_date":record.dpt_head_date,
-            "service_request":record.service_request,
+      "purchase_request":record.purchase_request,
 
 
-      "team_lead_by":record.team_lead_by,
-      "team_lead_by_sig":record.team_lead_by_sig,
-      "team_lead_date":record.team_lead_date,
 
       "approved_by":record.approved_by,
       "approved_by_sig":record.approved_by_sig,
@@ -1621,27 +1626,24 @@ def comp_schedule_approve_head(request):
     if request.method == "POST":
       
       _id = request.POST.get('id',default=None)
-      pi = request.POST.get('pi',default=None)
-      lead = request.POST.get('lead',default=None)
+      chair = request.POST.get('chair',default=None)
 
         # objs = Record.objects.get(id=_id)
       record = ComparativeSchedule.objects.get(id=_id)
       username = request.user.username
       record.dpt_head_by = username
-      record.team_lead_by = lead
-      record.approved_by = pi
+      record.approved_by = chair
 
       d = datetime.datetime.now()
           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
       record.dpt_head_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
 
-      record.save()
 
-      if pi == "None":
+      if chair == "None":
          pass
       else:
         notice = Notifications()
-        notice.to = pi
+        notice.to = chair
         notice.message = " "+ username +" updated a Comparative schedule\n and assigned you as the PI for you to approve."
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = username
@@ -1657,6 +1659,7 @@ def comp_schedule_approve_head(request):
         notice.trigger = username
         notice.save()
 
+      record.save()
 
       return JsonResponse( {'message':"success"})
 
@@ -1784,11 +1787,6 @@ def comp_schedule_pending_view(request):
 
          return render(request, 'pages/comparative_schedules/lead_approve.html', context)
       
-
-      elif record.team_lead_by == "None" and record.team_lead_date == "None" and record.approved_by == "None" and record.dpt_head_by == request.user.username:
-        #  print("approved")
-
-         return render(request, 'pages/comparative_schedules/head_approve.html', context)
       
       elif record.approved_date == "None" and record.approved_by != "None" and record.approved_by == request.user.username: 
         #  print("approved")
@@ -2586,7 +2584,7 @@ def get_comp_schedules(request):
       schedules = ComparativeSchedule.objects.filter(~Q(approved_date = "None"))
 
       for schedule in schedules: 
-          dic[schedule.id]= schedule.dpt_project_requesting +" : raised by "+ schedule.requested_by+" : raised on "+schedule.requested_by_date
+          dic[schedule.id]= " : raised by "+ schedule.requested_by+" : raised on "+schedule.requested_by_date
       return JsonResponse(dic)
    except Exception as e:
           return JsonResponse(str(e)) 
@@ -3741,8 +3739,9 @@ def purchase_order_get_record(request):
     context={}
     if request.method == "POST":
         _id = request.POST.get('id',default=None)
-        pdf = PurchaseOrderQuotation()
 
+
+        pdf = PurchaseOrderQuotation.objects.get(id=1)
 
 
         try:
@@ -3762,6 +3761,7 @@ def purchase_order_get_record(request):
           "contact_number": record.contact_number,
           "address": record.address,
           "date": record.date,
+          "comp_schedule_id": record.comp_schedule_id,
 
           "item_name": record.item_name,
           "quantity": record.quantity,
@@ -3793,6 +3793,7 @@ def purchase_order_send_record(request):
     with app.app_context():
         try:
           purchase_id= request.POST.get('purchase_id',default=None)
+          comp_schedule_id= request.POST.get('comp_schedule_id',default=None)
 
           sup_name= request.POST.get('sup_name',default=None)
           contact_person= request.POST.get('contact_person',default=None)
@@ -3813,12 +3814,21 @@ def purchase_order_send_record(request):
           
           required_by= request.POST.get('required_by',default=None)
           # required_by_date= request.POST.get('required_by_date',default=None)
-          
+
+          pdf1,pdf = PurchaseOrderQuotation.objects.get_or_create(
+          request_id = "0",
+          quote_path = "#"
+
+        )
+
+
           record = PurchaseOrder()
           d = datetime.datetime.now()
 
           record.compiled_by = request.user.username
           record.purchase_id= purchase_id
+
+          record.comp_schedule_id= comp_schedule_id
 
           record.sup_name= sup_name
           record.contact_person= contact_person

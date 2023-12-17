@@ -22,14 +22,11 @@
                  <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly> -->
             <!-- </div>  -->
             <div class="col-md-6">
-                <label  class="form-label">From Procurement Request:</label>
-                <input type="text" class="form-control" id="service_request" name="service_request" value="" readonly>
+                <label  class="form-label">From Purchase Request:</label>
+                <input type="text" class="form-control" id="purchase_request" name="purchase_request" value="" readonly>
             </div>
 
-            <div class="col-md-6">
-                <label  class="form-label">payee:</label>
-                <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
-            </div>
+
 
             <hr>
 
@@ -41,8 +38,8 @@
             </div>
 
             <div class="col-md-6">
-                <label  class="form-label">Item No. (Supplier 1):</label>
-                <input type="text" class="form-control" id="item_number_supplier1" name="item_number_supplier1" value="" readonly>
+                <label  class="form-label">Item Name. (Supplier 1):</label>
+                <input type="text" class="form-control" id="item_name_supplier1" name="item_name_supplier1" value="" readonly>
             </div>
 
             <div class="col-md-12">
@@ -83,8 +80,8 @@
             </div>
 
             <div class="col-md-6">
-                <label  class="form-label">Item No. (supplier 2):</label>
-                <input type="text" class="form-control" id="item_number_supplier2" name="item_number_supplier2" value="" readonly>
+                <label  class="form-label">Item Name. (supplier 2):</label>
+                <input type="text" class="form-control" id="item_name_supplier2" name="item_name_supplier2" value="" readonly>
             </div>
 
             <div class="col-md-12">
@@ -116,8 +113,8 @@
             </div>
 
             <div class="col-md-6">
-                <label  class="form-label">Supplier 3 (Supplier3):</label>
-                <input type="text" class="form-control" id="item_number_supplier3" name="item_number_supplier3" value="" readonly>
+                <label  class="form-label">Item Name:</label>
+                <input type="text" class="form-control" id="item_name_supplier3" name="item_name_supplier3" value="" readonly>
             </div>
 
             <div class="col-md-12">
@@ -154,12 +151,7 @@
 
             <hr>
 
-            <div class="col-md-12">
-                <label  class="form-label">Department/Project requesting purchase:</label>
-                <input type="text" class="form-control" id="dpt_project_requesting" name="dpt_project_requesting" value="" readonly>
-            </div>
 
-            <hr>
 
             <div class="col-md-4">
                 <label  class="form-label">Requested By:</label>
@@ -319,27 +311,26 @@
                             if (data['message']=="success"){
                 // alert(data['request_id']);
                     $("#request_id").val(data['request_id']);
-                    $("#payee").val(data['payee']);
                     
-                    $("#service_request").val(data['service_request']);
+                    $("#purchase_request").val(data['purchase_request']);
 
                     $("#upload").val(data['upload_name']);
                     $("#company_name_supplier1").val(data['company_name_supplier1']);
-                    $("#item_number_supplier1").val(data['item_number_supplier1']);
+                    $("#item_name_supplier1").val(data['item_name_supplier1']);
                     $("#desc_supplier1").val(data['desc_supplier1']);
                     $("#qnty_supplier1").val(data['qnty_supplier1']); 
                     $("#unit_price_supplier1 ").val(data['unit_price_supplier1']);
                     $("#total_price_supplier1").val(data['total_price_supplier1']);
 
                     $("#company_name_supplier2").val(data['company_name_supplier2']);
-                    $("#item_number_supplier2").val(data['item_number_supplier2']);
+                    $("#item_name_supplier2").val(data['item_name_supplier2']);
                     $("#desc_supplier2").val(data['desc_supplier2']);
                     $("#qnty_supplier2").val(data['qnty_supplier2']); 
                     $("#unit_price_supplier2 ").val(data['unit_price_supplier2']);
                     $("#total_price_supplier2").val(data['total_price_supplier2']);
 
                     $("#company_name_supplier3").val(data['company_name_supplier3']);
-                    $("#item_number_supplier3").val(data['item_number_supplier3']);
+                    $("#item_name_supplier3").val(data['item_name_supplier3']);
                     $("#desc_supplier3").val(data['desc_supplier3']);
                     $("#qnty_supplier3").val(data['qnty_supplier3']); 
                     $("#unit_price_supplier3 ").val(data['unit_price_supplier3']);
@@ -347,7 +338,6 @@
 
                     $("#recommended_supplier").val(data['recommended_supplier']);
                     $("#recommended_supplier_reason").val(data['recommended_supplier_reason']);
-                    $("#dpt_project_requesting").val(data['dpt_project_requesting']);
 
                     $("#requested_by").val(data['requested_by']); 
                     $("#requested_by_sig ").val(data['requested_by_sig']);
@@ -361,9 +351,7 @@
                     $("#dpt_head_by_sig ").val(data['dpt_head_by_sig']);
                     $("#dpt_head_date").val(data['dpt_head_date']);
 
-                    $("#team_lead_by").val(data['team_lead_by']); 
-                    $("#team_lead_by_sig ").val(data['team_lead_by_sig']);
-                    $("#team_lead_date").val(data['team_lead_date']);
+
 
                     $("#approved_by").val(data['approved_by']); 
                     $("#approved_by_sig ").val(data['approved_by_sig']);
@@ -398,8 +386,7 @@ const url = "  http://127.0.0.1:8000/get_users"
                         else{
                             alert(data['message']);
                             $('#overlay').fadeOut();
-
-                            window.location.href="/comp_schedule_all";
+                            return;
                         }
                         });
                     }

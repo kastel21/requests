@@ -38,7 +38,7 @@
 
             <div class="col-md-6">
                 <label  class="form-label">Item Name. (Supplier 1):</label>
-                <input type="text" class="form-control" id="item_number_supplier1" name="item_number_supplier1" value="">
+                <input type="text" class="form-control" id="item_name_supplier1" name="item_name_supplier1" value="">
             </div>
 
             <div class="col-md-12">
@@ -71,7 +71,7 @@
 
             <div class="col-md-6">
                 <label  class="form-label">Item Name. (supplier 2):</label>
-                <input type="text" class="form-control" id="item_number_supplier2" name="item_number_supplier2" value="">
+                <input type="text" class="form-control" id="item_name_supplier2" name="item_name_supplier2" value="">
             </div>
 
             <div class="col-md-12">
@@ -104,7 +104,7 @@
 
             <div class="col-md-6">
                 <label  class="form-label">Item Name:</label>
-                <input type="text" class="form-control" id="item_number_supplier3" name="item_number_supplier3" value="">
+                <input type="text" class="form-control" id="item_name_supplier3" name="item_name_supplier3" value="">
             </div>
 
             <div class="col-md-12">
@@ -288,22 +288,22 @@ const url = "  http://127.0.0.1:8000/get_users"
                         
                         // var upload= document.getElementById('upload').files[0];
                       
-                        var company_name_supplier1= $("#company_name_supplier1").val();
-var item_number_supplier1= $("#item_number_supplier1").val();
+var company_name_supplier1= $("#company_name_supplier1").val();
+var item_name_supplier1= $("#item_name_supplier1").val();
 var desc_supplier1= $("#desc_supplier1").val();
 var qnty_supplier1= $("#qnty_supplier1").val();
 var unit_price_supplier1= $("#unit_price_supplier1").val();
 var total_price_supplier1= $("#total_price_supplier1").val();
 
 var company_name_supplier2= $("#company_name_supplier2").val();
-var item_number_supplier2= $("#item_number_supplier2").val();
+var item_name_supplier2= $("#item_name_supplier2").val();
 var desc_supplier2= $("#desc_supplier2").val();
 var qnty_supplier2= $("#qnty_supplier2").val();
 var unit_price_supplier2= $("#unit_price_supplier2").val();
 var total_price_supplier2= $("#total_price_supplier2").val();
 
 var company_name_supplier3= $("#company_name_supplier3").val();
-var item_number_supplier3= $("#item_number_supplier3").val();
+var item_name_supplier3= $("#item_name_supplier3").val();
 var desc_supplier3= $("#desc_supplier3").val();
 var qnty_supplier3= $("#qnty_supplier3").val();
 var unit_price_supplier3= $("#unit_price_supplier3").val();
@@ -311,27 +311,12 @@ var total_price_supplier3= $("#total_price_supplier3").val();
 
 var recommended_supplier= $("#recommended_supplier").val();
 var recommended_supplier_reason= $("#recommended_supplier_reason").val();
-var dpt_project_requesting= $("#dpt_project_requesting").val();
 
-var service_request= $("#purchase_request").val();
+var purchase_request= $("#purchase_request").val();
 
 
 var tech_person_by= $("#tech_person_by").val();
-                        // var tech_person_by_sig= document.getElementById('tech_person_by_sig').value;
-                        // var tech_person_date= document.getElementById('tech_person_date').value;
-
-                        // var dpt_head_by= document.getElementById('dpt_head_by').value;
-                        // var dpt_head_by_sig= document.getElementById('dpt_head_by_sig').value;
-                        // var dpt_head_date= document.getElementById('dpt_head_date').value;
-
-                        // var team_lead_by= document.getElementById('team_lead_by').value;
-                        // var team_lead_by_sig= document.getElementById('team_lead_by_sig').value;
-                        // var team_lead_date= document.getElementById('team_lead_date').value;
-
-                        // var approved_by= document.getElementById('approved_by').value;
-                        // var approved_by_sig= document.getElementById('approved_by_sig').value;
-                        // var approved_date= document.getElementById('approved_date').value;
-      
+                        
                             current_url = window.location.href;
                             arr = current_url.split("_");
                             case_id = arr.at(-1);
@@ -346,24 +331,23 @@ var tech_person_by= $("#tech_person_by").val();
                         console.log("after url");
                         const data = {
                             // "request_id": request_id,
-                                            "payee": payee,
                                             // "upload": upload,
                                             "company_name_supplier1": company_name_supplier1,
-                                            "item_number_supplier1": item_number_supplier1,
+                                            "item_name_supplier1": item_name_supplier1,
                                             "desc_supplier1": desc_supplier1,
                                             "qnty_supplier1":qnty_supplier1,
                                             "unit_price_supplier1":unit_price_supplier1,
                                             "total_price_supplier1": total_price_supplier1,
 
                                             "company_name_supplier2": company_name_supplier2,
-                                            "item_number_supplier2": item_number_supplier2,
+                                            "item_name_supplier2": item_name_supplier2,
                                             "desc_supplier2": desc_supplier2,
                                             "qnty_supplier2":qnty_supplier2,
                                             "unit_price_supplier2":unit_price_supplier2,
                                             "total_price_supplier2": total_price_supplier2,
 
                                             "company_name_supplier3": company_name_supplier3,
-                                            "item_number_supplier3": item_number_supplier3,
+                                            "item_name_supplier3": item_name_supplier3,
                                             "desc_supplier3": desc_supplier3,
                                             "qnty_supplier3":qnty_supplier3,
                                             "unit_price_supplier3":unit_price_supplier3,
@@ -371,9 +355,8 @@ var tech_person_by= $("#tech_person_by").val();
 
                                             "recommended_supplier": recommended_supplier,
                                             "recommended_supplier_reason": recommended_supplier_reason,
-                                            "dpt_project_requesting": dpt_project_requesting,
 
-                                            "service_request":service_request,
+                                            "purchase_request":purchase_request,
                                             // "requested_by_sig":requested_by_sig,
                                             // "requested_by_date": requested_by_date,
 
@@ -403,8 +386,7 @@ var tech_person_by= $("#tech_person_by").val();
                         }else{
                             console.log(data['message'])
                             alert(data['message']);
-                            window.location.href="  http://127.0.0.1:8000/comp_schedule_all";
-                
+                            return;
                         }
                 
                         });
