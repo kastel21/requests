@@ -1860,19 +1860,21 @@ def get_payment_requests(request):
    try:
       dic = {}
       # User = get_user_model()
-      schedules = PaymentRequest.objects.filter( accepted_by = request.user.username )
+      schedules = PaymentRequest.objects.filter( Q(cleared_by_fin_man = request.user.username) & ~Q(cleared_by_fin_man_date="None")  )
+
 
       for schedule in schedules: 
           dic[schedule.id]= "ID : "+str(schedule.id) +", raised by :"+ schedule.compiled_by+", raised on "+schedule.date_of_request +", amount : "+ schedule.amount
       return JsonResponse(dic)
    except Exception as e:
-          return JsonResponse(str(e)) 
+          print(str(e))
+          return JsonResponse(str(e))
 
 @login_required(login_url='login')        
 def payment_tickets_super(request):
     username = request.user.username
     user_id = request.user.id
-    records = PaymentRequest.objects.filter( Q(compiled_by=username) | Q(certified_by= username) | Q(approved_by=username) | Q(cleared_by_fin_man=username))
+    records = PaymentRequest.objects.filter( Q(compiled_by=username) | Q(certified_by= username) | Q(cleared_by_fin_man=username))
     context = {'records':records}
     return render(request, 'pages/payment_requests/list2.html', context)
 
@@ -1880,7 +1882,7 @@ def payment_tickets_super(request):
 def payment_request_all(request):
     username = request.user.username
     user_id = request.user.id
-    records = PaymentRequest.objects.filter( Q(compiled_by=username) | Q(certified_by= username) | Q(approved_by=username) | Q(cleared_by_fin_man=username))
+    records = PaymentRequest.objects.filter( Q(compiled_by=username) | Q(certified_by= username)  | Q(cleared_by_fin_man=username))
     context = {'records':records}
     return render(request, 'pages/payment_requests/list2.html', context)
 
@@ -2461,12 +2463,10 @@ def payment_request_clear(request):
       if request.method == "POST":
         
         _id = request.POST.get('id',default=None)
-        approver = request.POST.get('approver',default=None)
 
           # objs = Record.objects.get(id=_id)
         record = PaymentRequest.objects.get(id=_id)
         record.cleared_by_fin_man = request.user.username
-        record.approved_by = approver
         d = datetime.datetime.now()
             # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
         record.cleared_by_fin_man_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
@@ -2474,7 +2474,7 @@ def payment_request_clear(request):
         record.save()
 
         notice = Notifications()
-        notice.to = approver
+        notice.to = compiled_by
         notice.message = " "+ request.user.username +" updated a Payement Request\n and assigned you as the Approver."
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
@@ -2529,7 +2529,7 @@ def payment_request_approve(request):
 @login_required(login_url='login')
 def payment_request_pending(request):
     username = request.user.username
-    records = PaymentRequest.objects.filter((Q(approved_by=username) & Q (approved_by_date="None")) | (Q(certified_by=username) & Q (certified_by_date="None")) | (Q(cleared_by_fin_man=username) & Q (cleared_by_fin_man_date="None")))
+    records = PaymentRequest.objects.filter( (Q(certified_by=username) & Q (certified_by_date="None")) | (Q(cleared_by_fin_man=username) & Q (cleared_by_fin_man_date="None")))
     context = {'records':records}
     return render(request, 'pages/payment_requests/list_pending.html', context)
 
@@ -2538,7 +2538,7 @@ def payment_request_pending(request):
 def payment_request_approved(request):
     username = request.user.username
 
-    records = PaymentRequest.objects.filter( (Q(approved_by=username) & ~Q(approved_by_date="None") ) | (Q(compiled_by=username) & ~Q(approved_by_date="None") ) |  (Q(certified_by=username) & ~Q(approved_by_date="None") ) | (Q(cleared_by_fin_man=username) & ~Q(approved_by_date="None") )  )
+    records = PaymentRequest.objects.filter( (Q(certified_by=username) & ~Q(cleared_by_fin_man_date="None") ) | (Q(compiled_by=username) & ~Q(cleared_by_fin_man_date="None") )  | (Q(cleared_by_fin_man=username) & ~Q(cleared_by_fin_man_by_date="None") )  )
     context = {'records':records}
     return render(request, 'pages/payment_requests/list_approved.html', context)
 
@@ -2629,11 +2629,9 @@ def payment_request_get_record(request):
           "payee": record.payee,
           "payment_type": record.payment_type,
           "amount": record.amount,
-          "project_number": record.project_number,
           "compiled_by": record.compiled_by,
           "compiled_by_date": record.date_of_request,
 
-          "account_code": record.account_code, 
           "details": record.details,
           "qnty": record.qnty,
           "type_of_payment ": record.type_of_payment,
@@ -2645,14 +2643,10 @@ def payment_request_get_record(request):
           "cleared_by_fin_man": record.cleared_by_fin_man,
           "cleared_by_fin_man_date": record.cleared_by_fin_man_date,
 
-          "approved_by_project_man": record.approved_by_project_man,
-          "approved_by_project_man_date": record.approved_by_project_man_date,
 
           "accepted_by": record.accepted_by,
           "accepted_by_date": record.accepted_by_date,
 
-          "approved_by": record.approved_by,
-          "approved_by_date": record.approved_by_date,
           "message":"success",
         }
         context = {'addTabActive': True, "record":""}
@@ -2672,9 +2666,7 @@ def payment_request_send_record(request):
           payee= request.POST.get('payee',default=None)
           payment_type= request.POST.get('payment_type',default=None)
           amount= request.POST.get('amount',default=None)
-          project_number= request.POST.get('project_number',default=None)
 
-          account_code= request.POST.get('account_code',default=None) 
           details = request.POST.get('details',default=None)
           qnty = request.POST.get('qnty',default=None)
           purchase_order = request.POST.get('purchase_order',default=None)
@@ -2683,6 +2675,19 @@ def payment_request_send_record(request):
           certified_by= request.POST.get('certified_by',default=None)
           type_of_payment= request.POST.get('type_of_payment',default=None)
 
+
+          p,p1 = PaymentRequestQuotation.objects.get_or_create(
+
+            request_id = "0",
+            quote_path1 ="#",
+            quote_path2 = "#",
+          )
+
+          p2,p3 = PaymentRequestPOP.objects.get_or_create(
+
+            request_id = "0",
+            quote_path1 ="#",
+          )
           # cleared_by_fin_man= request.POST.get('cleared_by_fin_man',default=None)
           # cleared_by_fin_man_date= request.POST.get('cleared_by_fin_man_date',default=None)
 
@@ -2698,9 +2703,7 @@ def payment_request_send_record(request):
           record.payee= payee
           record.payment_type= payment_type
           record.amount= amount
-          record.project_number= project_number
 
-          record.account_code= account_code 
           record.details = details
           record.purchase_id = purchase_order
           record.qnty = qnty
@@ -3031,7 +3034,11 @@ def payment_ticket_send_record(request):
           payment_request_id= request.POST.get('request_id',default=None)
 
 
+          PaymentTicketPOP.objects.get_or_create(
+            payment_ticket_id = "0",
+            pop_path = "#",
 
+          )
 
           d = datetime.datetime.now()
 
@@ -3112,7 +3119,7 @@ def payment_ticket_upload_pop(request):
 
 
         record = PaymentTicketPOP()
-        record.payment_request_id = request_id
+        record.payment_ticket_id = request_id
         record.pop_path = uploaded_file_url1
         record.save()
         return redirect('/payment_tickets')
@@ -4008,7 +4015,7 @@ def get_purchase_orders(request):
       schedules = PurchaseOrder.objects.filter(~Q(approved_by_date = "None"))
 
       for schedule in schedules: 
-          dic[schedule.id]= schedule.item+", "+schedule.project + ", Total Cost : "+ schedule.total_cost +", raised by : "+ schedule.compiled_by+", raised on : "+schedule.date
+          dic[schedule.id]= schedule.item_name+", Total Cost : "+ schedule.total_cost +", raised by : "+ schedule.compiled_by+", raised on : "+schedule.date+", Supplier : "+schedule.sup_name
       return JsonResponse(dic)
    except Exception as e:
           return JsonResponse(str(e)) 

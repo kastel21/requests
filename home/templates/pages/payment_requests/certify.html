@@ -26,10 +26,7 @@
                 <label  class="form-label">Payee:</label>
                 <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
             </div>
-            <div class="col-md-6">
-                <label  class="form-label">Account Code:</label>
-                <input type="text" class="form-control" id="account_code" name="account_code" value="" readonly>
-            </div>
+
 
             <!-- <div class="col-md-4">
                 <label  class="form-label">Date:</label>
@@ -51,10 +48,7 @@
             </div>
 
 
-            <div class="col-md-6">
-                <label  class="form-label">Project Number:</label>
-                <input type="text" class="form-control" id="project_number" name="project_number" value="" readonly>
-            </div>
+
 
 
 
@@ -200,9 +194,7 @@
     $("#payee").val(data['payee']);
     $("#payment_type").val(data['payment_type']);
     $("#amount").val(data['amount']);
-    $("#project_number").val(data['project_number']);
    
-    $("#account_code").val(data['account_code']); 
     $("#details").val(data['details']);
     $("#compiled_by").val(data['compiled_by']);
      $("#compiled_by_date").val(data['compiled_by_date']);
@@ -273,7 +265,7 @@ const url = "  http://127.0.0.1:8000/get_users"
 
         const url = "  http://127.0.0.1:8000/payment_request_certify";
         const data={
-                "clear":document.getElementById('cleared_by').value,
+                "clear":$('#cleared_by').val(),
                 "id":case_id,
 
             }

@@ -45,10 +45,7 @@
                 <label  class="form-label">Payee:</label>
                 <input type="text" class="form-control" id="payee" name="payee" value="">
             </div>
-            <div class="col-md-6">
-                <label  class="form-label">Account Code:</label>
-                <input type="text" class="form-control" id="account_code" name="account_code" value="">
-            </div>
+
 
             <!-- <div class="col-md-4">
                 <label  class="form-label">Date:</label>
@@ -67,13 +64,6 @@
 
 
             </div>
-
-
-            <div class="col-md-6">
-                <label  class="form-label">Project Number:</label>
-                <input type="text" class="form-control" id="project_number" name="project_number" value="">
-            </div>
-
 
 
             <div class="col-md-12">
@@ -113,7 +103,7 @@
 
 
             <div class="col-md-12">
-                <label for="certifier" class="form-label">Select Certifier</label>
+                <label for="certifier" class="form-label">Select Procurement Officer</label>
                 <select class="form-control" name="certified_by" id="certified_by">
                 <option value="None">..</option>
 
@@ -312,19 +302,18 @@ console.log(data)
     $('#add').prop('disabled', true);
    $('#overlay').fadeIn();
 
-        var purchase_order= document.getElementById('purchase_order').value;
-        var payee= document.getElementById('payee').value;
-        var payment_type= document.getElementById('payment_type').value;
-        var amount= document.getElementById('amount').value;
-        var project_number= document.getElementById('project_number').value;
+   var purchase_order= $("#purchase_order").val();
+var payee= $("#payee").val();
+var payment_type= $("#payment_type").val();
+var amount= $("#amount").val();
+var project_number= $("#project_number").val();
 
-        var account_code= document.getElementById('account_code').value; 
-        var details = document.getElementById('details').value;
-        var qnty = document.getElementById('qnty').value;
-        var type_of_payment = document.getElementById('type_of_payment').value;
-        var total= document.getElementById('total').value;
+var details = $("#details").val();
+var qnty = $("#qnty").val();
+var type_of_payment = $("#type_of_payment").val();
+var total= $("#total").val();
 
-        var certified_by= document.getElementById('certified_by').value;
+var certified_by= $("#certified_by").val();
         // var type_of_payment= document.getElementById('type_of_payment').value;
 
         // var cleared_by_fin_man= document.getElementById('cleared_by_fin_man').value;
@@ -360,9 +349,7 @@ console.log(data)
                             "payee": payee,
                             "payment_type": payment_type,
                             "amount": amount,
-                            "project_number": project_number,
 
-                            "account_code": account_code, 
                             "details": details,
                             "case_id": case_id,
                             "qnty": qnty,

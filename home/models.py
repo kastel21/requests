@@ -142,9 +142,7 @@ class PaymentRequest(models.Model):
     payee = models.CharField(max_length=150, default="None")
     payment_type = models.CharField(max_length=450, default="None")
     type_of_payment = models.CharField(max_length=550, default="None")
-    project_number = models.CharField(max_length=150, default="None")
    
-    account_code = models.CharField(max_length=150, default="None")
     details = models.CharField(max_length=150, default="None")
     amount = models.CharField(max_length=150, default="None")
     qnty = models.CharField(max_length=150, default="None")
@@ -155,12 +153,6 @@ class PaymentRequest(models.Model):
 
     cleared_by_fin_man= models.CharField(max_length=150, default="None")
     cleared_by_fin_man_date= models.CharField(max_length=250, default="None")
-
-    approved_by_project_man= models.CharField(max_length=250, default="None")
-    approved_by_project_man_date= models.CharField(max_length=250, default="None")
-
-    approved_by= models.CharField(max_length=150, default="None")
-    approved_by_date= models.CharField(max_length=250, default="None")
 
     accepted_by = models.CharField(max_length=150, default="None")
     accepted_by_date = models.CharField(max_length=150, default="None")

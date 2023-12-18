@@ -27,10 +27,7 @@
                 <label  class="form-label">Payee:</label>
                 <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
             </div>
-            <div class="col-md-6">
-                <label  class="form-label">Account Code:</label>
-                <input type="text" class="form-control" id="account_code" name="account_code" value="" readonly>
-            </div>
+
 
             <!-- <div class="col-md-4">
                 <label  class="form-label">Date:</label>
@@ -52,10 +49,7 @@
             </div>
 
 
-            <div class="col-md-6">
-                <label  class="form-label">Project Number:</label>
-                <input type="text" class="form-control" id="project_number" name="project_number" value="" readonly>
-            </div>
+
 
 
 
@@ -107,16 +101,9 @@
 
 
 
-            <div class="col-md-12">
-                <label for="certifier" class="form-label">Select Approver </label>
-                <select class="form-control" name="approved_by" id="approved_by">
-                <option value="None">..</option>
-
-                </select>
-            </div>
 
 
-            <hr>
+
 
             <!-- <div class="col-md-12">
                 <label  class="form-label">Cleared by Finance Manager:</label>
@@ -202,9 +189,7 @@
     $("#payee").val(data['payee']);
     $("#payment_type").val(data['payment_type']);
     $("#amount").val(data['amount']);
-    $("#project_number").val(data['project_number']);
    
-    $("#account_code").val(data['account_code']); 
     $("#details").val(data['details']);
     $("#qnty").val(data['qnty']);
     //  $("#unit_price ").val(data['unit_price']);
@@ -226,24 +211,7 @@
             
   // populate the users dropdown
 
-const url = "  http://127.0.0.1:8000/get_users"
-                    const data1 = {
-                      'id':"case_id",
-                    }
-            
-                      $.post(url,data1, function(data1,status){
-            
 
-                        console.log(data1)
-
-                        $.each(data1, function(val, text) {
-                            $('#approved_by').append( new Option(text,val) );
-                        });
-
-                        $('#overlay').fadeOut();
-
-
-        });
     
                 
         }else{
@@ -277,7 +245,6 @@ const url = "  http://127.0.0.1:8000/get_users"
 
         const url = "  http://127.0.0.1:8000/payment_request_clear";
         const  data={
-                "approver":document.getElementById('approved_by').value,
                 "id":case_id,
 
             }
@@ -291,8 +258,7 @@ const url = "  http://127.0.0.1:8000/get_users"
             alert(data['message']);
             $('#overlay').fadeOut();
 
-            window.location.href="  http://127.0.0.1:8000/payment_request_all";
-
+            return;
         }
 
         });

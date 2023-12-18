@@ -26,10 +26,7 @@
                 <label  class="form-label">Payee:</label>
                 <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
             </div>
-            <div class="col-md-6">
-                <label  class="form-label">Account Code:</label>
-                <input type="text" class="form-control" id="account_code" name="account_code" value="" readonly>
-            </div>
+
 
             <!-- <div class="col-md-4">
                 <label  class="form-label">Date:</label>
@@ -62,10 +59,7 @@
 
             </div>
 
-            <div class="col-md-6">
-                <label  class="form-label">Project Number:</label>
-                <input type="text" class="form-control" id="project_number" name="project_number" value="" readonly>
-            </div>
+
 
 
             <div class="col-md-12">
@@ -120,7 +114,7 @@
             <hr>
 
             <div class="col-md-6">
-                <label  class="form-label">Cleared by Finance Manager:</label>
+                <label  class="form-label">Cleared by Finance :</label>
                 <input type="text" class="form-control" id="cleared_by_fin_man" name="cleared_by_fin_man" value="" readonly>
             </div>
 
@@ -157,29 +151,9 @@
                 <input type="text" class="form-control" id="approved_by_project_man_date" name="approved_by_project_man_date" value="">
             </div> -->
             
-            <hr>
 
-            <div class="col-md-6">
-                <label  class="form-label">Approved By:</label>
-                <input type="text" class="form-control" id="approved_by" name="approved_by" value="" readonly>
-            </div> 
 
-            <div class="col-md-6">
-                <label  class="form-label">Date:</label>
-                <input type="text" class="form-control" id="approved_by_date" name="approved_by_date" value="" readonly>
-            </div>
 
-            <hr>
-
-            <div class="col-md-6">
-                <label  class="form-label">Adopted By:</label>
-                <input type="text" class="form-control" id="accepted_by" name="accepted_by" value="" readonly>
-            </div> 
-
-            <div class="col-md-6">
-                <label  class="form-label">Adoption Date:</label>
-                <input type="text" class="form-control" id="accepted_by_date" name="accepted_by_date" value="" readonly>
-            </div>
           </form> 
 
             <div style="margin-top: 2%;" class="col-md-12">
@@ -248,7 +222,6 @@ const url = "  http://127.0.0.1:8000/get_users"
     $("#payee").val(data['payee']);
     $("#payment_type").val(data['payment_type']);
     $("#amount").val(data['amount']);
-    $("#project_number").val(data['project_number']);
    
     if ( data['pdf1'] == "#"){
         $('#quotation1').attr('href',"#");
@@ -271,7 +244,6 @@ const url = "  http://127.0.0.1:8000/get_users"
         $('#pop').attr('href',data['pop']);
     }
 
-    $("#account_code").val(data['account_code']); 
     $("#details").val(data['details']);
     $("#accepted_by").val(data['accepted_by']);
 
@@ -289,8 +261,6 @@ const url = "  http://127.0.0.1:8000/get_users"
 //     $("#approved_by_project_man").val(data['approved_by_project_man']);
 //     $("#approved_by_project_man_date").val(data['approved_by_project_man_date']);
 
-   $("#approved_by").val(data['approved_by']);
-    $("#approved_by_date").val(data['approved_by_date']);
 
     $('#overlay').fadeOut();
 
