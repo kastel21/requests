@@ -246,6 +246,21 @@ urlpatterns = [
     re_path('transcript/', views.transcript, name='transcript'),
 
 
+    #goods received
+    
+    path('goods_received_notes', views.goods_received_notes, name='goods_received_notes'),
+    path('goods_received_notes_all', views.goods_received_notes_all, name='goods_received_notes_all'),
+    path('goods_received_notes_completed', views.goods_received_notes_completed, name='goods_received_notes_completed'),
+    path('goods_received_notes_pending', views.goods_received_notes_pending, name='goods_received_notes_pending'),
+    path('goods_received_notes_add', views.goods_received_notes_add, name='goods_received_notes_add'),
+    path('goods_received_notes_send_record', views.goods_received_notes_send_record, name='goods_received_notes_send_record'),
+    path('goods_received_notes_get_record', views.goods_received_notes_get_record, name='goods_received_notes_get_record'),
+
+
+
+    re_path('goods_received_notes_upload_dnote', views.goods_received_notes_upload_dnote, name='goods_received_notes_upload_dnote'),
+    re_path('goods_received_notes_open_record_for_edit', views.goods_received_notes_open_record_for_edit, name='goods_received_notes_open_record_for_edit'),
+    re_path('goods_received_notes_open_record', views.goods_received_notes_open_record, name='goods_received_notes_open_record'),
 
 
 

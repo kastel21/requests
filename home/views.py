@@ -2814,6 +2814,8 @@ def payment_request_edit_record(request):
             f.write(str(e))
             f.close()
             return JsonResponse({'message':"failed"})
+
+
 # ***********************************************************************************************************************
 
 #PAYMENT TICKET
@@ -3125,6 +3127,305 @@ def payment_ticket_upload_pop(request):
         return redirect('/payment_tickets')
     else:
           return render(request, 'pages/payment_ticket/upload_pop.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+# ***********************************************************************************************************************
+
+#GRN 
+
+# ************************************************************************************************************************
+
+
+
+@login_required(login_url='login')
+def goods_received_notes(request):
+    return render(request, 'pages/goods_received/goods_received_notes.html')
+
+@login_required(login_url='login')
+def goods_received_notes_all(request):
+      username = request.user.username
+      records = GoodsReceivedNote.objects.filter(Q(receiver = username) )
+      context = {"records":records}
+
+
+      return render(request, 'pages/goods_received/list.html', context)
+
+
+
+@login_required(login_url='login')
+def goods_received_notes_add(request):
+      # username = request.user.username
+      # records = PaymentTicket.objects.filter(Q(creator = username) )
+      context = {}
+
+
+      return render(request, 'pages/goods_received/add.html', context)
+
+@login_required(login_url='login')
+def goods_received_notes_view(request):
+      username = request.user.username
+      records = GoodsReceivedNote.objects.filter(Q(receiver = username) )
+      context = {'records':records}
+
+
+      return render(request, 'pages/goods_received/list.html', context)
+
+@login_required(login_url='login')
+def goods_received_notes_completed(request):
+      username = request.user.username
+      records = GoodsReceivedNote.objects.filter(Q(approver = username) & ~Q( approver_date="None"))
+      context = {'records':records}
+
+
+      return render(request, 'pages/payment_ticket/list_completed.html', context)
+
+@login_required(login_url='login')
+def goods_received_notes_pending(request):
+      username = request.user.username
+      records = GoodsReceivedNote.objects.filter(Q(approver = username) & Q(approver_date="None"))
+      context = {'records':records}
+
+
+      return render(request, 'pages/goods_received/list_pending.html', context)
+
+@login_required(login_url="login")
+def goods_received_notes_open_record(request):
+    if request.method == "POST":
+      finance = False
+
+      # user = request.user
+    
+    # Get the groups the user belongs to
+      # groups = user.groups.all()
+
+
+      _id = request.POST.get('id',default=None)
+      # if request.user.groups.all()[0].name == "finance":
+      #     finance = True
+        # objs = Record.objects.get(id=_id)
+      record = GoodsReceivedNote.objects.get(id=_id)
+      context = {'record':record, "finance":finance}
+      # print("finance",finance)
+      return render(request, 'pages/goods_received/view_record.html', context)
+    else:
+       redirect("goods_received_all")
+
+
+@login_required(login_url="login")
+def goods_received_notes_open_record_for_edit(request):
+    if request.method == "POST":
+      finance = False
+
+      # user = request.user
+    
+    # Get the groups the user belongs to
+      # groups = user.groups.all()
+
+
+      _id = request.POST.get('id',default=None)
+      # if request.user.groups.all()[0].name == "finance":
+      #     finance = True
+        # objs = Record.objects.get(id=_id)
+      record = GoodsReceivedNote.objects.get(id=_id)
+      context = {'record':record, "finance":finance}
+      # print("finance",finance)
+
+      return render(request, 'pages/goods_received/edit_record.html', context)
+
+    else:
+      redirect("goods_received_all")
+
+
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def goods_received_notes_get_record(request):
+    context={}
+    if request.method == "POST":
+        _id = request.POST.get('id',default=None)
+
+        record = GoodsReceivedNote.objects.get(id=_id)
+
+        pdf = GoodsReceivedNoteDnote.objects.get(id=1)
+
+        try:
+          pdf = GoodsReceivedNoteDnote.objects.get(request_id=_id)
+        except:
+          pass
+        dic = {
+           
+
+          "pop":pdf.dnote_path,
+
+          "payment_request": record.payment_request,
+
+          "status": record.status,
+          "purchase_order": record.purchase_order,
+          "to_name": record.to_name,
+          "supplier": record.supplier,
+          "dpt": record.dpt,
+          "desc": record.desc,
+
+
+          "qnty": record.qnty, 
+          "serial": record.serial,
+
+          "comments": record.comments, 
+          "receiver": record.receiver,
+
+          "approver": record.approver, 
+          "receiver_date": record.receiver_date,
+          "approver_date": record.approver_date, 
+
+
+          "message":"success",
+        }
+        context = {'addTabActive': True, "record":""}
+        return JsonResponse(dic)
+    else:
+        return redirect('/goods_received')
+
+@login_required(login_url='login')
+@csrf_exempt
+@app.route("/send_record")
+def goods_received_notes_send_record(request):
+
+    with app.app_context():
+        try:
+           
+
+          status= request.POST.get('status',default=None)
+          payment_request_id= request.POST.get('request_id',default=None)
+
+
+          GoodsReceivedNoteDnote.objects.get_or_create(
+            request_id = "0",
+            dnote_path = "#",
+
+          )
+
+          d = datetime.datetime.now()
+
+          supplier= request.POST.get('supplier',default=None)
+          dpt= request.POST.get('dpt',default=None)
+
+          to_name= request.POST.get('to_name',default=None)
+          desc= request.POST.get('desc',default=None)
+
+          qnty= request.POST.get('qnty',default=None)
+          serial= request.POST.get('serial',default=None)
+          qnty= request.POST.get('qnty',default=None)
+          comments= request.POST.get('comments',default=None)
+          receiver= request.POST.get('receiver',default=None)
+          approver= request.POST.get('approver',default=None)
+
+
+
+          record = GoodsReceivedNote()
+
+          record.receiver = request.user.username
+          record.status= status
+
+
+          record.receiver_date=  "{:%B %d, %Y  %H:%M:%S}".format(d)
+          record.payment_request= payment_request_id
+
+          record.purchase_order= purchase_order
+          record.to_name= to_name
+
+          record.supplier= supplier
+          record.dpt= dpt
+
+          record.desc= desc
+          record.qnty= qnty
+          record.serial= serial
+          record.comments= comments
+          record.approver= approver
+          record.supplier= supplier
+
+          notice = Notifications()
+          notice.to= record.receiver
+          notice.trigger = request.user.username
+          notice.message = request.user.username +" has created a GRN for you to sign"
+
+          d = datetime.datetime.now()
+          notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+          notice.status = "New"
+          notice.save()
+          # record.approved_by_date= approved_by_date
+
+
+          record.save()
+
+          _id = record.pk
+          return JsonResponse( {'message':"success",'id':_id})
+
+        except Exception as e  :
+            f= open("service1.txt","w")
+            f.write(str(e))
+            f.close()
+            return JsonResponse({'message':"failed"})
+
+@login_required(login_url='login')
+@csrf_exempt
+def goods_received_notes_upload_dnote(request):
+    if request.method == 'POST' and request.FILES['dnote']:
+        myfile1 = request.FILES['dnote']
+        request_id = request.POST.get('request_id')
+        
+        import os
+        path = "uploads/goods_received_notes/dnotes/"+str(request_id)
+        # Check whether the specified path exists or not
+        # print("path ",path)
+        isExist = os.path.exists(path)
+        if not isExist:
+
+          # Create a new directory because it does not exist
+          os.makedirs(path)
+
+
+
+        fs = FileSystemStorage()
+        filename1 = fs.save(path+"/"+myfile1.name, myfile1)
+        uploaded_file_url1 = fs.url(filename1)
+
+
+
+
+        record = GoodsReceivedNoteDnote()
+        record.request_id = request_id
+        record.dnote_path = uploaded_file_url1
+        record.save()
+        return redirect('/goods_received_note')
+    else:
+          return render(request, 'pages/good_received/upload_pop.html')
+
+
+
+
+
+
+
+
 
 
 

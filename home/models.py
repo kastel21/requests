@@ -264,3 +264,27 @@ class Notifications(models.Model):
 
     def __str__(self):
         return self.message
+
+
+class GoodsReceivedNote(models.Model):
+    purchase_order = models.CharField(max_length=220,default="None")
+    payment_request = models.CharField(max_length=220,default="None")
+    status = models.CharField(max_length=220,default="None")
+    supplier = models.CharField(max_length=220,default="None")
+    dpt = models.CharField(max_length=220,default="None")
+    item_name = models.CharField(max_length=220,default="None")
+    desc = models.CharField(max_length=220,default="None")
+    qnty = models.CharField(max_length=220,default="None")
+    serial = models.CharField(max_length=220,default="None")
+    comments = models.CharField(max_length=220,default="None")
+    receiver = models.CharField(max_length=220,default="None")
+    approver = models.CharField(max_length=220,default="None")
+
+    receiver_date = models.CharField(max_length=220,default="None")
+    approver_date = models.CharField(max_length=220,default="None")
+
+
+class GoodsReceivedNoteDnote(models.Model):
+    request_id = models.CharField(max_length=255, blank=True)
+
+    dnote_path = models.CharField(max_length=500, default="#")

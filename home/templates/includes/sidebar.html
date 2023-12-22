@@ -34,15 +34,6 @@
 
 
 
-        <li class="pc-item">
-          {% if request.user.is_superuser %}
-          <a href="{% url 'comp_schedule' %}" class="pc-link">
-            {% else %}
-          <a href="{% url 'comp_schedule' %}" class="pc-link">
-          {% endif %}
-            <span class="pc-micon"><i class="ti ti-files"></i></span>
-            <span class="pc-mtext">Comparative Schedule</span></a>
-        </li>
 
 
 
@@ -56,6 +47,18 @@
             <span>Purchase Request</span></a>
         </li>
         
+
+        <li class="pc-item">
+          {% if request.user.is_superuser %}
+          <a href="{% url 'comp_schedule' %}" class="pc-link">
+            {% else %}
+          <a href="{% url 'comp_schedule' %}" class="pc-link">
+          {% endif %}
+            <span class="pc-micon"><i class="ti ti-files"></i></span>
+            <span class="pc-mtext">Comparative Schedule</span></a>
+        </li>
+
+
         <li class="pc-item">
           {% if request.user.is_superuser %}
           <a href="{% url 'purchase_order' %}" class="pc-link">
@@ -91,7 +94,20 @@
             <span class="pc-mtext">Payment Ticket</span></a>
 
         </li>
+        <li class="pc-item">
+          {% if request.user.is_superuser %}
+          <a href="{% url 'goods_received_notes' %}" class="pc-link">
+          {% else %}
+          <a href="{% url 'goods_received_notes' %}" class="pc-link">
+          {% endif %}
+            <span class="pc-micon"><i class="ti ti-wallet"></i></span>
 
+            <span class="pc-mtext">Goods Received</span></a>
+
+        </li>
+
+
+        
 
         {% admin_get_menu as app_list %}
         {% if app_list %}

@@ -1,0 +1,296 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock title %}
+{% block content %}
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    <div class="pc-content">
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+       
+        <form class="row g-3">
+            <div id="overlay">
+                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
+                
+           </div>
+            <!-- <div class="col-md-6">
+                <label for="fname" class="form-label">request_id:</label>
+                <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Requestor:</label>
+                <input type="text" class="form-control" id="requester" name="requester" value="" readonly >
+            </div>
+-->
+<div class="col-md-6">
+    <label  class="form-label">From Payment Request:</label>
+    <input type="text" class="form-control" id="payment_request_id" name="payment_request_id" value="" readonly>
+</div>
+
+
+
+
+
+
+<div class="col-md-6">
+    <label  class="form-label">Creator:</label>
+    <input type="text" class="form-control" id="creator" name="creator" value="" readonly>
+</div>
+
+
+<div class="col-md-12">
+    <label  class="form-label">Date of Creation:</label>
+    <input type="text" class="form-control" id="date_of_ticket" name="date_of_ticket" value="" readonly>
+</div>
+
+
+<div class="col-md-4">
+    <label  class="form-label">Status:</label>
+    <input type="text" class="form-control" id="status" name="status" value="" readonly>
+</div>
+
+
+
+<div class="col-md-6">
+    <label  class="form-label">To Supplier:</label>
+    <input type="text" class="form-control" id="to_name" name="to_name" value="" readonly>
+</div>
+
+
+<div class="col-md-6">
+    <label  class="form-label">Bank Name:</label>
+    <input type="text" class="form-control" id="to_bank_name" name="to_bank_name" value="" readonly>
+</div>
+
+<hr>
+<div class="col-md-6">
+    <label  class="form-label">To Bank Account:</label>
+    <input type="text" class="form-control" id="to_bank_account" name="to_bank_account" value="" readonly>
+</div>
+<div class="col-md-6">
+    <label  class="form-label">Amount:</label>
+    <input type="text" class="form-control" id="amount" name="amount" value="" readonly>
+</div>
+
+
+
+
+<hr>
+
+<div class="col-md-6">
+    <label  class="form-label">Narration:</label>
+    <input type="text" class="form-control" id="narration" name="narration" value="" readonly>
+</div>
+
+
+<div class="col-md-4">
+    <label for="certifier" class="form-label">Proof of Payment</label>
+    <a id="pop" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+</div>  
+          </form>
+
+          <div class="col-md-12">
+            <a onclick="" class="btn btn-primary"> Print</a>
+
+        
+        <div class="col-md-12">
+            <a onclick="transcript();" class="btn btn-primary"> Transcript</a>
+
+            <script  language="JavaScript" type="text/javascript">
+
+
+
+
+
+
+
+
+// populate the users dropdown
+
+// const url = "  http://127.0.0.1:8000/get_users"
+//                     const data = {
+//                       'id':"case_id",
+//                     }
+            
+//                       $.post(url,data, function(data,status){
+            
+
+// console.log(data)
+
+
+//                         $.each(data, function(val, text) {
+//                             $('#accounts_clerk_approved').append( new Option(text,val) );
+//                         });
+
+            
+  
+    
+//                         $('#overlay').fadeOut();
+
+
+//         });
+
+    
+
+
+
+
+
+
+
+                // populating the already existing records
+
+                function transcript(){
+
+current_url = window.location.href;
+                    arr = current_url.split("/");
+                    case_id = arr.at(-1);
+
+window.location.href="  http://127.0.0.1:8000/transcript/"+case_id;
+                    }
+                
+                            current_url = window.location.href;
+                                        arr = current_url.split("/");
+                                        case_id = arr.at(-1);
+                                    console.log(case_id);
+                                    if (case_id == "add"){}else{
+                                    const url = "  http://127.0.0.1:8000/payment_ticket_get_record"
+                                    const data = {
+                                      'id':case_id,
+                                    }
+                            
+                                      $.post(url,data, function(data,status){
+                            
+                            if (data['message']=="success"){
+                
+                                console.log(data);
+
+                
+    $("#payment_request_id").val(data['payment_request_id']);
+    $("#to_name").val(data['to_name']);
+    $("#narration").val(data['narration']);
+
+    $("#to_bank_name").val(data['to_bank_name']);
+    $("#to_bank_account").val(data['to_bank_account']);
+    // if ( data['pop'] == "#"){
+    //     $('#quotation1').attr('href',"#");
+    //     $("#quotation1").removeAttr("target");
+    // }else{
+    //     $('#quotation1').attr('href',data['pdf1']);
+    // }
+
+    // if ( data['pdf2'] == "#"){
+    //     $('#quotation2').attr('href',"#");
+    //     $("#quotation2").removeAttr("target");
+    // }else{
+    //     $('#quotation2').attr('href',data['pdf2']);
+    // }
+
+    if ( data['pop'] == "#"){
+        $('#pop').attr('href',"#");
+        $("#pop").removeAttr("target");
+    }else{
+        $('#pop').attr('href',data['pop']);
+    }
+
+    $("#amount").val(data['amount']); 
+    $("#date_of_ticket").val(data['date_of_ticket']);
+    $("#creator").val(data['creator']);
+
+
+    $("#status").val(data['status']);
+    $("#payment_request_id").val(data['payment_request_id']);
+
+
+                   $('#overlay').fadeOut();
+     
+                }else{
+                    $('#overlay').fadeOut();
+
+                            alert(data['message']);
+                            window.location.href="/purchase_request_all";
+                
+                        }
+                
+                        });
+                    }
+                
+                    // function sendEdit(){
+                    //     $('#overlay').fadeIn();
+
+    
+                    //     // var request_id= document.getElementById('request_id').value;
+                    //     // var requester= document.getElementById('requester').value;
+                    //     // var date_of_request= document.getElementById('date_of_request').value;
+                    //     var requesting_dpt= document.getElementById('requesting_dpt').value;
+                    //     var budget_line_item= document.getElementById('budget_line_item').value;
+                    //     var request_justification= document.getElementById('request_justification').value;
+
+                    //     var item_number= document.getElementById('item_number').value;
+                    //     var description= document.getElementById('description').value;
+                        
+
+                
+                    //     var name_address_of_supplier= document.getElementById('name_address_of_supplier').value; 
+                    //     var qnty = document.getElementById('qnty').value;
+    
+                    //     var unit_price = document.getElementById('unit_price').value;
+                    //     var total=      document.getElementById('total').value;
+
+                
+                    //     var supervisor_approved = document.getElementById('pi').value;
+                    //     // var supervisor_approved_date= document.getElementById('supervisor_approved_date').value;
+                
+                    //     var accounts_clerk_approved= document.getElementById('accounts_clerk_approved').value;
+                    //     // var accounts_clerk_approved_date= document.getElementById('accounts_clerk_approved_date').value;
+      
+                    //         current_url = window.location.href;
+                    //         arr = current_url.split("/");
+                    //         case_id = arr.at(-1);
+                    //     console.log(case_id);
+                    //     if (case_id == "add"){
+                
+                    //     const url = "  http://127.0.0.1:8000/purchase_request_clerk_approve";
+                    //     // current_url = window.location.href;
+                    //     // arr = current_url.split("/");
+                    //     // case_id = arr.at(-1);
+                    //     // month_id =arr[arr.length - 2];
+                    //     console.log("after url");
+                    //     const data = {
+                    //         // "request_id": request_id,
+                    //                         "id": case_id,
+
+                
+                    //                        }
+                
+                    //             console.log("after dict");
+                    //     $.post(url,data, function(data,status){
+                    //     if (data['message']=="success"){
+                    //         alert("success");
+                    //         $('#overlay').fadeOut();
+
+                    //         window.location.href="  http://127.0.0.1:8000/purchase_request_all";
+                    //     }else{
+                    //         alert(data['message']);
+                    //         $('#overlay').fadeOut();
+
+                    //         window.location.href="  http://127.0.0.1:8000/purchase_requests_all";
+                
+                    //     }
+                
+                    //     });
+                    //     // alert("stop hee");
+                    // }
+                
+                    // }
+                        </script>
+                
+                
+                
+                
+
+
+{% endblock content %}
