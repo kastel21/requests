@@ -37,7 +37,7 @@
 
 
 
-        <li class="pc-item">
+        <li {% if tab == "1"  %} class="pc-item active" {% else %} class="pc-item" {%endif%}>
           {% if request.user.is_superuser %}
           <a href="{% url 'purchase_request' %}" class="pc-link">
           {% else %}
@@ -48,7 +48,7 @@
         </li>
         
 
-        <li class="pc-item">
+        <li {% if tab == "2"  %} class="pc-item active" {% else %} class="pc-item" {%endif%}>
           {% if request.user.is_superuser %}
           <a href="{% url 'comp_schedule' %}" class="pc-link">
             {% else %}
@@ -59,7 +59,7 @@
         </li>
 
 
-        <li class="pc-item">
+        <li {% if tab == "3"  %} class="pc-item active" {% else %} class="pc-item" {%endif%}>
           {% if request.user.is_superuser %}
           <a href="{% url 'purchase_order' %}" class="pc-link">
             {% else %}
@@ -71,7 +71,7 @@
 
 
 
-        <li class="pc-item">
+        <li {% if tab == "4"  %} class="pc-item active" {% else %} class="pc-item" {%endif%}>
           {% if request.user.is_superuser %}
           <a href="{% url 'payment_request' %}" class="pc-link">
           {% else %}
@@ -83,7 +83,7 @@
 
         </li>
 
-        <li class="pc-item">
+        <li {% if tab == "5"  %} class="pc-item active" {% else %} class="pc-item" {%endif%}>
           {% if request.user.is_superuser %}
           <a href="{% url 'payment_tickets' %}" class="pc-link">
           {% else %}
@@ -94,7 +94,7 @@
             <span class="pc-mtext">Payment Ticket</span></a>
 
         </li>
-        <li class="pc-item">
+        <li {% if tab == "6"  %} class="pc-item active" {% else %} class="pc-item" {%endif%}>
           {% if request.user.is_superuser %}
           <a href="{% url 'goods_received_notes' %}" class="pc-link">
           {% else %}

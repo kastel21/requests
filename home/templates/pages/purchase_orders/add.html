@@ -133,7 +133,7 @@
 // populate the users dropdown
 
 
-const url = "  https://lorkas.co.zw/get_users"
+const url = "  http://127.0.0.1:8000/get_users"
 const data = {
                       'id':"case_id",
                     }
@@ -156,7 +156,7 @@ const data = {
 
 
 
-        const url1 = "  https://lorkas.co.zw/get_purchase_requests"
+        const url1 = "  http://127.0.0.1:8000/get_purchase_requests"
                     const data1 = {
                       'id':"case_id",
                     }
@@ -181,7 +181,7 @@ console.log(data1)
 
         
 
-        const url2 = "  https://lorkas.co.zw/get_comp_schedules"
+        const url2 = "  http://127.0.0.1:8000/get_comp_schedules"
                     const data2 = {
                       'id':"case_id",
                     }
@@ -256,7 +256,7 @@ var approved_by=$("#approved_by").val();
                             case_id = arr.at(-1);
                         if (case_id == "add"){
                 
-                        const url = "  https://lorkas.co.zw/purchase_order_send_record";
+                        const url = "  http://127.0.0.1:8000/purchase_order_send_record";
 
                         console.log("after url");
                         const data = {
@@ -292,15 +292,15 @@ var approved_by=$("#approved_by").val();
                             alert("success");
                             $('#overlay').fadeOut();
 
-                            window.location.href="  https://lorkas.co.zw/purchase_order_quote_upload/"+data['id'];
+                            window.location.href="  http://127.0.0.1:8000/purchase_order_quote_upload/"+data['id'];
 
-                            // window.location.href="  https://lorkas.co.zw/purchase_order_all";
+                            // window.location.href="  http://127.0.0.1:8000/purchase_order_all";
                         }else{
                             alert(data['message']);
                             console.log("err")
                             $('#overlay').fadeOut();
                             return
-                            // window.location.href="  https://lorkas.co.zw/purchase_order_all";
+                            // window.location.href="  http://127.0.0.1:8000/purchase_order_all";
                 
                         }
                 

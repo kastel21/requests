@@ -94,7 +94,7 @@
 
 
 // populate the users dropdown
-    const url = "  https://lorkas.co.zw/get_payment_requests"
+    const url = "  http://127.0.0.1:8000/get_payment_requests"
                     const data = {
                       'id':"case_id",
                     }
@@ -131,7 +131,7 @@
                             case_id = arr.at(-1);
                         if (case_id == "add"){
                 
-                        const url = "  https://lorkas.co.zw/payment_ticket_send_record";
+                        const url = "  http://127.0.0.1:8000/payment_ticket_send_record";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -164,13 +164,13 @@
                             alert(status);
 
                             if(status == "completed"){
-                                window.location.href="  https://lorkas.co.zw/payment_ticket_upload_pop/"+data['id'];
+                                window.location.href="  http://127.0.0.1:8000/payment_ticket_upload_pop/"+data['id'];
 
                                 
 
                             }else{
 
-                                window.location.href="  https://lorkas.co.zw/payment_tickets_all";
+                                window.location.href="  http://127.0.0.1:8000/payment_tickets_all";
 
                             }
 
@@ -179,7 +179,7 @@
                             console,log("err")
                             $('#overlay').fadeOut();
 
-                            window.location.href="  https://lorkas.co.zw/payment_tickets_all";
+                            window.location.href="  http://127.0.0.1:8000/payment_tickets_all";
                 
                         }
                 

@@ -65,7 +65,7 @@ def payment_request(request):
 
 
 def cm(request):
-      return JsonResponse( {'message':"ALVSeuuWa5aXqWtjDLfBgU3FdxTMb4Z2YL8pLmSyu2Q.RuEKtPWKHBIYysMx6MgzRDdsJa4D9GKCpw-7cQNjy_k"})
+      return JsonResponse( {'message':"ALVSeuuWa5aXqWtjDLfBgU3FdxTMb4Z2YL8pLmSyu2Q.RuEKtPWKHBIYysMx6MgzRDdsJa4D9GKCpw-7cQNjy_k","tab":"1"})
 
 
 def typography(request):
@@ -187,13 +187,13 @@ def purchase_request(request):
 @login_required(login_url='login')
 def purchase_request_all(request):
     records = PuchaseRequest.objects.all()
-    context = {'records':records}
+    context = {'records':records , "tab":"1"}
     return render(request, 'pages/purchase_requests/list2.html', context)
 
 @login_required(login_url='login')
 def purchase_request_super(request):
     form = PuchaseRequest.objects.all()
-    context = {'form':form}
+    context = {'form':form, "tab":"1"}
     return render(request, 'pages/purchase_requests/list2.html', context)
 
 @login_required(login_url='login')
@@ -201,7 +201,7 @@ def purchase_request_pending(request):
       username = request.user.username
 
       records = PuchaseRequest.objects.filter((Q(supervisor_approved=username) & Q (supervisor_approved_date="None")) | (Q(finance_officer=username) & Q (finance_officer_approved_date="None")) )
-      context = {'records':records}
+      context = {'records':records, "tab":"1"}
 
       return render(request, 'pages/purchase_requests/list_pending.html', context)
 
@@ -209,13 +209,13 @@ def purchase_request_pending(request):
 def purchase_request_approved(request):
     username = request.user.username
     records = PuchaseRequest.objects.filter( (Q(requester =username)& ~Q(finance_officer_approved_date="None"))  |  (Q(supervisor_approved =username)& ~Q(finance_officer_approved_date="None")) | (Q(finance_officer =username)& ~Q(finance_officer_approved_date="None")) )
-    context = {'records':records}
+    context = {'records':records, "tab":"1"}
     return render(request, 'pages/purchase_requests/list_approved.html', context)
 
 @login_required(login_url='login')
 def purchase_request_add(request):
     form = PuchaseRequest.objects.all()
-    context = {'form':form}
+    context = {'form':form, "tab":"1"}
     return render(request, 'pages/purchase_requests/add.html', context)
 
 @login_required(login_url='login')
@@ -317,7 +317,7 @@ def purchase_request_get_record(request):
         }
 
         print(record.supervisor_approved)
-        context = {'addTabActive': True, "record":""}
+        context = {'addTabActive': True, "record":"","tab":"1","tab":"1"}
         return JsonResponse(dic)
     else:
         return redirect('/payment_requests')
@@ -353,7 +353,7 @@ def purchase_request_pi_approve(request):
 
 
 
-      return JsonResponse( {'message':"success"})
+      return JsonResponse( {'message':"success","tab":"1"})
     else:
       return render(request, 'pages/purchase_requests/list.html', {})
 
@@ -386,7 +386,7 @@ def purchase_request_clerk_approve(request):
 
 
 
-      return JsonResponse( {'message':"success"})
+      return JsonResponse( {'message':"success","tab":"1"})
     else:
       return render(request, 'pages/purchase_requests/list.html', {})
     
@@ -398,7 +398,7 @@ def purchase_request_clerk_approve(request):
 def purchase_request_view(request):
       username = request.user.username
       records = PuchaseRequest.objects.filter(Q(requester = username) | Q(supervisor_approved =username) | Q(finance_officer = username))
-      context = {'records':records}
+      context = {'records':records, "tab":"1"}
 
 
       return render(request, 'pages/purchase_requests/list2.html', context)
@@ -412,7 +412,7 @@ def purchase_request_open_record(request):
       _id = request.POST.get('id',default=None)
 
       record = PuchaseRequest.objects.get(id=_id)
-      context = {'record':record}
+      context = {'record':record, "tab":"1"}
       print("IN POST")
       return render(request, 'pages/purchase_requests/view_record.html', context)
     else:
@@ -429,7 +429,7 @@ def purchase_request_edit_options(request):
 
         # objs = Record.objects.get(id=_id)
       record = PuchaseRequest.objects.get(id=_id)
-      context = {'record':record}
+      context = {'record':record, "tab":"1"}
       # print("IN POST")
       if record.supervisor_approved_date == "None" and record.supervisor_approved == request.user.username:
         #  print("certified")
@@ -624,7 +624,7 @@ def procurement_request_get_record(request):
         }
 
         # print(record.supervisor_approved)
-        context = {'addTabActive': True, "record":""}
+        context = {'addTabActive': True, "record":"","tab":"1","tab":"1"}
         return JsonResponse(dic)
     else:
         return redirect('/procurement_requests')
@@ -662,7 +662,7 @@ def procurement_request_officer_approve(request):
 
 
 
-      return JsonResponse( {'message':"success"})
+      return JsonResponse( {'message':"success","tab":"1"})
     else:
       return render(request, 'pages/procurement_requests/list.html', {})
 
@@ -693,7 +693,7 @@ def procurement_request_officer_disapprove(request):
 
 
 
-      return JsonResponse( {'message':"success"})
+      return JsonResponse( {'message':"success","tab":"1"})
     else:
       return render(request, 'pages/procurement_requests/list.html', {})
 
@@ -724,7 +724,7 @@ def procurement_request_officer_disapprove(request):
 
 
 
-#       return JsonResponse( {'message':"success"})
+#       return JsonResponse( {'message':"success","tab":"1"})
 #     else:
 #       return render(request, 'pages/purchase_requests/list.html', {})
     
@@ -976,7 +976,7 @@ def service_request_get_record(request):
         }
 
         print(record.supervisor_approved)
-        context = {'addTabActive': True, "record":""}
+        context = {'addTabActive': True, "record":"","tab":"1"}
         return JsonResponse(dic)
     else:
         return redirect('/service_requests')
@@ -1012,7 +1012,7 @@ def service_request_dh_approve(request):
       notice.trigger = username
       notice.save()
 
-      return JsonResponse( {'message':"success"})
+      return JsonResponse( {'message':"success","tab":"1"})
     else:
       return render(request, 'pages/service_requests/list.html', {})
 
@@ -1048,7 +1048,7 @@ def service_request_dh_approve(request):
 
 
 
-#       return JsonResponse( {'message':"success"})
+#       return JsonResponse( {'message':"success","tab":"1"})
 #     else:
 #       return render(request, 'pages/service_requests/list.html', {})
 
@@ -1082,7 +1082,7 @@ def service_request_dh_disapprove(request):
 
 
 
-      return JsonResponse( {'message':"success"})
+      return JsonResponse( {'message':"success","tab":"1"})
     else:
       return render(request, 'pages/service_requests/list.html', {})
 
@@ -1113,7 +1113,7 @@ def service_request_dh_disapprove(request):
 
 
 
-#       return JsonResponse( {'message':"success"})
+#       return JsonResponse( {'message':"success","tab":"1"})
 #     else:
 #       return render(request, 'pages/purchase_requests/list.html', {})
     
@@ -1180,7 +1180,7 @@ def service_request_print(request):
         "supervisor_disapproved_date": record.supervisor_disapproved_date,
         "supervisor_disapproved_message": record.supervisor_disapproved_message,
         
-        "message":"success"}   
+        "message":"success","tab":"1"}   
 
 
         pdf = render_to_pdf('pages/service_requests/print.html', data)
@@ -1248,13 +1248,13 @@ def comp_schedule(request):
 @login_required(login_url='login')
 def comp_schedule_all(request):
     records = ComparativeSchedule.objects.all()
-    context = {'records':records}
+    context = {'records':records, "tab":"2"}
     return render(request, 'pages/comparative_schedules/list.html', context)
 
 @login_required(login_url='login')
 def comp_schedule_super(request):
     form = ComparativeSchedule.objects.all()
-    context = {'form':form}
+    context = {'form':form ,"tab":"2"}
     return render(request, 'pages/payment_request.html', context)
 
 # @login_required(login_url='login')
@@ -1332,7 +1332,7 @@ def comp_schedule_print(request):
 
         "project_number": record.project_number,
         
-        "message":"success"}   
+        "message":"success","tab":"2"}   
 
         pdf = render_to_pdf('pages/comparative_schedules/print.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
@@ -1341,13 +1341,13 @@ def comp_schedule_print(request):
 def comp_schedule_approved(request):
     username = request.user.username
     records = ComparativeSchedule.objects.filter( (Q(requested_by =username )& ~Q(approved_date="None"))  |  (Q(tech_person_by =username )& ~Q(approved_date="None")) | (Q(dpt_head_by =username )& ~Q(approved_date="None")) | (Q(team_lead_by =username )& ~Q(approved_date="None")) | (Q(approved_by =username )& ~Q(approved_date="None")))
-    context = {'records':records}
+    context = {'records':records ,"tab":"2"}
     return render(request, 'pages/comparative_schedules/list_approved.html', context)
 
 @login_required(login_url='login')
 def comp_schedule_add(request):
     form = ComparativeSchedule.objects.all()
-    context = {'form':form}
+    context = {'form':form ,"tab":"2"}
     return render(request, 'pages/comparative_schedules/add.html', context)
 
 @login_required(login_url='login')
@@ -1501,7 +1501,7 @@ def comp_schedule_send_record(request):
             f= open("service2.txt","w")
             f.write(str(e))
             f.close()
-            return JsonResponse({'message':"failed"})
+            return JsonResponse({'message':"failed","tab":"1"})
 
 @login_required(login_url='login')
 @csrf_exempt
@@ -1614,7 +1614,7 @@ def comp_schedule_approve(request):
 
 
 
-      return JsonResponse( {'message':"success"})
+      return JsonResponse( {'message':"success","tab":"1"})
     else:
       return render(request, 'pages/payment_requests/list.html', {})
 
@@ -1661,7 +1661,7 @@ def comp_schedule_approve_head(request):
 
       record.save()
 
-      return JsonResponse( {'message':"success"})
+      return JsonResponse( {'message':"success","tab":"1"})
 
     else:
       return render(request, 'pages/payment_requests/list.html', {})
@@ -1705,7 +1705,7 @@ def comp_schedule_approve_lead(request):
 
 
 
-      return JsonResponse( {'message':"success"})
+      return JsonResponse( {'message':"success","tab":"1"})
 
     else:
       return render(request, 'pages/payment_requests/list.html', {})
@@ -1740,7 +1740,7 @@ def comp_schedule_approve_pi(request):
 
 
 
-      return JsonResponse( {'message':"success"})
+      return JsonResponse( {'message':"success","tab":"1"})
 
     else:
       return render(request, 'pages/payment_requests/list.html', {})
@@ -1753,7 +1753,7 @@ def comp_schedule_open_record(request):
 
         # objs = Record.objects.get(id=_id)
       record = ComparativeSchedule.objects.get(id=_id)
-      context = {'record':record}
+      context = {'record':record ,"tab":"2"}
       # print("IN POST")
       return render(request, 'pages/comparative_schedules/view_record.html', context)
     else:
@@ -1768,7 +1768,7 @@ def comp_schedule_pending_view(request):
 
         # objs = Record.objects.get(id=_id)
       record = ComparativeSchedule.objects.get(id=_id)
-      context = {'record':record}
+      context = {'record':record ,"tab":"2"}
 
       # print("IN POST")
 
@@ -1800,7 +1800,7 @@ def comp_schedule_pending_view(request):
 def comp_schedule_pending(request):
     username = request.user.username
     records = ComparativeSchedule.objects.filter((Q(approved_by=username) & Q (approved_date="None")) | (Q(dpt_head_by=username) & Q (dpt_head_date="None")) | (Q(team_lead_by=username) & Q (team_lead_date="None")) | (Q(tech_person_by=username) & Q (tech_person_date="None")) )
-    context = {'records':records}
+    context = {'records':records ,"tab":"2"}
     return render(request, 'pages/comparative_schedules/list_pending.html', context)
 
 @login_required(login_url='login')
@@ -1870,20 +1870,13 @@ def get_payment_requests(request):
           print(str(e))
           return JsonResponse(str(e))
 
-@login_required(login_url='login')        
-def payment_tickets_super(request):
-    username = request.user.username
-    user_id = request.user.id
-    records = PaymentRequest.objects.filter( Q(compiled_by=username) | Q(certified_by= username) | Q(cleared_by_fin_man=username))
-    context = {'records':records}
-    return render(request, 'pages/payment_requests/list2.html', context)
 
 @login_required(login_url='login')
 def payment_request_all(request):
     username = request.user.username
     user_id = request.user.id
     records = PaymentRequest.objects.filter( Q(compiled_by=username) | Q(certified_by= username)  | Q(cleared_by_fin_man=username))
-    context = {'records':records}
+    context = {'records':records ,"tab":"4"}
     return render(request, 'pages/payment_requests/list2.html', context)
 
 
@@ -1895,7 +1888,7 @@ def payment_request_completed(request):
 
 
 
-    context = {'records':records}
+    context = {'records':records ,"tab":"4"}
     return render(request, 'pages/payment_requests/list_completed.html', context)
 
 @login_required(login_url='login')
@@ -2094,7 +2087,7 @@ def payment_request_quote_upload(request):
 @login_required(login_url='login')
 def payment_request(request):
     form = PaymentRequest.objects.all()
-    context = {'form':form}
+    context = {'form':form }
     return render(request, 'pages/payment_requests/payment_requests.html', context)
 
 
@@ -2106,7 +2099,7 @@ def payment_request_open_approved(request):
           record = PaymentRequest.objects.get(id=_id)
           print(" posted")
 
-          return render(request, 'pages/payment_requests/view_approved.html', context={"record":record})
+          return render(request, 'pages/payment_requests/view_approved.html', context={"record":record,"tab":"4"})
       else:
          print("not post")
          return redirect("payment_request_approved")
@@ -2121,7 +2114,7 @@ def payment_request_kas_completed(request):
           record = PaymentRequest.objects.get(id=_id)
           print(" posted")
 
-          return render(request, 'pages/payment_requests/view_completed.html', context={"record":record})
+          return render(request, 'pages/payment_requests/view_completed.html', context={"record":record,"tab":"4"})
       else:
          print("not post")
          return redirect("payment_request_completed")
@@ -2135,7 +2128,7 @@ def payment_request_view(request):
 
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
-      context = {'record':record}
+      context = {'record':record,"tab":"4"}
       print("IN POST")
       if record.certified_by_date == "None" and record.certified_by == request.user.username:
          print("certified")
@@ -2161,7 +2154,7 @@ def payment_request_edit_options(request):
 
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
-      context = {'record':record}
+      context = {'record':record,"tab":"4"}
       print("IN POST")
       if record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man_date == request.user.username:
          print("certified")
@@ -2195,7 +2188,7 @@ def payment_request_open_record(request):
       #     finance = True
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
-      context = {'record':record, "finance":finance}
+      context = {'record':record, "finance":finance ,"tab":"4"}
       print("finance",finance)
       return render(request, 'pages/payment_requests/view_record.html', context)
     else:
@@ -2223,7 +2216,7 @@ def payment_request_pending_view(request):
 
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
-      context = {'record':record}
+      context = {'record':record,"tab":"4"}
 
       print("IN POST")
       if record.certified_by_date == "None" and record.certified_by == request.user.username:
@@ -2275,7 +2268,7 @@ def payment_request_print(request):
         "approved_by": record.approved_by,
         "approved_by_date": record.approved_by_date,
         
-        "message":"success"}   
+        "message":"success","tab":"1"}   
 
 
         pdf = render_to_pdf('pages/payment_requests/print.html', data)
@@ -2298,13 +2291,13 @@ def payment_request_print(request):
 @login_required(login_url='login')
 def payment_request_super(request):
     records = PaymentRequest.objects.all()
-    context = {'records':records}
+    context = {'records':records,"tab":"4"}
     return render(request, 'pages/payment_requests/list2.html', context)
 
 @login_required(login_url='login')
 def payment_request_edit(request):
     form = PaymentRequest.objects.all()
-    context = {'form':form}
+    context = {'form':form,"tab":"4"}
     return render(request, 'pages/payment_requests/add.html', context)
 
 # @login_required(login_url='login')
@@ -2321,7 +2314,7 @@ def payment_request_certification(request):
 
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
-      context = {'record':record}
+      context = {'record':record,"tab":"4"}
       return render(request, 'pages/payment_requests/view.html', context)
     else:
       return render(request, 'pages/payment_requests/list.html', {})
@@ -2344,7 +2337,7 @@ def payment_request_clearance(request):
 
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
-      context = {'record':record}
+      context = {'record':record,"tab":"4"}
       return render(request, 'pages/payment_requests/view.html', context)
     else:
       return render(request, 'pages/payment_requests/list.html', {})
@@ -2368,7 +2361,7 @@ def payment_request_clearance(request):
 
 
 
-#       return JsonResponse( {'message':"success"})
+#       return JsonResponse( {'message':"success","tab":"1"})
 
 #     else:
 #       return render(request, 'pages/payment_requests/list.html', {})
@@ -2378,7 +2371,7 @@ def payment_request_clearance(request):
 @login_required(login_url='login')
 def payment_request_pending_approval(request):
     records = PaymentRequest.objects.filter(approved_by="None")
-    context = {'records':records}
+    context = {'records':records,"tab":"4"}
     return render(request, 'pages/payment_requests/list.html', context)
 
 
@@ -2417,7 +2410,7 @@ def payment_request_pending_approval(request):
 
 
 
-#       return JsonResponse( {'message':"success"})
+#       return JsonResponse( {'message':"success","tab":"1"})
 
 #     else:
 #       return render(request, 'pages/payment_requests/list.html', {})
@@ -2448,12 +2441,12 @@ def payment_request_certify(request):
         notice.trigger = request.user.username
         notice.save()
 
-        return JsonResponse( {'message':"success"})
+        return JsonResponse( {'message':"success","tab":"1"})
       else:
         return render(request, 'pages/payment_requests/list.html', {})
 
     except:
-       return JsonResponse( {'message':"failed"})
+       return JsonResponse( {'message':"failed","tab":"1"})
 
 @login_required(login_url='login')
 @csrf_exempt
@@ -2480,13 +2473,13 @@ def payment_request_clear(request):
         notice.trigger = request.user.username
         notice.save()
 
-        return JsonResponse( {'message':"success"})
+        return JsonResponse( {'message':"success","tab":"1"})
       else:
         return render(request, 'pages/payment_requests/list.html', {})
 
 
     except:
-       return JsonResponse( {'message':"failed"})
+       return JsonResponse( {'message':"failed","tab":"1"})
 
 
 @login_required(login_url='login')
@@ -2518,19 +2511,19 @@ def payment_request_approve(request):
         notice.trigger = request.user.username
         notice.save()
 
-        return JsonResponse( {'message':"success"})
+        return JsonResponse( {'message':"success","tab":"1"})
       else:
         return render(request, 'pages/payment_requests/list.html', {})
 
 
     except:
-       return JsonResponse( {'message':"failed"})
+       return JsonResponse( {'message':"failed","tab":"1"})
 
 @login_required(login_url='login')
 def payment_request_pending(request):
     username = request.user.username
     records = PaymentRequest.objects.filter( (Q(certified_by=username) & Q (certified_by_date="None")) | (Q(cleared_by_fin_man=username) & Q (cleared_by_fin_man_date="None")))
-    context = {'records':records}
+    context = {'records':records,"tab":"4"}
     return render(request, 'pages/payment_requests/list_pending.html', context)
 
 
@@ -2539,7 +2532,7 @@ def payment_request_approved(request):
     username = request.user.username
 
     records = PaymentRequest.objects.filter( (Q(certified_by=username) & ~Q(cleared_by_fin_man_date="None") ) | (Q(compiled_by=username) & ~Q(cleared_by_fin_man_date="None") )  | (Q(cleared_by_fin_man=username) & ~Q(cleared_by_fin_man_date="None") )  )
-    context = {'records':records}
+    context = {'records':records,"tab":"4"}
     return render(request, 'pages/payment_requests/list_approved.html', context)
 
 # @login_required(login_url='login')
@@ -2555,7 +2548,7 @@ def payment_request_approved(request):
 def payment_request_add(request):
     
     form = PaymentRequest.objects.all()
-    context = {'form':form}
+    context = {'form':form,"tab":"4"}
     return render(request, 'pages/payment_requests/add.html', context)
 
 
@@ -2649,7 +2642,7 @@ def payment_request_get_record(request):
 
           "message":"success",
         }
-        context = {'addTabActive': True, "record":""}
+        context = {'addTabActive': True, "record":"","tab":"1"}
         return JsonResponse(dic)
     else:
         return redirect('/payment_requests')
@@ -2742,7 +2735,7 @@ def payment_request_send_record(request):
             f= open("service1.txt","w")
             f.write(str(e))
             f.close()
-            return JsonResponse({'message':"failed"})
+            return JsonResponse({'message':"failed","tab":"1"})
 
 @login_required(login_url='login')
 @csrf_exempt
@@ -2807,13 +2800,13 @@ def payment_request_edit_record(request):
 
 
 
-          return JsonResponse( {'message':"success"})
+          return JsonResponse( {'message':"success","tab":"1"})
 
         except Exception as e  :
             f= open("service1.txt","w")
             f.write(str(e))
             f.close()
-            return JsonResponse({'message':"failed"})
+            return JsonResponse({'message':"failed","tab":"1"})
 
 
 # ***********************************************************************************************************************
@@ -2851,13 +2844,13 @@ def payment_request_adopt(request):
         notice.trigger = request.user.username
         notice.save()
 
-        return JsonResponse( {'message':"success"})
+        return JsonResponse( {'message':"success","tab":"1"})
       else:
         return render(request, 'pages/payment_requests/list.html', {})
 
 
     except:
-       return JsonResponse( {'message':"failed"})
+       return JsonResponse( {'message':"failed","tab":"1"})
 
 
 @login_required(login_url='login')
@@ -2868,7 +2861,7 @@ def payment_tickets(request):
 def payment_tickets_all(request):
       username = request.user.username
       records = PaymentTicket.objects.filter(Q(creator = username) )
-      context = {"records":records}
+      context = {"records":records,"tab":"5"}
 
 
       return render(request, 'pages/payment_ticket/list.html', context)
@@ -2879,7 +2872,7 @@ def payment_tickets_all(request):
 def payment_ticket_add(request):
       # username = request.user.username
       # records = PaymentTicket.objects.filter(Q(creator = username) )
-      context = {}
+      context = {"tab":"5"}
 
 
       return render(request, 'pages/payment_ticket/add.html', context)
@@ -2888,7 +2881,7 @@ def payment_ticket_add(request):
 def payment_ticket_view(request):
       username = request.user.username
       records = PaymentTicket.objects.filter(Q(creator = username) )
-      context = {'records':records}
+      context = {'records':records,"tab":"5"}
 
 
       return render(request, 'pages/payment_ticket/list.html', context)
@@ -2897,7 +2890,7 @@ def payment_ticket_view(request):
 def payment_tickets_completed(request):
       username = request.user.username
       records = PaymentTicket.objects.filter(Q(creator = username) & Q( status="completed"))
-      context = {'records':records}
+      context = {'records':records,"tab":"5"}
 
 
       return render(request, 'pages/payment_ticket/list_completed.html', context)
@@ -2906,7 +2899,7 @@ def payment_tickets_completed(request):
 def payment_tickets_pending(request):
       username = request.user.username
       records = PaymentTicket.objects.filter(Q(creator = username) & ~Q(status="completed"))
-      context = {'records':records}
+      context = {'records':records,"tab":"5"}
 
 
       return render(request, 'pages/payment_ticket/list_pending.html', context)
@@ -2927,7 +2920,7 @@ def payment_ticket_open_record(request):
       #     finance = True
         # objs = Record.objects.get(id=_id)
       record = PaymentTicket.objects.get(id=_id)
-      context = {'record':record, "finance":finance}
+      context = {'record':record, "finance":finance,"tab":"5"}
       # print("finance",finance)
       return render(request, 'pages/payment_ticket/view_record.html', context)
     else:
@@ -2950,7 +2943,7 @@ def payment_ticket_open_record_for_edit(request):
       #     finance = True
         # objs = Record.objects.get(id=_id)
       record = PaymentTicket.objects.get(id=_id)
-      context = {'record':record, "finance":finance}
+      context = {'record':record, "finance":finance,"tab":"5"}
       # print("finance",finance)
 
       return render(request, 'pages/payment_ticket/edit_record.html', context)
@@ -3018,7 +3011,7 @@ def payment_ticket_get_record(request):
 
           "message":"success",
         }
-        context = {'addTabActive': True, "record":""}
+        context = {'addTabActive': True, "record":"","tab":"1"}
         return JsonResponse(dic)
     else:
         return redirect('/payment_tickets')
@@ -3092,7 +3085,7 @@ def payment_ticket_send_record(request):
             f= open("service1.txt","w")
             f.write(str(e))
             f.close()
-            return JsonResponse({'message':"failed"})
+            return JsonResponse({'message':"failed","tab":"1"})
 
 @login_required(login_url='login')
 @csrf_exempt
@@ -3163,7 +3156,7 @@ def goods_received_notes(request):
 def goods_received_notes_all(request):
       username = request.user.username
       records = GoodsReceivedNote.objects.filter(Q(receiver = username) | Q(approver = username) )
-      context = {"records":records}
+      context = {"records":records,"tab":"6"}
 
 
       return render(request, 'pages/goods_received/list.html', context)
@@ -3172,7 +3165,7 @@ def goods_received_notes_all(request):
 def goods_received_notes_completed(request):
       username = request.user.username
       records = GoodsReceivedNote.objects.filter( Q(Q(receiver = username) | Q(approver = username)) & ~Q(approver_date="None") )
-      context = {"records":records}
+      context = {"records":records,"tab":"6"}
 
 
       return render(request, 'pages/goods_received/list_completed.html', context)
@@ -3182,7 +3175,7 @@ def goods_received_notes_completed(request):
 def goods_received_notes_add(request):
       # username = request.user.username
       # records = PaymentTicket.objects.filter(Q(creator = username) )
-      context = {}
+      context = {"tab":"6"}
 
 
       return render(request, 'pages/goods_received/add.html', context)
@@ -3191,7 +3184,7 @@ def goods_received_notes_add(request):
 def goods_received_notes_view(request):
       username = request.user.username
       records = GoodsReceivedNote.objects.filter(Q(receiver = username) )
-      context = {'records':records}
+      context = {'records':records, "tab":"6"}
 
 
       return render(request, 'pages/goods_received/list.html', context)
@@ -3202,7 +3195,7 @@ def goods_received_notes_view(request):
 def goods_received_notes_pending(request):
       username = request.user.username
       records = GoodsReceivedNote.objects.filter(Q(approver = username) & Q(approver_date="None"))
-      context = {'records':records}
+      context = {'records':records , "tab":"6"}
 
 
       return render(request, 'pages/goods_received/list_pending.html', context)
@@ -3223,7 +3216,7 @@ def goods_received_notes_open_record(request):
       #     finance = True
         # objs = Record.objects.get(id=_id)
       record = GoodsReceivedNote.objects.get(id=_id)
-      context = {'record':record, "finance":finance}
+      context = {'record':record, "finance":finance , "tab":"6"}
       # print("finance",finance)
       return render(request, 'pages/goods_received/view_record.html', context)
     else:
@@ -3246,7 +3239,7 @@ def goods_received_notes_open_record_for_edit(request):
       #     finance = True
         # objs = Record.objects.get(id=_id)
       record = GoodsReceivedNote.objects.get(id=_id)
-      context = {'record':record, "finance":finance}
+      context = {'record':record, "finance":finance, "tab":"6"}
       # print("finance",finance)
 
       return render(request, 'pages/goods_received/edit_record.html', context)
@@ -3300,7 +3293,7 @@ def goods_received_notes_get_record(request):
 
           "message":"success",
         }
-        context = {'addTabActive': True, "record":""}
+        context = {'addTabActive': True, "record":"","tab":"1"}
         return JsonResponse(dic)
     else:
         return redirect('/goods_received')
@@ -3385,7 +3378,7 @@ def goods_received_notes_send_record(request):
             f= open("goods_received_notes_send_record.txt","w")
             f.write(str(e))
             f.close()
-            return JsonResponse({'message':"failed"})
+            return JsonResponse({'message':"failed","tab":"1"})
 
 @login_required(login_url='login')
 @csrf_exempt
@@ -3449,7 +3442,7 @@ def goods_received_notes_approve(request):
         notice.trigger = request.user.username
         notice.save()
 
-        return JsonResponse( {'message':"success"})
+        return JsonResponse( {'message':"success","tab":"1"})
 
     except Exception as e:
        return JsonResponse( {'message': str(e)})
@@ -3470,7 +3463,7 @@ def goods_received_notes_approve(request):
 @login_required(login_url='login')
 def purchase_order(request):
     records = PurchaseOrder.objects.all()
-    context = {'records':records}
+    context = {'records':records , "tab":"3"}
     return render(request, 'pages/purchase_orders/purchase_orders.html', context)
 
 @login_required(login_url='login')
@@ -3480,7 +3473,7 @@ def purchase_order_all(request):
     # records = PurchaseOrder.objects.all()
 
     records = PurchaseOrder.objects.filter( Q(compiled_by=username) | Q(ordered_by=username) | Q(required_by= username) | Q(approved_by=username))
-    context = {'records':records}
+    context = {'records':records, "tab":"3"}
     return render(request, 'pages/purchase_orders/list.html', context)
 
 def purchase_order_quote_upload(request):
@@ -3522,7 +3515,7 @@ def purchase_order_view(request):
 
         # objs = Record.objects.get(id=_id)
       record = PurchaseOrder.objects.get(id=_id)
-      context = {'record':record}
+      context = {'record':record, "tab":"3"}
 
 
       return render(request, 'pages/purchase_orders/view_record.html', context)
@@ -3538,7 +3531,7 @@ def purchase_order_edit_options(request):
 
         # objs = Record.objects.get(id=_id)
       record = PurchaseOrder.objects.get(id=_id)
-      context = {'record':record}
+      context = {'record':record, "tab":"3"}
       # print("IN POST")
       if record.required_by_date == "None" and record.required_by == request.user.username:
         #  print("certified")
@@ -3570,7 +3563,7 @@ def purchase_order_open_record(request):
 
         # objs = Record.objects.get(id=_id)
       record = PurchaseOrder.objects.get(id=_id)
-      context = {'record':record}
+      context = {'record':record, "tab":"3"}
       print("IN POST")
       return render(request, 'pages/purchase_orders/view_record.html', context)
     else:
@@ -3598,7 +3591,7 @@ def purchase_order_pending_view(request):
 
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
-      context = {'record':record}
+      context = {'record':record, "tab":"3"}
 
       print("IN POST")
       if record.certified_by_date == "None" and record.certified_by == request.user.username:
@@ -3660,7 +3653,7 @@ def purchase_order_print(request):
         "required_by":record.required_by,
         "approved_by":record.approved_by,
         
-        "message":"success"}   
+        "message":"success","tab":"1"}   
 
         pdf = render_to_pdf('pages/purchase_orders/print.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
@@ -3682,13 +3675,13 @@ def purchase_order_print(request):
 @login_required(login_url='login')
 def purchase_order_super(request):
     records = PurchaseOrder.objects.all()
-    context = {'records':records}
+    context = {'records':records, "tab":"3"}
     return render(request, 'pages/purchase_orders/list2.html', context)
 
 @login_required(login_url='login')
 def purchase_order_edit(request):
     form = PurchaseOrder.objects.all()
-    context = {'form':form}
+    context = {'form':form, "tab":"3"}
     return render(request, 'pages/purchase_orders/add.html', context)
 
 # @login_required(login_url='login')
@@ -3705,7 +3698,7 @@ def purchase_order_certification(request):
 
         # objs = Record.objects.get(id=_id)
       record = PurchaseOrder.objects.get(id=_id)
-      context = {'record':record}
+      context = {'record':record, "tab":"3"}
       return render(request, 'pages/purchase_orders/view.html', context)
     else:
       return render(request, 'pages/purchase_orders/list.html', {})
@@ -3728,7 +3721,7 @@ def purchase_order_clearance(request):
 
         # objs = Record.objects.get(id=_id)
       record = PurchaseOrder .objects.get(id=_id)
-      context = {'record':record}
+      context = {'record':record, "tab":"3"}
       return render(request, 'pages/purchase_orders/view.html', context)
     else:
       return render(request, 'pages/purchase_orders/list.html', {})
@@ -3752,7 +3745,7 @@ def purchase_order_clearance(request):
 
 
 
-#       return JsonResponse( {'message':"success"})
+#       return JsonResponse( {'message':"success","tab":"1"})
 
 #     else:
 #       return render(request, 'pages/purchase_orders/list.html', {})
@@ -3762,7 +3755,7 @@ def purchase_order_clearance(request):
 @login_required(login_url='login')
 def purchase_order_pending_approval(request):
     records = PaymentRequest.objects.filter(approved_by="None")
-    context = {'records':records}
+    context = {'records':records, "tab":"3"}
     return render(request, 'pages/purchase_orders/list.html', context)
 
 
@@ -3801,7 +3794,7 @@ def purchase_order_pending_approval(request):
 
 
 
-#       return JsonResponse( {'message':"success"})
+#       return JsonResponse( {'message':"success","tab":"1"})
 
 #     else:
 #       return render(request, 'pages/purchase_orders/list.html', {})
@@ -3832,12 +3825,12 @@ def purchase_order_certify(request):
         notice.trigger = request.user.username
         notice.save()
 
-        return JsonResponse( {'message':"success"})
+        return JsonResponse( {'message':"success","tab":"1"})
       else:
         return render(request, 'pages/purchase_orders/list.html', {})
 
     except:
-       return JsonResponse( {'message':"failed"})
+       return JsonResponse( {'message':"failed","tab":"1"})
 
 @login_required(login_url='login')
 @csrf_exempt
@@ -3866,13 +3859,13 @@ def purchase_order_clear(request):
         notice.trigger = request.user.username
         notice.save()
 
-        return JsonResponse( {'message':"success"})
+        return JsonResponse( {'message':"success","tab":"1"})
       else:
         return render(request, 'pages/purchase_orders/list.html', {})
 
 
     except:
-       return JsonResponse( {'message':"failed"})
+       return JsonResponse( {'message':"failed","tab":"1"})
 
 
 
@@ -3905,13 +3898,13 @@ def purchase_order_required(request):
         notice.trigger = request.user.username
         notice.save()
 
-        return JsonResponse( {'message':"success"})
+        return JsonResponse( {'message':"success","tab":"1"})
       else:
         return render(request, 'pages/purchase_orders/list.html', {})
 
 
     except:
-       return JsonResponse( {'message':"failed"})
+       return JsonResponse( {'message':"failed","tab":"1"})
 
 
 
@@ -3944,13 +3937,13 @@ def purchase_order_ordered(request):
         notice.trigger = request.user.username
         notice.save()
 
-        return JsonResponse( {'message':"success"})
+        return JsonResponse( {'message':"success","tab":"1"})
       else:
         return render(request, 'pages/purchase_orders/list.html', {})
 
 
     except:
-       return JsonResponse( {'message':"failed"})
+       return JsonResponse( {'message':"failed","tab":"1"})
 
 
 
@@ -3983,13 +3976,13 @@ def purchase_order_approve(request):
         notice.trigger = request.user.username
         notice.save()
 
-        return JsonResponse( {'message':"success"})
+        return JsonResponse( {'message':"success","tab":"1"})
       else:
         return render(request, 'pages/purchase_orders/list.html', {})
 
 
     except:
-       return JsonResponse( {'message':"failed"})
+       return JsonResponse( {'message':"failed","tab":"1"})
 
 
 
@@ -4022,13 +4015,13 @@ def purchase_ordered_approve(request):
         notice.trigger = request.user.username
         notice.save()
 
-        return JsonResponse( {'message':"success"})
+        return JsonResponse( {'message':"success","tab":"1"})
       else:
         return render(request, 'pages/purchase_orders/list.html', {})
 
 
     except:
-       return JsonResponse( {'message':"failed"})
+       return JsonResponse( {'message':"failed","tab":"1"})
 
 
 
@@ -4037,7 +4030,7 @@ def purchase_ordered_approve(request):
 def purchase_order_pending(request):
     username = request.user.username
     records = PurchaseOrder.objects.filter((Q(approved_by=username) & Q (approved_by_date="None")) | (Q(required_by=username) & Q (required_by_date="None") | (Q(ordered_by=username) & Q (ordered_by_date="None")) )   )
-    context = {'records':records}
+    context = {'records':records, "tab":"3"}
     return render(request, 'pages/purchase_orders/list_pending.html', context)
 
 
@@ -4046,13 +4039,13 @@ def purchase_order_approved(request):
     username = request.user.username
 
     records = PaymentRequest.objects.filter( (Q(approved_by=username) & ~Q(approved_by_date="None") ) | (Q(compiled_by=username) & ~Q(approved_by_date="None") ) |  (Q(certified_by=username) & ~Q(approved_by_date="None") ) | (Q(cleared_by_fin_man=username) & ~Q(approved_by_date="None") )  )
-    context = {'records':records}
+    context = {'records':records, "tab":"3"}
     return render(request, 'pages/purchase_orders/list2.html', context)
 
 @login_required(login_url='login')
 def purchase_order_add(request):
     form = PurchaseOrder.objects.all()
-    context = {'form':form}
+    context = {'form':form, "tab":"3"}
     return render(request, 'pages/purchase_orders/add.html', context)
 
 
@@ -4119,7 +4112,7 @@ def purchase_order_get_record(request):
 
           "message":"success",
         }
-        context = {'addTabActive': True, "record":""}
+        context = {'addTabActive': True, "record":"","tab":"1"}
         return JsonResponse(dic)
     else:
         return redirect('/purchase_orders')
@@ -4212,7 +4205,7 @@ def purchase_order_send_record(request):
             f= open("service3.txt","w")
             f.write(str(e))
             f.close()
-            return JsonResponse({'message':"failed"})
+            return JsonResponse({'message':"failed","tab":"1"})
 
 
 
@@ -4279,13 +4272,13 @@ def purchase_order_edit_record(request):
 
 
 
-          return JsonResponse( {'message':"success"})
+          return JsonResponse( {'message':"success","tab":"1"})
 
         except Exception as e  :
             f= open("service1.txt","w")
             f.write(str(e))
             f.close()
-            return JsonResponse({'message':"failed"})
+            return JsonResponse({'message':"failed","tab":"1"})
         
 
 
@@ -4315,7 +4308,7 @@ def purchase_order_edit_record(request):
 #       notice.save()
 
 
-#       return JsonResponse( {'message':"success"})
+#       return JsonResponse( {'message':"success","tab":"1"})
 #     else:
 #       return render(request, 'pages/purchase_orders/list.html', {})
     
@@ -4415,9 +4408,9 @@ def verify_otp(request):
       otp = request.session.get('otp')
 
       if input == otp:
-          return JsonResponse( {'message':"success"})
+          return JsonResponse( {'message':"success","tab":"1"})
       else:
-          return JsonResponse( {'message':"fail"})
+          return JsonResponse( {'message':"fail","tab":"1"})
    else:
         return render(request, 'pages/comparative_schedules/verify.html', {})
 
@@ -4491,7 +4484,7 @@ from time import time
     
 #     record = ComparativeSchedule.objects.get(id=x)
     
-#     data = 'https://lorkas.co.zw/comp_schedule_print/'+ x
+#     data = 'http://127.0.0.1:8000/comp_schedule_print/'+ x
 #     img = make(data)
 #     img_name = f'lolo.png'
 #     img.save(img_name)
@@ -4646,7 +4639,7 @@ def transcript(request):
         "project_number": record5.project_number,
 
         
-        "message":"success"}   
+        "message":"success","tab":"1"}   
 
         pdf = render_to_pdf('pages/transcript.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
