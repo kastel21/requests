@@ -192,7 +192,7 @@ $('#dis').fadeOut();
                     if (case_id == "add"){
 
   // populate the users dropdown
-  const url1 = "  http://127.0.0.1:8000/get_purchase_orders"
+  const url1 = "  https://lorkas.co.zw/get_purchase_orders"
                     const data1 = {
                       'id':"case_id",
                     }
@@ -218,7 +218,7 @@ console.log(data1)
 
 
         
-  const url = "  http://127.0.0.1:8000/get_users"
+  const url = "  https://lorkas.co.zw/get_users"
                     const data = {
                       'id':"case_id",
                     }
@@ -245,7 +245,7 @@ console.log(data)
 
 
                     }else{
-                    const url = "  http://127.0.0.1:8000/request_get_record"
+                    const url = "  https://lorkas.co.zw/request_get_record"
                     const data = {
                       'id':case_id,
                     }
@@ -342,7 +342,7 @@ var certified_by= $("#certified_by").val();
         console.log(case_id);
         if (case_id == "add"){
 
-        const url = "  http://127.0.0.1:8000/payment_request_send_record";
+        const url = "  https://lorkas.co.zw/payment_request_send_record";
         // current_url = window.location.href;
         // arr = current_url.split("/");
         // case_id = arr.at(-1);
@@ -383,11 +383,11 @@ var certified_by= $("#certified_by").val();
 
             if (type_of_payment == "cod" || type_of_payment == "post"){
 
-                window.location.href="  http://127.0.0.1:8000/payment_request_quote_and_dnote_upload/"+data['id'];
+                window.location.href="  https://lorkas.co.zw/payment_request_quote_and_dnote_upload/"+data['id'];
             }
             if (type_of_payment == "pre" || type_of_payment == "part" ){
 
-                window.location.href="  http://127.0.0.1:8000/payment_request_quote_upload/"+data['id'];
+                window.location.href="  https://lorkas.co.zw/payment_request_quote_upload/"+data['id'];
             }
 
 
@@ -401,7 +401,7 @@ var certified_by= $("#certified_by").val();
             console.log(data['message']);
             alert(data['message']);
 
-            window.location.href="  http://127.0.0.1:8000/payment_request_all";
+            window.location.href="  https://lorkas.co.zw/payment_request_all";
 
         }
 
@@ -409,7 +409,7 @@ var certified_by= $("#certified_by").val();
         // alert("stop hee");
     }else{
 
-        const url = "  http://127.0.0.1:8000/payment_request_edit_record/";
+        const url = "  https://lorkas.co.zw/payment_request_edit_record/";
         // current_url = window.location.href;
         // arr = current_url.split("/");
         // case_id = arr.at(-1);
@@ -450,16 +450,16 @@ var certified_by= $("#certified_by").val();
       
 
         $.post(url,data, function(data,status){
-        //   window.location.replace("  http://127.0.0.1:8000/payment_request_view/"+case_id);
+        //   window.location.replace("  https://lorkas.co.zw/payment_request_view/"+case_id);
 
         console.log(data);
         if (data['message']=="success"){
             alert("success");
 
-            window.location.href="  http://127.0.0.1:8000/payment_request_quote_upload/"+data['id'];
+            window.location.href="  https://lorkas.co.zw/payment_request_quote_upload/"+data['id'];
         }else{
             alert(data['message']);
-            window.location.href="  http://127.0.0.1:8000/payment_requests_all";
+            window.location.href="  https://lorkas.co.zw/payment_requests_all";
 
             // window.location.href="/view_record/"+case_id;
 
