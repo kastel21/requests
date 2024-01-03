@@ -114,7 +114,7 @@
             <hr>
           </form> 
 
-          <form action="{% url 'goods_received_note_upload_dnote' %}" method="post" enctype="multipart/form-data">
+          <form action="{% url 'goods_received_notes_upload_dnote' %}" method="post" enctype="multipart/form-data">
           {% csrf_token %}
 
           <div class="col-md-6">
@@ -123,7 +123,7 @@
           </div>
 
           <div class="col-md-6">
-              <label for="quote" class="form-label">Attach POP</label>
+              <label for="quote" class="form-label">Attach Dnote</label>
                 <input type="file"  value="" id="dnote" name="dnote" accept=".pdf" required/>
           </div>
 
@@ -155,7 +155,7 @@
                         case_id = arr.at(-1);
                     console.log(case_id);
                     if (case_id == "add"){}else{
-                    const url = "  http://127.0.0.1:8000/goods_received_note_get_record"
+                    const url = "http://127.0.0.1:8000/goods_received_notes_get_record"
                     const data = {
                       'id':case_id,
                     }
@@ -166,10 +166,12 @@
 
     console.log(data);
 
-    $("#payment_request").val(data['payment_request']);
+    $("#purchase_order").val(data['purchase_order']);
+    $("#payment_request_id").val(data['payment_request']);
+
     $("#request_id").val(case_id);
 
-    $("#to_name").val(data['to_name']);
+    $("#item_name").val(data['item_name']);
     $("#comments").val(data['comments']);
 
     $("#supplier").val(data['supplier']);

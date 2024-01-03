@@ -25,79 +25,119 @@
                 <input type="text" class="form-control" id="requester" name="requester" value="" readonly >
             </div>
 -->
+
 <div class="col-md-6">
-    <label  class="form-label">From Payment Request:</label>
-    <input type="text" class="form-control" id="payment_request_id" name="payment_request_id" value="" readonly>
+    <label for="fname" class="form-label">From Purchase Order:</label>
+    <input type="text" class="form-control" id="purchase_order" name="purchase_order" value="" readonly >
+</div>
+
+<div class="col-md-6">
+    <label for="fname" class="form-label">From Payment Request:</label>
+    <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly >
 </div>
 
 
 
-
-
-
-<div class="col-md-6">
-    <label  class="form-label">Creator:</label>
-    <input type="text" class="form-control" id="creator" name="creator" value="" readonly>
+<!-- <div class="col-md-12">
+<label for="fname" class="form-label">Add From Purchase Order:</label>
+<select class="form-control" name="purchase_order" id="purchase_order">
+<option value="None">..</option>
+</select>
 </div>
 
 
 <div class="col-md-12">
-    <label  class="form-label">Date of Creation:</label>
-    <input type="text" class="form-control" id="date_of_ticket" name="date_of_ticket" value="" readonly>
+<label for="fname" class="form-label">Add From Payment Request:</label>
+<select class="form-control" name="request_id" id="request_id">
+<option value="None">..</option>
+</select>
+</div> -->
+
+
+<!-- <div class="col-md-12">
+<label for="certifier" class="form-label"> Decision</label>
+<select class="form-control" name="status" id="status" disabled>
+<option value="processing">Accepted</option>
+<option value="completed">Rejected</option>
+
+</select>
+</div> -->
+
+<div class="col-md-6">
+    <label for="fname" class="form-label"> Decision:</label>
+    <input type="text" class="form-control" id="decision" name="decision" value="" readonly>
+    </div>
+
+
+<div class="col-md-6">
+<label for="fname" class="form-label"> Supplier Name:</label>
+<input type="text" class="form-control" id="supplier" name="supplier" value="" readonly>
 </div>
 
+<div class="col-md-6">
+<label for="fname" class="form-label">Receiving Department</label>
+<input type="text" class="form-control" id="dpt" name="dpt" value="" readonly>
+</div> 
+
+<div class="col-md-6">
+<label for="fname" class="form-label">Item Name</label>
+<input type="text" class="form-control" id="item_name" name="item_name" value="" readonly>
+</div> 
+
+
+<div class="col-md-6">
+<label for="lname" class="form-label">Description:</label>
+<input type="text" class="form-control" id="desc" name="desc" value="" readonly>
+</div>
 
 <div class="col-md-12">
-    <label for="certifier" class="form-label">Select Status</label>
-    <select class="form-control" name="status" id="status">
-    <option value="processing">Processing</option>
-    <option value="completed">Completed</option>
-
-    </select>
+<label for="fname" class="form-label">Quantity:</label>
+<input type="number" class="form-control" id="qnty" name="qnty" value="" readonly>
+</div>
+<div class="col-md-12">
+<label for="fname" class="form-label">Serial:</label>
+<input type="text" class="form-control" id="serial" name="serial" value="" readonly>
 </div>
 
+<div class="col-md-6">
+<label for="lname" class="form-label">Comments:</label>
+<input type="text" class="form-control" id="comments" name="comments" value="" readonly>
+</div>
+
+
+
+<div class="col-md-4">
+<label for="certifier" class="form-label">Delivery Note</label>
+<a id="dnote" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+</div>  
 
 
 <div class="col-md-6">
-    <label  class="form-label">To Supplier:</label>
-    <input type="text" class="form-control" id="to_name" name="to_name" value="" readonly>
+    <label for="fname" class="form-label"> Received By:</label>
+    <input type="text" class="form-control" id="receiver" name="receiver" value="" readonly >
 </div>
 
 
 <div class="col-md-6">
-    <label  class="form-label">Bank Name:</label>
-    <input type="text" class="form-control" id="to_bank_name" name="to_bank_name" value="" readonly>
+    <label for="fname" class="form-label"> Date :</label>
+    <input type="text" class="form-control" id="receiver_date" name="receiver_date" value="" readonly >
 </div>
 
-<hr>
-<div class="col-md-6">
-    <label  class="form-label">To Bank Account:</label>
-    <input type="text" class="form-control" id="to_bank_account" name="to_bank_account" value="" readonly>
-</div>
-<div class="col-md-6">
-    <label  class="form-label">Amount:</label>
-    <input type="text" class="form-control" id="amount" name="amount" value="" readonly>
-</div>
-
-
-
-
-<hr>
 
 <div class="col-md-6">
-    <label  class="form-label">Narration:</label>
-    <input type="text" class="form-control" id="narration" name="narration" value="" readonly>
+    <label for="fname" class="form-label"> Approver By:</label>
+    <input type="text" class="form-control" id="approver" name="approver" value="" readonly >
 </div>
 
-            <!-- <div class="col-md-12">
-                <label for="certifier" class="form-label">Quotation</label>
-                <a id="quotation" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
-            </div>
- 
-            <div class="col-md-6">
-                <label for="fname" class="form-label"> Accounts Clerk</label>
-                <input type="text" class="form-control" id="accounts_clerk_approved" name="accounts_clerk_approved" value="" readonly >
-            </div>
+
+<div class="col-md-6">
+    <label for="fname" class="form-label"> Date :</label>
+    <input type="text" class="form-control" id="approver_date" name="approver_date" value="" readonly >
+</div>
+
+
+ <!--
+
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Date</label>
@@ -107,13 +147,10 @@
           </form>
           <div class="col-md-12">
 
-                 <a onclick="edit()" class="btn btn-primary"> Submit</a> 
+                 <a onclick="edit()" class="btn btn-primary"> Approve</a> 
                  <!-- <a onclick="print();" id="approve" class="btn btn-primary"> Print </a> -->
             </div>
-          <div class="col-md-12">
-            <a onclick="" class="btn btn-primary"> Print</a>
 
-            </div>
 
             <script  language="JavaScript" type="text/javascript">
 
@@ -164,7 +201,7 @@
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "  http://127.0.0.1:8000/payment_ticket_get_record"
+                                    const url = "  http://127.0.0.1:8000/goods_received_notes_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -174,19 +211,36 @@
                             if (data['message']=="success"){
                 
                                 // console.log(data);
+               
+     $("#payment_request").val(data['payment_request']);
+    $("#status").val(data['status']);
+    $("#purchase_order").val(data['purchase_order']);
 
-                                $("#payment_request_id").val(data['payment_request_id']);
-    $("#to_name").val(data['to_name']);
-    $("#narration").val(data['narration']);
+    $("#item_name").val(data['item_name']);
+    $("#supplier").val(data['supplier']);
 
-    $("#to_bank_name").val(data['to_bank_name']);
-    $("#to_bank_account").val(data['to_bank_account']);
-    // if ( data['pop'] == "#"){
-    //     $('#quotation1').attr('href',"#");
-    //     $("#quotation1").removeAttr("target");
-    // }else{
-    //     $('#quotation1').attr('href',data['pdf1']);
-    // }
+    $("#dpt").val(data['dpt']);
+    $("#desc").val(data['desc']);
+
+
+    $("#qnty").val(data['qnty']);
+    $("#serial").val(data['serial']);
+
+    $("#comments").val(data['comments']);
+    $("#receiver").val(data['receiver']);
+    
+    $("#approver").val(data['approver']);
+    $("#receiver_date").val(data['receiver_date']);
+
+    $("#approver_date").val(data['approver_date']);
+    // $("#supplier").val(data['supplier']);
+
+    if ( data['pop'] == "#"){
+        $('#dnote').attr('href',"#");
+        $("#dnote").removeAttr("target");
+    }else{
+        $('#dnote').attr('href',data['pop']);
+    }
 
     // if ( data['pdf2'] == "#"){
     //     $('#quotation2').attr('href',"#");
@@ -195,16 +249,17 @@
     //     $('#quotation2').attr('href',data['pdf2']);
     // }
 
-    // if ( data['pop'] == "#"){
-    //     $('#pop').attr('href',"#");
-    //     $("#pop").removeAttr("target");
-    // }else{
-    //     $('#pop').attr('href',data['pop']);
-    // }
+    if ( data['pop'] == "#"){
+        $('#pop').attr('href',"#");
+        $("#pop").removeAttr("target");
+    }else{
+        $('#pop').attr('href',data['pop']);
+    }
 
     $("#amount").val(data['amount']); 
     $("#date_of_ticket").val(data['date_of_ticket']);
     $("#creator").val(data['creator']);
+    $("#decision").val(data['status']);
 
 
     $("#status").val(data['status']);
@@ -220,78 +275,51 @@
                     $('#overlay').fadeOut();
 
                             alert(data['message']);
-                            window.location.href="/purchase_request_all";
+                            window.location.href="/goods_received_notes_all";
                 
                         }
                 
                         });
                     }
                 
-                    function edit(){
-                        $('#overlay').fadeIn();
+        function edit(){
 
-    
-                        // var request_id= document.getElementById('request_id').value;
-                        // var requester= document.getElementById('requester').value;
-                        // var date_of_request= document.getElementById('date_of_request').value;
-                        var status= document.getElementById('status').value;
 
       
                             current_url = window.location.href;
                             arr = current_url.split("/");
                             case_id = arr.at(-1);
-                        console.log(case_id);
-                        if (case_id == "add"){
+                            console.log(case_id);
+                        if (case_id == "add"){}else{
                 
 
-                        // alert("stop hee");
-                    }else{
-                        const url = "  http://127.0.0.1:8000/payment_ticket_edit_record";
-                        // current_url = window.location.href;
-                        // arr = current_url.split("/");
-                        // case_id = arr.at(-1);
-                        // month_id =arr[arr.length - 2];
+                        const url = "http://127.0.0.1:8000/goods_received_notes_approve";
+
                         console.log("after url");
                         const data = {
-                            // "request_id": request_id,
-                                            "id": case_id,
-                                            "status":status,
-                                           }
+                                    "id": case_id,
+                                    }
                 
-                                console.log("after dict");
                         $.post(url,data, function(data,status1){
 
                         if (data['message']=="success"){
                             alert("success");
                             $('#overlay').fadeOut();
                             console.log(status);
-
-                            if(status == "completed"){
-
-                                window.location.href="  http://127.0.0.1:8000/payment_ticket_upload_pop/"+data['id'];
-
-                                
-
-                            }else{
-
-                                window.location.href="  http://127.0.0.1:8000/payment_tickets_all";
-
-                            }
-
+                            window.location.href="http://127.0.0.1:8000/goods_received_notes_all";
 
 
                         }else{
                             alert(data['message']);
                             $('#overlay').fadeOut();
 
-                            window.location.href="  http://127.0.0.1:8000/payment_tickets_all";
-                
+                            return;                
                         }
                 
                         });
 
-
                     }
+                    
                 
                     }
                         </script>

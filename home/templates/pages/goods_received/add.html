@@ -35,6 +35,8 @@
                 <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="">
             </div>
             <p></p> -->
+
+            
             <div class="col-md-12">
                 <label for="fname" class="form-label">Add From Purchase Order:</label>
                 <select class="form-control" name="purchase_order" id="purchase_order">
@@ -54,8 +56,8 @@
             <div class="col-md-12">
                 <label for="certifier" class="form-label">Select Decision</label>
                 <select class="form-control" name="status" id="status">
-                <option value="processing">Accepted</option>
-                <option value="completed">Rejected</option>
+                <option value="accepted">Accepted</option>
+                <option value="rejected">Rejected</option>
 
                 </select>
             </div>
@@ -85,11 +87,11 @@
 
             <div class="col-md-12">
                 <label for="fname" class="form-label">Quantity:</label>
-                <input type="text" class="form-control" id="qnty" name="qnty" value="">
+                <input type="number" class="form-control" id="qnty" name="qnty" value="">
             </div>
             <div class="col-md-12">
                 <label for="fname" class="form-label">Serial:</label>
-                <input type="text" class="form-control" id="qnty" name="qnty" value="">
+                <input type="text" class="form-control" id="serial" name="serial" value="">
             </div>
 
             <div class="col-md-6">
@@ -125,12 +127,12 @@
 
 
 // populate the users dropdown
-    const url = "  http://127.0.0.1:8000/get_payment_requests"
+    const url = "http://127.0.0.1:8000/get_payment_requests"
                     const data = {
                       'id':"case_id",
                     }
                       $.post(url,data, function(data,status){
-                        console.log(data)
+                        console.log(data);
                         $.each(data, function(val, text) {
                             $('#request_id').append( new Option(text,val) );
                         });
@@ -151,6 +153,34 @@
                         $('#overlay').fadeOut();
 
         });
+
+
+
+             
+  const url5 = "  http://127.0.0.1:8000/get_users"
+                    const data5 = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url5,data5, function(data5,status){
+            
+
+console.log(data5)
+
+
+                        $.each(data5, function(val, text) {
+                            $('#certified_by').append( new Option(text,val) );
+                        });
+
+            
+  
+                        $('#dis').fadeIn();
+
+                        $('#overlay').fadeOut();
+
+
+        });
+
                     
                     function sendEdit(){
                         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -159,6 +189,8 @@
 
                         var purchase_order= $("#purchase_order").val();
 var payment_request= $("#payment_request").val();
+var request_id= $("#request_id").val();
+
 var supplier= $("#supplier").val();
 var dpt= $("#dpt").val();
 var item_name= $("#item_name").val();
@@ -181,14 +213,14 @@ var status= $("#status").val();
                             case_id = arr.at(-1);
                         if (case_id == "add"){
                 
-                        const url = "  http://127.0.0.1:8000/payment_ticket_send_record";
+                        const url = "  http://127.0.0.1:8000/goods_received_notes_send_record";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
                         // month_id =arr[arr.length - 2];
                         console.log("after url");
                         const data = {
-                                            "payment_request": payment_request,
+                                            "purchase_order": purchase_order,
                                             "supplier": supplier,
                                             "request_id": request_id,
 
@@ -207,7 +239,6 @@ var status= $("#status").val();
                 
                                            }
                 
-                                console.log("after dict");
 
 
                         $.post(url,data, function(data,status1){
@@ -216,23 +247,23 @@ var status= $("#status").val();
                             $('#overlay').fadeOut();
                             alert(status);
 
-                            if(status == "completed"){
-                                window.location.href="  http://127.0.0.1:8000/payment_ticket_upload_pop/"+data['id'];
+                            if(status == "accepted"){
+                                window.location.href="  http://127.0.0.1:8000/goods_received_notes_upload_dnote/"+data['id'];
 
                                 
 
                             }else{
 
-                                window.location.href="  http://127.0.0.1:8000/payment_tickets_all";
+                                window.location.href="  http://127.0.0.1:8000/goods_received_notes_all";
 
                             }
 
                         }else{
                             alert(data['message']);
-                            console,log("err")
+                            console.log("err");
                             $('#overlay').fadeOut();
 
-                            window.location.href="  http://127.0.0.1:8000/payment_tickets_all";
+                            window.location.href="  http://127.0.0.1:8000/goods_received_notes_all";
                 
                         }
                 

@@ -66,10 +66,12 @@
   
                             <table style="margin: 2%;">
                                 <th>
-                                    <td>Creator</td>
-                                    <td>To Supplier</td>
-                                    <td>Amount</td>
+                                    <td>Receiver</td>
+                                    <td>Supplier</td>
+                                    <td>Item Name</td>
+                                    <td>Description</td>
                                     <td>Status</td>
+                                    <td>Date of Record </td>
 
                                 </th>
 
@@ -78,19 +80,21 @@
 
                                 {% for record in records %}
 
-                                <form method="POST" action="payment_ticket_open_record/{{record.id}}">
+                                <form method="POST" action="goods_received_notes_open_record/{{record.id}}">
 
                                     <tr>
                                             {% csrf_token %}
 
                                             <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
                                             <td></td>
-                                            <td> <input type="submit" value="{{record.creator}}" /> </td>
+                                            <td> <input type="submit" value="{{record.receiver}}" /> </td>
 
                                         
-                                    <td>{{record.to_name}}</td>
-                                    <td>{{record.amount}}</td>
+                                    <td>{{record.supplier}}</td>
+                                    <td>{{record.item_name}}</td>
+                                    <td>{{record.desc}}</td>
                                     <td>{{record.status}}</td>
+                                    <td>{{record.receiver_date}}</td>
 
                                     
                                     <td></td>

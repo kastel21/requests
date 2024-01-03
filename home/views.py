@@ -1860,7 +1860,7 @@ def get_payment_requests(request):
    try:
       dic = {}
       # User = get_user_model()
-      schedules = PaymentRequest.objects.filter( Q(cleared_by_fin_man = request.user.username) & ~Q(cleared_by_fin_man_date="None")  )
+      schedules = PaymentRequest.objects.filter(  ~Q(cleared_by_fin_man_date="None")   )
 
 
       for schedule in schedules: 
@@ -2538,7 +2538,7 @@ def payment_request_pending(request):
 def payment_request_approved(request):
     username = request.user.username
 
-    records = PaymentRequest.objects.filter( (Q(certified_by=username) & ~Q(cleared_by_fin_man_date="None") ) | (Q(compiled_by=username) & ~Q(cleared_by_fin_man_date="None") )  | (Q(cleared_by_fin_man=username) & ~Q(cleared_by_fin_man_by_date="None") )  )
+    records = PaymentRequest.objects.filter( (Q(certified_by=username) & ~Q(cleared_by_fin_man_date="None") ) | (Q(compiled_by=username) & ~Q(cleared_by_fin_man_date="None") )  | (Q(cleared_by_fin_man=username) & ~Q(cleared_by_fin_man_date="None") )  )
     context = {'records':records}
     return render(request, 'pages/payment_requests/list_approved.html', context)
 
@@ -3162,12 +3162,20 @@ def goods_received_notes(request):
 @login_required(login_url='login')
 def goods_received_notes_all(request):
       username = request.user.username
-      records = GoodsReceivedNote.objects.filter(Q(receiver = username) )
+      records = GoodsReceivedNote.objects.filter(Q(receiver = username) | Q(approver = username) )
       context = {"records":records}
 
 
       return render(request, 'pages/goods_received/list.html', context)
 
+@login_required(login_url='login')
+def goods_received_notes_completed(request):
+      username = request.user.username
+      records = GoodsReceivedNote.objects.filter( Q(Q(receiver = username) | Q(approver = username)) & ~Q(approver_date="None") )
+      context = {"records":records}
+
+
+      return render(request, 'pages/goods_received/list_completed.html', context)
 
 
 @login_required(login_url='login')
@@ -3188,14 +3196,7 @@ def goods_received_notes_view(request):
 
       return render(request, 'pages/goods_received/list.html', context)
 
-@login_required(login_url='login')
-def goods_received_notes_completed(request):
-      username = request.user.username
-      records = GoodsReceivedNote.objects.filter(Q(approver = username) & ~Q( approver_date="None"))
-      context = {'records':records}
 
-
-      return render(request, 'pages/payment_ticket/list_completed.html', context)
 
 @login_required(login_url='login')
 def goods_received_notes_pending(request):
@@ -3280,7 +3281,7 @@ def goods_received_notes_get_record(request):
 
           "status": record.status,
           "purchase_order": record.purchase_order,
-          "to_name": record.to_name,
+          "item_name": record.item_name,
           "supplier": record.supplier,
           "dpt": record.dpt,
           "desc": record.desc,
@@ -3315,6 +3316,7 @@ def goods_received_notes_send_record(request):
 
           status= request.POST.get('status',default=None)
           payment_request_id= request.POST.get('request_id',default=None)
+          purchase_order= request.POST.get('purchase_order',default=None)
 
 
           GoodsReceivedNoteDnote.objects.get_or_create(
@@ -3328,7 +3330,7 @@ def goods_received_notes_send_record(request):
           supplier= request.POST.get('supplier',default=None)
           dpt= request.POST.get('dpt',default=None)
 
-          to_name= request.POST.get('to_name',default=None)
+          item_name= request.POST.get('item_name',default=None)
           desc= request.POST.get('desc',default=None)
 
           qnty= request.POST.get('qnty',default=None)
@@ -3350,7 +3352,7 @@ def goods_received_notes_send_record(request):
           record.payment_request= payment_request_id
 
           record.purchase_order= purchase_order
-          record.to_name= to_name
+          record.item_name= item_name
 
           record.supplier= supplier
           record.dpt= dpt
@@ -3380,7 +3382,7 @@ def goods_received_notes_send_record(request):
           return JsonResponse( {'message':"success",'id':_id})
 
         except Exception as e  :
-            f= open("service1.txt","w")
+            f= open("goods_received_notes_send_record.txt","w")
             f.write(str(e))
             f.close()
             return JsonResponse({'message':"failed"})
@@ -3415,13 +3417,42 @@ def goods_received_notes_upload_dnote(request):
         record.request_id = request_id
         record.dnote_path = uploaded_file_url1
         record.save()
-        return redirect('/goods_received_note')
+        return redirect('/goods_received_notes_all')
     else:
-          return render(request, 'pages/good_received/upload_pop.html')
+          return render(request, 'pages/goods_received/upload_pop.html')
 
 
 
 
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def goods_received_notes_approve(request):
+    
+    try:
+      if request.method == "POST":
+        
+        _id = request.POST.get('id',default=None)
+
+        record = GoodsReceivedNote.objects.get(id=_id)
+        record.approver = request.user.username
+        d = datetime.datetime.now()
+        record.approver_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+
+        notice = Notifications()
+        notice.to = record.receiver
+        record.save()
+
+        notice.message = " "+ request.user.username +" approved your GRN."
+        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        notice.trigger = request.user.username
+        notice.save()
+
+        return JsonResponse( {'message':"success"})
+
+    except Exception as e:
+       return JsonResponse( {'message': str(e)})
 
 
 

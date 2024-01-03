@@ -67,35 +67,44 @@
                             <table style="margin: 2%;">
                                 <th>
                                     <td>Requester</td>
-                                    <td>Request Date</td>
+                                    <td>Certifier</td>
                                     <td>Payee</td>
                                     <td>Total</td>
-                                    <td>Project Number</td>
+                                    <td>Date of Request</td>
                                     <td>status</td>
 
                                 </th>
 
 
 
-
+                            {%  if records %}
                                 {% for record in records %}
-                                    <tr>
-                                        <form method="POST" action="payment_request_open_approved/{{record.id}}">
-                                            {% csrf_token %}
-                                            <input style="" type="text" name="id" id="id" value="{{record.id}}" />
-                                            <td> <input type="submit" value="{{record.id }}" /> </td>
 
-                                        </form>
-                                    <td>{{record.request_date}}</td>
+                                <form method="POST" action="payment_request_open_record/{{record.id}}">
+
+                                    <tr>
+                                            {% csrf_token %}
+                                            <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
+                                            <td></td>
+                                            <td> <input type="submit" value="{{record.compiled_by}}" /> </td>
+
+                                        
+                                    <td>{{record.certified_by}}</td>
                                     <td>{{record.payee}}</td>
                                     <td>{{record.total}}</td>
-                                    <td>{{record.project_number}}</td>
+                                    <td>{{record.date_of_request}}</td>
                                     <td>{{record.status}}</td>
 
                                     </tr>
 
-
+                                </form>
                                 {% endfor %}
+
+                                {% else %}
+<tr>
+                                <td colspan="5"><h5 style="text-align: center;margin-top: 3%;">There are no records attached to your username</h5></td>
+                            </tr>
+                                {%endif%}
 
                             </table>
 
