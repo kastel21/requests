@@ -163,7 +163,7 @@
 
 // populate the users dropdown
 
-// const url = "  http://127.0.0.1:8000/procurement/get_users"
+// const url = "  https://lorkas.co.zw/procurement/get_users"
 //                     const data = {
 //                       'id':"case_id",
 //                     }
@@ -201,7 +201,7 @@
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "  http://127.0.0.1:8000/procurement/goods_received_notes_get_record"
+                                    const url = "  https://lorkas.co.zw/procurement/goods_received_notes_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -293,7 +293,7 @@
                         if (case_id == "add"){}else{
                 
 
-                        const url = "http://127.0.0.1:8000/procurement/goods_received_notes_approve";
+                        const url = "https://lorkas.co.zw/procurement/goods_received_notes_approve";
 
                         console.log("after url");
                         const data = {
@@ -306,7 +306,7 @@
                             alert("success");
                             $('#overlay').fadeOut();
                             console.log(status);
-                            window.location.href="http://127.0.0.1:8000/procurement/goods_received_notes_all";
+                            window.location.href="https://lorkas.co.zw/procurement/goods_received_notes_all";
 
 
                         }else{

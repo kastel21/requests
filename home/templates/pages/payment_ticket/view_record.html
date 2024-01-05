@@ -110,7 +110,7 @@
 
 // populate the users dropdown
 
-// const url = "  http://127.0.0.1:8000/procurement/get_users"
+// const url = "  https://lorkas.co.zw/procurement/get_users"
 //                     const data = {
 //                       'id':"case_id",
 //                     }
@@ -149,7 +149,7 @@ current_url = window.location.href;
                     arr = current_url.split("/");
                     case_id = arr.at(-1);
 
-window.location.href="  http://127.0.0.1:8000/procurement/transcript/"+case_id;
+window.location.href="  https://lorkas.co.zw/procurement/transcript/"+case_id;
                     }
                 
                             current_url = window.location.href;
@@ -157,7 +157,7 @@ window.location.href="  http://127.0.0.1:8000/procurement/transcript/"+case_id;
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "  http://127.0.0.1:8000/procurement/payment_ticket_get_record"
+                                    const url = "  https://lorkas.co.zw/procurement/payment_ticket_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -253,7 +253,7 @@ window.location.href="  http://127.0.0.1:8000/procurement/transcript/"+case_id;
                     //     console.log(case_id);
                     //     if (case_id == "add"){
                 
-                    //     const url = "  http://127.0.0.1:8000/procurement/purchase_request_clerk_approve";
+                    //     const url = "  https://lorkas.co.zw/procurement/purchase_request_clerk_approve";
                     //     // current_url = window.location.href;
                     //     // arr = current_url.split("/");
                     //     // case_id = arr.at(-1);
@@ -272,12 +272,12 @@ window.location.href="  http://127.0.0.1:8000/procurement/transcript/"+case_id;
                     //         alert("success");
                     //         $('#overlay').fadeOut();
 
-                    //         window.location.href="  http://127.0.0.1:8000/procurement/purchase_request_all";
+                    //         window.location.href="  https://lorkas.co.zw/procurement/purchase_request_all";
                     //     }else{
                     //         alert(data['message']);
                     //         $('#overlay').fadeOut();
 
-                    //         window.location.href="  http://127.0.0.1:8000/procurement/purchase_requests_all";
+                    //         window.location.href="  https://lorkas.co.zw/procurement/purchase_requests_all";
                 
                     //     }
                 

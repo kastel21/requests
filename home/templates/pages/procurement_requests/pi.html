@@ -170,7 +170,7 @@
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "  http://127.0.0.1:8000/procurement/procurement_request_get_record"
+                                    const url = "  https://lorkas.co.zw/procurement/procurement_request_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -226,7 +226,7 @@
 console.log(case_id);
 if (case_id == "add"){}else{
 
-const url = "  http://127.0.0.1:8000/procurement/procurement_request_officer_disapprove";
+const url = "  https://lorkas.co.zw/procurement/procurement_request_officer_disapprove";
 // current_url = window.location.href;
 // arr = current_url.split("/");
 // case_id = arr.at(-1);
@@ -243,10 +243,10 @@ const data = {
 $.post(url,data, function(data,status){
 if (data['message']=="success"){
     console.log("success")
-    window.location.href="  http://127.0.0.1:8000/procurement/procurement_request_all";
+    window.location.href="  https://lorkas.co.zw/procurement/procurement_request_all";
 }else{
     console.log(data['message'])
-    window.location.href="  http://127.0.0.1:8000/procurement/procurement_requests_all";
+    window.location.href="  https://lorkas.co.zw/procurement/procurement_requests_all";
 
 }
 
@@ -275,7 +275,7 @@ if (data['message']=="success"){
                         console.log(case_id);
                         if (case_id == "add"){}else{
                 
-                        const url = "  http://127.0.0.1:8000/procurement/procurement_request_officer_approve";
+                        const url = "  https://lorkas.co.zw/procurement/procurement_request_officer_approve";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -292,10 +292,10 @@ if (data['message']=="success"){
                         $.post(url,data, function(data,status){
                         if (data['message']=="success"){
                             console.log("success")
-                            window.location.href="  http://127.0.0.1:8000/procurement/service_request_all";
+                            window.location.href="  https://lorkas.co.zw/procurement/service_request_all";
                         }else{
                             console.log(data['message'])
-                            window.location.href="  http://127.0.0.1:8000/procurement/service_requests_all";
+                            window.location.href="  https://lorkas.co.zw/procurement/service_requests_all";
                 
                         }
                 

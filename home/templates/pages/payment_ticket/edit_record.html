@@ -126,7 +126,7 @@
 
 // populate the users dropdown
 
-// const url = "  http://127.0.0.1:8000/procurement/get_users"
+// const url = "  https://lorkas.co.zw/procurement/get_users"
 //                     const data = {
 //                       'id':"case_id",
 //                     }
@@ -164,7 +164,7 @@
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "  http://127.0.0.1:8000/procurement/payment_ticket_get_record"
+                                    const url = "  https://lorkas.co.zw/procurement/payment_ticket_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -246,7 +246,7 @@
 
                         // alert("stop hee");
                     }else{
-                        const url = "  http://127.0.0.1:8000/procurement/payment_ticket_edit_record";
+                        const url = "  https://lorkas.co.zw/procurement/payment_ticket_edit_record";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -268,13 +268,13 @@
 
                             if(status == "completed"){
 
-                                window.location.href="  http://127.0.0.1:8000/procurement/payment_ticket_upload_pop/"+data['id'];
+                                window.location.href="  https://lorkas.co.zw/procurement/payment_ticket_upload_pop/"+data['id'];
 
                                 
 
                             }else{
 
-                                window.location.href="  http://127.0.0.1:8000/procurement/payment_tickets_all";
+                                window.location.href="  https://lorkas.co.zw/procurement/payment_tickets_all";
 
                             }
 
@@ -284,7 +284,7 @@
                             alert(data['message']);
                             $('#overlay').fadeOut();
 
-                            window.location.href="  http://127.0.0.1:8000/procurement/payment_tickets_all";
+                            window.location.href="  https://lorkas.co.zw/procurement/payment_tickets_all";
                 
                         }
                 

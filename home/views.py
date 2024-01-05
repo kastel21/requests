@@ -4504,7 +4504,7 @@ from time import time
     
 #     record = ComparativeSchedule.objects.get(id=x)
     
-#     data = 'http://127.0.0.1:8000/procurement/comp_schedule_print/'+ x
+#     data = 'https://lorkas.co.zw/procurement/comp_schedule_print/'+ x
 #     img = make(data)
 #     img_name = f'lolo.png'
 #     img.save(img_name)
