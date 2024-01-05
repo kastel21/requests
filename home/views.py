@@ -1543,9 +1543,9 @@ def comp_schedule_get_record(request):
         record = ComparativeSchedule.objects.get(id=_id)
         # print(record.upload_name)
         dic = {
-      "pdf1":pdf.quote1_path,
-      "pdf2":pdf.quote2_path,
-      "pdf3":pdf.quote3_path,
+      "pdf1":"/procurement"+pdf.quote1_path,
+      "pdf2":"/procurement"+pdf.quote2_path,
+      "pdf3":"/procurement"+pdf.quote3_path,
 
       "message":"success",
       "request_id":record.id,
@@ -2631,9 +2631,9 @@ def payment_request_get_record(request):
 
         dic = {
            
-          "pdf1":pdf.quote_path1,
-          "pdf2":pdf.quote_path2,
-          "pop":pop.quote_path1,
+          "pdf1":"/procurement"+pdf.quote_path1,
+          "pdf2":"/procurement"+pdf.quote_path2,
+          "pop":"/procurement"+pop.quote_path1,
 
           "purchase_id": record.purchase_id,
           "request_id": record.id,
@@ -3014,7 +3014,7 @@ def payment_ticket_get_record(request):
         dic = {
            
 
-          "pop":pdf.pop_path,
+          "pop":"/procurement"+pdf.pop_path,
 
           "payment_request_id": record.payment_request_id,
 
@@ -3288,7 +3288,7 @@ def goods_received_notes_get_record(request):
         dic = {
            
 
-          "pop":pdf.dnote_path,
+          "pop":"/procurement"+pdf.dnote_path,
 
           "payment_request": record.payment_request,
 
@@ -4104,7 +4104,7 @@ def purchase_order_get_record(request):
 
         dic = {
            
-          "pdf":pdf.quote_path,
+          "pdf":"/procurement"+pdf.quote_path,
 
           "purchase_id": record.purchase_id,
 
