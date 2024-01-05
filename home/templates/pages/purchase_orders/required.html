@@ -166,7 +166,7 @@
     <!-- <a onclick="edit()" class="btn btn-primary"> Edit Record</a> -->
     <a onclick="sendEdit();" id="approve" class="btn btn-primary"> Approve </a>
 </div>
-          <!-- <form action="{% url 'purchase_request_quote_upload' %}" method="post" enctype="multipart/form-data">
+          <!-- <form action="{% url 'home:purchase_request_quote_upload' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
 
                 <div class="col-md-6">
@@ -198,7 +198,7 @@
 
 
 
-const url = "  https://lorkas.co.zw/get_users"
+const url = "  http://127.0.0.1:8000/procurement/get_users"
 const data = {
                       'id':"case_id",
                     }
@@ -218,7 +218,7 @@ const data = {
                                     console.log(case_id);
                                     $("#request_id").val(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "  https://lorkas.co.zw/purchase_order_get_record"
+                                    const url = "  http://127.0.0.1:8000/procurement/purchase_order_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -275,7 +275,7 @@ const data = {
                                             arr = current_url.split("/");
                                             case_id = arr.at(-1);
 
-                        window.location.href="  https://lorkas.co.zw/purchase_order_print/"+case_id;
+                        window.location.href="  http://127.0.0.1:8000/procurement/purchase_order_print/"+case_id;
 
 
 
@@ -286,7 +286,7 @@ const data = {
                         current_url = window.location.href;
                                             arr = current_url.split("/");
                                             case_id = arr.at(-1);
-                        window.location.href="  https://lorkas.co.zw/purchase_order_view/"+case_id;
+                        window.location.href="  http://127.0.0.1:8000/procurement/purchase_order_view/"+case_id;
 
 
 
@@ -323,7 +323,7 @@ const data = {
                             case_id = arr.at(-1);
                         console.log(case_id);
                 
-                        const url = "https://lorkas.co.zw/purchase_order_required";
+                        const url = "http://127.0.0.1:8000/procurement/purchase_order_required";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -343,12 +343,12 @@ const data = {
                             alert("success");
                             $('#overlay').fadeOut();
 
-                            window.location.href="  https://lorkas.co.zw/purchase_order_all";
+                            window.location.href="  http://127.0.0.1:8000/procurement/purchase_order_all";
                         }else{
                             alert(data['message']);
                             $('#overlay').fadeOut();
 
-                            window.location.href="  https://lorkas.co.zw/purchase_order_all";
+                            window.location.href="  http://127.0.0.1:8000/procurement/purchase_order_all";
                 
                         }
                 

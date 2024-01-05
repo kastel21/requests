@@ -18,7 +18,7 @@
         
         <li class="pc-item">
           {% if request.user.is_superuser %}
-          <a href="{% url 'index' %}" class="pc-link">
+          <a href="{% url 'home:index' %}" class="pc-link">
           {% else %}
           <a href="/" class="pc-link">
           {% endif %}
@@ -39,9 +39,9 @@
 
         <li {% if tab == "1"  %} class="pc-item active" {% else %} class="pc-item" {%endif%}>
           {% if request.user.is_superuser %}
-          <a href="{% url 'purchase_request' %}" class="pc-link">
+          <a href="{% url 'home:purchase_request' %}" class="pc-link">
           {% else %}
-          <a href="{% url 'purchase_request' %}" class="pc-link">
+          <a href="{% url 'home:purchase_request' %}" class="pc-link">
           {% endif %}
             <span class="pc-micon"><i class="ti ti-shopping-cart"></i></span>
             <span>Purchase Request</span></a>
@@ -50,9 +50,9 @@
 
         <li {% if tab == "2"  %} class="pc-item active" {% else %} class="pc-item" {%endif%}>
           {% if request.user.is_superuser %}
-          <a href="{% url 'comp_schedule' %}" class="pc-link">
+          <a href="{% url 'home:comp_schedule' %}" class="pc-link">
             {% else %}
-          <a href="{% url 'comp_schedule' %}" class="pc-link">
+          <a href="{% url 'home:comp_schedule' %}" class="pc-link">
           {% endif %}
             <span class="pc-micon"><i class="ti ti-files"></i></span>
             <span class="pc-mtext">Comparative Schedule</span></a>
@@ -61,9 +61,9 @@
 
         <li {% if tab == "3"  %} class="pc-item active" {% else %} class="pc-item" {%endif%}>
           {% if request.user.is_superuser %}
-          <a href="{% url 'purchase_order' %}" class="pc-link">
+          <a href="{% url 'home:purchase_order' %}" class="pc-link">
             {% else %}
-          <a href="{% url 'purchase_order' %}" class="pc-link">
+          <a href="{% url 'home:purchase_order' %}" class="pc-link">
           {% endif %}
             <span class="pc-micon"><i class="ti ti-file"></i></span>
             <span class="pc-mtext">Purchase Order</span></a>
@@ -73,9 +73,9 @@
 
         <li {% if tab == "4"  %} class="pc-item active" {% else %} class="pc-item" {%endif%}>
           {% if request.user.is_superuser %}
-          <a href="{% url 'payment_request' %}" class="pc-link">
+          <a href="{% url 'home:payment_request' %}" class="pc-link">
           {% else %}
-          <a href="{% url 'payment_request' %}" class="pc-link">
+          <a href="{% url 'home:payment_request' %}" class="pc-link">
           {% endif %}
             <span class="pc-micon"><i class="ti ti-wallet"></i></span>
 
@@ -85,9 +85,9 @@
 
         <li {% if tab == "5"  %} class="pc-item active" {% else %} class="pc-item" {%endif%}>
           {% if request.user.is_superuser %}
-          <a href="{% url 'payment_tickets' %}" class="pc-link">
+          <a href="{% url 'home:payment_tickets' %}" class="pc-link">
           {% else %}
-          <a href="{% url 'payment_tickets' %}" class="pc-link">
+          <a href="{% url 'home:payment_tickets' %}" class="pc-link">
           {% endif %}
             <span class="pc-micon"><i class="ti ti-wallet"></i></span>
 
@@ -96,9 +96,9 @@
         </li>
         <li {% if tab == "6"  %} class="pc-item active" {% else %} class="pc-item" {%endif%}>
           {% if request.user.is_superuser %}
-          <a href="{% url 'goods_received_notes' %}" class="pc-link">
+          <a href="{% url 'home:goods_received_notes' %}" class="pc-link">
           {% else %}
-          <a href="{% url 'goods_received_notes' %}" class="pc-link">
+          <a href="{% url 'home:goods_received_notes' %}" class="pc-link">
           {% endif %}
             <span class="pc-micon"><i class="ti ti-wallet"></i></span>
 
@@ -148,20 +148,20 @@
               class="pc-mtext">User Pages</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
           <ul class="pc-submenu">
             {% if request.user.is_superuser %}
-            <li class="pc-item"><a class="pc-link" href="{% url 'gen_sig' %}">Generate Signature</a></li>
+            <li class="pc-item"><a class="pc-link" href="{% url 'home:gen_sig' %}">Generate Signature</a></li>
 
               <li class="pc-item"><a class="pc-link" href="{% url 'admin:password_change' %}">Change Password</a></li>
               <li class="pc-item"><a class="pc-link" href="{% url 'admin:logout' %}">Logout</a></li>
             {% else %}
               {% if request.user.is_authenticated %}
 
-              <li class="pc-item"><a class="pc-link" href="{% url 'gen_sig' %}">Generate Signature</a></li>
+              <li class="pc-item"><a class="pc-link" href="{% url 'home:gen_sig' %}">Generate Signature</a></li>
 
-              <li class="pc-item"><a class="pc-link" href="{% url 'password_change' %}">Change Password</a></li>
-              <li class="pc-item"><a class="pc-link" href="{% url 'logout' %}">Logout</a></li>
+              <li class="pc-item"><a class="pc-link" href="{% url 'home:password_change' %}">Change Password</a></li>
+              <li class="pc-item"><a class="pc-link" href="{% url 'home:logout' %}">Logout</a></li>
               {% else %}
-              <li class="pc-item"><a class="pc-link" href="{% url 'login' %}">Login</a></li>
-              <li class="pc-item"><a class="pc-link" href="{% url 'register' %}">Register</a></li>
+              <li class="pc-item"><a class="pc-link" href="{% url 'home:login' %}">Login</a></li>
+              <li class="pc-item"><a class="pc-link" href="{% url 'home:register' %}">Register</a></li>
               {% endif %}
             {% endif %}
           </ul>
@@ -173,15 +173,15 @@
           <i class="ti ti-apps"></i>
         </li>
         <li class="pc-item">
-          <a href="{% url 'typography' %}" class="pc-link"><span class="pc-micon"><i
+          <a href="{% url 'home:typography' %}" class="pc-link"><span class="pc-micon"><i
                 class="ti ti-typography"></i></span><span class="pc-mtext">Typography</span></a>
         </li>
         <li class="pc-item">
-          <a href="{% url 'color' %}" class="pc-link"><span class="pc-micon"><i class="ti ti-brush"></i></span><span
+          <a href="{% url 'home:color' %}" class="pc-link"><span class="pc-micon"><i class="ti ti-brush"></i></span><span
               class="pc-mtext">Color</span></a>
         </li>
         <li class="pc-item">
-          <a href="{% url 'icon_tabler' %}" class="pc-link"><span class="pc-micon"><i
+          <a href="{% url 'home:icon_tabler' %}" class="pc-link"><span class="pc-micon"><i
                 class="ti ti-plant-2"></i></span><span class="pc-mtext">Tabler</span><span class="pc-arrow"></a>
         </li>
 
@@ -190,7 +190,7 @@
           <i class="ti ti-brand-chrome"></i>
         </li>
         <li class="pc-item">
-          <a href="{% url 'sample_page' %}" class="pc-link"><span class="pc-micon"><i
+          <a href="{% url 'home:sample_page' %}" class="pc-link"><span class="pc-micon"><i
                 class="ti ti-brand-chrome"></i></span><span class="pc-mtext">Sample page</span></a></li>
         <li class="pc-item">
           <a href="https://github.com/app-generator/django-admin-berry" target="_blank" class="pc-link"><span

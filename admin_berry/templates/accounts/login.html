@@ -51,7 +51,7 @@
                   <label class="form-check-label text-muted" for="customCheckc1">Remember me</label>
                 </div>
                 <h5 class="text-secondary">
-                  <a href="{% url 'password_reset' %}">Forgot Password?</a>
+                  <a href="{% url 'home:password_reset' %}">Forgot Password?</a>
                 </h5>
               </div>
               <div class="d-grid mt-4">
@@ -60,7 +60,7 @@
             </form>
             <hr />
             <h5 class="d-flex justify-content-center">Don't have an account?
-              <a class="ms-2" href="{% url 'register' %}">Register</a>
+              <a class="ms-2" href="{% url 'home:register' %}">Register</a>
             </h5>
           </div>
         </div>

@@ -139,7 +139,7 @@
 
           </form>
 <hr>
-          <form action="{% url 'purchase_order_quote_upload' %}" method="post" enctype="multipart/form-data">
+          <form action="{% url 'home:purchase_order_quote_upload' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
 
                 <div class="col-md-6">
@@ -176,7 +176,7 @@
                                     console.log(case_id);
                                     $("#request_id").val(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "https://lorkas.co.zw/purchase_order_get_record"
+                                    const url = "http://127.0.0.1:8000/procurement/purchase_order_get_record"
                                     const data = {
                                       'id':case_id,
                                     }

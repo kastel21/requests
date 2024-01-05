@@ -45,7 +45,7 @@ def index(request):
   username = request.user.username
   notices = Notifications.objects.filter(to=username)
 
-  payments = PaymentRequest.objects.all().order_by('-id')[:5][::-1]
+  payments = PaymentRequest.objects.all().order_by('-id')[::5][:-1]
   total_payments= 123455
 
   context = {
@@ -57,6 +57,26 @@ def index(request):
   }
 
   return render(request, 'pages/index.html', context=context)
+
+
+@login_required(login_url='login')
+def app_root(request):
+  username = request.user.username
+  notices = Notifications.objects.filter(to=username)
+
+  payments = PaymentRequest.objects.all().order_by('-id')[::5][:-1]
+  total_payments= 123455
+
+  context = {
+     "notices":notices,
+     "nots_num": notices.count(),
+     "payments": payments,
+     "total_payments":total_payments,
+
+  }
+
+  return render(request, 'pages/index.html', context=context)
+
 
 @login_required(login_url='login')
 def payment_request(request):
@@ -4484,7 +4504,7 @@ from time import time
     
 #     record = ComparativeSchedule.objects.get(id=x)
     
-#     data = 'https://lorkas.co.zw/comp_schedule_print/'+ x
+#     data = 'http://127.0.0.1:8000/procurement/comp_schedule_print/'+ x
 #     img = make(data)
 #     img_name = f'lolo.png'
 #     img.save(img_name)

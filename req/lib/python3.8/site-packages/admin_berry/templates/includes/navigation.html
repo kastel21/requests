@@ -206,7 +206,7 @@
               {% if request.user.is_superuser %}
                 <a href="{% url 'admin:logout' %}" class="dropdown-item">
               {% else %}
-                <a href="{% url 'logout' %}" class="dropdown-item">
+                <a href="{% url 'home:logout' %}" class="dropdown-item">
               {% endif %}
               <i class="ti ti-logout"></i>
               <span>Logout</span>

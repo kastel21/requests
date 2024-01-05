@@ -422,7 +422,7 @@ File: style.css
   background: rgba(33, 150, 243, 0.2);
 }
 
-[data-pc-theme=dark][data-pc-preset=preset-1] .pc-sidebar .pc-navbar > li > .pc-submenu::before {
+[data-pc-theme=dark][data-pc-preset=preset-1] .pc-sidebar .pc-navbar > li > .pc-submenu:before {
   background: rgba(33, 150, 243, 0.2);
 }
 
@@ -481,7 +481,7 @@ File: style.css
   background-color: #673ab7;
 }
 
-[data-pc-theme=dark][data-pc-preset=preset-1] .kanban-tabs .nav-item .nav-link.active::after, [data-pc-theme=dark][data-pc-preset=preset-1] .kanban-tabs .nav-item.show .nav-link::after, [data-pc-theme=dark][data-pc-preset=preset-1] .profile-tabs .nav-item .nav-link.active::after, [data-pc-theme=dark][data-pc-preset=preset-1] .profile-tabs .nav-item.show .nav-link::after {
+[data-pc-theme=dark][data-pc-preset=preset-1] .kanban-tabs .nav-item .nav-link.active:after, [data-pc-theme=dark][data-pc-preset=preset-1] .kanban-tabs .nav-item.show .nav-link:after, [data-pc-theme=dark][data-pc-preset=preset-1] .profile-tabs .nav-item .nav-link.active:after, [data-pc-theme=dark][data-pc-preset=preset-1] .profile-tabs .nav-item.show .nav-link:after {
   background: #673ab7;
 }
 
@@ -523,7 +523,7 @@ File: style.css
   color: rgba(183, 224, 255, 0.2);
 }
 
-[data-pc-theme=dark][data-pc-preset=preset-1] .price-card h2::after, [data-pc-theme=dark][data-pc-preset=preset-1] .price-card .h2::after {
+[data-pc-theme=dark][data-pc-preset=preset-1] .price-card h2:after, [data-pc-theme=dark][data-pc-preset=preset-1] .price-card .h2:after {
   background: #673ab7;
 }
 

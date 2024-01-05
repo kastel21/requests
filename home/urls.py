@@ -6,14 +6,15 @@ from django.contrib import admin
 
 from django.contrib.auth import views as auth_views
 
+app_name = 'home'
 
 urlpatterns = [
 
     path('', views.index, name='index'),
-        path('', views.index, name='index'),
+    # path('app_root/', views.app_root, name='app_root'),
     path("admin/", admin.site.urls),
 
-        path('typography/', views.typography, name='typography'),
+    path('typography/', views.typography, name='typography'),
     path('color/', views.color, name='color'),
     path('icon-tabler/', views.icon_tabler, name='icon_tabler'),
     path('sample-page/', views.sample_page, name='sample_page'),

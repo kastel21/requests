@@ -127,7 +127,7 @@
 
 
 // populate the users dropdown
-    const url = "https://lorkas.co.zw/get_payment_requests"
+    const url = "http://127.0.0.1:8000/procurement/get_payment_requests"
                     const data = {
                       'id':"case_id",
                     }
@@ -141,7 +141,7 @@
         });
 
 
-        const url1 = "https://lorkas.co.zw/get_purchase_orders"
+        const url1 = "http://127.0.0.1:8000/procurement/get_purchase_orders"
                     const data1 = {
                       'id':"case_id",
                     }
@@ -157,7 +157,7 @@
 
 
              
-  const url5 = "  https://lorkas.co.zw/get_users"
+  const url5 = "  http://127.0.0.1:8000/procurement/get_users"
                     const data5 = {
                       'id':"case_id",
                     }
@@ -213,7 +213,7 @@ var status= $("#status").val();
                             case_id = arr.at(-1);
                         if (case_id == "add"){
                 
-                        const url = "  https://lorkas.co.zw/goods_received_notes_send_record";
+                        const url = "  http://127.0.0.1:8000/procurement/goods_received_notes_send_record";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -248,13 +248,13 @@ var status= $("#status").val();
                             alert(status);
 
                             if(status == "accepted"){
-                                window.location.href="  https://lorkas.co.zw/goods_received_notes_upload_dnote/"+data['id'];
+                                window.location.href="  http://127.0.0.1:8000/procurement/goods_received_notes_upload_dnote/"+data['id'];
 
                                 
 
                             }else{
 
-                                window.location.href="  https://lorkas.co.zw/goods_received_notes_all";
+                                window.location.href="  http://127.0.0.1:8000/procurement/goods_received_notes_all";
 
                             }
 
@@ -263,7 +263,7 @@ var status= $("#status").val();
                             console.log("err");
                             $('#overlay').fadeOut();
 
-                            window.location.href="  https://lorkas.co.zw/goods_received_notes_all";
+                            window.location.href="  http://127.0.0.1:8000/procurement/goods_received_notes_all";
                 
                         }
                 

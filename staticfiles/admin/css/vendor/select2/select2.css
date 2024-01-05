@@ -44,7 +44,7 @@
       font-size: 100%;
       margin-top: 5px;
       padding: 0; }
-      .select2-container .select2-search--inline .select2-search__field::-webkit-search-cancel-button {
+      .select2-container .select2-search--inline .select2-search__field:-webkit-search-cancel-button {
         -webkit-appearance: none; }
 
 .select2-dropdown {
@@ -93,7 +93,7 @@
     padding: 4px;
     width: 100%;
     box-sizing: border-box; }
-    .select2-search--dropdown .select2-search__field::-webkit-search-cancel-button {
+    .select2-search--dropdown .select2-search__field:-webkit-search-cancel-button {
       -webkit-appearance: none; }
   .select2-search--dropdown.select2-search--hide {
     display: none; }

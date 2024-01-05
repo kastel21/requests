@@ -124,7 +124,7 @@
 
 // populate the users dropdown
 
-const url = "  https://lorkas.co.zw/get_users"
+const url = "  http://127.0.0.1:8000/procurement/get_users"
                     const data = {
                       'id':"case_id",
                     }
@@ -162,7 +162,7 @@ console.log(data)
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "  https://lorkas.co.zw/purchase_request_get_record"
+                                    const url = "  http://127.0.0.1:8000/procurement/purchase_request_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -215,7 +215,7 @@ console.log(data)
                         console.log(case_id);
                         if (case_id == "add"){}else{
                 
-                        const url = "  https://lorkas.co.zw/purchase_request_pi_approve";
+                        const url = "  http://127.0.0.1:8000/procurement/purchase_request_pi_approve";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -234,12 +234,12 @@ console.log(data)
                             console.log("success");
                             alert("success");
 
-                            window.location.href="  https://lorkas.co.zw/purchase_request_all";
+                            window.location.href="  http://127.0.0.1:8000/procurement/purchase_request_all";
                         }else{
                             console.log(data['message']);
                             alert(data['message']);
 
-                            window.location.href="  https://lorkas.co.zw/purchase_requests_all";
+                            window.location.href="  http://127.0.0.1:8000/procurement/purchase_requests_all";
                 
                         }
                 

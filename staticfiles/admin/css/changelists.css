@@ -163,17 +163,17 @@
     list-style-type: none;
 }
 
-#changelist-filter details > summary::-webkit-details-marker {
+#changelist-filter details > summary:-webkit-details-marker {
     display: none;
 }
 
-#changelist-filter details > summary::before {
+#changelist-filter details > summary:before {
     content: '→';
     font-weight: bold;
     color: var(--link-hover-color);
 }
 
-#changelist-filter details[open] > summary::before {
+#changelist-filter details[open] > summary:before {
     content: '↓';
 }
 

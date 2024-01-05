@@ -129,14 +129,14 @@
                                         <tr><td> approved_by_date</td>
                                         <td>{{record.approved_by_date }}</td></tr>
                                     
-                                    <form action="{% url 'payment_request_view' %}">
+                                    <form action="{% url 'home:payment_request_view' %}">
 
                                         <input type="text" name="id" id="id" value="{{record.id}}" />
                                         <input type="submit" value="Edit" />
 
                                     </form>
 
-                                    <form action="{% url 'payment_request_print' %}">
+                                    <form action="{% url 'home:payment_request_print' %}">
 
                                         <input type="text" name="id" id="id" value="{{record.id}}" />
 

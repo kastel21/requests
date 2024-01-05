@@ -1,0 +1,216 @@
+{% extends 'todos/base.html' %}
+{% load static %}
+{% block content %}
+
+  <link rel="stylesheet" type="text/css" href="{% static 'todos/style.css' %}">
+  <link rel="apple-touch-icon" type="image/png" href="{% static 'assets/images/brti logo trans.png' %}" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/brti logo trans.png' %}" />
+
+  <link rel="mask-icon" type="image/x-icon" href="{% static 'assets/images/brti logo trans.png' %}" color="#111" />
+
+
+
+  <h2 class="applicationHeader">TODO LIST</h2>
+  <hr>
+
+
+
+
+<!-- 
+<div class="footer">
+  <ul class="pagination">
+    {% if todo_items.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page=1" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">begin</span>
+      </a>
+    </li>   {% endif %}
+    
+    {% for n in todo_items.paginator.page_range %}
+      {% if todo_items.number == n %}
+        <li class="page-item active">
+          <span class="page-link">{{ n }}<span class="sr-only">(current)</span></span>
+        </li>
+      {% elif n > todo_items.number|add:'-20' and n < records.number|add:'20' %}
+        <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+      {% endif %}
+    {% endfor %}
+    
+    {% if todo_items.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ todo_items.paginator.num_pages }}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">end</span>
+        </a>
+      </li>
+      {% endif %}   </ul>
+
+
+    </div> -->
+
+
+  <div class="todoItems">
+    {% if todo_items %}
+      <ul>
+        {% for todo in todo_items %}
+        <li class="todoList">
+          <div class="todoText">
+            <input type="radio", name="selectedItem", id="selectedItem" style="margin-right:1em;">
+            <p style="display: inline-block;">{{todo.todo_text}}</p>
+            <p><i class="fa fa-calendar"></i>{{todo.due_date}}</p>
+            <p><i class="fa fa-clock-o"></i>    Task Priority : {{todo.priority}}</p>
+            <p><i class="fa fa-check"></i>   Task Completed : {{todo.completed}}</p>
+            <p><i class="fa fa-dedent"></i>   Department : {{todo.category}}</p>
+
+            <script>
+             timer_interval("{{todo.id}}" , "{{ todo.due_date|date:"M d, Y H:i:s" }}");
+            </script>
+            <p style="text-align: center" class="todo_item{{todo.id}}"></p>
+          </div>
+          <div class="editAndDeleteButton">
+            {% if request.user.is_staff %}
+            <button class="btn btn-primary"><a href="{% url 'todos:edit' todo.id %}"><i class="fa fa-edit"></i></a></button>
+            {%endif%}
+
+            <button class="btn btn-primary"><a href="{% url 'todos:delete' todo.id %}"><i class="fa fa-trash"></i></a></button>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+
+  <div class="container">
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Add New Task</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="todoForm">
+              <form action="{% url 'todos:addTodo' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="addTodo">What do you want to add?</label>
+                  <input type="text" class="form-control" id="addTodo"  name="todo_text" placeholder="Description">
+                </div>
+                <div class="form-group" style="margin-top: 1em;">
+                  <label for="addTodo">Amount USD</label>
+                  <input type="number" class="form-control" id="amount"  name="amount" placeholder="100">
+                </div>
+
+                <div class="form-group" style="margin-top: 1em;">
+                  <label for="priority">Priority</label>
+                  <select style="width: 30%;" name="priority" id="priority">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+
+                  </select>
+
+                </div>
+
+                <div class="form-group">
+                  <label>Select a category : </label>
+                  <select style="width: 30%;" name="todo_category">
+                   {% for category in category_items %}
+                    <option value={{category.id}}>{{category.category_name}}</option>
+                   {% endfor %}
+                  </select>
+                </div>
+                <div class="dateField">
+                  <div class="input-group date" id="dateCreated" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input"  name ="date_created" value="{{current_date}}" placeholder="Date created" data-target="#dateCreated"/>
+                    <div class="input-group-append" data-target="#dateCreated" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                  </div>
+                  <div class="input-group date" id="dueDate" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input"  name ="due_date" placeholder="Due date" data-target="#dueDate"/>
+                    <div class="input-group-append" data-target="#dueDate" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+      <!-- The Modal -->
+      <div class="modal" id="category_Modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Create Category</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div class="categoryForm">
+                <form action="{% url 'todos:addCategory' %}" method="post">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <label for="addTodo">Which category do you want to add?</label>
+                    <input type="text" class="form-control" id="addCategory"  name="category_name" placeholder="Description">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="container">
+      <!-- The Modal -->
+    {% for category in category_items %}
+      <div class="modal" id={{category.category_name}}>
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Items In {{category.category_name}} Category</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              {% for todo in todo_items %}
+                {% if todo.category_id  == category.id %}
+                  <p>{{todo.todo_text}}</p>
+                  
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+{% endblock %}
+

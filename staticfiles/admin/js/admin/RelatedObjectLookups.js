@@ -93,7 +93,7 @@
         // in the page.
 
         const path = win.location.pathname;
-        // Extract the model from the popup url '.../<model>/add/' or
+        // Extract the model from the popup url 'home:.../<model>/add/' or
         // '.../<model>/<id>/change/' depending the action (add or change).
         const modelName = path.split('/')[path.split('/').length - (objId ? 4 : 3)];
         // Exclude autocomplete selects.

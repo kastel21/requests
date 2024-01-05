@@ -1,0 +1,313 @@
+{% load static %}
+
+
+
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  
+
+
+
+
+
+  <meta charset="utf-8">
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+  <title>App Root - Main Menu</title>
+
+  <link rel="stylesheet" media="screen" href="https://cpwebassets.codepen.io/assets/fullpage/fullpage-7d0085e88e3f06095d712efc55f79fc6aedaeed08967649de30e3ea674797898.css" />
+  
+
+    <link rel="apple-touch-icon" type="image/png" href="{% static 'assets/images/brti logo trans.png' %}" />
+
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/brti logo trans.png' %}" />
+
+    <link rel="mask-icon" type="image/x-icon" href="{% static 'assets/images/brti logo trans.png' %}" color="#111" />
+
+
+
+
+
+
+  <style>
+    html { font-size: 15px; }
+    html, body { margin: 0; padding: 0; min-height: 100%; }
+    body { height:100%; display: flex; flex-direction: column; }
+    .referer-warning {
+      background: black;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      padding: 0.75em;
+      color: white;
+      text-align: center;
+      font-family: 'Lato', 'Lucida Grande', 'Lucida Sans Unicode', Tahoma, system-ui, Sans-Serif;
+      line-height: 1.2;
+      font-size: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+    .referer-warning span { font-family: initial; }
+    .referer-warning h1 { font-size: 1.2rem; margin: 0; }
+    .referer-warning a { color: #56bcf9; }
+  </style>
+</head>
+
+<body class="">
+
+
+  <div id="result-iframe-wrap" role="main">
+<iframe id="result" srcdoc="
+
+<!DOCTYPE html>
+<html lang=&quot;en&quot; >
+
+<head>
+  <meta charset=&quot;UTF-8&quot;>
+  
+
+
+    <meta name=&quot;apple-mobile-web-app-title&quot; content=&quot;CodePen&quot;>
+
+
+
+
+
+  
+  
+
+  <title>App root</title>
+
+    <link rel=&quot;canonical&quot; href=&quot;https://codepen.io/wisnust10/pen/BKjNNR&quot;>
+  
+  <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css&quot;>
+
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+  
+<style>
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,900);
+
+html,
+body {
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+  height: 100%;
+  width: 100%; 
+  background: #FFF;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+ 
+.wrapper {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+
+.container-fostrap {
+  display: table-cell;
+  padding: 1em;
+  text-align: center;
+  vertical-align: middle;
+}
+.fostrap-logo {
+  width: 100px;
+  margin-bottom:15px
+}
+h1.heading {
+  color: #fff;
+  font-size: 1.15em;
+  font-weight: 900;
+  margin: 0 0 0.5em;
+  color: #505050;
+}
+@media (min-width: 450px) {
+  h1.heading {
+    font-size: 3.55em;
+  }
+}
+@media (min-width: 760px) {
+  h1.heading {
+    font-size: 3.05em;
+  }
+}
+@media (min-width: 900px) {
+  h1.heading {
+    font-size: 3.25em;
+    margin: 0 0 0.3em;
+  }
+} 
+.card {
+  display: block; 
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12); 
+    transition: box-shadow .25s; 
+}
+.card:hover {
+  box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.img-card {
+  width: 100%;
+  height:200px;
+  border-top-left-radius:2px;
+  border-top-right-radius:2px;
+  display:block;
+    overflow: hidden;
+}
+.img-card img{
+  width: 100%;
+  height: 200px;
+  object-fit:cover; 
+  transition: all .25s ease;
+} 
+.card-content {
+  padding:15px;
+  text-align:left;
+}
+.card-title {
+  margin-top:0px;
+  font-weight: 700;
+  font-size: 1.65em;
+}
+.card-title a {
+  color: #000;
+  text-decoration: none !important;
+}
+.card-read-more {
+  border-top: 1px solid #D4D4D4;
+}
+.card-read-more a {
+  text-decoration: none !important;
+  padding:10px;
+  font-weight:600;
+  text-transform: uppercase
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+</head>
+
+<body translate=&quot;no&quot;>
+  <section class=&quot;wrapper&quot;>
+    <div class=&quot;container-fostrap&quot;>
+        <div>
+            <img src='{% static 'assets/images/brti logo trans.png' %}' class=&quot;fostrap-logo&quot;/>
+            <h1 class=&quot;heading&quot;>
+                Applications Root 
+            </h1>
+        </div>
+        <div class=&quot;content&quot;>
+            <div class=&quot;container&quot;>
+                <div class=&quot;row&quot;>
+                    <div class=&quot;col-xs-12 col-sm-4&quot;>
+                        <div class=&quot;card&quot;>
+
+                            <a class=&quot;img-card&quot; href='http://127.0.0.1:8000/procurement/' target='_blank'>
+                            <img src='static/images/thumb.png' />
+                          </a>
+                            <div class=&quot;card-content&quot;>
+                                <h4 class=&quot;card-title&quot;>
+                                    <a href='http://127.0.0.1:8000/procurement/' target='_blank'> Procurement
+                                  </a>
+                                </h4>
+                                <p class=&quot;&quot;>
+                                    Purchase Request, Purchase Request, Purchase Order, Payment Requests, ....
+                                </p>
+                            </div>
+                            <div class=&quot;card-read-more&quot;>
+                                <a href='http://127.0.0.1:8000/procurement/' target='_blank' class=&quot;btn btn-link btn-block&quot;>
+                                    Open
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=&quot;col-xs-12 col-sm-4&quot;>
+                        <div class=&quot;card&quot;>
+                            <a class=&quot;img-card&quot; href='http://127.0.0.1:8000/todo/'>
+                            <img src='static/images/thumb2.png' />
+                          </a>
+                            <div class=&quot;card-content&quot;>
+                                <h4 class=&quot;card-title&quot;>
+                                    <a href='http://127.0.0.1:8000/todo/' target='_blank'> Finance Priority
+                                  </a>
+                                </h4>
+                                <p class=&quot;&quot;>
+                                    Purchase Request, Purchase Request, Purchase Order, Payment Requests, ....
+                                </p>
+                            </div>
+                            <div class=&quot;card-read-more&quot;>
+                                <a href='http://127.0.0.1:8000/todo/' target='_blank' class=&quot;btn btn-link btn-block&quot;>
+                                    Open
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class=&quot;col-xs-12 col-sm-4&quot;>
+                        <div class=&quot;card&quot;>
+                            <a class=&quot;img-card&quot; href='http://127.0.0.1:8000'>
+                            <img src='static/images/thumb.png' />
+                          </a>
+                            <div class=&quot;card-content&quot;>
+                                <h4 class=&quot;card-title&quot;>
+                                    <a href='http://127.0.0.1:8000'>Procurement
+                                  </a>
+                                </h4>
+                                <p class=&quot;&quot;>
+                                    Purchase Request, Purchase Request, Purchase Order, Payment Requests, ....
+                                </p>
+                            </div>
+                            <div class=&quot;card-read-more&quot;>
+                                <a href='http://127.0.0.1:8000' class=&quot;btn btn-link btn-block&quot;>
+                                    Open
+                                </a>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div>
+
+
+                      <a href='{% url 'home:logout' %}' target='_blank' class='btn btn-danger' > Logout </a>
+                  </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  
+  
+</body>
+
+</html>
+"
+       allowfullscreen="true" class="result-iframe">
+      </iframe>
+  </div>
+
+</body>
+
+</html>
+{% endblock content %}

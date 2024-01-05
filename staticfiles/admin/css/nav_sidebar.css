@@ -51,11 +51,11 @@
     margin-right: -276px;
 }
 
-.toggle-nav-sidebar::before {
+.toggle-nav-sidebar:before {
     content: '\00BB';
 }
 
-.main.shifted .toggle-nav-sidebar::before {
+.main.shifted .toggle-nav-sidebar:before {
     content: '\00AB';
 }
 
