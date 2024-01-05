@@ -242,7 +242,7 @@
             </a>
             {% if request.user.is_authenticated %}
               {% if request.user.is_superuser %}
-                <a href="{% url 'admin:logout' %}" class="dropdown-item">
+                <a href="{% url 'home:logout' %}" class="dropdown-item">
               {% else %}
                 <a href="{% url 'home:logout' %}" class="dropdown-item">
               {% endif %}
