@@ -1175,7 +1175,7 @@ def service_request_open_record(request):
 
 @login_required(login_url='login')
 @csrf_exempt
-def service_request_#printrequest):
+def service_request_print(request):
     # if request.method == "POST":
         current_url = request.path
         x= current_url.split("/")[-1]
@@ -1285,7 +1285,7 @@ def comp_schedule_super(request):
 
 @login_required(login_url='login')
 @csrf_exempt
-def comp_schedule_#printrequest):
+def comp_schedule_print(request):
     # if request.method == "POST":
         current_url = request.path
         x= current_url.split("/")[-1]
@@ -2259,7 +2259,7 @@ def payment_request_pending_view(request):
 
 @login_required(login_url='login')
 @csrf_exempt
-def payment_request_#printrequest):
+def payment_request_print(request):
     # if request.method == "POST":
         current_url = request.path
         x= current_url.split("/")[-1]
@@ -3634,7 +3634,7 @@ def purchase_order_pending_view(request):
 
 @login_required(login_url='login')
 @csrf_exempt
-def purchase_order_#printrequest):
+def purchase_order_print(request):
     # if request.method == "POST":
         current_url = request.path
         x= current_url.split("/")[-1]
