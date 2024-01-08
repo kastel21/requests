@@ -34,7 +34,7 @@ from django.http import FileResponse
 import os
  
 def show_pdf(request):
-    print(request.path)
+    #printrequest.path)
     filepath="C:\\fakepath\\2022 PRICE LIST (1).pdf"
     return FileResponse(open(filepath, 'rb'), content_type='application/pdf')
 
@@ -107,10 +107,10 @@ def sample_page(request):
 #     form = RegistrationForm(request.POST)
 #     if form.is_valid():
 #       form.save()
-#       print('Account created successfully!')
+#       #print'Account created successfully!')
 #       return redirect('/accounts/login/')
 #     else:
-#       print("Registration failed!")
+#       #print"Registration failed!")
 #   else:
 #     form = RegistrationForm()
   
@@ -160,7 +160,7 @@ def purchase_request_quote_upload(request):
         import os
         path = "uploads/purchase_requests/"+str(request_id)
         # Check whether the specified path exists or not
-        # print("path ",path)
+        # #print"path ",path)
         isExist = os.path.exists(path)
         if not isExist:
 
@@ -294,7 +294,7 @@ def purchase_request_send_record(request):
             f= open("service1.txt","w")
             f.write(str(e))
             f.close()
-            print(str(e))
+            #printstr(e))
             return JsonResponse({'message':(str(e))})
 
 
@@ -336,7 +336,7 @@ def purchase_request_get_record(request):
           "message":"success",
         }
 
-        print(record.supervisor_approved)
+        #printrecord.supervisor_approved)
         context = {'addTabActive': True, "record":"","tab":"1","tab":"1"}
         return JsonResponse(dic)
     else:
@@ -433,7 +433,7 @@ def purchase_request_open_record(request):
 
       record = PuchaseRequest.objects.get(id=_id)
       context = {'record':record, "tab":"1"}
-      print("IN POST")
+      #print"IN POST")
       return render(request, 'pages/purchase_requests/view_record.html', context)
     else:
        redirect("purchase_request_all")
@@ -450,13 +450,13 @@ def purchase_request_edit_options(request):
         # objs = Record.objects.get(id=_id)
       record = PuchaseRequest.objects.get(id=_id)
       context = {'record':record, "tab":"1"}
-      # print("IN POST")
+      # #print"IN POST")
       if record.supervisor_approved_date == "None" and record.supervisor_approved == request.user.username:
-        #  print("certified")
+        #  #print"certified")
          return render(request, 'pages/purchase_requests/pi.html', context)
       
       elif record.finance_officer_approved_date == "None" and record.finance_officer == request.user.username:
-        #  print("cleared")
+        #  #print"cleared")
 
          return render(request, 'pages/purchase_requests/clerk.html', context)
       else:
@@ -603,7 +603,7 @@ def procurement_request_send_record(request):
             f= open("service1.txt","w")
             f.write(str(e))
             f.close()
-            print(str(e))
+            #printstr(e))
             return JsonResponse({'message':(str(e))})
 
 
@@ -643,7 +643,7 @@ def procurement_request_get_record(request):
           "message":"success",
         }
 
-        # print(record.supervisor_approved)
+        # #printrecord.supervisor_approved)
         context = {'addTabActive': True, "record":"","tab":"1","tab":"1"}
         return JsonResponse(dic)
     else:
@@ -802,9 +802,9 @@ def procurement_request_edit_options(request):
         # objs = Record.objects.get(id=_id)
       record = ProcurementRequests1.objects.get(id=_id)
       context = {'record':record}
-      print("IN POST")
+      #print"IN POST")
       if record.procurement_officer_accept == "None" and record.procurement_officer == request.user.username:
-         print("certified")
+         #print"certified")
          return render(request, 'pages/procurement_requests/pi.html', context)
       
       else:
@@ -952,7 +952,7 @@ def service_request_send_record(request):
             f= open("service1.txt","w")
             f.write(str(e))
             f.close()
-            print(str(e))
+            #printstr(e))
             return JsonResponse({'message':(str(e))})
 
 
@@ -995,7 +995,7 @@ def service_request_get_record(request):
           "message":"success",
         }
 
-        print(record.supervisor_approved)
+        #printrecord.supervisor_approved)
         context = {'addTabActive': True, "record":"","tab":"1"}
         return JsonResponse(dic)
     else:
@@ -1175,14 +1175,14 @@ def service_request_open_record(request):
 
 @login_required(login_url='login')
 @csrf_exempt
-def service_request_print(request):
+def service_request_#printrequest):
     # if request.method == "POST":
         current_url = request.path
         x= current_url.split("/")[-1]
-        print(x)
+        #printx)
 
         # _id = request.POST.get(x)
-        # print(_id)
+        # #print_id)
 
         record = ServiceRequest.objects.get(id=x)
         
@@ -1219,9 +1219,9 @@ def service_request_edit_options(request):
         # objs = Record.objects.get(id=_id)
       record = ServiceRequest.objects.get(id=_id)
       context = {'record':record}
-      print("IN POST")
+      #print"IN POST")
       if record.supervisor_approved_date == "None" and record.supervisor_approved == request.user.username:
-         print("certified")
+         #print"certified")
          return render(request, 'pages/service_requests/pi.html', context)
       
       else:
@@ -1285,11 +1285,11 @@ def comp_schedule_super(request):
 
 @login_required(login_url='login')
 @csrf_exempt
-def comp_schedule_print(request):
+def comp_schedule_#printrequest):
     # if request.method == "POST":
         current_url = request.path
         x= current_url.split("/")[-1]
-        # print(x)
+        # #printx)
 
         record = ComparativeSchedule.objects.get(id=x)
 
@@ -1397,10 +1397,10 @@ def comp_schedule_send_record(request):
 
           # for filename in  request.FILES.items():
           #   name = request.FILES[filename].name
-          #   print(name)
+          #   #printname)
 
           # upload= request.FILES['upload']
-          # print(upload)
+          # #printupload)
           # filename = upload.filename
           # upload.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
@@ -1536,12 +1536,12 @@ def comp_schedule_get_record(request):
         try:
           pdf = CompScheduleQuotation.objects.get(request_id=_id)
         except Exception as e:
-          # print(str(e))
+          # #printstr(e))
           pass
         # record = PaymentRequest.objects.get(id=_id)
 
         record = ComparativeSchedule.objects.get(id=_id)
-        # print(record.upload_name)
+        # #printrecord.upload_name)
         dic = {
       "pdf1":"/procurement"+pdf.quote1_path,
       "pdf2":"/procurement"+pdf.quote2_path,
@@ -1774,7 +1774,7 @@ def comp_schedule_open_record(request):
         # objs = Record.objects.get(id=_id)
       record = ComparativeSchedule.objects.get(id=_id)
       context = {'record':record ,"tab":"2"}
-      # print("IN POST")
+      # #print"IN POST")
       return render(request, 'pages/comparative_schedules/view_record.html', context)
     else:
        redirect("comp_schedule_all")
@@ -1790,26 +1790,26 @@ def comp_schedule_pending_view(request):
       record = ComparativeSchedule.objects.get(id=_id)
       context = {'record':record ,"tab":"2"}
 
-      # print("IN POST")
+      # #print"IN POST")
 
       if record.tech_person_date == "None" and record.tech_person_by == request.user.username:
-        #  print("certified")
+        #  #print"certified")
          return render(request, 'pages/comparative_schedules/tech_approve.html', context)
       
       elif record.dpt_head_date == "None" and record.dpt_head_by == request.user.username:
-        #  print("cleared")
+        #  #print"cleared")
 
          return render(request, 'pages/comparative_schedules/head_approve.html', context)
       
 
       elif record.team_lead_date == "None" and record.team_lead_by != "None" and record.team_lead_by == request.user.username:
-        #  print("approved")
+        #  #print"approved")
 
          return render(request, 'pages/comparative_schedules/lead_approve.html', context)
       
       
       elif record.approved_date == "None" and record.approved_by != "None" and record.approved_by == request.user.username: 
-        #  print("approved")
+        #  #print"approved")
 
          return render(request, 'pages/comparative_schedules/pi_approve.html', context)
       else:
@@ -1835,7 +1835,7 @@ def comp_schedule_quotes_upload(request):
         import os
         path = "uploads/comp_schedules/"+str(request_id)
         # Check whether the specified path exists or not
-        print("path ",path)
+        #print"path ",path)
         isExist = os.path.exists(path)
         if not isExist:
 
@@ -1887,7 +1887,7 @@ def get_payment_requests(request):
           dic[schedule.id]= "ID : "+str(schedule.id) +", raised by :"+ schedule.compiled_by+", raised on "+schedule.date_of_request +", amount : "+ schedule.amount
       return JsonResponse(dic)
    except Exception as e:
-          print(str(e))
+          #printstr(e))
           return JsonResponse(str(e))
 
 
@@ -1921,7 +1921,7 @@ def payment_request_pop_upload(request):
         import os
         path = "uploads/payment_requests/pops/"+str(request_id)
         # Check whether the specified path exists or not
-        # print("path ",path)
+        # #print"path ",path)
         isExist = os.path.exists(path)
         if not isExist:
 
@@ -1962,7 +1962,7 @@ def payment_request_voucher_upload(request):
         import os
         path = "uploads/payment_requests/vouchers/"+str(request_id)
         # Check whether the specified path exists or not
-        # print("path ",path)
+        # #print"path ",path)
         isExist = os.path.exists(path)
         if not isExist:
 
@@ -1997,7 +1997,7 @@ def payment_request_delivery_note_upload(request):
         import os
         path = "uploads/payment_requests/delivery_note/"+str(request_id)
         # Check whether the specified path exists or not
-        # print("path ",path)
+        # #print"path ",path)
         isExist = os.path.exists(path)
         if not isExist:
 
@@ -2037,7 +2037,7 @@ def payment_request_quote_and_dnote_upload(request):
         path2 = "uploads/payment_requests/delivery_notes/"+str(request_id)
 
         # Check whether the specified path exists or not
-        print("path ",path1)
+        #print"path ",path1)
         isExist1 = os.path.exists(path1)
         if not isExist1:
 
@@ -2080,7 +2080,7 @@ def payment_request_quote_upload(request):
         import os
         path = "uploads/payment_requests/quotations/"+str(request_id)
         # Check whether the specified path exists or not
-        print("path ",path)
+        #print"path ",path)
         isExist = os.path.exists(path)
         if not isExist:
 
@@ -2117,11 +2117,11 @@ def payment_request_open_approved(request):
 
           _id = request.POST.get('id',default=None)
           record = PaymentRequest.objects.get(id=_id)
-          print(" posted")
+          #print" posted")
 
           return render(request, 'pages/payment_requests/view_approved.html', context={"record":record,"tab":"4"})
       else:
-         print("not post")
+         #print"not post")
          return redirect("payment_request_approved")
 
 
@@ -2132,11 +2132,11 @@ def payment_request_kas_completed(request):
 
           _id = request.POST.get('id',default=None)
           record = PaymentRequest.objects.get(id=_id)
-          print(" posted")
+          #print" posted")
 
           return render(request, 'pages/payment_requests/view_completed.html', context={"record":record,"tab":"4"})
       else:
-         print("not post")
+         #print"not post")
          return redirect("payment_request_completed")
 
 
@@ -2149,18 +2149,18 @@ def payment_request_view(request):
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
       context = {'record':record,"tab":"4"}
-      print("IN POST")
+      #print"IN POST")
       if record.certified_by_date == "None" and record.certified_by == request.user.username:
-         print("certified")
+         #print"certified")
          return render(request, 'pages/payment_requests/certify.html', context)
       
       elif record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man == request.user.username:
-         print("cleared")
+         #print"cleared")
 
          return render(request, 'pages/payment_requests/clear.html', context)
       
       elif record.approved_by_date == "None" and record.approved_by == request.user.username:
-         print("approved")
+         #print"approved")
 
          return render(request, 'pages/payment_requests/approve.html', context)
       else:
@@ -2175,13 +2175,13 @@ def payment_request_edit_options(request):
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
       context = {'record':record,"tab":"4"}
-      print("IN POST")
+      #print"IN POST")
       if record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man_date == request.user.username:
-         print("certified")
+         #print"certified")
          return render(request, 'pages/payment_requests/pi.html', context)
       
       elif record.approved_by_project_man_date == "None" and record.approved_by_project_man_date == request.user.username:
-         print("cleared")
+         #print"cleared")
 
          return render(request, 'pages/payment_requests/clerk.html', context)
       else:
@@ -2209,7 +2209,7 @@ def payment_request_open_record(request):
         # objs = Record.objects.get(id=_id)
       record = PaymentRequest.objects.get(id=_id)
       context = {'record':record, "finance":finance ,"tab":"4"}
-      print("finance",finance)
+      #print"finance",finance)
       return render(request, 'pages/payment_requests/view_record.html', context)
     else:
        redirect("payment_request_all")
@@ -2223,7 +2223,7 @@ def payment_request_open_record(request):
 #         # objs = Record.objects.get(id=_id)
 #       record = PaymentRequest.objects.get(id=_id)
 #       context = {'record':record}
-#       print("IN POST")
+#       #print"IN POST")
 #       return render(request, 'pages/payment_requests/view2.html', context)
 #     else:
 #        redirect("payment_request_all")
@@ -2238,17 +2238,17 @@ def payment_request_pending_view(request):
       record = PaymentRequest.objects.get(id=_id)
       context = {'record':record,"tab":"4"}
 
-      print("IN POST")
+      #print"IN POST")
       if record.certified_by_date == "None" and record.certified_by == request.user.username:
-         print("certified")
+         #print"certified")
          return render(request, 'pages/payment_requests/certify.html', context)
       elif record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man == request.user.username:
-         print("cleared")
+         #print"cleared")
 
          return render(request, 'pages/payment_requests/clear.html', context)
       
       elif record.approved_by_date == "None" and record.approved_by == request.user.username:
-         print("approved")
+         #print"approved")
 
          return render(request, 'pages/payment_requests/approve.html', context)
 
@@ -2259,14 +2259,14 @@ def payment_request_pending_view(request):
 
 @login_required(login_url='login')
 @csrf_exempt
-def payment_request_print(request):
+def payment_request_#printrequest):
     # if request.method == "POST":
         current_url = request.path
         x= current_url.split("/")[-1]
-        print(x)
+        #printx)
 
         # _id = request.POST.get(x)
-        # print(_id)
+        # #print_id)
 
         record = PaymentRequest.objects.get(id=x)
         
@@ -2298,10 +2298,10 @@ def payment_request_print(request):
     #   _id = request.POST.get('id',default=None)
 
       
-    #   print(current_url)
+    #   #printcurrent_url)
 
     #   l = current_url.split('/')
-    #   print(l)
+    #   #printl)
 
       
 
@@ -2941,7 +2941,7 @@ def payment_ticket_open_record(request):
         # objs = Record.objects.get(id=_id)
       record = PaymentTicket.objects.get(id=_id)
       context = {'record':record, "finance":finance,"tab":"5"}
-      # print("finance",finance)
+      # #print"finance",finance)
       return render(request, 'pages/payment_ticket/view_record.html', context)
     else:
        redirect("payment_tickets_all")
@@ -2964,7 +2964,7 @@ def payment_ticket_open_record_for_edit(request):
         # objs = Record.objects.get(id=_id)
       record = PaymentTicket.objects.get(id=_id)
       context = {'record':record, "finance":finance,"tab":"5"}
-      # print("finance",finance)
+      # #print"finance",finance)
 
       return render(request, 'pages/payment_ticket/edit_record.html', context)
 
@@ -3117,7 +3117,7 @@ def payment_ticket_upload_pop(request):
         import os
         path = "uploads/payment_tickets/pops/"+str(request_id)
         # Check whether the specified path exists or not
-        # print("path ",path)
+        # #print"path ",path)
         isExist = os.path.exists(path)
         if not isExist:
 
@@ -3237,7 +3237,7 @@ def goods_received_notes_open_record(request):
         # objs = Record.objects.get(id=_id)
       record = GoodsReceivedNote.objects.get(id=_id)
       context = {'record':record, "finance":finance , "tab":"6"}
-      # print("finance",finance)
+      # #print"finance",finance)
       return render(request, 'pages/goods_received/view_record.html', context)
     else:
        redirect("goods_received_all")
@@ -3260,7 +3260,7 @@ def goods_received_notes_open_record_for_edit(request):
         # objs = Record.objects.get(id=_id)
       record = GoodsReceivedNote.objects.get(id=_id)
       context = {'record':record, "finance":finance, "tab":"6"}
-      # print("finance",finance)
+      # #print"finance",finance)
 
       return render(request, 'pages/goods_received/edit_record.html', context)
 
@@ -3410,7 +3410,7 @@ def goods_received_notes_upload_dnote(request):
         import os
         path = "uploads/goods_received_notes/dnotes/"+str(request_id)
         # Check whether the specified path exists or not
-        # print("path ",path)
+        # #print"path ",path)
         isExist = os.path.exists(path)
         if not isExist:
 
@@ -3504,7 +3504,7 @@ def purchase_order_quote_upload(request):
         import os
         path = "uploads/purchase_orders/"+str(request_id)
         # Check whether the specified path exists or not
-        print("path ",path)
+        #print"path ",path)
         isExist = os.path.exists(path)
         if not isExist:
 
@@ -3552,18 +3552,18 @@ def purchase_order_edit_options(request):
         # objs = Record.objects.get(id=_id)
       record = PurchaseOrder.objects.get(id=_id)
       context = {'record':record, "tab":"3"}
-      # print("IN POST")
+      # #print"IN POST")
       if record.required_by_date == "None" and record.required_by == request.user.username:
-        #  print("certified")
+        #  #print"certified")
          return render(request, 'pages/purchase_orders/required.html', context)
       
       elif record.approved_by_date == "None" and record.approved_by == request.user.username:
-        #  print("cleared")
+        #  #print"cleared")
 
          return render(request, 'pages/purchase_orders/approve.html', context)
 
       elif record.ordered_by_date == "None" and record.ordered_by == request.user.username:
-        #  print("cleared")
+        #  #print"cleared")
 
          return render(request, 'pages/purchase_orders/ordered.html', context)
       else:
@@ -3584,7 +3584,7 @@ def purchase_order_open_record(request):
         # objs = Record.objects.get(id=_id)
       record = PurchaseOrder.objects.get(id=_id)
       context = {'record':record, "tab":"3"}
-      print("IN POST")
+      #print"IN POST")
       return render(request, 'pages/purchase_orders/view_record.html', context)
     else:
        redirect("purchase_order_all")
@@ -3598,7 +3598,7 @@ def purchase_order_open_record(request):
 #         # objs = Record.objects.get(id=_id)
 #       record = PaymentRequest.objects.get(id=_id)
 #       context = {'record':record}
-#       print("IN POST")
+#       #print"IN POST")
 #       return render(request, 'pages/purchase_orders/view2.html', context)
 #     else:
 #        redirect("purchase_order_all")
@@ -3613,17 +3613,17 @@ def purchase_order_pending_view(request):
       record = PaymentRequest.objects.get(id=_id)
       context = {'record':record, "tab":"3"}
 
-      print("IN POST")
+      #print"IN POST")
       if record.certified_by_date == "None" and record.certified_by == request.user.username:
-         print("certified")
+         #print"certified")
          return render(request, 'pages/purchase_orders/certify.html', context)
       elif record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man == request.user.username:
-         print("cleared")
+         #print"cleared")
 
          return render(request, 'pages/purchase_orders/clear.html', context)
       
       elif record.approved_by_date == "None" and record.approved_by == request.user.username:
-         print("approved")
+         #print"approved")
 
          return render(request, 'pages/purchase_orders/approve.html', context)
 
@@ -3634,14 +3634,14 @@ def purchase_order_pending_view(request):
 
 @login_required(login_url='login')
 @csrf_exempt
-def purchase_order_print(request):
+def purchase_order_#printrequest):
     # if request.method == "POST":
         current_url = request.path
         x= current_url.split("/")[-1]
-        print(x)
+        #printx)
 
         # _id = request.POST.get(x)
-        # print(_id)
+        # #print_id)
 
         record = PurchaseOrder.objects.get(id=x)
         # _id = record.purchase_id
@@ -3682,10 +3682,10 @@ def purchase_order_print(request):
     #   _id = request.POST.get('id',default=None)
 
       
-    #   print(current_url)
+    #   #printcurrent_url)
 
     #   l = current_url.split('/')
-    #   print(l)
+    #   #printl)
 
       
 
@@ -4457,7 +4457,7 @@ def gen_sig(request):
 def save_sig(request):
    
     fullname = request.user.first_name +" "+ request.user.last_name
-  # print(fullname)
+  # #printfullname)
     username = request.user.username
       
     # _id = request.POST.get('name',default=None)
@@ -4525,10 +4525,10 @@ def transcript(request):
     # if request.method == "POST":
         current_url = request.path
         x= current_url.split("/")[-1]
-        print(x)
+        #printx)
 
         # _id = request.POST.get(x)
-        # print(_id)
+        # #print_id)
 
         record1 = PaymentTicket.objects.get(id=x)
         _id = record1.payment_request_id
