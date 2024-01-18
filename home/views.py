@@ -436,7 +436,7 @@ def purchase_request_open_record(request):
       #print"IN POST")
       return render(request, 'pages/purchase_requests/view_record.html', context)
     else:
-       redirect("purchase_request_all")
+       redirect("/procurement/purchase_request_all")
 
 
 # make some error so this name is unique to purchase only
@@ -464,7 +464,7 @@ def purchase_request_edit_options(request):
       
 
     else:
-         return redirect("purchase_request_pending")
+         return redirect("/procurement/purchase_request_pending")
 
 
 # (request):
@@ -788,7 +788,7 @@ def procurement_request_open_record(request):
       
          return render(request, 'pages/comparative_schedules/not_auth.html', {})
     else:
-       redirect("procurement_request_all")
+       redirect("/procurement/procurement_request_all")
 
 
 # make some error so this name is unique to purchase only
@@ -812,7 +812,7 @@ def procurement_request_edit_options(request):
       
 
     else:
-         return redirect("service_request_pending")
+         return redirect("/procurement/service_request_pending")
 
 
 
@@ -1171,7 +1171,7 @@ def service_request_open_record(request):
       
          return render(request, 'pages/comparative_schedules/not_auth.html', {})
     else:
-       redirect("service_request_all")
+       redirect("/procurement/service_request_all")
 
 @login_required(login_url='login')
 @csrf_exempt
@@ -1229,7 +1229,7 @@ def service_request_edit_options(request):
       
 
     else:
-         return redirect("service_request_pending")
+         return redirect("/procurement/service_request_pending")
 
 
 
@@ -1777,7 +1777,7 @@ def comp_schedule_open_record(request):
       # #print"IN POST")
       return render(request, 'pages/comparative_schedules/view_record.html', context)
     else:
-       redirect("comp_schedule_all")
+       redirect("/procurement/comp_schedule_all")
 
 
 @login_required(login_url='login')
@@ -2122,7 +2122,7 @@ def payment_request_open_approved(request):
           return render(request, 'pages/payment_requests/view_approved.html', context={"record":record,"tab":"4"})
       else:
          #print"not post")
-         return redirect("payment_request_approved")
+         return redirect("/procurement/payment_request_approved")
 
 
 
@@ -2137,7 +2137,7 @@ def payment_request_kas_completed(request):
           return render(request, 'pages/payment_requests/view_completed.html', context={"record":record,"tab":"4"})
       else:
          #print"not post")
-         return redirect("payment_request_completed")
+         return redirect("/procurement/payment_request_completed")
 
 
 @login_required(login_url='login')
@@ -2164,7 +2164,7 @@ def payment_request_view(request):
 
          return render(request, 'pages/payment_requests/approve.html', context)
       else:
-         return redirect("payment_request_pending")
+         return redirect("/procurement/payment_request_pending")
       
 @login_required(login_url='login')
 def payment_request_edit_options(request):
@@ -2189,7 +2189,7 @@ def payment_request_edit_options(request):
       
 
     else:
-         return redirect("purchase_request_pending")
+         return redirect("/procurement/purchase_request_pending")
 
 
 @login_required(login_url="login")
@@ -2212,7 +2212,7 @@ def payment_request_open_record(request):
       #print"finance",finance)
       return render(request, 'pages/payment_requests/view_record.html', context)
     else:
-       redirect("payment_request_all")
+       redirect("/procurement/payment_request_all")
 
 
 # def payment_request_view2(request):
@@ -2226,7 +2226,7 @@ def payment_request_open_record(request):
 #       #print"IN POST")
 #       return render(request, 'pages/payment_requests/view2.html', context)
 #     else:
-#        redirect("payment_request_all")
+#        redirect("/procurement/payment_request_all")
 
 @login_required(login_url='login')
 def payment_request_pending_view(request):
@@ -2944,7 +2944,7 @@ def payment_ticket_open_record(request):
       # #print"finance",finance)
       return render(request, 'pages/payment_ticket/view_record.html', context)
     else:
-       redirect("payment_tickets_all")
+       redirect("/procurement/payment_tickets_all")
 
 
 @login_required(login_url="login")
@@ -2969,7 +2969,7 @@ def payment_ticket_open_record_for_edit(request):
       return render(request, 'pages/payment_ticket/edit_record.html', context)
 
     else:
-      redirect("payment_tickets_all")
+      redirect("/procurement/payment_tickets_all")
 
 
 
@@ -3240,7 +3240,7 @@ def goods_received_notes_open_record(request):
       # #print"finance",finance)
       return render(request, 'pages/goods_received/view_record.html', context)
     else:
-       redirect("goods_received_all")
+       redirect("/procurement/goods_received_all")
 
 
 @login_required(login_url="login")
@@ -3265,7 +3265,7 @@ def goods_received_notes_open_record_for_edit(request):
       return render(request, 'pages/goods_received/edit_record.html', context)
 
     else:
-      redirect("goods_received_all")
+      redirect("/procurement/goods_received_all")
 
 
 
@@ -3523,7 +3523,7 @@ def purchase_order_quote_upload(request):
         record.request_id = request_id
         record.quote_path = uploaded_file_url1
         record.save()
-        return redirect('/purchase_order')
+        return redirect('procurement/purchase_order')
     else:
           return render(request, 'pages/purchase_orders/upload_quote.html')
 
@@ -3540,7 +3540,7 @@ def purchase_order_view(request):
 
       return render(request, 'pages/purchase_orders/view_record.html', context)
     else:
-         return redirect("purchase_order_pending")
+         return redirect("/procurement/purchase_order_pending")
       
 @login_required(login_url='login')
 def purchase_order_edit_options(request):
@@ -3571,7 +3571,7 @@ def purchase_order_edit_options(request):
       
 
     else:
-         return redirect("purchase_order_pending")
+         return redirect("/procurement/purchase_order_pending")
     
 
 
@@ -3587,7 +3587,7 @@ def purchase_order_open_record(request):
       #print"IN POST")
       return render(request, 'pages/purchase_orders/view_record.html', context)
     else:
-       redirect("purchase_order_all")
+       redirect("/procurement/purchase_order_all")
 
 
 # def purchase_order_view2(request):
@@ -3601,7 +3601,7 @@ def purchase_order_open_record(request):
 #       #print"IN POST")
 #       return render(request, 'pages/purchase_orders/view2.html', context)
 #     else:
-#        redirect("purchase_order_all")
+#        redirect("/procurement/purchase_order_all")
 
 @login_required(login_url='login')
 def purchase_order_pending_view(request):
