@@ -64,37 +64,47 @@
             <div class="row align-items-center justify-content-between">
 
   
+                           
+
+
+
+
+
                             <table style="margin: 2%;">
                                 <th>
-                                    <td>Ordered By</td>
-                                    <td>Project</td>
-                                    <td>Budget Line Item </td>
-                                    <td>Requesting Department</td>
-                                    <td>Description</td>
-                                    <td>Total Cost</td>
-                                    <td>Required By</td>
+                                    <td>Requester</td>
+                                    <td>Department</td>
+                                    <td>name</td>
+                                    <td>Total</td>
+                                    <td>Quantity</td>
+                                    <td>Approver</td>
 
                                 </th>
+
+
+
+
                                 {% for record in records %}
+
+                                <form method="POST" action="purchase_order_view/{{record.id}}">
+
                                     <tr>
-                                        <form method="POST" action="purchase_order_view/{{record.id}}">
                                             {% csrf_token %}
                                             <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
+                                            <td></td>
                                             <td> <input type="submit" value="{{record.ordered_by}}" /> </td>
 
-                                        </form>
-                                    <td>{{record.ordered_by}}</td>
-                                    <td>{{record.project}}</td>
-                                    <td>{{record.budget_line_item}}</td>
+                                        
                                     <td>{{record.dept}}</td>
-                                    <td>{{record.description}}</td>
-                                    <td>{{record.total_cost}}</td>
-                                    <td>{{record.required_by}}</td>
-                                    
+                                    <td>{{record.name}}</td>
+                                    <td>{{record.total}}</td>
+                                    <td>{{record.quantity}}</td>
+                                    <td>{{record.approved_by}}</td>
+                                    <td></td>
 
                                     </tr>
 
-
+                                </form>
                                 {% endfor %}
 
                             </table>
