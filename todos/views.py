@@ -116,7 +116,7 @@ def update(request, todo_id):
     edited_item = request.POST['todo_text']
     completed = request.POST['completed']
 
-    print('value',completed)
+    #print('value',completed)
     edited_due_date = (parser.parse(request.POST['due_date'])).isoformat()
     todo = get_object_or_404(Todo, pk=todo_id)
     todo.todo_text = edited_item
@@ -182,18 +182,18 @@ def is_expired():
 
 
 
-    print('time',time)
+    #print('time',time)
 
 
     if "07:41" == time and today.day not in day:
         todo_notify_time = 0
-        print('day',day)
+        #print('day',day)
 
         rows = Todo.objects.filter(completed=False)
 
         for record in rows:
-            print("text",record.todo_text)
-            print("id",record.id)
+            #print("text",record.todo_text)
+            #print("id",record.id)
 
             message = "Task "+record.todo_text+" is pending processing and is due on "+ str(record.due_date)
             send_reminders(record.email_notification,message)
@@ -220,7 +220,7 @@ def send_reminders(email,msg):
     #     )
 
         mimemsg = MIMEMultipart()
-        mimemsg['From']="timesheet@brti.co.zw"
+        mimemsg['From']="fpriority@brti.co.zw"
         mimemsg['To']=finance
         mimemsg['Cc']=email
         mimemsg['Subject']="Finance Priority List "
@@ -234,7 +234,7 @@ def send_reminders(email,msg):
                 #     #mimemsg.attach(mimefile)
         connection = smtplib.SMTP(host='smtp.office365.com', port=587)
         connection.starttls()
-        connection.login('timesheet@brti.co.zw','p@s3w0rd?1995')
+        connection.login("fpriority@brti.co.zw","p@s3w0rd?1995")
         connection.send_message(mimemsg)
         connection.quit()
 

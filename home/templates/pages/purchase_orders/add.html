@@ -164,19 +164,14 @@ const data = {
                       $.post(url1,data1, function(data1,status){
             
 
-console.log(data1)
+                        console.log(data1)
 
 
                         $.each(data1, function(val, text) {
                             $('#purchase_id').append( new Option(text,val) );
                         });
-
-            
-  
     
                         $('#overlay').fadeOut();
-
-
         });
 
         
@@ -186,10 +181,10 @@ console.log(data1)
                       'id':"case_id",
                     }
             
-                      $.post(url1,data2, function(data2,status){
+                      $.post(url2,data2, function(data2,status){
             
 
-console.log(data2)
+                        console.log(data2)
 
 
                         $.each(data2, function(val, text) {
