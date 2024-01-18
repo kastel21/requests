@@ -4060,7 +4060,7 @@ def purchase_order_approved(request):
 
     records = PaymentRequest.objects.filter( (Q(approved_by=username) & ~Q(approved_by_date="None") ) | (Q(compiled_by=username) & ~Q(approved_by_date="None") ) |  (Q(certified_by=username) & ~Q(approved_by_date="None") ) | (Q(cleared_by_fin_man=username) & ~Q(approved_by_date="None") )  )
     context = {'records':records, "tab":"3"}
-    return render(request, 'pages/purchase_orders/list2.html', context)
+    return render(request, 'pages/purchase_orders/list_approved.html', context)
 
 @login_required(login_url='login')
 def purchase_order_add(request):
