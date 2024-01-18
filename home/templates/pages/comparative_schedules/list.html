@@ -68,16 +68,9 @@
                                 <th>
                                     <td>Requester</td>
                                     <td>Request Date</td>
-                                    <td>Payee</td>
-                                    <td>supplier</td>
-                                    <td>Project Number</td>
-                                    <td>status</td>
-
+                                    <td>Item Name</td>
+                                    <td>Recomended Supplier</td>
                                 </th>
-
-
-
-
                                 {% for record in records %}
                                     <tr>
                                         <td></td>
@@ -86,16 +79,12 @@
                                             {% csrf_token %}
                                             <input type="text" style="display: none;" name="id" id="id" value="{{record.id}}" />
                                             <td> <input type="submit" value="{{record.requested_by}}" /> </td>
-
                                         </form>
-
-
                                     <td>{{record.requested_by_date}}</td>
-                                    <td>{{record.payee}}</td>
+                                    <td>{{record.item_name_supplier1}}</td>
                                     <td>{{record.recommended_supplier}}</td>
 
-                                    <td>{{record.project_number}}</td>
-                                    <td>{{record.status}}</td>
+
                                     <td></td>
 
 

@@ -108,7 +108,7 @@ def sample_page(request):
 #     if form.is_valid():
 #       form.save()
 #       #print'Account created successfully!')
-#       return redirect('/accounts/login/')
+#       return redirect('/procurement//accounts/login/')
 #     else:
 #       #print"Registration failed!")
 #   else:
@@ -180,7 +180,7 @@ def purchase_request_quote_upload(request):
 
     #     return render(request, 'core/simple_upload.html', {'uploaded_file_url': uploaded_file_url})
     # return render(request, 'core/simple_upload.html')
-        return redirect('/purchase_request')
+        return redirect('/procurement/purchase_request')
     else:
           return render(request, 'pages/purchase_requests/upload_quote.html')
 
@@ -340,7 +340,7 @@ def purchase_request_get_record(request):
         context = {'addTabActive': True, "record":"","tab":"1","tab":"1"}
         return JsonResponse(dic)
     else:
-        return redirect('/payment_requests')
+        return redirect('/procurement/payment_requests')
     
 
 
@@ -1600,7 +1600,7 @@ def comp_schedule_get_record(request):
         return JsonResponse(str(e),safe=False)
 
     else:
-        return redirect('/comp_schedule')
+        return redirect('/procurement/comp_schedule')
 
 
 
@@ -1861,7 +1861,7 @@ def comp_schedule_quotes_upload(request):
         record.quote3_path = uploaded_file_url3
 
         record.save()
-        return redirect('/comp_schedule')
+        return redirect('/procurement/comp_schedule')
     else:
           return render(request, 'pages/comparative_schedules/upload_quote.html')
 
@@ -1946,7 +1946,7 @@ def payment_request_pop_upload(request):
         rec.completed = "1"
         rec.save()
 
-        return redirect('/payment_request')
+        return redirect('/procurement/payment_request')
     else:
           return render(request, 'pages/payment_requests/upload_pop.html')
 
@@ -1982,7 +1982,7 @@ def payment_request_voucher_upload(request):
         record.request_id = request_id
         record.quote_path = uploaded_file_url1
         record.save()
-        return redirect('/payment_request')
+        return redirect('/procurement/payment_request')
     else:
           return render(request, 'pages/payment_requests/upload_quote.html')
 
@@ -2017,7 +2017,7 @@ def payment_request_delivery_note_upload(request):
         record.request_id = request_id
         record.quote_path = uploaded_file_url1
         record.save()
-        return redirect('/payment_request')
+        return redirect('/procurement/payment_request')
     else:
           return render(request, 'pages/payment_requests/upload_quote.html')
 
@@ -2066,7 +2066,7 @@ def payment_request_quote_and_dnote_upload(request):
         record.quote_path2 = uploaded_file_url2
 
         record.save()
-        return redirect('/payment_request')
+        return redirect('/procurement/payment_request')
     else:
           return render(request, 'pages/payment_requests/upload_delivery_note.html')
 
@@ -2100,7 +2100,7 @@ def payment_request_quote_upload(request):
         record.request_id = request_id
         record.quote_path1 = uploaded_file_url1
         record.save()
-        return redirect('/payment_request')
+        return redirect('/procurement/payment_request')
     else:
           return render(request, 'pages/payment_requests/upload_quote.html')
 
@@ -2665,7 +2665,7 @@ def payment_request_get_record(request):
         context = {'addTabActive': True, "record":"","tab":"1"}
         return JsonResponse(dic)
     else:
-        return redirect('/payment_requests')
+        return redirect('/procurement/payment_requests')
 
 @login_required(login_url='login')
 @csrf_exempt
@@ -3034,7 +3034,7 @@ def payment_ticket_get_record(request):
         context = {'addTabActive': True, "record":"","tab":"1"}
         return JsonResponse(dic)
     else:
-        return redirect('/payment_tickets')
+        return redirect('/procurement/payment_tickets')
 
 @login_required(login_url='login')
 @csrf_exempt
@@ -3137,7 +3137,7 @@ def payment_ticket_upload_pop(request):
         record.payment_ticket_id = request_id
         record.pop_path = uploaded_file_url1
         record.save()
-        return redirect('/payment_tickets')
+        return redirect('/procurement/payment_tickets')
     else:
           return render(request, 'pages/payment_ticket/upload_pop.html')
 
@@ -3316,7 +3316,7 @@ def goods_received_notes_get_record(request):
         context = {'addTabActive': True, "record":"","tab":"1"}
         return JsonResponse(dic)
     else:
-        return redirect('/goods_received')
+        return redirect('/procurement/goods_received')
 
 @login_required(login_url='login')
 @csrf_exempt
@@ -3430,7 +3430,7 @@ def goods_received_notes_upload_dnote(request):
         record.request_id = request_id
         record.dnote_path = uploaded_file_url1
         record.save()
-        return redirect('/goods_received_notes_all')
+        return redirect('/procurement/goods_received_notes_all')
     else:
           return render(request, 'pages/goods_received/upload_pop.html')
 
@@ -4135,7 +4135,7 @@ def purchase_order_get_record(request):
         context = {'addTabActive': True, "record":"","tab":"1"}
         return JsonResponse(dic)
     else:
-        return redirect('/purchase_orders')
+        return redirect('/procurement/purchase_orders')
 
 @login_required(login_url='login')
 @csrf_exempt
