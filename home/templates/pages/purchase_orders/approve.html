@@ -62,10 +62,6 @@
                 <input type="text" class="form-control" id="address" name="address" value="" readonly >
             </div>
 
-            <div class="col-md-6">
-                <label for="lname" class="form-label">Project</label>.</label>
-                <input type="text" class="form-control" id="project" name="project" value="" readonly >
-            </div>
 
             <!-- <div class="col-md-12">
                 <label for="fname" class="form-label">Date</label>
@@ -74,13 +70,9 @@
 
             <p></p>
 
-            <div class="col-md-4">
-                <label for="lname" class="form-label">Budget Line Item</label>
-                <input type="text" class="form-control" id="budget_line_item" name="budget_line_item" value="" readonly >
-            </div>
             
             <div class="col-md-4">
-                <label for="fname" class="form-label">Item:</label>
+                <label for="fname" class="form-label">Item Name:</label>
                 <input type="text" class="form-control" id="item" name="item" value="" readonly >
             </div>
 
@@ -215,15 +207,13 @@
                     $("#purchase_id").val(data['purchase_id']);
                     $('#quotation').attr('href',data['pdf']);
 
-                    $("#name").val(data['name']);
+                    $("#name").val(data['sup_name']);
                     $("#contact_person").val(data['contact_person']);
                     $("#contact_number").val(data['contact_number']);
                     $("#address").val(data['address']);
-                    $("#project").val(data['project']); 
                     $("#date").val(data['date']);
-                    $("#budget_line_item").val(data['budget_line_item']);
 
-                    $("#item").val(data['item']);
+                    $("#item").val(data['item_name']);
                     $("#quantity").val(data['quantity']);
                     $("#description").val(data['description']);
                     $("#unit_cost").val(data['unit_cost']);
