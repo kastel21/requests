@@ -46,6 +46,7 @@ urlpatterns = [
     path('payment_request_pending', views.payment_request_pending, name='payment_request_pending'),
     path('payment_request_pending_view', views.payment_request_pending_view, name='payment_request_pending_view'),
    
+    path('payment_request_reject', views.payment_request_reject, name='payment_request_reject'),
 
     re_path('payment_request_quote_upload', views.payment_request_quote_upload, name='payment_request_quote_upload'),
     re_path('payment_request_quote_and_dnote_upload', views.payment_request_quote_and_dnote_upload, name='payment_request_quote_and_dnote_upload'),
@@ -98,13 +99,14 @@ urlpatterns = [
     path('get_purchase_requests', views.get_purchase_requests, name='get_purchase_requests'),
 
     #comp schedule
-        re_path('comp_schedule_quotes_upload', views.comp_schedule_quotes_upload, name='comp_schedule_quotes_upload'),
+    re_path('comp_schedule_quotes_upload', views.comp_schedule_quotes_upload, name='comp_schedule_quotes_upload'),
+    re_path('comp_schedule_reject', views.comp_schedule_reject, name='comp_schedule_reject'),
 
     path('comp_schedule', views.comp_schedule, name='comp_schedule'),
     path('comp_schedule_all', views.comp_schedule_all, name='comp_schedule_all'),
     path('comp_schedule_approved', views.comp_schedule_approved, name='comp_schedule_approved'),
     
-        path('purchase_order_approve', views.purchase_order_approve, name='purchase_order_approve'),
+    path('purchase_order_approve', views.purchase_order_approve, name='purchase_order_approve'),
 
     path('comp_schedule_approve', views.comp_schedule_approve, name='comp_schedule_approve'),
 
@@ -127,6 +129,9 @@ urlpatterns = [
 
 
     #purchase request
+    
+        path('purchase_request_reject', views.purchase_request_reject, name='purchase_request_reject'),
+
     path('purchase_request', views.purchase_request, name='purchase_request'),
     path('purchase_request_all', views.purchase_request_all, name='purchase_request_all'),
     path('purchase_request_approved', views.purchase_request_approved, name='purchase_request_approved'),
