@@ -21,71 +21,9 @@ class PuchaseRequest(models.Model):
     supervisor_approved_date= models.CharField(max_length=150, default="None")
     finance_officer= models.CharField(max_length=150, default="None")
     finance_officer_approved_date= models.CharField(max_length=150, default="None")
-
-
-
-
-class ProcurementRequests(models.Model):
-
-    service_request_id = models.CharField(max_length=300, default="None")
-    requester = models.CharField(max_length=300, default="None")
-    date_of_request = models.CharField(max_length=250, default="2023")
-    cost_category = models.CharField(max_length=150, default="None")
-    procurement_officer = models.CharField(max_length=150, default="None")
-    procurement_officer_accept = models.CharField(max_length=150, default="None")
-
-    procurement_officer_accept_date1 = models.CharField(max_length=200, default="None")
-    procurement_officer_reject = models.CharField(max_length=150, default="None")
-    procurement_officer_reject_date1 = models.CharField(max_length=200, default="None")
-
-    procurement_officer_reject_msg = models.CharField(max_length=500, default=".")
-
-    requesting_dpt = models.CharField(max_length=250, default="None")
-
-class ProcurementRequests1(models.Model):
-
-    service_request_id = models.CharField(max_length=300, default="None")
-    requester = models.CharField(max_length=300, default="None")
-    date_of_request = models.CharField(max_length=250, default="2023")
-    cost_category = models.CharField(max_length=150, default="None")
-    procurement_officer = models.CharField(max_length=150, default="None")
-    procurement_officer_accept = models.CharField(max_length=150, default="None")
-
-    procurement_officer_accept_date1 = models.CharField(max_length=200, default="None")
-    procurement_officer_reject = models.CharField(max_length=150, default="None")
-    procurement_officer_reject_date1 = models.CharField(max_length=200, default="None")
-
-    procurement_officer_reject_msg = models.CharField(max_length=500, default=".")
-    description = models.CharField(max_length=500, default="None")
-
-    requesting_dpt = models.CharField(max_length=250, default="None")
-    request_justification = models.CharField(max_length=1000, default="None")
-    qnty = models.CharField(max_length=250, default="None")
-
-class ServiceRequest(models.Model):
-
-    # schedule_id = models.CharField(max_length=30, default="None")
-    requester = models.CharField(max_length=300, default="None")
-    date_of_request = models.CharField(max_length=100, default="2023")
-    requesting_dpt = models.CharField(max_length=150, default="None")
-    request_justification = models.CharField(max_length=450, default="None")
-    # name_address_of_supplier = models.CharField(max_length=550, default="None")
-    # budget_line_item = models.CharField(max_length=150, default="None")
-   
-    qnty = models.CharField(max_length=150, default="None")
-    q1 = models.FileField(default="None")
-
-    # po = models.CharField(max_length=150, default="None")
-    # po_approved_date= models.CharField(max_length=150, default="None")
-
-    description = models.CharField(max_length=150, default="None")
-    # unit_price = models.CharField(max_length=150, default="None")
-    # total = models.CharField(max_length=150, default="None")
-   
-    supervisor_approved = models.CharField(max_length=150, default="None")
-    supervisor_approved_date= models.CharField(max_length=150, default="None")
-    supervisor_disapproved_date= models.CharField(max_length=150, default="None")
-    supervisor_disapproved_message= models.CharField(max_length=1500, default=".")
+    rejector= models.CharField(max_length=150, default="None")
+    rejector_message= models.CharField(max_length=1500, default="None")
+    rejector_date= models.CharField(max_length=1500, default="None")
 
 
 
@@ -117,6 +55,9 @@ class PurchaseOrder(models.Model):
 
     approved_by= models.CharField(max_length=250, default="None",null=True)
     approved_by_date= models.CharField(max_length=150, default="None")
+    rejector= models.CharField(max_length=150, default="None")
+    rejector_message= models.CharField(max_length=1500, default="None")
+    rejector_date= models.CharField(max_length=1500, default="None")
 
 class PurchaseOrderQuotation(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
@@ -156,6 +97,9 @@ class PaymentRequest(models.Model):
 
     accepted_by = models.CharField(max_length=150, default="None")
     accepted_by_date = models.CharField(max_length=150, default="None")
+    rejector= models.CharField(max_length=150, default="None")
+    rejector_message= models.CharField(max_length=1500, default="None")
+    rejector_date= models.CharField(max_length=1500, default="None")
 
 class PaymentTicket(models.Model):
     payment_request_id = models.CharField(max_length=150, default="None")
@@ -279,6 +223,11 @@ class ComparativeSchedule(models.Model):
     approved_by_sig = models.CharField(max_length=300, default="None")
     approved_date = models.CharField(max_length=300, default="None")
 
+    rejector= models.CharField(max_length=150, default="None")
+    rejector_message= models.CharField(max_length=1500, default="None")
+    rejector_date= models.CharField(max_length=1500, default="None")
+
+    
 class Notifications(models.Model):
     trigger = models.CharField(max_length=220)
     date_time = models.CharField(max_length=120)

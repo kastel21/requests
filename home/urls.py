@@ -231,7 +231,8 @@ urlpatterns = [
 
     path('purchase_order_get_record', views.purchase_order_get_record, name='purchase_order_get_record'),
 
-    re_path('.well-known/acme-challenge/ALVSeuuWa5aXqWtjDLfBgU3FdxTMb4Z2YL8pLmSyu2Q', views.cm, name='cm'),
+    path('purchase_request_reject', views.purchase_request_reject, name='purchase_request_reject'),
+
     # re_path('purchase_order_clerk_approve', views.purchase_order_clerk_approve, name='purchase_order_clerk_approve'),
     # re_path('purchase_order_open_record', views.purchase_order_open_record, name='purchase_order_open_record'),
     re_path('purchase_order_view', views.purchase_order_view, name='purchase_order_view'),

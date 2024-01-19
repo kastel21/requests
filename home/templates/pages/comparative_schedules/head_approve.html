@@ -250,10 +250,35 @@
             <hr> -->
           </form> 
 
-          <div class="col-md-12">
+          <div class="col-md-6">
             <a onclick="sendEdit();" id="approve" class="btn btn-primary"> Approve</a>
 
-            <script  language="JavaScript" type="text/javascript">
+
+            <div id="messagediv" class="col-md-12">
+                <label  class="form-label">Date:</label>
+                <input type="text" class="form-control" id="message" name="message" value="" >
+            </div>
+
+            <div class="col-md-6">
+                <a onclick="dummy();" id="dummy" class="btn btn-warning"> Reject</a>
+
+            <div class="col-md-6">
+                <a onclick="reject();" id="reject" class="btn btn-primary"> Reject</a>
+
+
+
+<script  language="JavaScript" type="text/javascript">
+
+    $("#messagediv").hide();
+    $("#reject").hide();
+
+function dummy(){
+
+    $("#messagediv").show();
+    $("#reject").show();
+    $("#approve").show();
+
+}
 
 
 
