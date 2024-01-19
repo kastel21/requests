@@ -2498,8 +2498,8 @@ def payment_request_clear(request):
         return render(request, 'pages/payment_requests/list.html', {})
 
 
-    except:
-       return JsonResponse( {'message':"failed","tab":"1"})
+    except Exception as e:
+       return JsonResponse( {'message':str(e),"tab":"1"})
 
 
 @login_required(login_url='login')
