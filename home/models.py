@@ -21,9 +21,9 @@ class PuchaseRequest(models.Model):
     supervisor_approved_date= models.CharField(max_length=150, default="None")
     finance_officer= models.CharField(max_length=150, default="None")
     finance_officer_approved_date= models.CharField(max_length=150, default="None")
-    rejector= models.CharField(max_length=150, default="None")
-    rejector_message= models.CharField(max_length=500, default="None")
-    rejector_date= models.CharField(max_length=500, default="None")
+    rejector1= models.CharField(max_length=150, default="None")
+    rejector1_message= models.CharField(max_length=500, default="None")
+    rejector1_date= models.CharField(max_length=500, default="None")
 
 
 
