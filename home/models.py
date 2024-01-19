@@ -22,8 +22,8 @@ class PuchaseRequest(models.Model):
     finance_officer= models.CharField(max_length=150, default="None")
     finance_officer_approved_date= models.CharField(max_length=150, default="None")
     rejector= models.CharField(max_length=150, default="None")
-    rejector_message= models.CharField(max_length=1500, default="None")
-    rejector_date= models.CharField(max_length=1500, default="None")
+    rejector_message= models.CharField(max_length=500, default="None")
+    rejector_date= models.CharField(max_length=500, default="None")
 
 
 
@@ -56,8 +56,8 @@ class PurchaseOrder(models.Model):
     approved_by= models.CharField(max_length=250, default="None",null=True)
     approved_by_date= models.CharField(max_length=150, default="None")
     rejector= models.CharField(max_length=150, default="None")
-    rejector_message= models.CharField(max_length=1500, default="None")
-    rejector_date= models.CharField(max_length=1500, default="None")
+    rejector_message= models.CharField(max_length=500, default="None")
+    rejector_date= models.CharField(max_length=500, default="None")
 
 class PurchaseOrderQuotation(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
@@ -98,8 +98,8 @@ class PaymentRequest(models.Model):
     accepted_by = models.CharField(max_length=150, default="None")
     accepted_by_date = models.CharField(max_length=150, default="None")
     rejector= models.CharField(max_length=150, default="None")
-    rejector_message= models.CharField(max_length=1500, default="None")
-    rejector_date= models.CharField(max_length=1500, default="None")
+    rejector_message= models.CharField(max_length=500, default="None")
+    rejector_date= models.CharField(max_length=500, default="None")
 
 class PaymentTicket(models.Model):
     payment_request_id = models.CharField(max_length=150, default="None")
@@ -224,10 +224,10 @@ class ComparativeSchedule(models.Model):
     approved_date = models.CharField(max_length=300, default="None")
 
     rejector= models.CharField(max_length=150, default="None")
-    rejector_message= models.CharField(max_length=1500, default="None")
-    rejector_date= models.CharField(max_length=1500, default="None")
+    rejector_message= models.CharField(max_length=500, default="None")
+    rejector_date= models.CharField(max_length=500, default="None")
 
-    
+
 class Notifications(models.Model):
     trigger = models.CharField(max_length=220)
     date_time = models.CharField(max_length=120)
