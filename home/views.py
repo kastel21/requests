@@ -3523,7 +3523,7 @@ def purchase_order_quote_upload(request):
         record.request_id = request_id
         record.quote_path = uploaded_file_url1
         record.save()
-        return redirect('procurement/purchase_order')
+        return redirect('/procurement/purchase_order')
     else:
           return render(request, 'pages/purchase_orders/upload_quote.html')
 
