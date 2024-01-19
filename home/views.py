@@ -2487,7 +2487,7 @@ def payment_request_clear(request):
         record.save()
 
         notice = Notifications()
-        notice.to = compiled_by
+        notice.to = record.compiled_by
         notice.message = " "+ request.user.username +" updated a Payement Request\n and assigned you as the Approver."
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
