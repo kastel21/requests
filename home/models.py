@@ -175,6 +175,30 @@ class PaymentTicketPOP(models.Model):
 
 
 
+
+class Supplier(models.Model):
+    name = models.CharField(max_length=150, default="None")
+    address = models.CharField(max_length=150, default="None")
+    bank_name = models.CharField(max_length=150, default="None")
+    bank_branch = models.CharField(max_length=150, default="None")
+    bank_account = models.CharField(max_length=150, default="None")
+
+    contact_person = models.CharField(max_length=150, default="None")
+    contact_number = models.CharField(max_length=150, default="None")
+    contact_email = models.CharField(max_length=150, default="None")
+    vat_valid_expiry_date = models.CharField(max_length=150, default=".")
+    tax_clearance_expiry_date = models.CharField(max_length=150, default=".")
+
+class SupplierDocs(models.Model):
+    supplier_id = models.CharField(max_length=150, default="None")
+    vat_path = models.CharField(max_length=500, default="#")
+    tax_clearance_path = models.CharField(max_length=500, default="#")
+    profile_path  = models.CharField(max_length=500, default="#")
+    certificate_path  = models.CharField(max_length=500, default="#")
+
+
+
+
 class PaymentRequestQuotation(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
     quote_path1 = models.CharField(max_length=500, default="#")

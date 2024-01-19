@@ -1669,15 +1669,15 @@ def comp_schedule_approve_head(request):
         notice.trigger = username
         notice.save()
 
-      if lead == "None":
-         pass
-      else:
-        notice = Notifications()
-        notice.to = lead
-        notice.message = " "+ username +" updated a Comparative schedule\n and assigned you as the Coordinator for you to approve."
-        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
-        notice.trigger = username
-        notice.save()
+      # if lead == "None":
+      #    pass
+      # else:
+      #   notice = Notifications()
+      #   notice.to = lead
+      #   notice.message = " "+ username +" updated a Comparative schedule\n and assigned you as the Coordinator for you to approve."
+      #   notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      #   notice.trigger = username
+      #   notice.save()
 
       record.save()
 
