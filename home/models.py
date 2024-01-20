@@ -21,9 +21,11 @@ class PuchaseRequest(models.Model):
     supervisor_approved_date= models.CharField(max_length=150, default="None")
     finance_officer= models.CharField(max_length=150, default="None")
     finance_officer_approved_date= models.CharField(max_length=150, default="None")
-    rejector1= models.CharField(max_length=150, default="None")
-    rejector1_message= models.CharField(max_length=500, default="None")
-    rejector1_date= models.CharField(max_length=500, default="None")
+    rejector= models.CharField(max_length=150, default="None")
+    rejector_message= models.CharField(max_length=500, default="None")
+    rejector_date= models.CharField(max_length=500, default="None")
+    completed= models.CharField(max_length=50, default="0")
+
 
 
 
@@ -58,6 +60,7 @@ class PurchaseOrder(models.Model):
     rejector= models.CharField(max_length=150, default="None")
     rejector_message= models.CharField(max_length=500, default="None")
     rejector_date= models.CharField(max_length=500, default="None")
+    completed= models.CharField(max_length=50, default="0")
 
 class PurchaseOrderQuotation(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
@@ -100,6 +103,7 @@ class PaymentRequest(models.Model):
     rejector= models.CharField(max_length=150, default="None")
     rejector_message= models.CharField(max_length=500, default="None")
     rejector_date= models.CharField(max_length=500, default="None")
+    completed= models.CharField(max_length=50, default="0")
 
 class PaymentTicket(models.Model):
     payment_request_id = models.CharField(max_length=150, default="None")
@@ -112,6 +116,7 @@ class PaymentTicket(models.Model):
     to_bank_name = models.CharField(max_length=150, default="None")
     to_bank_account = models.CharField(max_length=150, default="None")
     narration = models.CharField(max_length=150, default=".")
+    completed= models.CharField(max_length=50, default="0")
 
 class PaymentTicketPOP(models.Model):
     payment_ticket_id = models.CharField(max_length=150, default="None")
@@ -226,6 +231,7 @@ class ComparativeSchedule(models.Model):
     rejector= models.CharField(max_length=150, default="None")
     rejector_message= models.CharField(max_length=500, default="None")
     rejector_date= models.CharField(max_length=500, default="None")
+    completed= models.CharField(max_length=50, default="0")
 
 
 class Notifications(models.Model):
@@ -255,6 +261,7 @@ class GoodsReceivedNote(models.Model):
 
     receiver_date = models.CharField(max_length=220,default="None")
     approver_date = models.CharField(max_length=220,default="None")
+    completed= models.CharField(max_length=50, default="0")
 
 
 class GoodsReceivedNoteDnote(models.Model):
