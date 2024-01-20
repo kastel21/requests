@@ -200,8 +200,8 @@ def purchase_request_quote_upload(request):
 
 @login_required(login_url='login')
 def purchase_request(request):
-    form = PuchaseRequest.objects.all()
-    context = {'form':form}
+    # form = PuchaseRequest.objects.all()
+    context = {'form':"form"}
     return render(request, 'pages/purchase_requests/purchase_requests.html', context)
 
 @login_required(login_url='login')
