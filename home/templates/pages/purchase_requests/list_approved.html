@@ -71,9 +71,10 @@
                                     <td>ID</td>
                                     <td>Requester</td>
                                     <td>Requesting Department</td>
+                                    <td>Item Name</td>
                                     <td>Request Justification</td>
-                                    <td>Total</td>
-                                    <td>status</td>
+
+                                    <td>Rejected By</td>
                                     <td></td>
 
                                 </th>
@@ -86,11 +87,11 @@
 
                                             <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
                                             <td> <input type="submit" value="{{record.requester}}" /> </td>
-                                            <td>{{record.requester}}</td>
                                             <td>{{record.requesting_dpt}}</td>
+                                            <td>{{record.item_name}}</td>
                                             <td>{{record.request_justification}}</td>
-                                            <td>{{record.total}}</td>
-                                            <td>{{record.status}}</td>
+
+                                            <td>{{record.rejector}}</td>
         
                                             </tr>
                                         </form>
