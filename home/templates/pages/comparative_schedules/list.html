@@ -70,6 +70,8 @@
                                     <td>Request Date</td>
                                     <td>Item Name</td>
                                     <td>Recomended Supplier</td>
+                                    <td>Rejected By</td>
+
                                 </th>
                                 {% for record in records %}
                                     <tr>
@@ -83,6 +85,7 @@
                                     <td>{{record.requested_by_date}}</td>
                                     <td>{{record.item_name_supplier1}}</td>
                                     <td>{{record.recommended_supplier}}</td>
+                                    <td>{{record.rejector}}</td>
 
 
                                     <td></td>

@@ -161,10 +161,21 @@
 
           </form>
 <hr>
-<div style="margin-top: 2%;" class="col-md-12">
-    <!-- <a onclick="edit()" class="btn btn-primary"> Edit Record</a> -->
-    <a onclick="sendEdit();" id="approve" class="btn btn-primary"> Approve </a>
-</div>
+<div class="col-md-6">
+    <a onclick="sendEdit();" id="approve" class="btn btn-primary"> Approve</a>
+  </div>
+
+    <div id="messagediv" class="col-md-12">
+        <label  class="form-label">Reason for Rejection:</label>
+        <input type="text" class="form-control" id="message" name="message" value="" >
+    </div>
+
+    <div class="col-md-6">
+        <a onclick="dummy();" id="dummy" class="btn btn-warning"> Reject</a>
+    </div>
+    <div class="col-md-6">
+        <a onclick="reject();" id="reject" class="btn btn-primary"> Reject</a>
+    </div>
           <!-- <form action="{% url 'home:purchase_request_quote_upload' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
 

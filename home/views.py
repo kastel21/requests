@@ -624,14 +624,14 @@ def comp_schedule_print(request):
 @login_required(login_url='login')
 def comp_schedule_approved(request):
     username = request.user.username
-    records = ComparativeSchedule.objects.filter( (Q(requested_by =username )& ~Q(approved_date="None"))  |  (Q(tech_person_by =username )& ~Q(approved_date="None")) | (Q(dpt_head_by =username )& ~Q(approved_date="None")) | (Q(team_lead_by =username )& ~Q(approved_date="None")) | (Q(approved_by =username )& ~Q(approved_date="None")))
+    records = ComparativeSchedule.objects.filter( ~Q(rejector="None")& (  Q(requested_by =username )& ~Q(approved_date="None"))  |  (Q(tech_person_by =username )& ~Q(approved_date="None")) | (Q(dpt_head_by =username )& ~Q(approved_date="None")) | (Q(team_lead_by =username )& ~Q(approved_date="None")) | (Q(approved_by =username )& ~Q(approved_date="None")))
     context = {'records':records ,"tab":"2"}
     return render(request, 'pages/comparative_schedules/list_approved.html', context)
 
 @login_required(login_url='login')
 def comp_schedule_add(request):
-    form = ComparativeSchedule.objects.all()
-    context = {'form':form ,"tab":"2"}
+    # form = ComparativeSchedule.objects.all()
+    context = {'form':"form" ,"tab":"2"}
     return render(request, 'pages/comparative_schedules/add.html', context)
 
 @login_required(login_url='login')
@@ -813,6 +813,10 @@ def comp_schedule_get_record(request):
 
       "message":"success",
       "request_id":record.id,
+      "rejector":record.rejector,
+      "rejector_date":record.rejector_date,
+      "rejector_message":record.rejector_message,
+
       "purchase_request":record.purchase_request,
 
       "company_name_supplier1":record.company_name_supplier1,
@@ -880,6 +884,10 @@ def comp_schedule_approve(request):
       username = request.user.username
         # objs = Record.objects.get(id=_id)
       record = ComparativeSchedule.objects.get(id=_id)
+
+      if record.rejector is not "None":
+        return JsonResponse( {'message':"cannot approve a rejected record","tab":"1"})
+
       record.tech_person_by = username
       record.dpt_head_by = head
       d = datetime.datetime.now()
@@ -914,6 +922,10 @@ def comp_schedule_approve_head(request):
 
         # objs = Record.objects.get(id=_id)
       record = ComparativeSchedule.objects.get(id=_id)
+
+      if record.rejector is not "None":
+        return JsonResponse( {'message':"cannot approve a rejected record","tab":"1"})
+
       username = request.user.username
       record.dpt_head_by = username
       record.approved_by = chair
@@ -964,6 +976,9 @@ def comp_schedule_approve_lead(request):
 
         # objs = Record.objects.get(id=_id)
       record = ComparativeSchedule.objects.get(id=_id)
+
+      if record.rejector is not "None":
+        return JsonResponse( {'message':"cannot approve a rejected record","tab":"1"})
       record.approved_by = pi
       # record.team_lead_by = request.user.username
       # record.team_lead_by = lead
@@ -1007,6 +1022,9 @@ def comp_schedule_approve_pi(request):
         # objs = Record.objects.get(id=_id)
       record = ComparativeSchedule.objects.get(id=_id)
       # record.approved_by = pi
+
+      if record.rejector is not "None":
+        return JsonResponse( {'message':"cannot approve a rejected record","tab":"1"})
       record.approved_by = request.user.username
       # record.team_lead_by = lead
 
@@ -1056,23 +1074,23 @@ def comp_schedule_pending_view(request):
 
       # #print"IN POST")
 
-      if record.tech_person_date == "None" and record.tech_person_by == request.user.username:
+      if record.tech_person_date == "None" and record.tech_person_by == request.user.username and record.rejector == "None":
         #  #print"certified")
          return render(request, 'pages/comparative_schedules/tech_approve.html', context)
       
-      elif record.dpt_head_date == "None" and record.dpt_head_by == request.user.username:
+      elif record.dpt_head_date == "None" and record.dpt_head_by == request.user.username and record.rejector == "None":
         #  #print"cleared")
 
          return render(request, 'pages/comparative_schedules/head_approve.html', context)
       
 
-      elif record.team_lead_date == "None" and record.team_lead_by != "None" and record.team_lead_by == request.user.username:
+      elif record.team_lead_date == "None" and record.team_lead_by != "None" and record.team_lead_by == request.user.username and record.rejector == "None":
         #  #print"approved")
 
          return render(request, 'pages/comparative_schedules/lead_approve.html', context)
       
       
-      elif record.approved_date == "None" and record.approved_by != "None" and record.approved_by == request.user.username: 
+      elif record.approved_date == "None" and record.approved_by != "None" and record.approved_by == request.user.username and record.rejector == "None": 
         #  #print"approved")
 
          return render(request, 'pages/comparative_schedules/pi_approve.html', context)
@@ -1083,7 +1101,7 @@ def comp_schedule_pending_view(request):
 @login_required(login_url='login')
 def comp_schedule_pending(request):
     username = request.user.username
-    records = ComparativeSchedule.objects.filter((Q(approved_by=username) & Q (approved_date="None")) | (Q(dpt_head_by=username) & Q (dpt_head_date="None")) | (Q(team_lead_by=username) & Q (team_lead_date="None")) | (Q(tech_person_by=username) & Q (tech_person_date="None")) )
+    records = ComparativeSchedule.objects.filter(~Q(rejector="None") & (Q(approved_by=username) & Q (approved_date="None")) | (Q(dpt_head_by=username) & Q (dpt_head_date="None")) | (Q(team_lead_by=username) & Q (team_lead_date="None")) | (Q(tech_person_by=username) & Q (tech_person_date="None")) )
     context = {'records':records ,"tab":"2"}
     return render(request, 'pages/comparative_schedules/list_pending.html', context)
 
@@ -1477,16 +1495,16 @@ def payment_request_view(request):
       record = PaymentRequest.objects.get(id=_id)
       context = {'record':record,"tab":"4"}
       #print"IN POST")
-      if record.certified_by_date == "None" and record.certified_by == request.user.username:
+      if record.certified_by_date == "None" and record.certified_by == request.user.username and record.rejector == "None":
          #print"certified")
          return render(request, 'pages/payment_requests/certify.html', context)
       
-      elif record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man == request.user.username:
+      elif record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man == request.user.username and record.rejector =="None":
          #print"cleared")
 
          return render(request, 'pages/payment_requests/clear.html', context)
       
-      elif record.approved_by_date == "None" and record.approved_by == request.user.username:
+      elif record.approved_by_date == "None" and record.approved_by == request.user.username and record.rejector == "None":
          #print"approved")
 
          return render(request, 'pages/payment_requests/approve.html', context)
@@ -1503,11 +1521,11 @@ def payment_request_edit_options(request):
       record = PaymentRequest.objects.get(id=_id)
       context = {'record':record,"tab":"4"}
       #print"IN POST")
-      if record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man_date == request.user.username:
+      if record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man_date == request.user.username and record.rejector == "None":
          #print"certified")
          return render(request, 'pages/payment_requests/pi.html', context)
       
-      elif record.approved_by_project_man_date == "None" and record.approved_by_project_man_date == request.user.username:
+      elif record.approved_by_project_man_date == "None" and record.approved_by_project_man_date == request.user.username and record.rejector == "None":
          #print"cleared")
 
          return render(request, 'pages/payment_requests/clerk.html', context)
@@ -1566,15 +1584,15 @@ def payment_request_pending_view(request):
       context = {'record':record,"tab":"4"}
 
       #print"IN POST")
-      if record.certified_by_date == "None" and record.certified_by == request.user.username:
+      if record.certified_by_date == "None" and record.certified_by == request.user.username and record.rejector == "None":
          #print"certified")
          return render(request, 'pages/payment_requests/certify.html', context)
-      elif record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man == request.user.username:
+      elif record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man == request.user.username and record.rejector == "None":
          #print"cleared")
 
          return render(request, 'pages/payment_requests/clear.html', context)
       
-      elif record.approved_by_date == "None" and record.approved_by == request.user.username:
+      elif record.approved_by_date == "None" and record.approved_by == request.user.username and record.rejector == "None":
          #print"approved")
 
          return render(request, 'pages/payment_requests/approve.html', context)
@@ -1717,7 +1735,7 @@ def payment_request_clearance(request):
 
 @login_required(login_url='login')
 def payment_request_pending_approval(request):
-    records = PaymentRequest.objects.filter(approved_by="None")
+    records = PaymentRequest.objects.filter(~Q(rejector="None")&Q(approved_by="None"))
     context = {'records':records,"tab":"4"}
     return render(request, 'pages/payment_requests/list.html', context)
 
@@ -1774,6 +1792,10 @@ def payment_request_certify(request):
 
           # objs = Record.objects.get(id=_id)
         record = PaymentRequest.objects.get(id=_id)
+
+        if record.rejector is not "None":
+          return JsonResponse( {'message':"cannot approve a rejected record","tab":"1"})
+
         record.certified_by = request.user.username
         record.cleared_by_fin_man = clear
         d = datetime.datetime.now()
@@ -1806,6 +1828,9 @@ def payment_request_clear(request):
 
           # objs = Record.objects.get(id=_id)
         record = PaymentRequest.objects.get(id=_id)
+
+        if record.rejector is not "None":
+          return JsonResponse( {'message':"cannot approve a rejected record","tab":"1"})
         record.cleared_by_fin_man = request.user.username
         d = datetime.datetime.now()
             # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
@@ -1840,6 +1865,9 @@ def payment_request_approve(request):
 
           # objs = Record.objects.get(id=_id)
         record = PaymentRequest.objects.get(id=_id)
+
+        if record.rejector is not "None":
+          return JsonResponse( {'message':"cannot approve a rejected record","tab":"1"})
         record.approved_by = request.user.username
         # record.certified_by_date = request.user.username
         d = datetime.datetime.now()
@@ -1869,7 +1897,7 @@ def payment_request_approve(request):
 @login_required(login_url='login')
 def payment_request_pending(request):
     username = request.user.username
-    records = PaymentRequest.objects.filter( (Q(certified_by=username) & Q (certified_by_date="None")) | (Q(cleared_by_fin_man=username) & Q (cleared_by_fin_man_date="None")))
+    records = PaymentRequest.objects.filter( ~Q(rejector="None") & (Q(certified_by=username) & Q (certified_by_date="None")) | (Q(cleared_by_fin_man=username) & Q (cleared_by_fin_man_date="None")))
     context = {'records':records,"tab":"4"}
     return render(request, 'pages/payment_requests/list_pending.html', context)
 
@@ -1964,7 +1992,9 @@ def payment_request_get_record(request):
 
           "purchase_id": record.purchase_id,
           "request_id": record.id,
-
+      "rejector":record.rejector,
+      "rejector_date":record.rejector_date,
+      "rejector_message":record.rejector_message,
           "date_of_request": record.date_of_request,
           "payee": record.payee,
           "payment_type": record.payment_type,
@@ -2115,6 +2145,9 @@ def payment_request_edit_record(request):
           # approved_by_date= request.POST.get('approved_by_date',default=None)
 
           record = PaymentRequest.objects.get(id=_id)
+
+          if record.rejector is not "None":
+            return JsonResponse( {'message':"cannot approve a rejected record","tab":"1"})
 
           record.compiled_by = request.user.username
           record.payee= payee
@@ -2813,14 +2846,14 @@ def goods_received_notes_approve(request):
 
 @login_required(login_url='login')
 @csrf_exempt
-def comp_schedule_reject(request):
+def purchase_order_reject(request):
     if request.method == "POST":
       
       _id = request.POST.get('id',default=None)
       message = request.POST.get('message',default=None)
       username = request.user.username
         # objs = Record.objects.get(id=_id)
-      record = ComparativeSchedule.objects.get(id=_id)
+      record = PuchaseRequest.objects.get(id=_id)
       record.rejector = username
       record.rejector_message = message
 
@@ -2828,11 +2861,11 @@ def comp_schedule_reject(request):
           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
       record.rejector_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice = Notifications()
-      notice.to = record.requested_by
+      notice.to = record.compiled_by
       record.save()
 
   
-      notice.message = " "+ username +" has rejected your Comparative Schedule ."
+      notice.message = " "+ username +" has rejected your  Purchase order ."
       notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice.trigger = username
       notice.save()
@@ -3468,7 +3501,9 @@ def purchase_order_get_record(request):
           "pdf":"/procurement"+pdf.quote_path,
 
           "purchase_id": record.purchase_id,
-
+      "rejector":record.rejector,
+      "rejector_date":record.rejector_date,
+      "rejector_message":record.rejector_message,
           "sup_name": record.sup_name,
           "contact_person": record.contact_person,
           "contact_number": record.contact_number,
