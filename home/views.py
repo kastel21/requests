@@ -885,7 +885,7 @@ def comp_schedule_approve(request):
         # objs = Record.objects.get(id=_id)
       record = ComparativeSchedule.objects.get(id=_id)
 
-      if record.rejector is not "None":
+      if record.rejector != "None":
         return JsonResponse( {'message':"cannot approve a rejected record","tab":"1"})
 
       record.tech_person_by = username
@@ -923,7 +923,7 @@ def comp_schedule_approve_head(request):
         # objs = Record.objects.get(id=_id)
       record = ComparativeSchedule.objects.get(id=_id)
 
-      if record.rejector is not "None":
+      if record.rejector != "None":
         return JsonResponse( {'message':"cannot approve a rejected record","tab":"1"})
 
       username = request.user.username
@@ -977,7 +977,7 @@ def comp_schedule_approve_lead(request):
         # objs = Record.objects.get(id=_id)
       record = ComparativeSchedule.objects.get(id=_id)
 
-      if record.rejector is not "None":
+      if record.rejector != "None":
         return JsonResponse( {'message':"cannot approve a rejected record","tab":"1"})
       record.approved_by = pi
       # record.team_lead_by = request.user.username
@@ -1023,7 +1023,7 @@ def comp_schedule_approve_pi(request):
       record = ComparativeSchedule.objects.get(id=_id)
       # record.approved_by = pi
 
-      if record.rejector is not "None":
+      if record.rejector != "None":
         return JsonResponse( {'message':"cannot approve a rejected record","tab":"1"})
       record.approved_by = request.user.username
       # record.team_lead_by = lead
@@ -1793,7 +1793,7 @@ def payment_request_certify(request):
           # objs = Record.objects.get(id=_id)
         record = PaymentRequest.objects.get(id=_id)
 
-        if record.rejector is not "None":
+        if record.rejector != "None":
           return JsonResponse( {'message':"cannot approve a rejected record","tab":"1"})
 
         record.certified_by = request.user.username
@@ -1829,7 +1829,7 @@ def payment_request_clear(request):
           # objs = Record.objects.get(id=_id)
         record = PaymentRequest.objects.get(id=_id)
 
-        if record.rejector is not "None":
+        if record.rejector != "None":
           return JsonResponse( {'message':"cannot approve a rejected record","tab":"1"})
         record.cleared_by_fin_man = request.user.username
         d = datetime.datetime.now()
@@ -1866,7 +1866,7 @@ def payment_request_approve(request):
           # objs = Record.objects.get(id=_id)
         record = PaymentRequest.objects.get(id=_id)
 
-        if record.rejector is not "None":
+        if record.rejector != "None":
           return JsonResponse( {'message':"cannot approve a rejected record","tab":"1"})
         record.approved_by = request.user.username
         # record.certified_by_date = request.user.username
@@ -2146,7 +2146,7 @@ def payment_request_edit_record(request):
 
           record = PaymentRequest.objects.get(id=_id)
 
-          if record.rejector is not "None":
+          if record.rejector != "None":
             return JsonResponse( {'message':"cannot approve a rejected record","tab":"1"})
 
           record.compiled_by = request.user.username
