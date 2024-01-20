@@ -110,10 +110,105 @@
 
           </form>
 
-          <div class="col-md-12">
-            <a onclick="sendEdit();" class="btn btn-primary"> Approve</a>
+          <div class="col-md-6">
+            <a onclick="sendEdit();" id="approve" class="btn btn-primary"> Approve</a>
+          </div>
+
+            <div id="messagediv" class="col-md-12">
+                <label  class="form-label">Reason for Rejection:</label>
+                <input type="text" class="form-control" id="message" name="message" value="" >
+            </div>
+
+            <div class="col-md-6">
+                <a onclick="dummy();" id="dummy" class="btn btn-warning"> Reject</a>
+            </div>
+            <div class="col-md-6">
+                <a onclick="reject();" id="reject" class="btn btn-primary"> Reject</a>
+            </div>
+
+
+
 
             <script  language="JavaScript" type="text/javascript">
+
+
+
+
+
+$("#messagediv").hide();
+    $("#reject").hide();
+
+function dummy(){
+
+    $("#messagediv").show();
+    $("#reject").show();
+
+
+    $("#approve").hide();
+    $("#dummy").hide();
+
+
+}
+
+
+
+function reject(){
+
+var message = $("#message").val();
+
+if(message == ""){
+    alert("Please provide a reason for rejection");
+    return;
+}
+
+
+
+
+                                    current_url = window.location.href;
+                                        arr = current_url.split("/");
+                                        case_id = arr.at(-1);
+                                    console.log(case_id);
+                                    if (case_id == "add"){}else{
+                                    const url = "  https://lorkas.co.zw/procurement/purchase_request_reject"
+                                    const data = {
+                                      'id':case_id,
+                                      "message":message,
+                                    }
+                    
+                                      $.post(url,data, function(data,status){
+                            
+                            if (data['message']=="success"){
+                                alert(data['message']);
+                                window.location.href="/comp_schedule_all";
+
+                            }else{
+                                alert(data['message']);
+
+                                window.location.href="/procurement/comp_schedule_all";
+
+                            }
+
+
+
+
+
+
+                           });
+
+
+
+                            }
+
+                        }
+
+
+
+
+
+
+
+    
+
 
 
 
