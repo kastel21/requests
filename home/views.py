@@ -1096,7 +1096,7 @@ def comp_schedule_pending_view(request):
 @login_required(login_url='login')
 def comp_schedule_pending(request):
     username = request.user.username
-    records = ComparativeSchedule.objects.filter(Q(rejector="None") & (Q(approved_by=username) & Q (approved_date="None")) | (Q(dpt_head_by=username) & Q (dpt_head_date="None")) | (Q(team_lead_by=username) & Q (team_lead_date="None")) | (Q(tech_person_by=username) & Q (tech_person_date="None")) )
+    records = ComparativeSchedule.objects.filter(Q(rejector="None") &( ( Q(approved_by=username) & Q (approved_date="None")) | (Q(dpt_head_by=username) & Q (dpt_head_date="None")) | (Q(team_lead_by=username) & Q (team_lead_date="None")) | (Q(tech_person_by=username) & Q (tech_person_date="None")) ))
     context = {'records':records ,"tab":"2"}
     return render(request, 'pages/comparative_schedules/list_pending.html', context)
 
