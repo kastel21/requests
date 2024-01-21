@@ -2541,11 +2541,11 @@ def goods_received_notes_reject(request):
           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
       record.rejector_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice = Notifications()
-      notice.to = record.requester
+      notice.to = record.receiver
       record.save()
 
   
-      notice.message = " "+ username +" has rejected your Purchse Request."
+      notice.message = " "+ username +" has rejected your GRN ."
       notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice.trigger = username
       notice.save()
