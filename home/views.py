@@ -2848,7 +2848,7 @@ def purchase_order_reject(request):
       message = request.POST.get('message',default=None)
       username = request.user.username
         # objs = Record.objects.get(id=_id)
-      record = PuchaseRequest.objects.get(id=_id)
+      record = PurchaseOrder.objects.get(id=_id)
       record.rejector = username
       record.rejector_message = message
 

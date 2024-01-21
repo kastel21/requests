@@ -182,6 +182,8 @@ urlpatterns = [
     path('purchase_order_add', views.purchase_order_add, name='purchase_order_add'),
     path('purchase_order_send_record', views.purchase_order_send_record, name='purchase_order_send_record'),
 
+    path('purchase_order_reject', views.purchase_order_reject, name='purchase_order_reject'),
+
     path('purchase_order_ordered', views.purchase_order_ordered, name='purchase_order_ordered'),
     path('purchase_order_required', views.purchase_order_required, name='purchase_order_required'),
     path('purchase_order_approve', views.purchase_order_approve, name='purchase_order_approve'),
