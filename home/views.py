@@ -2523,6 +2523,40 @@ def payment_ticket_upload_pop(request):
 
 
 
+
+@login_required(login_url='login')
+@csrf_exempt
+def goods_received_notes_reject(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+      message = request.POST.get('message',default=None)
+      username = request.user.username
+        # objs = Record.objects.get(id=_id)
+      record = GoodsReceivedNote.objects.get(id=_id)
+      record.rejector = username
+      record.rejector_message = message
+
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.rejector_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+      notice = Notifications()
+      notice.to = record.requester
+      record.save()
+
+  
+      notice.message = " "+ username +" has rejected your Purchse Request."
+      notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      notice.trigger = username
+      notice.save()
+      return JsonResponse( {'message':"success","tab":"1"})
+    else:
+      return render(request, 'pages/purchase_requests/list.html', {})
+    
+
+
+
+
 @login_required(login_url='login')
 def goods_received_notes(request):
     return render(request, 'pages/goods_received/goods_received_notes.html')

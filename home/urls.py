@@ -218,6 +218,7 @@ urlpatterns = [
     path('goods_received_notes_add', views.goods_received_notes_add, name='goods_received_notes_add'),
     path('goods_received_notes_send_record', views.goods_received_notes_send_record, name='goods_received_notes_send_record'),
     re_path('goods_received_notes_get_record', views.goods_received_notes_get_record, name='goods_received_notes_get_record'),
+    path('goods_received_notes_reject', views.goods_received_notes_reject, name='goods_received_notes_reject'),
 
 
 

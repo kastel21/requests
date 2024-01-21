@@ -262,7 +262,9 @@ class GoodsReceivedNote(models.Model):
     receiver_date = models.CharField(max_length=220,default="None")
     approver_date = models.CharField(max_length=220,default="None")
     completed= models.CharField(max_length=50, default="0")
-
+    rejector= models.CharField(max_length=150, default="None")
+    rejector_message= models.CharField(max_length=500, default="None")
+    rejector_date= models.CharField(max_length=500, default="None")
 
 class GoodsReceivedNoteDnote(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
