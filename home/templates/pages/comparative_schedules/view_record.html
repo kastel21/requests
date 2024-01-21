@@ -256,7 +256,8 @@
 
 
           </form> 
-
+          {% if record.rejector == "None" %}
+          {% else %}
         <div style="position: fixed; 
           bottom: 500px; 
           left: 200px;
@@ -267,6 +268,7 @@
           opacity: 0.6;">
             rejected by {{record.rejector}}
             </div>
+        {% endif %}
 
 
           <div class="col-md-12" style="margin-top: 3%;">
