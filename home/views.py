@@ -220,7 +220,7 @@ def purchase_request_super(request):
 def purchase_request_pending(request):
       username = request.user.username
 
-      records = PuchaseRequest.objects.filter((Q(supervisor_approved=username) & Q (supervisor_approved_date="None")) | (Q(finance_officer=username) & Q (finance_officer_approved_date="None")) )
+      records = PuchaseRequest.objects.filter( Q(rejector="None")  &( (Q(supervisor_approved=username) & Q (supervisor_approved_date="None")) | (Q(finance_officer=username) & Q (finance_officer_approved_date="None")) ))
       context = {'records':records, "tab":"1"}
 
       return render(request, 'pages/purchase_requests/list_pending.html', context)
@@ -541,11 +541,6 @@ def comp_schedule_super(request):
     context = {'form':form ,"tab":"2"}
     return render(request, 'pages/payment_request.html', context)
 
-# @login_required(login_url='login')
-# def comp_schedule_pending(request):
-#     form = ComparativeSchedule.objects.all()
-#     context = {'form':form}
-#     return render(request, 'pages/payment_request.html', context)
 
 @login_required(login_url='login')
 @csrf_exempt
@@ -1101,7 +1096,7 @@ def comp_schedule_pending_view(request):
 @login_required(login_url='login')
 def comp_schedule_pending(request):
     username = request.user.username
-    records = ComparativeSchedule.objects.filter(~Q(rejector="None") & (Q(approved_by=username) & Q (approved_date="None")) | (Q(dpt_head_by=username) & Q (dpt_head_date="None")) | (Q(team_lead_by=username) & Q (team_lead_date="None")) | (Q(tech_person_by=username) & Q (tech_person_date="None")) )
+    records = ComparativeSchedule.objects.filter(Q(rejector="None") & (Q(approved_by=username) & Q (approved_date="None")) | (Q(dpt_head_by=username) & Q (dpt_head_date="None")) | (Q(team_lead_by=username) & Q (team_lead_date="None")) | (Q(tech_person_by=username) & Q (tech_person_date="None")) )
     context = {'records':records ,"tab":"2"}
     return render(request, 'pages/comparative_schedules/list_pending.html', context)
 
@@ -1735,7 +1730,7 @@ def payment_request_clearance(request):
 
 @login_required(login_url='login')
 def payment_request_pending_approval(request):
-    records = PaymentRequest.objects.filter(~Q(rejector="None")&Q(approved_by="None"))
+    records = PaymentRequest.objects.filter(Q(rejector="None")&Q(approved_by="None"))
     context = {'records':records,"tab":"4"}
     return render(request, 'pages/payment_requests/list.html', context)
 
@@ -1897,7 +1892,7 @@ def payment_request_approve(request):
 @login_required(login_url='login')
 def payment_request_pending(request):
     username = request.user.username
-    records = PaymentRequest.objects.filter( ~Q(rejector="None") & (Q(certified_by=username) & Q (certified_by_date="None")) | (Q(cleared_by_fin_man=username) & Q (cleared_by_fin_man_date="None")))
+    records = PaymentRequest.objects.filter( Q(rejector="None") & (Q(certified_by=username) & Q (certified_by_date="None")) | (Q(cleared_by_fin_man=username) & Q (cleared_by_fin_man_date="None")))
     context = {'records':records,"tab":"4"}
     return render(request, 'pages/payment_requests/list_pending.html', context)
 
@@ -3008,15 +3003,15 @@ def purchase_order_pending_view(request):
       context = {'record':record, "tab":"3"}
 
       #print"IN POST")
-      if record.certified_by_date == "None" and record.certified_by == request.user.username:
+      if record.certified_by_date == "None" and record.certified_by == request.user.username and record.rejector == "None":
          #print"certified")
          return render(request, 'pages/purchase_orders/certify.html', context)
-      elif record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man == request.user.username:
+      elif record.cleared_by_fin_man_date == "None" and record.cleared_by_fin_man == request.user.username and record.rejector == "None":
          #print"cleared")
 
          return render(request, 'pages/purchase_orders/clear.html', context)
       
-      elif record.approved_by_date == "None" and record.approved_by == request.user.username:
+      elif record.approved_by_date == "None" and record.approved_by == request.user.username and record.rejector == "None":
          #print"approved")
 
          return render(request, 'pages/purchase_orders/approve.html', context)
@@ -3098,11 +3093,7 @@ def purchase_order_edit(request):
     context = {'form':form, "tab":"3"}
     return render(request, 'pages/purchase_orders/add.html', context)
 
-# @login_required(login_url='login')
-# def purchase_order_pending_certification(request):
-#     records = PaymentRequest.objects.filter(Q (certified_by="None") & Q(certified_by_date="None"))
-#     context = {'records':records}
-#     return render(request, 'pages/purchase_orders/list.html', context)
+
 
 @login_required(login_url='login')
 def purchase_order_certification(request):
@@ -3118,12 +3109,7 @@ def purchase_order_certification(request):
       return render(request, 'pages/purchase_orders/list.html', {})
 
 
-# @login_required(login_url='login')
-# def purchase_order_pending_clearance(request):
-#     username = request.user.username
-#     records = PaymentRequest.objects.filter(Q (cleared_by_fin_man=username)  & Q(cleared_by_fin_man_date="None") )
-#     context = {'records':records}
-#     return render(request, 'pages/purchase_orders/list.html', context)
+
 
 
 
@@ -3168,7 +3154,7 @@ def purchase_order_clearance(request):
 
 @login_required(login_url='login')
 def purchase_order_pending_approval(request):
-    records = PaymentRequest.objects.filter(approved_by="None")
+    records = PaymentRequest.objects.filter(Q(rejector="None")&Q(approved_by="None"))
     context = {'records':records, "tab":"3"}
     return render(request, 'pages/purchase_orders/list.html', context)
 
@@ -3443,7 +3429,7 @@ def purchase_ordered_approve(request):
 @login_required(login_url='login')
 def purchase_order_pending(request):
     username = request.user.username
-    records = PurchaseOrder.objects.filter((Q(approved_by=username) & Q (approved_by_date="None")) | (Q(required_by=username) & Q (required_by_date="None") | (Q(ordered_by=username) & Q (ordered_by_date="None")) )   )
+    records = PurchaseOrder.objects.filter(Q(rejector="None") & ( (Q(approved_by=username) & Q (approved_by_date="None")) | (Q(required_by=username) & Q (required_by_date="None") | (Q(ordered_by=username) & Q (ordered_by_date="None")) )  ) )
     context = {'records':records, "tab":"3"}
     return render(request, 'pages/purchase_orders/list_pending.html', context)
 
