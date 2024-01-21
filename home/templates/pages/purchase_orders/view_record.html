@@ -133,6 +133,24 @@
             </div>
 
           </form>
+
+          {% if record.rejector == "None" %}
+          {% else %}
+        <div style="position: fixed; 
+          bottom: 500px; 
+          left: 200px;
+          z-index: 10000;
+          font-size:100px; 
+          color: red; 
+          transform:rotate(-30deg);
+          opacity: 0.6;">
+            rejected by {{record.rejector}}
+
+            </div>
+
+            <p>Rejection message :<b>{{record.rejector_message}}</b> </p>
+
+        {% endif %}
 <hr>
 <div style="margin-top: 2%;" class="col-md-12">
     <!-- <a onclick="edit()" class="btn btn-primary"> Edit Record</a> -->
