@@ -2728,6 +2728,7 @@ def suppliers_send_record(request):
           name= request.POST.get('name',default=None)
           address= request.POST.get('address',default=None)
           bank_name= request.POST.get('bank_name',default=None)
+          meta_data= request.POST.get('meta_data',default=None)
 
 
           SupplierDocs.objects.get_or_create(

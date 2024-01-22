@@ -23,9 +23,14 @@
                 <input type="text" class="form-control" id="name" name="name" value="">
             </div>
 
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="fname" class="form-label">Address:</label>
                 <input type="text" class="form-control" id="address" name="address" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Supplies:</label>
+                <input type="text" class="form-control" id="meta_data" name="meta_data" value="">
             </div>
             <p></p>
 
@@ -160,6 +165,7 @@ var bank_branch= $("#bank_branch").val();
 var bank_account= $("#bank_account").val();
 var tax_clearance_expiry_date= $("#tax_clearance_expiry_date").val();
 
+var meta_data= $("#meta_data").val();
 
 var approved_by= $("#approved_by").val();
                         
@@ -193,7 +199,7 @@ var approved_by= $("#approved_by").val();
                                             "tax_clearance_expiry_date": tax_clearance_expiry_date,
 
                                             "approved_by": approved_by,
-                                            // "accounts_clerk_approved_date": accounts_clerk_approved_date,
+                                            "meta_data": meta_data,
                 
                                            }
                 
