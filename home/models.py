@@ -150,7 +150,11 @@ class Supplier(models.Model):
     evaluated = models.CharField(max_length=150, default=".")
     evaluated_by_date = models.CharField(max_length=150, default=".")
     evaluation_decision = models.CharField(max_length=150, default=".")
+    rejector= models.CharField(max_length=150, default="None")
+    rejector_message= models.CharField(max_length=500, default="None")
+    rejector_date= models.CharField(max_length=500, default="None")
 
+    
 class SupplierDocs(models.Model):
     supplier_id = models.CharField(max_length=150, default="None")
     vat_path = models.CharField(max_length=500, default="#")

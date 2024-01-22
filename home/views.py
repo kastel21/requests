@@ -2563,20 +2563,20 @@ def suppliers(request):
 @login_required(login_url='login')
 def suppliers_all(request):
       username = request.user.username
-      records = GoodsReceivedNote.objects.filter(Q(receiver = username) | Q(approver = username) )
-      context = {"records":records,"tab":"7"}
+      records = Supplier.objects.filter( ~Q(approved_by_date = "None") )
+      context = {"records":records,"tab":"8"}
 
 
-      return render(request, 'pages/goods_received/list.html', context)
+      return render(request, 'pages/suppliers/list.html', context)
 
 @login_required(login_url='login')
 def suppliers_completed(request):
       username = request.user.username
       records = Supplier.objects.filter(  ~Q(approver_by_date="None") )
-      context = {"records":records,"tab":"7"}
+      context = {"records":records,"tab":"8"}
 
 
-      return render(request, 'pages/goods_received/list_completed.html', context)
+      return render(request, 'pages/suppliers/list_completed.html', context)
 
 
 @login_required(login_url='login')
@@ -2603,7 +2603,7 @@ def suppliers_view(request):
 def suppliers_pending(request):
       username = request.user.username
       records = Supplier.objects.filter(Q(approved_by = username) & Q(approved_by_date="None"))
-      context = {'records':records , "tab":"7"}
+      context = {'records':records , "tab":"8"}
 
 
       return render(request, 'pages/suppliers/list_pending.html', context)
@@ -2624,7 +2624,7 @@ def suppliers_open_record(request):
       #     finance = True
         # objs = Record.objects.get(id=_id)
       record = Supplier.objects.get(id=_id)
-      context = {'record':record, "finance":finance , "tab":"7"}
+      context = {'record':record, "finance":finance , "tab":"8"}
       # #print"finance",finance)
       return render(request, 'pages/suppliers/view_record.html', context)
     else:
