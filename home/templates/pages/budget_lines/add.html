@@ -1,0 +1,191 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock title %}
+{% block content %}
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    <div class="pc-content">
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+       
+        <form class="row g-3">
+
+            <div id="overlay">
+                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
+                
+           </div>
+<!-- 
+            <div class="col-md-12">
+                <label for="fname" class="form-label">Add From Comparative Schedule:</label>
+                <select class="form-control" name="comp_schedule" id="comp_schedule">
+                    <option value="None">..</option>
+    
+                    </select>           
+             </div> -->
+
+            <!-- <div class="col-md-6">
+                <label for="fname" class="form-label">Requestor:</label>
+                <input type="text" class="form-control" id="requester" name="requester" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Date:</label>
+                <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="">
+            </div>
+            <p></p> -->
+
+            
+
+
+
+             <div class="col-md-6">
+                <label for="name" class="form-label"> Line Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="">
+            </div>
+
+            <div class="col-md-12">
+                <label for="fname" class="form-label">Department:</label>
+                <select class="form-control" name="dpt" id="dpt">
+                    <option value="None">..</option>
+    
+                    </select>           
+             </div>
+
+            <div class="col-md-12">
+                <label for="fname" class="form-label">Project:</label>
+                <select class="form-control" name="project" id="project">
+                    <option value="None">..</option>
+    
+                    </select>           
+             </div>
+
+
+            <div class="col-md-6">
+                <label for="lname" class="form-label">Line Code:</label>
+                <input type="text" class="form-control" id="code" name="code" value="">
+            </div>
+
+            <div class="col-md-12">
+                <label for="fname" class="form-label">Line Total:</label>
+                <input type="number" class="form-control" id="amount" name="amount" value="">
+            </div>
+            
+          </form>
+
+          <div class="col-md-12">
+            <a onclick="sendEdit();" class="btn btn-primary"> SUBMIT</a>
+
+            <script  language="JavaScript" type="text/javascript">
+
+
+
+
+// $('#comp_schedule').on('change', function(event) {
+//        alert("This is the value selected in solutions: " + $(this).val());
+
+
+//   });
+
+
+
+// populate the users dropdown
+    const url = "https://lorkas.co.zw/procurement/get_projects"
+                    const data = {
+                      'id':"case_id",
+                    }
+                      $.post(url,data, function(data,status){
+                        console.log(data);
+                        $.each(data, function(val, text) {
+                            $('#project').append( new Option(text,val) );
+                        });
+                        $('#overlay').fadeOut();
+
+        });
+
+
+        const url1 = "https://lorkas.co.zw/procurement/get_departmanets"
+                    const data1 = {
+                      'id':"case_id",
+                    }
+                      $.post(url1,data1, function(data1,status){
+                        console.log(data1)
+                        $.each(data1, function(val, text) {
+                            $('#dpt').append( new Option(text,val) );
+                        });
+                        $('#overlay').fadeOut();
+
+        });
+
+
+          
+function sendEdit(){
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                        $('#overlay').fadeIn();
+
+var name= $("#name").val();
+var project= $("#project").val();
+var code= $("#code").val();
+
+var amount= $("#amount").val();
+var dpt= $("#dpt").val();
+
+                
+    
+                            current_url = window.location.href;
+                            arr = current_url.split("_");
+                            case_id = arr.at(-1);
+                        if (case_id == "add"){
+                
+                        const url = "  https://lorkas.co.zw/procurement/budget_line_send_record";
+                        // current_url = window.location.href;
+                        // arr = current_url.split("/");
+                        // case_id = arr.at(-1);
+                        // month_id =arr[arr.length - 2];
+                        console.log("after url");
+                        const data = {
+                                            "name": name,
+                                            "project": project,
+                                            "code": code,
+
+                                            "id": case_id,
+                                            "dpt": dpt,
+                                            "amount": amount,
+                                
+                                           }
+                
+
+
+                        $.post(url,data, function(data,status1){
+                        if (data['message']=="success"){
+                            alert("success");
+                            $('#overlay').fadeOut();
+                            alert(status);
+
+                            window.location.href="  https://lorkas.co.zw/procurement/budget_lines_all";
+
+
+                        }else{
+                            alert(data['message']);
+                            console.log("err");
+                            $('#overlay').fadeOut();
+
+                            window.location.href="  https://lorkas.co.zw/procurement/budget_lines_all";
+                
+                        }
+                
+                        });
+                        // alert("stop hee");
+                    }
+                
+                    }
+                        </script>
+                
+                
+                
+                
+
+
+{% endblock content %}

@@ -1,0 +1,362 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock title %}
+{% block content %}
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    <div class="pc-content">
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+       
+        <form class="row g-3">
+
+            <div id="overlay">
+                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
+                
+           </div>
+
+
+             <div class="col-md-12">
+                <label for="fname" class="form-label">Supplier Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="" required/>
+            </div>
+
+            <div class="col-md-12">
+                <label for="fname" class="form-label">Address:</label>
+                <input type="text" class="form-control" id="address" name="address" value="" required/>
+            </div>
+            <p></p>
+
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Contact Person :</label>
+                <input type="text" class="form-control" id="contact_name" name="contact_name" value="" required/>
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Contact Number:</label>
+                <input type="text" class="form-control" id="contact_number" name="contact_number" value="" required/>
+            </div>
+            <p></p>
+
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Contact Email :</label>
+                <input type="text" class="form-control" id="contact_email" name="contact_email" value="" required/>
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Alternative Contact Number:</label>
+                <input type="text" class="form-control" id="alt_contact_number" name="alt_contact_number" value="" required/>
+            </div>
+            <p></p>
+
+
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Is Tax Complient</label>
+                <select class="form-control" name="tax_compliemt" id="tax_compliemt">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label"> Bank Name :</label>
+                <input type="text" class="form-control" id="bank_name" name="bank_name" value="" required/>
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Bank Branch:</label>
+                <input type="text" class="form-control" id="bank_branch" name="alt_contact_number" value="" required/>
+            </div>
+            <p></p>
+
+            <div class="col-md-12">
+                <label for="fname" class="form-label"> Bank Account Number :</label>
+                <input type="text" class="form-control" id="bank_account" name="bank_account" value="" required/>
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Tax Clearance Expiry Date:</label>
+                <input type="date" class="form-control" id="tax_clearance_expiry_date" name="tax_clearance_expiry_date" value="" required/>
+            </div>
+            <p></p>
+
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">VAT</label>
+                <a id="vat" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+            </div>
+
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Certificate of Incorperation</label>
+                <a id="cert" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+            </div>
+
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Company Profile</label>
+                <a id="profile" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+            </div>
+
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Tax Clearance</label>
+                <a id="tax" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+            </div>
+
+          </form>
+
+
+          <div class="col-md-6">
+            <a onclick="sendEdit();" id="approve" class="btn btn-primary"> Approve</a>
+          </div>
+        
+            <div id="messagediv" class="col-md-12">
+                <label  class="form-label">Reason for Rejection:</label>
+                <input type="text" class="form-control" id="message" name="message" value="" >
+            </div>
+        
+            <div class="col-md-6">
+                <a onclick="dummy();" id="dummy" class="btn btn-warning"> Reject</a>
+            </div>
+            <div class="col-md-6">
+                <a onclick="reject();" id="reject" class="btn btn-primary"> Reject</a>
+            </div>
+
+
+
+
+<script  language="JavaScript" type="text/javascript">
+
+
+$("#messagediv").hide();
+    $("#reject").hide();
+
+function dummy(){
+
+    $("#messagediv").show();
+    $("#reject").show();
+
+
+    $("#approve").hide();
+    $("#dummy").hide();
+
+
+}
+
+
+
+function reject(){
+
+var message = $("#message").val();
+
+if(message == ""){
+    alert("Please provide a reason for rejection");
+    return;
+}
+
+
+
+
+                                    current_url = window.location.href;
+                                        arr = current_url.split("/");
+                                        case_id = arr.at(-1);
+                                    console.log(case_id);
+                                    if (case_id == "add"){}else{
+                                    const url = "  https://lorkas.co.zw/procurement/suppliers_reject"
+                                    const data = {
+                                      'id':case_id,
+                                      "message":message,
+                                    }
+                    
+                                      $.post(url,data, function(data,status){
+                            
+                            if (data['message']=="success"){
+                                alert(data['message']);
+                                window.location.href="/procurement/suppliers_all";
+
+                            }else{
+                                alert(data['message']);
+
+                                window.location.href="/procurement/suppliers_all";
+
+                            }
+                           });
+
+
+
+        }
+
+    }
+
+
+
+
+
+
+
+                // populating the already existing records
+                
+                current_url = window.location.href;
+                                        arr = current_url.split("/");
+                                        case_id = arr.at(-1);
+                                    console.log(case_id);
+                                    $("#request_id").val(case_id);
+                                    if (case_id == "add"){}else{
+                                    const url = "  https://lorkas.co.zw/procurement/suppliers_get_record"
+                                    const data = {
+                                      'id':case_id,
+                                    }
+                            
+                                      $.post(url,data, function(data,status){
+                            
+                if (data['message']=="success"){
+
+                
+                    $("#purchase_id").val(data['purchase_id']);
+                    $('#quotation').attr('href',data['pdf']);
+
+                    $("#name").val(data['name']);
+                    $("#contact_person").val(data['contact_person']);
+                    $("#contact_number").val(data['contact_number']);
+                    $("#address").val(data['address']);
+                    $("#bank_name").val(data['bank_name']);
+
+                    $("#bank_branch").val(data['bank_branch']);
+                    $("#bank_account").val(data['bank_account']);
+                    $("#description").val(data['description']);
+                    $("#meta_data").val(data['meta_data']);
+                    $("#alt_contact_number").val(data['alt_contact_number']);
+
+                    $("#contact_email").val(data['contact_email']);
+                    $("#vat_valid_expiry_date").val(data['vat_valid_expiry_date']);  
+                    
+                    $("#tax_clearance_expiry_date").val(data['tax_clearance_expiry_date']);
+                    $("#added_by").val(data['added_by']); 
+
+                    $("#added_by_date").val(data['added_by_date']);
+                    $("#approved_by").val(data['approved_by']); 
+                    
+                    $("#tax_complient").val(data['tax_complient']);
+
+                    $("#approved_by_date").val(data['approved_by_date']); 
+
+
+                    $("#vat").val(data['vat_path']); 
+                    $("#cert").val(data['certificate_path']); 
+                    $("#profile").val(data['profile_path']); 
+                    $("#tax").val(data['tax_clearance_path']); 
+
+
+                   $('#overlay').fadeOut();
+     
+                }else{
+                    $('#overlay').fadeOut();
+
+                            alert(data['message']);
+                            window.location.href="/procurement/suppliers_all";
+                
+                        }
+                
+            });
+    }
+
+function print(){
+
+                        current_url = window.location.href;
+                                            arr = current_url.split("/");
+                                            case_id = arr.at(-1);
+
+                        window.location.href="  https://lorkas.co.zw/procurement/purchase_order_print/"+case_id;
+
+
+
+                        }
+
+      
+
+
+
+
+
+
+
+
+
+  
+                    
+function sendEdit(){
+window.scrollTo({ top: 0, behavior: 'smooth' });
+
+$('#overlay').fadeIn();
+
+var address= $("#address").val();
+var name= $("#name").val();
+var contact_name= $("#contact_name").val();
+
+var contact_number= $("#contact_number").val();
+var contact_email= $("#contact_email").val();
+var alt_contact_number= $("#alt_contact_number").val();
+
+var tax_compliemt= $("#tax_compliemt").val();
+var bank_name= $("#bank_name").val();
+var bank_branch= $("#bank_branch").val();
+
+var bank_account= $("#bank_account").val();
+var tax_clearance_expiry_date= $("#tax_clearance_expiry_date").val();
+
+
+var approved_by= $("#approved_by").val();
+                        
+
+                
+    
+                            current_url = window.location.href;
+                            arr = current_url.split("_");
+                            case_id = arr.at(-1);
+                        if (case_id == "add"){
+                
+                        const url = "  https://lorkas.co.zw/procurement/suppliers_approve";
+                        // current_url = window.location.href;
+                        // arr = current_url.split("/");
+                        // case_id = arr.at(-1);
+                        // month_id =arr[arr.length - 2];
+                        console.log("after url");
+                        const data = {
+                                        "id": case_id,
+                                     }
+                
+
+
+                        $.post(url,data, function(data,status1){
+                        if (data['message']=="success"){
+                            alert("success");
+                            $('#overlay').fadeOut();
+                            alert(status);
+
+
+                            window.location.href="  https://lorkas.co.zw/procurement/suppliers_all";
+
+                        }else{
+                            alert(data['message']);
+                            console.log("err");
+                            $('#overlay').fadeOut();
+
+                            window.location.href="  https://lorkas.co.zw/procurement/suppliers_all";
+                
+                        }
+                
+                        });
+                        // alert("stop hee");
+                    }
+                
+                    }
+                        </script>
+                
+                
+                
+                
+
+
+{% endblock content %}

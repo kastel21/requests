@@ -2517,11 +2517,828 @@ def payment_ticket_upload_pop(request):
             
 # ***********************************************************************************************************************
 
-#GRN 
+#Suppliers 
 
 # ************************************************************************************************************************
 
 
+
+@login_required(login_url='login')
+@csrf_exempt
+def suppliers_reject(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+      message = request.POST.get('message',default=None)
+      username = request.user.username
+        # objs = Record.objects.get(id=_id)
+      record = Supplier.objects.get(id=_id)
+      record.rejector = username
+      record.rejector_message = message
+
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.rejector_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+      notice = Notifications()
+      notice.to = record.added_by
+      record.save()
+
+  
+      notice.message = " "+ username +" has rejected your Supplier add ."
+      notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      notice.trigger = username
+      notice.save()
+      return JsonResponse( {'message':"success","tab":"7"})
+    else:
+      return render(request, 'pages/suppliers/list.html', {})
+    
+
+
+
+
+@login_required(login_url='login')
+def suppliers(request):
+    return render(request, 'pages/suppliers/suppliers.html')
+
+@login_required(login_url='login')
+def suppliers_all(request):
+      username = request.user.username
+      records = GoodsReceivedNote.objects.filter(Q(receiver = username) | Q(approver = username) )
+      context = {"records":records,"tab":"7"}
+
+
+      return render(request, 'pages/goods_received/list.html', context)
+
+@login_required(login_url='login')
+def suppliers_completed(request):
+      username = request.user.username
+      records = Supplier.objects.filter(  ~Q(approver_by_date="None") )
+      context = {"records":records,"tab":"7"}
+
+
+      return render(request, 'pages/goods_received/list_completed.html', context)
+
+
+@login_required(login_url='login')
+def suppliers_add(request):
+      # username = request.user.username
+      # records = PaymentTicket.objects.filter(Q(creator = username) )
+      context = {"tab":"7"}
+
+
+      return render(request, 'pages/suppliers/add.html', context)
+
+@login_required(login_url='login')
+def suppliers_view(request):
+      username = request.user.username
+      records = Supplier.objects.all()
+      context = {'records':records, "tab":"7"}
+
+
+      return render(request, 'pages/suppliers/list.html', context)
+
+
+
+@login_required(login_url='login')
+def suppliers_pending(request):
+      username = request.user.username
+      records = Supplier.objects.filter(Q(approved_by = username) & Q(approved_by_date="None"))
+      context = {'records':records , "tab":"7"}
+
+
+      return render(request, 'pages/suppliers/list_pending.html', context)
+
+@login_required(login_url="login")
+def suppliers_open_record(request):
+    if request.method == "POST":
+      finance = False
+
+      # user = request.user
+    
+    # Get the groups the user belongs to
+      # groups = user.groups.all()
+
+
+      _id = request.POST.get('id',default=None)
+      # if request.user.groups.all()[0].name == "finance":
+      #     finance = True
+        # objs = Record.objects.get(id=_id)
+      record = Supplier.objects.get(id=_id)
+      context = {'record':record, "finance":finance , "tab":"7"}
+      # #print"finance",finance)
+      return render(request, 'pages/suppliers/view_record.html', context)
+    else:
+       redirect("/procurement/suppliers_all")
+
+
+@login_required(login_url="login")
+def suppliers_open_record_for_edit(request):
+    if request.method == "POST":
+      finance = False
+
+      # user = request.user
+    
+    # Get the groups the user belongs to
+      # groups = user.groups.all()
+
+
+      _id = request.POST.get('id',default=None)
+      # if request.user.groups.all()[0].name == "finance":
+      #     finance = True
+        # objs = Record.objects.get(id=_id)
+      record = Supplier.objects.get(id=_id)
+      context = {'record':record, "finance":finance, "tab":"7"}
+      # #print"finance",finance)
+
+      return render(request, 'pages/suppliers/edit_record.html', context)
+
+    else:
+      redirect("/procurement/suppliers_all")
+
+
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def suppliers_get_record(request):
+    context={}
+    if request.method == "POST":
+        _id = request.POST.get('id',default=None)
+
+        record = Supplier.objects.get(id=_id)
+
+        pdf = SupplierDocs.objects.get(id=1)
+
+        try:
+          pdf = SupplierDocs.objects.get(request_id=_id)
+        except:
+          pass
+        dic = {
+           
+
+          "vat_path":"/procurement"+pdf.vat_path,
+          "tax_clearance_path":"/procurement"+pdf.tax_clearance_path,
+          "profile_path":"/procurement"+pdf.profile_path,
+          "certificate_path":"/procurement"+pdf.certificate_path,
+          # "pop":"/procurement"+pdf.dnote_path,
+
+          "name": record.name,
+
+          "address": record.address,
+          "bank_name": record.bank_name,
+          "bank_branch": record.bank_branch,
+          "bank_account": record.bank_account,
+          "contact_person": record.contact_person,
+          "alt_contact_number": record.dealt_contact_numbersc,
+
+
+          "contact_number": record.contact_number, 
+          "contact_email": record.contact_email,
+
+          "vat_valid_expiry_date": record.vat_valid_expiry_date, 
+          "tax_clearance_expiry_date": record.tax_clearance_expiry_date,
+
+          "added_by": record.added_by, 
+          "added_by_date": record.added_by_date,
+          "approved_by": record.approved_by, 
+
+          "approved_by_date": record.approved_by_date, 
+          "tax_complient": record.tax_complient,
+
+          "evaluated": record.evaluated, 
+          "evaluated_by_date": record.evaluated_by_date,
+          "evaluation_decision": record.evaluation_decision, 
+
+          "message":"success",
+        }
+        context = {'addTabActive': True, "record":"","tab":"7"}
+        return JsonResponse(dic)
+    else:
+        return redirect('/procurement/suppliers_all')
+
+@login_required(login_url='login')
+@csrf_exempt
+@app.route("/send_record")
+def suppliers_send_record(request):
+
+    with app.app_context():
+        try:
+           
+
+          name= request.POST.get('name',default=None)
+          address= request.POST.get('address',default=None)
+          bank_name= request.POST.get('bank_name',default=None)
+
+
+          SupplierDocs.objects.get_or_create(
+            supplier_id = "0",
+            vat_path = "#",
+            tax_clearance_path = "#",
+            profile_path = "#",
+            certificate_path = "#",
+
+          )
+
+          d = datetime.datetime.now()
+
+          bank_branch= request.POST.get('bank_branch',default=None)
+          bank_account= request.POST.get('bank_account',default=None)
+
+          contact_person= request.POST.get('contact_person',default=None)
+          alt_contact_number= request.POST.get('alt_contact_number',default=None)
+
+          contact_number= request.POST.get('contact_number',default=None)
+          contact_email= request.POST.get('contact_email',default=None)
+          vat_valid_expiry_date= request.POST.get('vat_valid_expiry_date',default=None)
+          tax_clearance_expiry_date= request.POST.get('tax_clearance_expiry_date',default=None)
+          tax_complient= request.POST.get('tax_complient',default=None)
+          approved_by= request.POST.get('approved_by',default=None)
+
+
+
+          record = Supplier()
+
+          record.added_by = request.user.username
+          record.name= name
+
+
+          record.added_by_date=  "{:%B %d, %Y  %H:%M:%S}".format(d)
+          record.address= address
+
+          record.bank_name= bank_name
+          record.bank_branch= bank_branch
+
+          record.bank_account= bank_account
+          record.meta_data= meta_data
+
+          record.contact_person= contact_person
+          record.alt_contact_number= alt_contact_number
+          record.contact_number= contact_number
+          record.contact_email= contact_email
+          record.vat_valid_expiry_date= vat_valid_expiry_date
+          record.tax_clearance_expiry_date= tax_clearance_expiry_date
+
+          record.tax_complient= tax_complient
+          record.approved_by= approved_by
+
+
+
+          notice = Notifications()
+          notice.to= record.approved_by
+          notice.trigger = request.user.username
+          notice.message = request.user.username +" has added a Supplier for you to approve"
+
+          d = datetime.datetime.now()
+          notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+          notice.status = "New"
+          notice.save()
+          # record.approved_by_date= approved_by_date
+
+
+          record.save()
+
+          _id = record.pk
+          return JsonResponse( {'message':"success",'id':_id})
+
+        except Exception as e  :
+            f= open("supplier.txt","w")
+            f.write(str(e))
+            f.close()
+            return JsonResponse({'message':"failed","tab":"1"})
+
+@login_required(login_url='login')
+@csrf_exempt
+def suppliers_upload_docs(request):
+    if request.method == 'POST' and request.FILES['vat'] and request.FILES['profile']and request.FILES['tax'] and request.FILES['cert']:
+        myfile1 = request.FILES['vat']
+        myfile2 = request.FILES['cert']
+        myfile3 = request.FILES['profile']
+        myfile4 = request.FILES['tax']
+
+        request_id = request.POST.get('request_id')
+        
+        import os
+        path = "uploads/suppliers/docs/"+str(request_id)
+        # Check whether the specified path exists or not
+        # #print"path ",path)
+        isExist = os.path.exists(path)
+        if not isExist:
+
+          # Create a new directory because it does not exist
+          os.makedirs(path)
+
+
+
+        fs = FileSystemStorage()
+        filename1 = fs.save(path+"/"+myfile1.name, myfile1)
+        uploaded_file_url1 = fs.url(filename1)
+
+        filename2 = fs.save(path+"/"+myfile2.name, myfile2)
+        uploaded_file_url2 = fs.url(filename2)
+
+        filename3 = fs.save(path+"/"+myfile3.name, myfile3)
+        uploaded_file_url3 = fs.url(filename3)
+
+        filename4 = fs.save(path+"/"+myfile4.name, myfile4)
+        uploaded_file_url4 = fs.url(filename4)
+
+
+
+        record = SupplierDocs()
+        record.request_id = request_id
+
+        record.vat_path = uploaded_file_url1
+        record.tax_clearance_path = uploaded_file_url4
+        record.profile_path = uploaded_file_url3
+        record.certificate_path = uploaded_file_url2
+
+
+        record.save()
+        return redirect('/procurement/suppliers_all')
+    else:
+          return render(request, 'pages/suppliers/upload_pop.html')
+
+
+
+
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def suppliers_approve(request):
+    
+    try:
+      if request.method == "POST":
+        
+        _id = request.POST.get('id',default=None)
+
+        record = Supplier.objects.get(id=_id)
+        record.approved_by = request.user.username
+        d = datetime.datetime.now()
+        record.approved_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+
+        notice = Notifications()
+        notice.to = record.added_by
+        record.save()
+
+        notice.message = " "+ request.user.username +" approved your Supplier Add."
+        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        notice.trigger = request.user.username
+        notice.save()
+
+        return JsonResponse( {'message':"success","tab":"7"})
+
+    except Exception as e:
+       return JsonResponse( {'message': str(e)})
+
+
+
+
+
+     
+# ***********************************************************************************************************************
+
+#Budget Lines 
+
+# ************************************************************************************************************************
+
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def budget_reject(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+      message = request.POST.get('message',default=None)
+      username = request.user.username
+        # objs = Record.objects.get(id=_id)
+      record = Supplier.objects.get(id=_id)
+      record.rejector = username
+      record.rejector_message = message
+
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.rejector_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+      notice = Notifications()
+      notice.to = record.added_by
+      record.save()
+
+  
+      notice.message = " "+ username +" has rejected your Supplier add ."
+      notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      notice.trigger = username
+      notice.save()
+      return JsonResponse( {'message':"success","tab":"7"})
+    else:
+      return render(request, 'pages/suppliers/list.html', {})
+    
+
+
+
+
+@login_required(login_url='login')
+def budget_lines(request):
+    return render(request, 'pages/budget_lines/budgets.html')
+
+@login_required(login_url='login')
+def budget_lines_all(request):
+      username = request.user.username
+      records = BudgetLines.objects.filter(Q(receiver = username) | Q(approver = username) )
+      context = {"records":records,"tab":"7"}
+
+
+      return render(request, 'pages/goods_received/list.html', context)
+
+# @login_required(login_url='login')
+# def suppliers_completed(request):
+#       username = request.user.username
+#       records = Supplier.objects.filter(  ~Q(approver_by_date="None") )
+#       context = {"records":records,"tab":"7"}
+
+
+#       return render(request, 'pages/goods_received/list_completed.html', context)
+
+
+@login_required(login_url='login')
+def budget_lines_add(request):
+      # username = request.user.username
+      # records = PaymentTicket.objects.filter(Q(creator = username) )
+      context = {"tab":"8"}
+
+
+      return render(request, 'pages/budget_lines/add.html', context)
+
+# @login_required(login_url='login')
+# def suppliers_view(request):
+#       username = request.user.username
+#       records = BudgetLines.objects.all()
+#       context = {'records':records, "tab":"8"}
+
+
+#       return render(request, 'pages/budget/list.html', context)
+
+
+
+# @login_required(login_url='login')
+# def suppliers_pending(request):
+#       username = request.user.username
+#       records = Supplier.objects.filter(Q(approved_by = username) & Q(approved_by_date="None"))
+#       context = {'records':records , "tab":"7"}
+
+
+#       return render(request, 'pages/suppliers/list_pending.html', context)
+
+@login_required(login_url="login")
+def budget_line_open_record(request):
+    if request.method == "POST":
+      finance = False
+
+      # user = request.user
+    
+    # Get the groups the user belongs to
+      # groups = user.groups.all()
+
+
+      _id = request.POST.get('id',default=None)
+      # if request.user.groups.all()[0].name == "finance":
+      #     finance = True
+        # objs = Record.objects.get(id=_id)
+      record = BudgetLines.objects.get(id=_id)
+      context = {'record':record, "finance":finance , "tab":"8"}
+      # #print"finance",finance)
+      return render(request, 'pages/suppliers/view_record.html', context)
+    else:
+       redirect("/procurement/budget_lines_all")
+
+
+# @login_required(login_url="login")
+# def suppliers_open_record_for_edit(request):
+#     if request.method == "POST":
+#       finance = False
+
+#       # user = request.user
+    
+#     # Get the groups the user belongs to
+#       # groups = user.groups.all()
+
+
+#       _id = request.POST.get('id',default=None)
+#       # if request.user.groups.all()[0].name == "finance":
+#       #     finance = True
+#         # objs = Record.objects.get(id=_id)
+#       record = Supplier.objects.get(id=_id)
+#       context = {'record':record, "finance":finance, "tab":"7"}
+#       # #print"finance",finance)
+
+#       return render(request, 'pages/suppliers/edit_record.html', context)
+
+#     else:
+#       redirect("/procurement/suppliers_all")
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def get_budget_lines(request):
+   try:
+      dic = {}
+      # User = get_user_model()
+      schedules = BudgetLines.objects.all()
+
+      for schedule in schedules: 
+          dic[schedule.id]= schedule.name+", Project : "+ schedule.project +", Department : "+ schedule.dpt+", Balance  : "+schedule.balance
+      return JsonResponse(dic)
+   except Exception as e:
+          return JsonResponse(str(e)) 
+
+@login_required(login_url='login')
+@csrf_exempt
+def get_departments(request):
+   try:
+      dic = {}
+      # User = get_user_model()
+      schedules = Department.objects.all()
+
+      for schedule in schedules: 
+          dic[schedule.id]= schedule.name+", Head : "+ schedule.head 
+      return JsonResponse(dic)
+   except Exception as e:
+          return JsonResponse(str(e)) 
+
+@login_required(login_url='login')
+@csrf_exempt
+def get_projects(request):
+   try:
+      dic = {}
+      # User = get_user_model()
+      schedules = Project.objects.all()
+
+      for schedule in schedules: 
+          dic[schedule.id]= schedule.name+", Manager : "+ schedule.manager 
+      return JsonResponse(dic)
+   except Exception as e:
+          return JsonResponse(str(e)) 
+
+@login_required(login_url='login')
+@csrf_exempt
+def get_suppliers(request):
+   try:
+      dic = {}
+      # User = get_user_model()
+      schedules = Supplier.objects.filter(~Q(approved_by_date = "None"))
+
+      for schedule in schedules: 
+          dic[schedule.id]= schedule.item_name+", Total Cost : "+ schedule.total_cost +", raised by : "+ schedule.compiled_by+", raised on : "+schedule.date+", Supplier : "+schedule.sup_name
+      return JsonResponse(dic)
+   except Exception as e:
+          return JsonResponse(str(e)) 
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def budget_lines_get_record(request):
+    context={}
+    if request.method == "POST":
+        _id = request.POST.get('id',default=None)
+
+        record = BudgetLines.objects.get(id=_id)
+
+        # pdf = SupplierDocs.objects.get(id=1)
+
+        # try:
+        #   pdf = SupplierDocs.objects.get(request_id=_id)
+        # except:
+        #   pass
+        dic = {
+           
+
+          # "vat_path":"/procurement"+pdf.vat_path,
+          # "tax_clearance_path":"/procurement"+pdf.tax_clearance_path,
+          # "profile_path":"/procurement"+pdf.profile_path,
+          # "certificate_path":"/procurement"+pdf.certificate_path,
+          # "pop":"/procurement"+pdf.dnote_path,
+
+          "name": record.name,
+
+          "project": record.project,
+          "code": record.code,
+          "amount": record.amount,
+          "balance": record.balance,
+          "subtract": record.subtract,
+          "added_by": record.added_by,
+
+
+          "added_by_date": record.added_by_date, 
+
+          # "contact_email": record.contact_email,
+
+          # "vat_valid_expiry_date": record.vat_valid_expiry_date, 
+          # "tax_clearance_expiry_date": record.tax_clearance_expiry_date,
+
+          # "added_by": record.added_by, 
+          # "added_by_date": record.added_by_date,
+          # "approved_by": record.approved_by, 
+
+          # "approved_by_date": record.approved_by_date, 
+          # "tax_complient": record.tax_complient,
+
+          # "evaluated": record.evaluated, 
+          # "evaluated_by_date": record.evaluated_by_date,
+          # "evaluation_decision": record.evaluation_decision, 
+
+          "message":"success",
+        }
+        context = {'addTabActive': True, "record":"","tab":"8"}
+        return JsonResponse(dic)
+    else:
+        return redirect('/procurement/budget_lines_all')
+
+@login_required(login_url='login')
+@csrf_exempt
+@app.route("/send_record")
+def budget_line_send_record(request):
+
+    with app.app_context():
+        try:
+           
+
+          name= request.POST.get('name',default=None)
+          project= request.POST.get('project',default=None)
+          code= request.POST.get('code',default=None)
+          dpt= request.POST.get('dpt',default=None)
+
+
+          # SupplierDocs.objects.get_or_create(
+          #   supplier_id = "0",
+          #   vat_path = "#",
+          #   tax_clearance_path = "#",
+          #   profile_path = "#",
+          #   certificate_path = "#",
+
+          # )
+
+          d = datetime.datetime.now()
+
+          amount= request.POST.get('amount',default=None)
+
+          # contact_person= request.POST.get('contact_person',default=None)
+          # alt_contact_number= request.POST.get('alt_contact_number',default=None)
+
+          # contact_number= request.POST.get('contact_number',default=None)
+          # contact_email= request.POST.get('contact_email',default=None)
+          # vat_valid_expiry_date= request.POST.get('vat_valid_expiry_date',default=None)
+          # tax_clearance_expiry_date= request.POST.get('tax_clearance_expiry_date',default=None)
+          # tax_complient= request.POST.get('tax_complient',default=None)
+          # approved_by= request.POST.get('approved_by',default=None)
+
+
+
+          record = BudgetLines()
+
+          record.added_by = request.user.username
+          record.name= name
+
+
+          record.added_by_date=  "{:%B %d, %Y  %H:%M:%S}".format(d)
+          record.project= project
+
+          record.code= code
+          record.amount= amount
+
+          # record.bank_account= bank_account
+          # record.meta_data= meta_data
+
+          # record.contact_person= contact_person
+          # record.alt_contact_number= alt_contact_number
+          # record.contact_number= contact_number
+          # record.contact_email= contact_email
+          # record.vat_valid_expiry_date= vat_valid_expiry_date
+          # record.tax_clearance_expiry_date= tax_clearance_expiry_date
+
+          # record.tax_complient= tax_complient
+          # record.approved_by= approved_by
+
+
+
+          notice = Notifications()
+          notice.to= record.approved_by
+          notice.trigger = request.user.username
+          notice.message = request.user.username +" has added a Supplier for you to approve"
+
+          d = datetime.datetime.now()
+          notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+          notice.status = "New"
+          notice.save()
+          # record.approved_by_date= approved_by_date
+
+
+          record.save()
+
+          _id = record.pk
+          return JsonResponse( {'message':"success",'id':_id})
+
+        except Exception as e  :
+            f= open("supplier.txt","w")
+            f.write(str(e))
+            f.close()
+            return JsonResponse({'message':"failed","tab":"1"})
+
+@login_required(login_url='login')
+@csrf_exempt
+def suppliers_upload_docs(request):
+    if request.method == 'POST' and request.FILES['vat'] and request.FILES['profile']and request.FILES['tax'] and request.FILES['cert']:
+        myfile1 = request.FILES['vat']
+        myfile2 = request.FILES['cert']
+        myfile3 = request.FILES['profile']
+        myfile4 = request.FILES['tax']
+
+        request_id = request.POST.get('request_id')
+        
+        import os
+        path = "uploads/suppliers/docs/"+str(request_id)
+        # Check whether the specified path exists or not
+        # #print"path ",path)
+        isExist = os.path.exists(path)
+        if not isExist:
+
+          # Create a new directory because it does not exist
+          os.makedirs(path)
+
+
+
+        fs = FileSystemStorage()
+        filename1 = fs.save(path+"/"+myfile1.name, myfile1)
+        uploaded_file_url1 = fs.url(filename1)
+
+        filename2 = fs.save(path+"/"+myfile2.name, myfile2)
+        uploaded_file_url2 = fs.url(filename2)
+
+        filename3 = fs.save(path+"/"+myfile3.name, myfile3)
+        uploaded_file_url3 = fs.url(filename3)
+
+        filename4 = fs.save(path+"/"+myfile4.name, myfile4)
+        uploaded_file_url4 = fs.url(filename4)
+
+
+
+        record = SupplierDocs()
+        record.request_id = request_id
+
+        record.vat_path = uploaded_file_url1
+        record.tax_clearance_path = uploaded_file_url4
+        record.profile_path = uploaded_file_url3
+        record.certificate_path = uploaded_file_url2
+
+
+        record.save()
+        return redirect('/procurement/suppliers_all')
+    else:
+          return render(request, 'pages/suppliers/upload_pop.html')
+
+
+
+
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def suppliers_approve(request):
+    
+    try:
+      if request.method == "POST":
+        
+        _id = request.POST.get('id',default=None)
+
+        record = Supplier.objects.get(id=_id)
+        record.approved_by = request.user.username
+        d = datetime.datetime.now()
+        record.approved_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
+
+        notice = Notifications()
+        notice.to = record.added_by
+        record.save()
+
+        notice.message = " "+ request.user.username +" approved your Supplier Add."
+        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+        notice.trigger = request.user.username
+        notice.save()
+
+        return JsonResponse( {'message':"success","tab":"7"})
+
+    except Exception as e:
+       return JsonResponse( {'message': str(e)})
+
+
+
+
+
+
+
+
+#***************************************************************************************************************************
+
+#GRN
+#***************************************************************************************************************************
 
 
 @login_required(login_url='login')
@@ -2549,7 +3366,7 @@ def goods_received_notes_reject(request):
       notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice.trigger = username
       notice.save()
-      return JsonResponse( {'message':"success","tab":"1"})
+      return JsonResponse( {'message':"success","tab":"6"})
     else:
       return render(request, 'pages/purchase_requests/list.html', {})
     

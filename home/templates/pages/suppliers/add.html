@@ -1,0 +1,231 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock title %}
+{% block content %}
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    <div class="pc-content">
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+       
+        <form class="row g-3">
+
+            <div id="overlay">
+                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
+                
+           </div>
+
+
+             <div class="col-md-12">
+                <label for="fname" class="form-label">Supplier Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="">
+            </div>
+
+            <div class="col-md-12">
+                <label for="fname" class="form-label">Address:</label>
+                <input type="text" class="form-control" id="address" name="address" value="">
+            </div>
+            <p></p>
+
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Contact Person :</label>
+                <input type="text" class="form-control" id="contact_name" name="contact_name" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Contact Number:</label>
+                <input type="text" class="form-control" id="contact_number" name="contact_number" value="">
+            </div>
+            <p></p>
+
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Contact Email :</label>
+                <input type="text" class="form-control" id="contact_email" name="contact_email" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Alternative Contact Number:</label>
+                <input type="text" class="form-control" id="alt_contact_number" name="alt_contact_number" value="">
+            </div>
+            <p></p>
+
+
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Is Tax Complient</label>
+                <select class="form-control" name="tax_compliemt" id="tax_compliemt">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label"> Bank Name :</label>
+                <input type="text" class="form-control" id="bank_name" name="bank_name" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Bank Branch:</label>
+                <input type="text" class="form-control" id="bank_branch" name="alt_contact_number" value="">
+            </div>
+            <p></p>
+
+            <div class="col-md-12">
+                <label for="fname" class="form-label"> Bank Account Number :</label>
+                <input type="text" class="form-control" id="bank_account" name="bank_account" value="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Tax Clearance Expiry Date:</label>
+                <input type="date" class="form-control" id="tax_clearance_expiry_date" name="tax_clearance_expiry_date" value="">
+            </div>
+            <p></p>
+
+
+
+
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Select Approver</label>
+                <select class="form-control" name="approved_by" id="approved_by">
+                <option value="None">..</option>
+
+                </select>
+            </div>
+          </form>
+
+          <div class="col-md-12">
+            <a onclick="sendEdit();" class="btn btn-primary"> SUBMIT</a>
+
+            <script  language="JavaScript" type="text/javascript">
+
+
+
+
+// $('#comp_schedule').on('change', function(event) {
+//        alert("This is the value selected in solutions: " + $(this).val());
+
+
+//   });
+
+
+
+
+             
+  const url5 = "  https://lorkas.co.zw/procurement/get_users"
+                    const data5 = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url5,data5, function(data5,status){
+            
+
+console.log(data5)
+
+
+                        $.each(data5, function(val, text) {
+                            $('#approved_by').append( new Option(text,val) );
+                        });
+
+            
+  
+                        $('#dis').fadeIn();
+
+                        $('#overlay').fadeOut();
+
+
+        });
+
+                    
+                    function sendEdit(){
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                        $('#overlay').fadeIn();
+
+var address= $("#address").val();
+var name= $("#name").val();
+var contact_name= $("#contact_name").val();
+
+var contact_number= $("#contact_number").val();
+var contact_email= $("#contact_email").val();
+var alt_contact_number= $("#alt_contact_number").val();
+
+var tax_compliemt= $("#tax_compliemt").val();
+var bank_name= $("#bank_name").val();
+var bank_branch= $("#bank_branch").val();
+
+var bank_account= $("#bank_account").val();
+var tax_clearance_expiry_date= $("#tax_clearance_expiry_date").val();
+
+
+var approved_by= $("#approved_by").val();
+                        
+
+                
+    
+                            current_url = window.location.href;
+                            arr = current_url.split("_");
+                            case_id = arr.at(-1);
+                        if (case_id == "add"){
+                
+                        const url = "  https://lorkas.co.zw/procurement/suppliers_send_record";
+                        // current_url = window.location.href;
+                        // arr = current_url.split("/");
+                        // case_id = arr.at(-1);
+                        // month_id =arr[arr.length - 2];
+                        console.log("after url");
+                        const data = {
+                                            "address": address,
+                                            "name": name,
+                                            "contact_name": contact_name,
+
+                                            "contact_number": contact_number,
+                                            "contact_email": contact_email,
+                                            "alt_contact_number": alt_contact_number,
+                
+                                            "tax_compliemt": tax_compliemt,
+                                            "bank_name": bank_name,
+                                            "bank_branch": bank_branch,
+                                            "bank_account": bank_account,
+                                            "tax_clearance_expiry_date": tax_clearance_expiry_date,
+
+                                            "approved_by": approved_by,
+                                            // "accounts_clerk_approved_date": accounts_clerk_approved_date,
+                
+                                           }
+                
+
+
+                        $.post(url,data, function(data,status1){
+                        if (data['message']=="success"){
+                            alert("success");
+                            $('#overlay').fadeOut();
+                            alert(status);
+
+
+
+                        }else{
+                            alert(data['message']);
+                            console.log("err");
+                            $('#overlay').fadeOut();
+
+                            window.location.href="  https://lorkas.co.zw/procurement/goods_received_notes_all";
+                
+                        }
+                
+                        });
+                        // alert("stop hee");
+                    }
+                
+                    }
+                        </script>
+                
+                
+                
+                
+
+
+{% endblock content %}

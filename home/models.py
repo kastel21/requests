@@ -127,16 +127,29 @@ class PaymentTicketPOP(models.Model):
 
 class Supplier(models.Model):
     name = models.CharField(max_length=150, default="None")
-    address = models.CharField(max_length=150, default="None")
+    address = models.CharField(max_length=300, default="None")
     bank_name = models.CharField(max_length=150, default="None")
     bank_branch = models.CharField(max_length=150, default="None")
     bank_account = models.CharField(max_length=150, default="None")
+    meta_data = models.CharField(max_length=1500, default="None")
 
     contact_person = models.CharField(max_length=150, default="None")
+    alt_contact_number = models.CharField(max_length=150, default="None")
+
     contact_number = models.CharField(max_length=150, default="None")
     contact_email = models.CharField(max_length=150, default="None")
     vat_valid_expiry_date = models.CharField(max_length=150, default=".")
     tax_clearance_expiry_date = models.CharField(max_length=150, default=".")
+    added_by = models.CharField(max_length=150, default=".")
+    added_by_date = models.CharField(max_length=150, default=".")
+    approved_by = models.CharField(max_length=150, default=".")
+    approved_by_date = models.CharField(max_length=150, default=".")
+    tax_complient = models.CharField(max_length=150, default=".")
+    evaluated_by = models.CharField(max_length=150, default=".")
+
+    evaluated = models.CharField(max_length=150, default=".")
+    evaluated_by_date = models.CharField(max_length=150, default=".")
+    evaluation_decision = models.CharField(max_length=150, default=".")
 
 class SupplierDocs(models.Model):
     supplier_id = models.CharField(max_length=150, default="None")
@@ -270,3 +283,31 @@ class GoodsReceivedNoteDnote(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
 
     dnote_path = models.CharField(max_length=500, default="#")
+
+
+
+class BudgetLines(models.Model):
+    name= models.CharField(max_length=255, blank=True)
+    project = models.CharField(max_length=255, blank=True)
+    code = models.CharField(max_length=255, blank=True)
+    amount = models.CharField(max_length=255, blank=True)
+    balance = models.CharField(max_length=255, blank=True)
+    subtract = models.CharField(max_length=255, blank=True)
+    added_by = models.CharField(max_length=255, blank=True)
+    added_by_date = models.CharField(max_length=255, blank=True)
+    dpt = models.CharField(max_length=255, blank=True)
+    last_used = models.CharField(max_length=255, blank=True)
+
+class Project(models.Model):
+    name= models.CharField(max_length=255, blank=True)
+    code= models.CharField(max_length=255, blank=True)
+    duration= models.CharField(max_length=255, blank=True)
+    start_date= models.CharField(max_length=255, blank=True)
+    end_date= models.CharField(max_length=255, blank=True)
+    manager= models.CharField(max_length=255, blank=True)
+    pi= models.CharField(max_length=255, blank=True)
+
+
+class Department(models.Model):
+    name= models.CharField(max_length=255, blank=True)
+    head= models.CharField(max_length=255, blank=True)

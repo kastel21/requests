@@ -1,0 +1,414 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock title %}
+{% block content %}
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    <div class="pc-content">
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+       
+        <form class="row g-3">
+            <div id="overlay">
+                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
+                
+           </div>
+            <!-- <div class="col-md-6">
+                <label for="fname" class="form-label">request_id:</label>
+                <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly >
+            </div>
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Requestor:</label>
+                <input type="text" class="form-control" id="requester" name="requester" value="" readonly >
+            </div>
+-->
+
+<div class="col-md-6">
+    <label for="fname" class="form-label">From Purchase Order:</label>
+    <input type="text" class="form-control" id="purchase_order" name="purchase_order" value="" readonly >
+</div>
+
+<div class="col-md-6">
+    <label for="fname" class="form-label">From Payment Request:</label>
+    <input type="text" class="form-control" id="request_id" name="request_id" value="" readonly >
+</div>
+
+
+
+<!-- <div class="col-md-12">
+<label for="fname" class="form-label">Add From Purchase Order:</label>
+<select class="form-control" name="purchase_order" id="purchase_order">
+<option value="None">..</option>
+</select>
+</div>
+
+
+<div class="col-md-12">
+<label for="fname" class="form-label">Add From Payment Request:</label>
+<select class="form-control" name="request_id" id="request_id">
+<option value="None">..</option>
+</select>
+</div> -->
+
+
+<!-- <div class="col-md-12">
+<label for="certifier" class="form-label"> Decision</label>
+<select class="form-control" name="status" id="status" disabled>
+<option value="processing">Accepted</option>
+<option value="completed">Rejected</option>
+
+</select>
+</div> -->
+
+<div class="col-md-6">
+    <label for="fname" class="form-label"> Decision:</label>
+    <input type="text" class="form-control" id="decision" name="decision" value="" readonly>
+    </div>
+
+
+<div class="col-md-6">
+<label for="fname" class="form-label"> Supplier Name:</label>
+<input type="text" class="form-control" id="supplier" name="supplier" value="" readonly>
+</div>
+
+<div class="col-md-6">
+<label for="fname" class="form-label">Receiving Department</label>
+<input type="text" class="form-control" id="dpt" name="dpt" value="" readonly>
+</div> 
+
+<div class="col-md-6">
+<label for="fname" class="form-label">Item Name</label>
+<input type="text" class="form-control" id="item_name" name="item_name" value="" readonly>
+</div> 
+
+
+<div class="col-md-6">
+<label for="lname" class="form-label">Description:</label>
+<input type="text" class="form-control" id="desc" name="desc" value="" readonly>
+</div>
+
+<div class="col-md-12">
+<label for="fname" class="form-label">Quantity:</label>
+<input type="number" class="form-control" id="qnty" name="qnty" value="" readonly>
+</div>
+<div class="col-md-12">
+<label for="fname" class="form-label">Serial:</label>
+<input type="text" class="form-control" id="serial" name="serial" value="" readonly>
+</div>
+
+<div class="col-md-6">
+<label for="lname" class="form-label">Comments:</label>
+<input type="text" class="form-control" id="comments" name="comments" value="" readonly>
+</div>
+
+
+
+<div class="col-md-4">
+<label for="certifier" class="form-label">Delivery Note</label>
+<a id="dnote" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+</div>  
+
+
+<div class="col-md-6">
+    <label for="fname" class="form-label"> Received By:</label>
+    <input type="text" class="form-control" id="receiver" name="receiver" value="" readonly >
+</div>
+
+
+<div class="col-md-6">
+    <label for="fname" class="form-label"> Date :</label>
+    <input type="text" class="form-control" id="receiver_date" name="receiver_date" value="" readonly >
+</div>
+
+
+<div class="col-md-6">
+    <label for="fname" class="form-label"> Approver By:</label>
+    <input type="text" class="form-control" id="approver" name="approver" value="" readonly >
+</div>
+
+
+<div class="col-md-6">
+    <label for="fname" class="form-label"> Date :</label>
+    <input type="text" class="form-control" id="approver_date" name="approver_date" value="" readonly >
+</div>
+
+
+ <!--
+
+
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Date</label>
+                <input type="text" class="form-control" id="accounts_clerk_approved_date" name="accounts_clerk_approved_date" value="" readonly >
+            </div> -->
+
+          </form>
+          <div class="col-md-6">
+            <a onclick="sendEdit();" id="approve" class="btn btn-primary"> Approve</a>
+          </div>
+
+            <div id="messagediv" class="col-md-12">
+                <label  class="form-label">Reason for Rejection:</label>
+                <input type="text" class="form-control" id="message" name="message" value="" >
+            </div>
+
+            <div class="col-md-6">
+                <a onclick="dummy();" id="dummy" class="btn btn-warning"> Reject</a>
+            </div>
+            <div class="col-md-6">
+                <a onclick="reject();" id="reject" class="btn btn-primary"> Reject</a>
+            </div>
+
+
+            <script  language="JavaScript" type="text/javascript">
+
+
+
+
+
+
+$("#messagediv").hide();
+    $("#reject").hide();
+
+function dummy(){
+
+    $("#messagediv").show();
+    $("#reject").show();
+
+
+    $("#approve").hide();
+    $("#dummy").hide();
+
+
+}
+
+
+
+function reject(){
+
+var message = $("#message").val();
+
+if(message == ""){
+    alert("Please provide a reason for rejection");
+    return;
+}
+
+
+
+
+                                    current_url = window.location.href;
+                                        arr = current_url.split("/");
+                                        case_id = arr.at(-1);
+                                    console.log(case_id);
+                                    if (case_id == "add"){}else{
+                                    const url = "  https://lorkas.co.zw/procurement/goods_received_notes_reject"
+                                    const data = {
+                                      'id':case_id,
+                                      "message":message,
+                                    }
+                    
+                                      $.post(url,data, function(data,status){
+                            
+                            if (data['message']=="success"){
+                                alert(data['message']);
+                                window.location.href="/procurement/goods_received_notes_all";
+
+                            }else{
+                                alert(data['message']);
+
+                                window.location.href="/procurement/goods_received_notes_all";
+
+                            }
+
+
+
+
+
+
+                           });
+
+
+
+                            }
+
+                        }
+
+
+
+
+
+
+
+
+
+// populate the users dropdown
+
+// const url = "  https://lorkas.co.zw/procurement/get_users"
+//                     const data = {
+//                       'id':"case_id",
+//                     }
+            
+//                       $.post(url,data, function(data,status){
+            
+
+// console.log(data)
+
+
+//                         $.each(data, function(val, text) {
+//                             $('#accounts_clerk_approved').append( new Option(text,val) );
+//                         });
+
+            
+  
+    
+//                         $('#overlay').fadeOut();
+
+
+//         });
+
+    
+
+
+
+
+
+
+
+                // populating the already existing records
+                
+                            current_url = window.location.href;
+                                        arr = current_url.split("/");
+                                        case_id = arr.at(-1);
+                                    console.log(case_id);
+                                    if (case_id == "add"){}else{
+                                    const url = "  https://lorkas.co.zw/procurement/goods_received_notes_get_record"
+                                    const data = {
+                                      'id':case_id,
+                                    }
+                            
+                                      $.post(url,data, function(data,status){
+                            
+                            if (data['message']=="success"){
+                
+                                // console.log(data);
+               
+     $("#payment_request").val(data['payment_request']);
+    $("#status").val(data['status']);
+    $("#purchase_order").val(data['purchase_order']);
+
+    $("#item_name").val(data['item_name']);
+    $("#supplier").val(data['supplier']);
+
+    $("#dpt").val(data['dpt']);
+    $("#desc").val(data['desc']);
+
+
+    $("#qnty").val(data['qnty']);
+    $("#serial").val(data['serial']);
+
+    $("#comments").val(data['comments']);
+    $("#receiver").val(data['receiver']);
+    
+    $("#approver").val(data['approver']);
+    $("#receiver_date").val(data['receiver_date']);
+
+    $("#approver_date").val(data['approver_date']);
+    // $("#supplier").val(data['supplier']);
+
+    if ( data['pop'] == "#"){
+        $('#dnote').attr('href',"#");
+        $("#dnote").removeAttr("target");
+    }else{
+        $('#dnote').attr('href',data['pop']);
+    }
+
+    // if ( data['pdf2'] == "#"){
+    //     $('#quotation2').attr('href',"#");
+    //     $("#quotation2").removeAttr("target");
+    // }else{
+    //     $('#quotation2').attr('href',data['pdf2']);
+    // }
+
+    if ( data['pop'] == "#"){
+        $('#pop').attr('href',"#");
+        $("#pop").removeAttr("target");
+    }else{
+        $('#pop').attr('href',data['pop']);
+    }
+
+    $("#amount").val(data['amount']); 
+    $("#date_of_ticket").val(data['date_of_ticket']);
+    $("#creator").val(data['creator']);
+    $("#decision").val(data['status']);
+
+
+    $("#status").val(data['status']);
+    $("#payment_request_id").val(data['payment_request_id']);
+
+
+
+                    // $("#accounts_clerk_approved").val(data['accounts_clerk_approved']);
+                //    $("#accounts_clerk_approved_date").val(data['accounts_clerk_approved_date']);   
+                   $('#overlay').fadeOut();
+     
+                }else{
+                    $('#overlay').fadeOut();
+
+                            alert(data['message']);
+                            window.location.href="/goods_received_notes_all";
+                
+                        }
+                
+                        });
+                    }
+                
+        function edit(){
+
+
+      
+                            current_url = window.location.href;
+                            arr = current_url.split("/");
+                            case_id = arr.at(-1);
+                            console.log(case_id);
+                        if (case_id == "add"){}else{
+                
+
+                        const url = "https://lorkas.co.zw/procurement/goods_received_notes_approve";
+
+                        console.log("after url");
+                        const data = {
+                                    "id": case_id,
+                                    }
+                
+                        $.post(url,data, function(data,status1){
+
+                        if (data['message']=="success"){
+                            alert("success");
+                            $('#overlay').fadeOut();
+                            console.log(status);
+                            window.location.href="https://lorkas.co.zw/procurement/goods_received_notes_all";
+
+
+                        }else{
+                            alert(data['message']);
+                            $('#overlay').fadeOut();
+
+                            return;                
+                        }
+                
+                        });
+
+                    }
+                    
+                
+                    }
+                        </script>
+                
+                
+                
+                
+
+
+{% endblock content %}

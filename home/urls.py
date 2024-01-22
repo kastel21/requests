@@ -230,6 +230,41 @@ urlpatterns = [
 
 
 
+    #suppliers
+    
+    path('suppliers', views.suppliers, name='suppliers'),
+    path('suppliers_all', views.suppliers_all, name='suppliers_all'),
+    path('suppliers_completed', views.suppliers_completed, name='suppliers_completed'),
+    path('suppliers_pending', views.suppliers_pending, name='suppliers_pending'),
+    path('suppliers_add', views.suppliers_add, name='suppliers_add'),
+    path('suppliers_send_record', views.suppliers_send_record, name='suppliers_send_record'),
+    re_path('suppliers_get_record', views.suppliers_get_record, name='suppliers_get_record'),
+    path('suppliers_reject', views.suppliers_reject, name='suppliers_reject'),
+
+
+
+    re_path('suppliers_upload_docs', views.suppliers_upload_docs, name='suppliers_upload_docs'),
+    re_path('suppliers_open_record_for_edit/', views.suppliers_open_record_for_edit, name='suppliers_open_record_for_edit'),
+    re_path('suppliers_open_record/', views.suppliers_open_record, name='suppliers_open_record'),
+
+    re_path('suppliers_approve', views.suppliers_approve, name='suppliers_approve'),
+
+
+    #budget lines
+    
+    path('budget_lines', views.budget_lines, name='budget_lines'),
+    path('budget_lines_all', views.budget_lines_all, name='budget_lines_all'),
+    path('budget_lines_add', views.budget_lines_add, name='budget_lines_add'),
+    path('budget_line_send_record', views.budget_line_send_record, name='budget_line_send_record'),
+    re_path('budget_line_get_record', views.budget_line_get_record, name='budget_line_get_record'),
+
+
+
+    re_path('budget_line_open_record/', views.budget_line_open_record, name='budget_line_open_record'),
+#dpt
+    re_path('get_departments', views.get_departments, name='get_departments'),
+
+
 #signatures
     path('gen_sig', views.gen_sig, name='gen_sig'),
     path('verify_otp', views.verify_otp, name='verify_otp'),
