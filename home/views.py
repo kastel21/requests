@@ -2689,7 +2689,7 @@ def suppliers_get_record(request):
           "bank_branch": record.bank_branch,
           "bank_account": record.bank_account,
           "contact_person": record.contact_person,
-          "alt_contact_number": record.dealt_contact_numbersc,
+          "alt_contact_number": record.alt_contact_number,
 
 
           "contact_number": record.contact_number, 
