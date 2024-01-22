@@ -2750,11 +2750,10 @@ def suppliers_send_record(request):
 
           contact_number= request.POST.get('contact_number',default=None)
           contact_email= request.POST.get('contact_email',default=None)
-          vat_valid_expiry_date= request.POST.get('vat_valid_expiry_date',default=None)
+          # vat_valid_expiry_date= request.POST.get('vat_valid_expiry_date',default=None)
           tax_clearance_expiry_date= request.POST.get('tax_clearance_expiry_date',default=None)
           tax_complient= request.POST.get('tax_complient',default=None)
           approved_by= request.POST.get('approved_by',default=None)
-
 
 
           record = Supplier()
@@ -2776,7 +2775,7 @@ def suppliers_send_record(request):
           record.alt_contact_number= alt_contact_number
           record.contact_number= contact_number
           record.contact_email= contact_email
-          record.vat_valid_expiry_date= vat_valid_expiry_date
+          # record.vat_valid_expiry_date= vat_valid_expiry_date
           record.tax_clearance_expiry_date= tax_clearance_expiry_date
 
           record.tax_complient= tax_complient
