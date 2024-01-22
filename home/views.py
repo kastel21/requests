@@ -3096,7 +3096,7 @@ def get_suppliers(request):
 
 @login_required(login_url='login')
 @csrf_exempt
-def budget_lines_get_record(request):
+def budget_line_get_record(request):
     context={}
     if request.method == "POST":
         _id = request.POST.get('id',default=None)
