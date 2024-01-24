@@ -41,6 +41,13 @@
                         </select>           
                      </div>
 
+                     <div id="gr" class="col-md-12">
+                        <label for="fname" class="form-label">Select Good Received Note for this Post Payment supply:</label>
+                        <select class="form-control" name="grnote" id="grnote">
+                            <option value="None">..</option>
+                        </select>
+                    </div>
+
             <div class="col-md-6">
                 <label  class="form-label">Payee:</label>
                 <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
@@ -165,12 +172,50 @@
 <script  language="JavaScript" type="text/javascript">
 
 $('#dis').fadeOut();
+$("#gr").hide();
 
 // $(window).load(function(){
 //    // PAGE IS FULLY LOADED  
 //    // FADE OUT YOUR OVERLAYING DIV
 //    $('#overlay').fadeOut();
 // });
+
+
+
+
+
+
+
+  
+const url = "  https://lorkas.co.zw/procurement/get_goods_received_notes"
+                    const data = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url,data, function(data,status){
+            
+
+console.log(data)
+
+
+                        $.each(data, function(val, text) {
+                            $('#grnote').append( new Option(text,val) );
+                        });
+
+            
+  
+                        $('#dis').fadeIn();
+
+                        $('#overlay').fadeOut();
+
+
+        });
+
+
+
+    
+
+
 
 
 
@@ -182,13 +227,25 @@ $('#dis').fadeOut();
 
 
 
+$('#type_of_payment').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+
+    if (valueSelected == "post" || valueSelected == "cod"){
+        $("#gr").show();
+
+
+
+    }
+
+
+});
 
 
 $('#purchase_order').on('change', function (e) {
     var optionSelected = $("option:selected", this);
     var valueSelected = this.value;
 
-    // alert(valueSelected);
 
 
 
@@ -377,7 +434,13 @@ var type_of_payment = $("#type_of_payment").val();
 var total= $("#total").val();
 
 var certified_by= $("#certified_by").val();
-        // var type_of_payment= document.getElementById('type_of_payment').value;
+var grnote= $('#grnote').val();
+
+if (type_of_payment == "post" && grnote=="None" || type_of_payment == "cod" && grnote=="None"){
+
+    alert("please select GRN for this payment method");
+    return;
+}
 
         // var cleared_by_fin_man= document.getElementById('cleared_by_fin_man').value;
         // var cleared_by_fin_man_date= document.getElementById('cleared_by_fin_man_date').value;
@@ -422,7 +485,7 @@ var certified_by= $("#certified_by").val();
                             "purchase_order": purchase_order,
 
                             "type_of_payment": type_of_payment,
-                            // "cleared_by_fin_man_date": cleared_by_fin_man_date,
+                            "grnote": grnote,
 
                             // "approved_by_project_man": approved_by_project_man,
                             // "approved_by_project_man_date": approved_by_project_man_date,

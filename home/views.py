@@ -2041,6 +2041,7 @@ def payment_request_send_record(request):
 
           certified_by= request.POST.get('certified_by',default=None)
           type_of_payment= request.POST.get('type_of_payment',default=None)
+          grnote= request.POST.get('grnote',default=None)
 
 
           p,p1 = PaymentRequestQuotation.objects.get_or_create(
@@ -2079,7 +2080,7 @@ def payment_request_send_record(request):
           record.certified_by= certified_by
           record.type_of_payment= type_of_payment
 
-          # record.cleared_by_fin_man= cleared_by_fin_man
+          record.grnote= grnote
           # record.cleared_by_fin_man_date= cleared_by_fin_man_date
 
           # record.approved_by_project_man= approved_by_project_man
@@ -3250,7 +3251,19 @@ def budget_line_send_record(request):
             f.close()
             return JsonResponse({'message':"failed","tab":"1"})
 
+@login_required(login_url='login')
+@csrf_exempt
+def get_goods_received_notes(request):
+   try:
+      dic = {}
+      # User = get_user_model()
+      schedules = GoodsReceivedNote.objects.filter(~Q(approver_date="None"))
 
+      for schedule in schedules: 
+          dic[schedule.id]= schedule.item_name +", Quantity : "+ schedule.qnty+",  Description :  "+schedule.desc +", Supplier : "+schedule.supplier+", Date of receipt : "+schedule.receiver_date
+      return JsonResponse(dic)
+   except Exception as e:
+          return JsonResponse(str(e)) 
 
 #***************************************************************************************************************************
 

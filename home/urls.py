@@ -228,6 +228,7 @@ urlpatterns = [
 
     re_path('goods_received_notes_approve', views.goods_received_notes_approve, name='goods_received_notes_approve'),
 
+    re_path('get_goods_received_notes', views.get_goods_received_notes, name='get_goods_received_notes'),
 
 
     #suppliers

@@ -45,13 +45,6 @@
             </div>
 
 
-            <div class="col-md-12">
-                <label for="fname" class="form-label">Add From Payment Request:</label>
-                <select class="form-control" name="request_id" id="request_id">
-                    <option value="None">..</option>
-                </select>
-            </div>
-
 
             <div class="col-md-12">
                 <label for="certifier" class="form-label">Select Decision</label>
@@ -66,32 +59,32 @@
 
              <div class="col-md-6">
                 <label for="fname" class="form-label"> Supplier Name:</label>
-                <input type="text" class="form-control" id="supplier" name="supplier" value="">
+                <input type="text" class="form-control" id="supplier" name="supplier" value="" readonly>
             </div>
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Receiving Department</label>
-                <input type="text" class="form-control" id="dpt" name="dpt" value="">
+                <input type="text" class="form-control" id="dpt" name="dpt" value="" >
             </div> 
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Item Name</label>
-                <input type="text" class="form-control" id="item_name" name="item_name" value="">
+                <input type="text" class="form-control" id="item_name" name="item_name" value="" readonly>
             </div> 
 
 
             <div class="col-md-6">
                 <label for="lname" class="form-label">Description:</label>
-                <input type="text" class="form-control" id="desc" name="desc" value="">
+                <input type="text" class="form-control" id="desc" name="desc" value="" readonly>
             </div>
 
             <div class="col-md-12">
                 <label for="fname" class="form-label">Quantity:</label>
-                <input type="number" class="form-control" id="qnty" name="qnty" value="">
+                <input type="number" class="form-control" id="qnty" name="qnty" value="" readonly>
             </div>
             <div class="col-md-12">
                 <label for="fname" class="form-label">Serial:</label>
-                <input type="text" class="form-control" id="serial" name="serial" value="">
+                <input type="text" class="form-control" id="serial" name="serial" value="" >
             </div>
 
             <div class="col-md-6">
@@ -123,6 +116,74 @@
 
 
 //   });
+
+
+
+
+
+
+
+
+
+$('#purchase_order').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+
+
+
+
+
+    const url1 = "  https://lorkas.co.zw/procurement/purchase_order_get_record"
+                    const data1 = {
+                      'id':valueSelected,
+                    }
+            
+                      $.post(url1,data1, function(data1,status){
+                        console.log(data1)
+
+
+                        $("#sup_name").val(data1['sup_name']);
+                        $("#desc").val(data1['description']);
+
+                        $("#qnty").val(data1['quantity']); 
+
+
+
+
+                        $("#item_name").val(data1['item_name']); 
+
+                        // $("#item_name_supplier3").val(data1['item_name']);
+                        // $("#desc_supplier3").val(data1['description']);
+                        // $("#qnty_supplier3").val(data1['qnty']); 
+
+
+                        $('#overlay').fadeOut();
+
+        });
+
+
+    
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -26,6 +26,8 @@ class PuchaseRequest(models.Model):
     rejector_date= models.CharField(max_length=500, default="None")
     completed= models.CharField(max_length=50, default="0")
 
+    def __str__(self):
+        return "Item : "+self.item_name +", Quantity"+self.qnty+", Requester"+self.requester+", Department : "+self.requesting_dpt+", Details : "+self.description
 
 
 
@@ -61,6 +63,8 @@ class PurchaseOrder(models.Model):
     rejector_message= models.CharField(max_length=500, default="None")
     rejector_date= models.CharField(max_length=500, default="None")
     completed= models.CharField(max_length=50, default="0")
+    def __str__(self):
+        return "Item : "+self.item_name +", Quantity"+self.qnty+", Requester"+self.requester+", Total Cost : "+self.total_cost+", Details : "+self.description +", Supplier"+self.sup_name
 
 class PurchaseOrderQuotation(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
@@ -103,6 +107,10 @@ class PaymentRequest(models.Model):
     rejector_message= models.CharField(max_length=500, default="None")
     rejector_date= models.CharField(max_length=500, default="None")
     completed= models.CharField(max_length=50, default="0")
+    grnote= models.CharField(max_length=50, default="0")
+    def __str__(self):
+        return "Quantity "+self.qnty+", Requester"+self.compiled_by+", Total Cost : "+self.total+", Details : "+self.details +", Supplier"+self.payee+", DOR "+self.date_of_request
+
 
 class PaymentTicket(models.Model):
     payment_request_id = models.CharField(max_length=150, default="None")
@@ -115,6 +123,8 @@ class PaymentTicket(models.Model):
     to_bank_name = models.CharField(max_length=150, default="None")
     to_bank_account = models.CharField(max_length=150, default="None")
     narration = models.CharField(max_length=150, default=".")
+
+
 
 class PaymentTicketPOP(models.Model):
     payment_ticket_id = models.CharField(max_length=150, default="None")
@@ -151,7 +161,8 @@ class Supplier(models.Model):
     rejector= models.CharField(max_length=150, default="None")
     rejector_message= models.CharField(max_length=500, default="None")
     rejector_date= models.CharField(max_length=500, default="None")
-
+    def __str__(self):
+        return self.name +", Supplies : "+self.meta_data
     
 class SupplierDocs(models.Model):
     supplier_id = models.CharField(max_length=150, default="None")
@@ -248,6 +259,10 @@ class ComparativeSchedule(models.Model):
     rejector_date= models.CharField(max_length=500, default="None")
     completed= models.CharField(max_length=50, default="0")
 
+    def __str__(self):
+        return "Item : "+self.item_name_supplier1 +", Recommended Supplier"+self.recommended_supplier+", Supplier 1"+self.company_name_supplier1+", Supplier 2 : "+self.company_name_supplier2+", Supplier 3 : "+self.company_name_supplier1 +", Details"+self.desc_supplier1+", DOR "+self.requested_by_date
+
+
 
 class Notifications(models.Model):
     trigger = models.CharField(max_length=220)
@@ -281,6 +296,9 @@ class GoodsReceivedNote(models.Model):
     rejector_message= models.CharField(max_length=500, default="None")
     rejector_date= models.CharField(max_length=500, default="None")
 
+    def __str__(self):
+        return "Item : "+self.item_name +", Supplier : "+self.supplier+", Details 1"+self.desc+", Recieving Department : "+self.dpt+", Status  : "+self.status +", DOR "+self.receiver_date
+
 class GoodsReceivedNoteDnote(models.Model):
     request_id = models.CharField(max_length=255, blank=True)
 
@@ -299,6 +317,8 @@ class BudgetLines(models.Model):
     added_by_date = models.CharField(max_length=255, blank=True)
     dpt = models.CharField(max_length=255, blank=True)
     last_used = models.CharField(max_length=255, blank=True)
+    def __str__(self):
+        return "Name : "+self.name +", Project : "+self.project+", code 1"+self.code+",  Department : "+self.dpt+", Balance  : "+self.balance +", Last Used "+self.last_used
 
 class Project(models.Model):
     name= models.CharField(max_length=255, blank=True)
@@ -308,8 +328,12 @@ class Project(models.Model):
     end_date= models.CharField(max_length=255, blank=True)
     manager= models.CharField(max_length=255, blank=True)
     pi= models.CharField(max_length=255, blank=True)
+    def __str__(self):
+        return "Name : "+self.name +", Manager/Coordinator : "+self.manager+", PI "+self.pi+",  Start Date : "+self.start_date+", End Date  : "+self.end_date 
 
 
 class Department(models.Model):
     name= models.CharField(max_length=255, blank=True)
     head= models.CharField(max_length=255, blank=True)
+    def __str__(self):
+        return "Name : "+self.name +", Head : "+self.head
