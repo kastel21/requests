@@ -248,6 +248,7 @@ urlpatterns = [
     re_path('suppliers_open_record/', views.suppliers_open_record, name='suppliers_open_record'),
 
     re_path('suppliers_approve', views.suppliers_approve, name='suppliers_approve'),
+    re_path('get_suppliers', views.get_suppliers, name='get_suppliers'),
 
 
     #budget lines
@@ -257,6 +258,7 @@ urlpatterns = [
     path('budget_lines_add', views.budget_lines_add, name='budget_lines_add'),
     path('budget_line_send_record', views.budget_line_send_record, name='budget_line_send_record'),
     re_path('budget_line_get_record', views.budget_line_get_record, name='budget_line_get_record'),
+    re_path('get_budget_lines', views.get_budget_lines, name='get_budget_lines'),
 
 
 
