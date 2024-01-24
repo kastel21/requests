@@ -2604,7 +2604,7 @@ def suppliers_view(request):
 @login_required(login_url='login')
 def suppliers_pending(request):
       username = request.user.username
-      records = Supplier.objects.filter(Q(approved_by = username) & Q(approved_by_date="None"))
+      records = Supplier.objects.filter(Q(approved_by = username) & Q(approved_by_date="."))
       context = {'records':records , "tab":"8"}
 
 
