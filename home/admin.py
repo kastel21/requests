@@ -6,3 +6,6 @@ admin.site.register(PaymentRequestPOP)
 admin.site.register(Supplier)
 admin.site.register(SupplierDocs)
 
+admin.site.register(Project)
+admin.site.register(BudgetLines)
+
