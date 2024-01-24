@@ -356,6 +356,8 @@ def purchase_request_pi_approve(request):
       
       _id = request.POST.get('id',default=None)
       clerk = request.POST.get('finance_officer',default=None)
+      line = request.POST.get('budget_line',default=None)
+
       username = request.user.username
         # objs = Record.objects.get(id=_id)
       record = PuchaseRequest.objects.get(id=_id)
@@ -363,12 +365,12 @@ def purchase_request_pi_approve(request):
       d = datetime.datetime.now()
           # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
       record.supervisor_approved_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
-
+      record.budget_line_item = line
       record.save()
 
       notice = Notifications()
       notice.to = clerk
-      notice.message = " "+ username +" updated a Purchse Request \n and assigned you as the Accounts Clerk for you to approve."
+      notice.message = " "+ username +" updated a Purchse Request \n and assigned you as the Finance Clerk for you to approve."
       notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice.trigger = username
       notice.save()

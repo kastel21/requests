@@ -34,9 +34,12 @@
                 <input type="text" class="form-control" id="requesting_dpt" name="requesting_dpt" value="" readonly >
             </div>
 
-            <div class="col-md-6">
-                <label for="fname" class="form-label">Budget Line Item (Where applicable):</label>
-                <input type="text" class="form-control" id="budget_line_item" name="budget_line_item" value="" readonly >
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Select Budget Line</label>
+                <select class="form-control" name="budget_line" id="budget_line">
+                <option value="None">..</option>
+
+                </select>
             </div>
 
             <div class="col-md-6">
@@ -203,6 +206,36 @@ if(message == ""){
 
 
 
+// populate the users dropdown
+
+const url1 = "  https://lorkas.co.zw/procurement/get_users"
+                    const data1 = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url1,data1, function(data1,status){
+            
+
+console.log(data1)
+
+
+                        $.each(data1, function(val, text) {
+                            $('#budget_line').append( new Option(text,val) );
+                        });
+
+            
+  
+    
+                        $('#overlay').fadeOut();
+
+
+        });
+
+    
+
+
+
+
 
 
 
@@ -318,7 +351,7 @@ console.log(data)
                         console.log("after url");
                         const data = {
                                             "id": case_id,
-                
+                                            "budget_line":$("#budget_line").val(),
                                             "finance_officer": accounts_clerk_approved,
                 
                                            }

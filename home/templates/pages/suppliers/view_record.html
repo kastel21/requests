@@ -20,36 +20,36 @@
 
              <div class="col-md-12">
                 <label for="fname" class="form-label">Supplier Name:</label>
-                <input type="text" class="form-control" id="name" name="name" value="" required/>
+                <input type="text" class="form-control" id="name" name="name" value="" readonly/>
             </div>
 
             <div class="col-md-12">
                 <label for="fname" class="form-label">Address:</label>
-                <input type="text" class="form-control" id="address" name="address" value="" required/>
+                <input type="text" class="form-control" id="address" name="address" value="" readonly/>
             </div>
             <p></p>
 
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Contact Person :</label>
-                <input type="text" class="form-control" id="contact_name" name="contact_name" value="" required/>
+                <input type="text" class="form-control" id="contact_name" name="contact_name" value="" readonly/>
             </div>
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Contact Number:</label>
-                <input type="text" class="form-control" id="contact_number" name="contact_number" value="" required/>
+                <input type="text" class="form-control" id="contact_number" name="contact_number" value="" readonly/>
             </div>
             <p></p>
 
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Contact Email :</label>
-                <input type="text" class="form-control" id="contact_email" name="contact_email" value="" required/>
+                <input type="text" class="form-control" id="contact_email" name="contact_email" value="" readonly/>
             </div>
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Alternative Contact Number:</label>
-                <input type="text" class="form-control" id="alt_contact_number" name="alt_contact_number" value="" required/>
+                <input type="text" class="form-control" id="alt_contact_number" name="alt_contact_number" value="" readonly/>
             </div>
             <p></p>
 
@@ -65,23 +65,23 @@
 
             <div class="col-md-6">
                 <label for="fname" class="form-label"> Bank Name :</label>
-                <input type="text" class="form-control" id="bank_name" name="bank_name" value="" required/>
+                <input type="text" class="form-control" id="bank_name" name="bank_name" value="" readonly/>
             </div>
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Bank Branch:</label>
-                <input type="text" class="form-control" id="bank_branch" name="alt_contact_number" value="" required/>
+                <input type="text" class="form-control" id="bank_branch" name="alt_contact_number" value="" readonly/>
             </div>
             <p></p>
 
             <div class="col-md-12">
                 <label for="fname" class="form-label"> Bank Account Number :</label>
-                <input type="text" class="form-control" id="bank_account" name="bank_account" value="" required/>
+                <input type="text" class="form-control" id="bank_account" name="bank_account" value="" readonly/>
             </div>
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Tax Clearance Expiry Date:</label>
-                <input type="date" class="form-control" id="tax_clearance_expiry_date" name="tax_clearance_expiry_date" value="" required/>
+                <input type="date" class="form-control" id="tax_clearance_expiry_date" name="tax_clearance_expiry_date" value="" readonly/>
             </div>
             <p></p>
 
@@ -108,33 +108,33 @@
 
             <div class="col-md-6">
                 <label for="fname" class="form-label"> Tax Complient :</label>
-                <input type="text" class="form-control" id="tax_complient" name="tax_complient" value="" required/>
+                <input type="text" class="form-control" id="tax_complient" name="tax_complient" value="" readonly/>
             </div>
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Evaluated By:</label>
-                <input type="date" class="form-control" id="evaluated_by" name="evaluated_by" value="" required/>
+                <input type="date" class="form-control" id="evaluated_by" name="evaluated_by" value="" readonly/>
             </div>
 
 
             <div class="col-md-6">
                 <label for="fname" class="form-label"> Evaluated :</label>
-                <input type="text" class="form-control" id="evaluated" name="evaluated" value="" required/>
+                <input type="text" class="form-control" id="evaluated" name="evaluated" value="" readonly/>
             </div>
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Evaluated By:</label>
-                <input type="date" class="form-control" id="evaluated_by" name="evaluated_by" value="" required/>
+                <input type="date" class="form-control" id="evaluated_by" name="evaluated_by" value="" readonly/>
             </div>
 
             <div class="col-md-6">
                 <label for="fname" class="form-label"> Evaluation Date :</label>
-                <input type="text" class="form-control" id="evaluated_by_date" name="evaluated_by_date" value="" required/>
+                <input type="text" class="form-control" id="evaluated_by_date" name="evaluated_by_date" value="" readonly/>
             </div>
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Evaluation Decision:</label>
-                <input type="date" class="form-control" id="evaluation_decision" name="evaluation_decision" value="" required/>
+                <input type="date" class="form-control" id="evaluation_decision" name="evaluation_decision" value="" readonly/>
             </div>
 
 
@@ -154,7 +154,6 @@
   
               <p>Rejection message :<b>{{record.rejector_message}}</b> </p>
               <p>Rejection date :<b>{{record.rejector_date}}</b> </p>
-              rejected ? {{rejected}}
 
           {% endif %}
 
@@ -190,7 +189,7 @@
                     $('#quotation').attr('href',data['pdf']);
 
                     $("#name").val(data['name']);
-                    $("#contact_person").val(data['contact_person']);
+                    $("#contact_name").val(data['contact_person']);
                     $("#contact_number").val(data['contact_number']);
                     $("#address").val(data['address']);
                     $("#bank_name").val(data['bank_name']);
