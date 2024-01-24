@@ -2611,7 +2611,7 @@ def suppliers_pending(request):
 @login_required(login_url="login")
 def suppliers_open_record(request):
     if request.method == "POST":
-      finance = False
+      rejected = False
 
       # user = request.user
     
@@ -2624,7 +2624,11 @@ def suppliers_open_record(request):
       #     finance = True
         # objs = Record.objects.get(id=_id)
       record = Supplier.objects.get(id=_id)
-      context = {'record':record, "finance":finance , "tab":"8"}
+      if record.rejector != "None":
+        rejected = True
+
+
+      context = {'record':record, "rejected":rejected , "tab":"8"}
       # #print"finance",finance)
       return render(request, 'pages/suppliers/view_record.html', context)
     else:
