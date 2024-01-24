@@ -164,6 +164,31 @@
 
 
 
+// populate the users dropdown
+
+const url = "  https://lorkas.co.zw/procurement/get_users"
+                    const data = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url,data, function(data,status){
+            
+
+                        console.log(data)
+
+                        $.each(data, function(val, text) {
+                            $('#pi').append( new Option(text,val) );
+                        });
+                        $('#overlay').fadeOut();
+
+
+        });
+
+    
+
+
+
+
 
 
 
