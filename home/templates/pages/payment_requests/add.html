@@ -43,7 +43,7 @@
 
             <div class="col-md-6">
                 <label  class="form-label">Payee:</label>
-                <input type="text" class="form-control" id="payee" name="payee" value="">
+                <input type="text" class="form-control" id="payee" name="payee" value="" readonly>
             </div>
 
 
@@ -68,23 +68,23 @@
 
             <div class="col-md-12">
                 <label  class="form-label">Details of Expenditure:</label>
-                <input type="text" class="form-control" id="details" name="details" value="" style="height:90px;"/>
+                <input type="text" class="form-control" id="details" name="details" value="" style="height:90px;" readonly>
             </div>
 
 
             <div class="col-md-4">
                 <label  class="form-label">Quantity:</label>
-                <input type="number" class="form-control" id="qnty" name="qnty" value="">
+                <input type="number" class="form-control" id="qnty" name="qnty" value="" readonly>
             </div>
 
             <div class="col-md-4">
                 <label  class="form-label">Unit Amount:</label>
-                <input type="number" class="form-control" id="amount" name="amount" value="">
+                <input type="number" class="form-control" id="amount" name="amount" value="" readonly>
             </div>
 
             <div class="col-md-4">
                 <label  class="form-label">Total:</label>
-                <input type="number" class="form-control" id="total" name="total" value="">
+                <input type="number" class="form-control" id="total" name="total" value="" readonly>
             </div>
 
             <hr>
@@ -175,6 +175,65 @@ $('#dis').fadeOut();
 
 
     
+
+
+
+
+
+
+
+
+
+$('#purchase_order').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+
+    // alert(valueSelected);
+
+
+
+
+    const url1 = "  https://lorkas.co.zw/procurement/purchase_order_get_record"
+                    const data1 = {
+                      'id':valueSelected,
+                    }
+            
+                      $.post(url1,data1, function(data1,status){
+                        console.log(data1)
+
+
+                        $("#payee").val(data1['sup_name']);
+                        $("#details").val("Payment of "+data1['description']);
+
+                        $("#qnty").val(data1['quantity']); 
+
+                        $("#amount").val(data1['unit_cost']);
+                        $("#total").val(data1['total_cost']);
+
+
+                        // $("#qnty_supplier2").val(data1['qnty']); 
+
+                        // $("#item_name_supplier3").val(data1['item_name']);
+                        // $("#desc_supplier3").val(data1['description']);
+                        // $("#qnty_supplier3").val(data1['qnty']); 
+
+
+                        $('#overlay').fadeOut();
+
+        });
+
+
+    
+});
+
+
+
+
+
+
+
+
+
 
 
 

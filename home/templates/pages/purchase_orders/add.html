@@ -48,56 +48,63 @@
             </div>
                     <p></p>
                    
-            <div class="col-md-6">
-                <label for="fname" class="form-label">Supplier Name:</label>
-                <input type="text" class="form-control" id="sup_name" name="sup_name" value="">
-            </div>
+
+
+            <div class="col-md-12">
+                <label  class="form-label">Select Supplier Name:</label>
+                <select class="form-control" name="sup_name" id="sup_name">
+                    <option value="None">..</option>
+    
+                    </select>           
+           </div>
+
+
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Contact Person</label>
-                <input type="text" class="form-control" id="contact_person" name="contact_person" value="">
+                <input type="text" class="form-control" id="contact_person" name="contact_person" value="" readonly>
             </div>
 
             <div class="col-md-6">
                 <label for="lname" class="form-label">Contact Number</label>
-                <input type="text" class="form-control" id="contact_number" name="contact_number" value="">
+                <input type="text" class="form-control" id="contact_number" name="contact_number" value="" readonly>
             </div>
 
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" name="Address" value="">
+                <input type="text" class="form-control" id="address" name="Address" value="" readonly>
             </div>
 
 
             <p></p>
 
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <label for="fname" class="form-label">Item Name:</label>
-                <input type="text" class="form-control" id="item_name" name="item_name" value=""></input>
+                <input type="text" class="form-control" id="item_name" name="item_name" value="" readonly></input>
             </div>
 
 
+            
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Quantity:</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" value="" readonly>
+            </div>
+
+
+            <div class="col-md-6">
+                <label for="lname" class="form-label">Description:</label>
+                <textarea type="text" class="form-control" id="description" name="description" value="" readonly></textarea>
+            </div>
             
             <div class="col-md-3">
-                <label for="fname" class="form-label">Quantity:</label>
-                <input type="number" class="form-control" id="quantity" name="quantity" value="">
-            </div>
-
-
-            <div class="col-md-8">
-                <label for="lname" class="form-label">Description:</label>
-                <textarea type="text" class="form-control" id="description" name="description" value=""></textarea>
-            </div>
-            
-            <div class="col-md-2">
                 <label for="fname" class="form-label">Unit Cost:</label>
                 <input type="number" class="form-control" id="unit_cost" name="unit_cost" value="">
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <label for="fname" class="form-label">Total:</label>
-                <input type="number" class="form-control" id="total_cost" name="total_cost" value="">
+                <input type="number" class="form-control" id="total_cost" name="total_cost" value="" readonly>
             </div>
 <!-- 
             <div class="col-md-4">
@@ -131,6 +138,201 @@
             <script  language="JavaScript" type="text/javascript">
 
 // populate the users dropdown
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$('#comp_schedule_id').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+
+    // alert(valueSelected);
+
+
+
+
+    const url1 = "  https://lorkas.co.zw/procurement/comp_schedule_get_record"
+                    const data1 = {
+                      'id':valueSelected,
+                    }
+            
+                      $.post(url1,data1, function(data1,status){
+                        console.log(data1)
+
+                        $('#sup_name').val(data1['recommended_supplier']);
+
+                        // $("#item_name").val(data1['item_name']);
+                        // $("#quantity").val(data1['qnty']);
+
+                        // $("#description").val(data1['description']); 
+
+
+
+
+                        // $("#item_name_supplier2").val(data1['item_name']);
+                        // $("#item_name").val(data1['item_name']);
+                        // $("#quantity").val(data1['qnty']); 
+
+                        // $("#item_name_supplier3").val(data1['item_name']);
+                        // $("#desc_supplier3").val(data1['description']);
+                        // $("#qnty_supplier3").val(data1['qnty']); 
+
+
+                        $('#overlay').fadeOut();
+
+        });
+
+
+    
+});
+
+
+
+
+
+$('#unit_cost').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+
+
+    var unit_cost1 = $("#unit_cost").val();
+    var qnty1 = $("#quantity").val();
+    $("#total_cost").val(unit_cost1*qnty1); 
+
+
+});
+
+
+
+$('#purchase_id').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+
+    // alert(valueSelected);
+
+
+
+
+    const url1 = "  https://lorkas.co.zw/procurement/purchase_request_get_record"
+                    const data1 = {
+                      'id':valueSelected,
+                    }
+            
+                      $.post(url1,data1, function(data1,status){
+                        console.log(data1)
+
+
+                        $("#item_name").val(data1['item_name']);
+                        $("#quantity").val(data1['qnty']);
+
+                        $("#description").val(data1['description']); 
+
+
+
+
+                        // $("#item_name_supplier2").val(data1['item_name']);
+                        // $("#item_name").val(data1['item_name']);
+                        // $("#quantity").val(data1['qnty']); 
+
+                        // $("#item_name_supplier3").val(data1['item_name']);
+                        // $("#desc_supplier3").val(data1['description']);
+                        // $("#qnty_supplier3").val(data1['qnty']); 
+
+
+                        $('#overlay').fadeOut();
+
+        });
+
+
+    
+});
+
+
+$('#sup_name').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+
+    // alert(valueSelected);
+
+
+
+
+    const url1 = "  https://lorkas.co.zw/procurement/suppliers_get_record"
+                    const data1 = {
+                      'id':valueSelected,
+                    }
+            
+                      $.post(url1,data1, function(data1,status){
+                        console.log(data1)
+
+
+                        $("#contact_person").val(data1['contact_person']);
+                        $("#contact_number").val(data1['contact_number']);
+
+                        $("#address").val(data1['address']); 
+
+
+
+
+                        // $("#item_name_supplier2").val(data1['item_name']);
+                        // $("#item_name").val(data1['item_name']);
+                        // $("#quantity").val(data1['qnty']); 
+
+                        // $("#item_name_supplier3").val(data1['item_name']);
+                        // $("#desc_supplier3").val(data1['description']);
+                        // $("#qnty_supplier3").val(data1['qnty']); 
+
+
+                        $('#overlay').fadeOut();
+
+        });
+
+
+    
+});
+
+
+
+
+
+
+// populate the service requests dropdown
+
+const url_sups = "  https://lorkas.co.zw/procurement/get_suppliers"
+                    const data_sups = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url_sups,data_sups, function(data_sups,status){
+                        console.log(data_sups)
+                        $.each(data_sups, function(val, text) {
+                            $('#sup_name').append( new Option(text,val) );
+                        });
+                        $('#overlay').fadeOut();
+
+        });
+
+
 
 
 const url = "  https://lorkas.co.zw/procurement/get_users"

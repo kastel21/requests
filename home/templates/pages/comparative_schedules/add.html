@@ -31,10 +31,16 @@
 
             <legend>Supplier 1</legend>
             
-            <div class="col-md-6">
-                <label  class="form-label">Supplier 1 (Company Name):</label>
-                <input type="text" class="form-control" id="company_name_supplier1" name="company_name_supplier1" value="">
-            </div>
+
+
+
+            <div class="col-md-12">
+                <label  class="form-label">Select Supplier 1:</label>
+                <select class="form-control" name="company_name_supplier1" id="company_name_supplier1">
+                    <option value="None">..</option>
+    
+                    </select>           
+           </div>
 
             <div class="col-md-6">
                 <label  class="form-label">Item Name. (Supplier 1):</label>
@@ -64,10 +70,18 @@
             <hr>
 
             <legend>Supplier 2</legend>
-            <div class="col-md-6">
-                <label  class="form-label">Supplier 2 (Company Name):</label>
-                <input type="text" class="form-control" id="company_name_supplier2" name="company_name_supplier2" value="">
-            </div>
+
+
+
+
+
+            <div class="col-md-12">
+                <label  class="form-label">Select Supplier 2:</label>
+                <select class="form-control" name="company_name_supplier2" id="company_name_supplier2">
+                    <option value="None">..</option>
+                    </select>           
+           </div>
+
 
             <div class="col-md-6">
                 <label  class="form-label">Item Name. (supplier 2):</label>
@@ -97,10 +111,16 @@
             <hr>
             
             <legend>Supplier 3</legend>
-            <div class="col-md-6">
-                <label  class="form-label">Supplier 3 (Company Name):</label>
-                <input type="text" class="form-control" id="company_name_supplier3" name="company_name_supplier3" value="">
-            </div>
+
+
+            <div class="col-md-12">
+                <label  class="form-label">Select Supplier 3:</label>
+                <select class="form-control" name="company_name_supplier3" id="company_name_supplier3">
+                    <option value="None">..</option>
+    
+                    </select>           
+           </div>
+
 
             <div class="col-md-6">
                 <label  class="form-label">Item Name:</label>
@@ -129,10 +149,14 @@
             
             <hr>
 
-            <div class="col-md-4">
-                <label  class="form-label">Recommended Supplier:</label>
-                <input type="text" class="form-control" id="recommended_supplier" name="recommended_supplier" value="">
-            </div>
+
+            <div class="col-md-12">
+                <label  class="form-label">Select Recommended Supplier:</label>
+                <select class="form-control" name="recommended_supplier" id="recommended_supplier">
+                    <option value="None">..</option>
+    
+                    </select>           
+           </div>
 
             <div class="col-md-8">
                 <label  class="form-label">Reasons for recommendations:</label>
@@ -251,6 +275,66 @@
 
 
 
+
+
+
+
+
+
+$('#company_name_supplier1').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+
+
+
+
+    $('#recommended_supplier').append( new Option($("#company_name_supplier1").text(),$("#company_name_supplier1").val()) );
+
+
+
+});
+
+$('#company_name_supplier2').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+
+
+
+
+    $('#recommended_supplier').append( new Option($("#company_name_supplier2").text(),$("#company_name_supplier2").val()) );
+
+
+
+});
+
+$('#company_name_supplier3').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+
+
+
+
+    $('#recommended_supplier').append( new Option($("#company_name_supplier3").text(),$("#company_name_supplier3").val()) );
+
+
+
+});
+
+
+
+$('#unit_price_supplier1').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+
+
+    var unit_cost1 = $("#unit_price_supplier1").val();
+    var qnty1 = $("#qnty_supplier1").val();
+    $("#total_price_supplier1").val(unit_cost1*qnty1); 
+
+
+});
+
+
 $('#unit_price_supplier3').on('change', function (e) {
     var optionSelected = $("option:selected", this);
     var valueSelected = this.value;
@@ -264,7 +348,17 @@ $('#unit_price_supplier3').on('change', function (e) {
 });
 
 
+$('#unit_price_supplier2').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
 
+
+    var unit_cost2 = $("#unit_price_supplier2").val();
+    var qnty2 = $("#qnty_supplier2").val();
+    $("#total_price_supplier2").val(unit_cost2*qnty2); 
+
+
+});
 
 
 
@@ -310,16 +404,25 @@ $('#purchase_request').on('change', function (e) {
 });
 
 
-function autofill(){
+const url_sups = "  https://lorkas.co.zw/procurement/get_suppliers"
+                    const data_sups = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url_sups,data_sups, function(data_sups,status){
+                        console.log(data_sups)
+                        $.each(data_sups, function(val, text) {
+                            $('#company_name_supplier1').append( new Option(text,val) );
+                            $('#company_name_supplier2').append( new Option(text,val) );
+
+                            $('#company_name_supplier3').append( new Option(text,val) );
+
+                        });
+                        $('#overlay').fadeOut();
+
+        });
 
 
-
-
-
-
-
-
-}
 
 
 

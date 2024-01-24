@@ -54,25 +54,25 @@
 
              <div class="col-md-6">
                 <label for="fname" class="form-label"> Supplier Name:</label>
-                <input type="text" class="form-control" id="supplier" name="supplier" value="">
+                <input type="text" class="form-control" id="supplier" name="supplier" value="" readonly>
             </div>
             <div class="col-md-6">
                 <label for="fname" class="form-label"> Bank Name:</label>
-                <input type="text" class="form-control" id="to_bank_name" name="to_bank_name" value="">
+                <input type="text" class="form-control" id="to_bank_name" name="to_bank_name" value="" readonly>
             </div>
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Bank Account Number</label>
-                <input type="text" class="form-control" id="to_bank_account" name="to_bank_account" value="">
+                <input type="text" class="form-control" id="to_bank_account" name="to_bank_account" value="" readonly>
             </div> 
             <div class="col-md-6">
                 <label for="lname" class="form-label">Amount:</label>
-                <input type="text" class="form-control" id="amount" name="amount" value="">
+                <input type="text" class="form-control" id="amount" name="amount" value="" readonly>
             </div>
 
             <div class="col-md-12">
                 <label for="fname" class="form-label">Narration:</label>
-                <input type="text" class="form-control" id="narration" name="narration" value="">
+                <input type="text" class="form-control" id="narration" name="narration" value="" readonly>
             </div>
 
           </form>
@@ -80,16 +80,127 @@
           <div class="col-md-12">
             <a onclick="sendEdit();" class="btn btn-primary"> SUBMIT</a>
 
-            <script  language="JavaScript" type="text/javascript">
+<script  language="JavaScript" type="text/javascript">
 
 
 
 
-// $('#comp_schedule').on('change', function(event) {
-//        alert("This is the value selected in solutions: " + $(this).val());
 
 
-//   });
+
+
+
+
+
+function autofillsupplier(_id){
+
+
+
+    const url1 = "  https://lorkas.co.zw/procurement/suppliers_get_record"
+                    const data1 = {
+                      'id':_id,
+                    }
+            
+                      $.post(url1,data1, function(data1,status){
+                        console.log(data1)
+
+
+                        $("#to_bank_name").val(data1['bank_name']);
+
+
+
+                        
+
+
+
+
+                        $("#to_bank_account").val(data1['bank_account']);
+
+                        // $("#qnty").val(data1['quantity']); 
+
+                        // $("#amount").val(data1['total_cost']);
+
+
+                        // // $("#qnty_supplier2").val(data1['qnty']); 
+
+                        // $("#item_name_supplier3").val(data1['item_name']);
+                        // $("#desc_supplier3").val(data1['description']);
+                        // $("#qnty_supplier3").val(data1['qnty']); 
+
+
+                        $('#overlay').fadeOut();
+
+        });
+
+
+    
+
+
+
+
+
+
+}
+
+
+
+
+
+$('#purchase_order').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+
+    // alert(valueSelected);
+
+
+
+
+    const url1 = "  https://lorkas.co.zw/procurement/payment_request_get_record"
+                    const data1 = {
+                      'id':valueSelected,
+                    }
+            
+                      $.post(url1,data1, function(data1,status){
+                        console.log(data1)
+
+
+                        $("#supplier").val(data1['payee']);
+
+
+
+
+                        autofillsupplier(data1['payee']);
+
+
+
+                        $("#narration").val("Payment of "+data1['details']);
+
+                        $("#qnty").val(data1['quantity']); 
+
+                        $("#amount").val(data1['total_cost']);
+
+
+                        // $("#qnty_supplier2").val(data1['qnty']); 
+
+                        // $("#item_name_supplier3").val(data1['item_name']);
+                        // $("#desc_supplier3").val(data1['description']);
+                        // $("#qnty_supplier3").val(data1['qnty']); 
+
+
+                        $('#overlay').fadeOut();
+
+        });
+
+
+    
+});
+
+
+
+
+
+
+
 
 
 
