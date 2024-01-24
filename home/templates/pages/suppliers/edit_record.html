@@ -243,10 +243,10 @@ if(message == ""){
                     $("#approved_by_date").val(data['approved_by_date']); 
 
 
-                    $("#vat").val(data['vat_path']); 
-                    $("#cert").val(data['certificate_path']); 
-                    $("#profile").val(data['profile_path']); 
-                    $("#tax").val(data['tax_clearance_path']); 
+                    $("#vat").attr('href',data['vat_path']); 
+                    $("#cert").attr('href',data['certificate_path']); 
+                    $("#profile").attr('href',data['profile_path']); 
+                    $("#tax").attr('href',data['tax_clearance_path']); 
 
 
                    $('#overlay').fadeOut();
