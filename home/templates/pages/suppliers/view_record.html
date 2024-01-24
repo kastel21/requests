@@ -134,7 +134,7 @@
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Evaluation Decision:</label>
-                <input type="date" class="form-control" id="evaluation_decision" name="evaluation_decision" value="" readonly/>
+                <input type="text" class="form-control" id="evaluation_decision" name="evaluation_decision" value="" readonly/>
             </div>
 
 
@@ -203,7 +203,7 @@
                     $("#contact_email").val(data['contact_email']);
                     $("#vat_valid_expiry_date").val(data['vat_valid_expiry_date']);  
                     
-                    $("#tax_clearance_expiry_date").val(data['tax_clearance_expiry_date']);
+                    $("#tax_clearance_expiry_date").val(data['tax_clearance_expiry_date']); 
                     $("#added_by").val(data['added_by']); 
 
                     $("#added_by_date").val(data['added_by_date']);
@@ -214,10 +214,17 @@
                     $("#approved_by_date").val(data['approved_by_date']); 
 
 
-                    $("#vat").val(data['vat_path']); 
-                    $("#cert").val(data['certificate_path']); 
-                    $("#profile").val(data['profile_path']); 
-                    $("#tax").val(data['tax_clearance_path']); 
+                    $("#vat").attr('href',data['vat_path']); 
+                    $("#cert").attr('href',data['certificate_path']); 
+                    $("#profile").attr('href',data['profile_path']); 
+                    $("#tax").attr('href',data['tax_clearance_path']); 
+
+
+
+                    // $('#quotation1').attr('href',data['pdf1']);
+                    // $('#quotation2').attr('href',data['pdf2']);
+                    // $('#quotation3').attr('href',data['pdf3']);
+
 
                     $("#evaluated_by").val(data['evaluated_by']); 
                     $("#evaluated").val(data['evaluated']); 

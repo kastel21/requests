@@ -85,25 +85,7 @@
             </div>
             <p></p>
 
-            <div class="col-md-12">
-                <label for="certifier" class="form-label">VAT</label>
-                <a id="vat" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
-            </div>
 
-            <div class="col-md-12">
-                <label for="certifier" class="form-label">Certificate of Incorperation</label>
-                <a id="cert" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
-            </div>
-
-            <div class="col-md-12">
-                <label for="certifier" class="form-label">Company Profile</label>
-                <a id="profile" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
-            </div>
-
-            <div class="col-md-12">
-                <label for="certifier" class="form-label">Tax Clearance</label>
-                <a id="tax" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
-            </div>
 
 
             <div class="col-md-6">
@@ -132,9 +114,15 @@
                 <input type="text" class="form-control" id="evaluated_by_date" name="evaluated_by_date" value="" required/>
             </div>
 
-            <div class="col-md-6">
-                <label for="fname" class="form-label">Evaluation Decision:</label>
-                <input type="date" class="form-control" id="evaluation_decision" name="evaluation_decision" value="" required/>
+
+
+            <div class="col-md-12">
+                <label for="certifier" class="form-label">Evaluation Decision</label>
+                <select class="form-control" name="evaluation_decision" id="evaluation_decision">
+                <option value="good">Good</option>
+                <option value="bad">Bad</option>
+
+                </select>
             </div>
 
           </form>
