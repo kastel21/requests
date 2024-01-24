@@ -138,9 +138,8 @@
             </div>
 
 
-            {% ifequal record.rejector 'None' %}
-                
-            {% else %}
+            {% if record.rejector != "None" %}
+
           <div style="position: fixed; 
             bottom: 500px; 
             left: 200px;
@@ -155,7 +154,7 @@
               <p>Rejection message :<b>{{record.rejector_message}}</b> </p>
               <p>Rejection date :<b>{{record.rejector_date}}</b> </p>
   
-          {% endifequal %}
+          {% endif %}
 
 
 
