@@ -2677,7 +2677,7 @@ def suppliers_get_record(request):
         pdf = SupplierDocs.objects.get(id=1)
 
         try:
-          pdf = SupplierDocs.objects.get(request_id=_id)
+          pdf = SupplierDocs.objects.get(supplier_id=_id)
         except:
           pass
         dic = {
@@ -2852,7 +2852,7 @@ def suppliers_upload_docs(request):
 
 
         record = SupplierDocs()
-        record.request_id = request_id
+        record.supplier_id = request_id
 
         record.vat_path = uploaded_file_url1
         record.tax_clearance_path = uploaded_file_url4
