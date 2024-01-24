@@ -77,7 +77,6 @@ class PuchaseRequestQuotation(models.Model):
     quote_path = models.CharField(max_length=500,default="#")
 
 class PaymentRequest(models.Model):
-    completed= models.CharField(max_length=5, default="0")
 
     purchase_id= models.CharField(max_length=300, default="None")
     request_id = models.CharField(max_length=300, default="None")
@@ -116,7 +115,6 @@ class PaymentTicket(models.Model):
     to_bank_name = models.CharField(max_length=150, default="None")
     to_bank_account = models.CharField(max_length=150, default="None")
     narration = models.CharField(max_length=150, default=".")
-    completed= models.CharField(max_length=50, default="0")
 
 class PaymentTicketPOP(models.Model):
     payment_ticket_id = models.CharField(max_length=150, default="None")
