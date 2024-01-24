@@ -2625,6 +2625,7 @@ def suppliers_open_record(request):
         # objs = Record.objects.get(id=_id)
       record = Supplier.objects.get(id=_id)
       if record.rejector != "None":
+        print("rejected", record.rejector)
         rejected = True
 
 
