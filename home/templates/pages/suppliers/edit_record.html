@@ -313,9 +313,9 @@ var approved_by= $("#approved_by").val();
                 
     
                             current_url = window.location.href;
-                            arr = current_url.split("_");
+                            arr = current_url.split("/");
                             case_id = arr.at(-1);
-                        if (case_id == "add"){
+                        if (case_id == "add"){}else{
                 
                         const url = "  https://lorkas.co.zw/procurement/suppliers_approve";
                         // current_url = window.location.href;
@@ -348,10 +348,12 @@ var approved_by= $("#approved_by").val();
                         }
                 
                         });
+
+                    }
                         // alert("stop hee");
                     }
                 
-                    }
+                    
                         </script>
                 
                 

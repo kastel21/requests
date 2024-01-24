@@ -2880,7 +2880,7 @@ def suppliers_approve(request):
         _id = request.POST.get('id',default=None)
 
         record = Supplier.objects.get(id=_id)
-        record.approved_by = request.user.username
+        # record.approved_by = request.user.username
         d = datetime.datetime.now()
         record.approved_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
 
@@ -3249,96 +3249,6 @@ def budget_line_send_record(request):
             f.write(str(e))
             f.close()
             return JsonResponse({'message':"failed","tab":"1"})
-
-@login_required(login_url='login')
-@csrf_exempt
-def suppliers_upload_docs(request):
-    if request.method == 'POST' and request.FILES['vat'] and request.FILES['profile']and request.FILES['tax'] and request.FILES['cert']:
-        myfile1 = request.FILES['vat']
-        myfile2 = request.FILES['cert']
-        myfile3 = request.FILES['profile']
-        myfile4 = request.FILES['tax']
-
-        request_id = request.POST.get('request_id')
-        
-        import os
-        path = "uploads/suppliers/docs/"+str(request_id)
-        # Check whether the specified path exists or not
-        # #print"path ",path)
-        isExist = os.path.exists(path)
-        if not isExist:
-
-          # Create a new directory because it does not exist
-          os.makedirs(path)
-
-
-
-        fs = FileSystemStorage()
-        filename1 = fs.save(path+"/"+myfile1.name, myfile1)
-        uploaded_file_url1 = fs.url(filename1)
-
-        filename2 = fs.save(path+"/"+myfile2.name, myfile2)
-        uploaded_file_url2 = fs.url(filename2)
-
-        filename3 = fs.save(path+"/"+myfile3.name, myfile3)
-        uploaded_file_url3 = fs.url(filename3)
-
-        filename4 = fs.save(path+"/"+myfile4.name, myfile4)
-        uploaded_file_url4 = fs.url(filename4)
-
-
-
-        record = SupplierDocs()
-        record.request_id = request_id
-
-        record.vat_path = uploaded_file_url1
-        record.tax_clearance_path = uploaded_file_url4
-        record.profile_path = uploaded_file_url3
-        record.certificate_path = uploaded_file_url2
-
-
-        record.save()
-        return redirect('/procurement/suppliers_all')
-    else:
-          return render(request, 'pages/suppliers/upload_pop.html')
-
-
-
-
-
-
-@login_required(login_url='login')
-@csrf_exempt
-def suppliers_approve(request):
-    
-    try:
-      if request.method == "POST":
-        
-        _id = request.POST.get('id',default=None)
-
-        record = Supplier.objects.get(id=_id)
-        record.approved_by = request.user.username
-        d = datetime.datetime.now()
-        record.approved_by_date= "{:%B %d, %Y  %H:%M:%S}".format(d)
-
-        notice = Notifications()
-        notice.to = record.added_by
-        record.save()
-
-        notice.message = " "+ request.user.username +" approved your Supplier Add."
-        notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
-        notice.trigger = request.user.username
-        notice.save()
-
-        return JsonResponse( {'message':"success","tab":"7"})
-
-    except Exception as e:
-       return JsonResponse( {'message': str(e)})
-
-
-
-
-
 
 
 
