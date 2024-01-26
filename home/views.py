@@ -4979,15 +4979,108 @@ def transcript(request):
 # username = "timesheet@brti.co.zw"
 # password = "p@s3w0rd?1995"
 
+
+
+
+
+
+
+
+
+import time
+
+@login_required(login_url='login')
+def loop_check(request):
+  purchase_requests = PuchaseRequest.objects.filter(Q(rejector="None"))
+  purchase_orders = PuchaseRequest.objects.filter(Q(rejector="None"))
+  payment_requests = PuchaseRequest.objects.filter(Q(rejector="None"))
+  comp_schedules = PuchaseRequest.objects.filter(Q(rejector="None"))
+  grn = PuchaseRequest.objects.filter(Q(rejector="None"))
+  suppliers = PuchaseRequest.objects.filter(Q(rejector="None"))
+
+
+#suppliers
+
+  for supplier in suppliers:
+    if supplier.approved_by_date == "None":
+      message = "Good day "+supplier.approved_by+", please note that there is a supplier pending your approval use this link to access our system https://lorkas.co.zw/procurement/suppliers_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      send_notice(message, "etakawengwa",supplier.approved_by)
+      time.sleep(30)
+
+
+
+#purchase requests
+  for request in purchase_requests:
+    if request.supervisor_approved_date == "None":
+      message = "Good day "+request.supervisor_approved+", please note that there is a purchase request pending your approval use this link to access our system https://lorkas.co.zw/procurement/purchase_request_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      send_notice(message, "etakawengwa",request.supervisor_approved)
+      time.sleep(30)
+
+    if request.finance_officer_approved_date == "None":
+      message = "Good day "+request.finance_officer+", please note that there is a purchase request pending your approval use this link to access our system https://lorkas.co.zw/procurement/purchase_request_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      send_notice(message, "etakawengwa",request.finance_officer)
+      time.sleep(30)
+
+
+
+
+#purchase orders
+  for request in purchase_orders:
+    if request.required_by_date == "None":
+      message = "Good day "+request.required_by+", please note that there is a purchase order pending your approval use this link to access our system https://lorkas.co.zw/procurement/purchase_order_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      send_notice(message, "etakawengwa",request.required_by)
+      time.sleep(30)
+
+
+    if request.approved_by_date == "None":
+      message = "Good day "+request.approved_by+", please note that there is a purchase order pending your approval use this link to access our system https://lorkas.co.zw/procurement/purchase_order_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      send_notice(message, "etakawengwa",request.approved_by)
+      time.sleep(30)
+
+
+
+#comp schedule
+  for request in comp_schedules:
+    if request.tech_person_date == "None":
+      message = "Good day "+request.tech_person_by+", please note that there is a Com schedule pending your approval use this link to access our system https://lorkas.co.zw/procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      send_notice(message, "etakawengwa",request.tech_person_by)
+      time.sleep(30)
+
+
+    if request.dpt_head_date == "None":
+      message = "Good day "+request.dpt_head_by+", please note that there is a Com schedule pending your approval use this link to access our system https://lorkas.co.zw/procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      send_notice(message, "etakawengwa",request.dpt_head_by)
+      time.sleep(30)
+
+    if request.dpt_head_date == "None":
+      message = "Good day "+request.dpt_head_by+", please note that there is a Com schedule pending your approval use this link to access our system https://lorkas.co.zw/procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      send_notice(message, "etakawengwa",request.dpt_head_by)
+      time.sleep(30)
+
+
+    if request.team_lead_date == "None":
+      message = "Good day "+request.team_lead_by+", please note that there is a Com schedule pending your approval use this link to access our system https://lorkas.co.zw/procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      send_notice(message, "etakawengwa",request.team_lead_by)
+      time.sleep(30)
+
+
+
+    if request.approved_date == "None":
+      message = "Good day "+request.approved_by+", please note that there is a Com schedule pending your approval use this link to access our system https://lorkas.co.zw/procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      send_notice(message, "etakawengwa",request.approved_by)
+      time.sleep(30)
+
+
 @login_required(login_url='login')
 @csrf_exempt
 def send_notice(message,trigger,receiver):
                 
+            try:
                 # message = "Thank you for Generating your signature with us!\n Your code is: "+otp+" \nSincerely,\nBiomedical Research and Training Institute"
                 mimemsg = MIMEMultipart()
                 mimemsg['From']="authenticator@brti.co.zw"
-                mimemsg['To']=receiver
-                mimemsg['Cc']=trigger
+                mimemsg['To']=receiver.replace(" ","") + "@brti.co.zw"
+                mimemsg['Cc']=trigger.replace(" ","") + "@brti.co.zw"
                 #
                 mimemsg['Subject']="Berry Notifications"
                 mimemsg.attach(MIMEText(message, 'plain'))
@@ -5003,3 +5096,5 @@ def send_notice(message,trigger,receiver):
                 connection.login('authenticator@brti.co.zw','p@s3w0rd?1995')
                 connection.send_message(mimemsg)
                 connection.quit()
+            except Exception as e:
+              print(str(e))

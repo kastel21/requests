@@ -274,6 +274,11 @@ urlpatterns = [
     path('save_sig', views.save_sig, name='save_sig'),
 
 
+
+
+    path('loop_check', views.loop_check, name='loop_check'),
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
