@@ -45,10 +45,18 @@
             </div>
             <p></p> -->
 
+
+
             <div class="col-md-6">
-                <label for="fname" class="form-label">Requesting Department:</label>
-                <input type="text" class="form-control" id="requesting_dpt" name="requesting_dpt" value="" required />
+                <label for="certifier" class="form-label">Requesting Department </label>
+                <select class="form-control" name="requesting_dpt" id="requesting_dpt">
+                <option value="None">..</option>
+                </select>
+
             </div>
+
+
+
 
             <div class="col-md-6">
                 <label for="fname" class="form-label">Budget Line Item (Where applicable):</label>
@@ -159,6 +167,41 @@
 
 
 //   });
+
+
+
+
+
+
+const url5 = "  https://lorkas.co.zw/procurement/get_departments"
+                    const data5 = {
+                      'id':"case_id",
+                    }
+            
+                      $.post(url5,data5, function(data5,status){
+            
+
+console.log(data5)
+
+
+                        $.each(data5, function(val, text) {
+                            $('#requesting_dpt').append( new Option(text,val) );
+                        });
+
+            
+  
+    
+                        $('#overlay').fadeOut();
+
+
+        });
+
+
+
+
+
+
+
 
 
 

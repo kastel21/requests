@@ -288,6 +288,12 @@ def purchase_request_send_record(request):
           record.save()
        
           _id = record.pk
+          message = "Good day "+record.supervisor_approved+",\n "+record.requester+" has created a purchase request awaiting your approval. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+          
+          
+          
+          send_notice(message,requester,record.supervisor_approved)
+
           return JsonResponse( {'message':"success",'id':_id})
 
         except Exception as e  :
@@ -368,6 +374,17 @@ def purchase_request_pi_approve(request):
       record.budget_line_item = line
       record.save()
 
+      message1 = "Good day "+record.requester+",\n "+record.supervisor_approved+" has approved your purchase request awaiting finance approval. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message2 = "Good day "+record.finance_officer+",\n "+record.supervisor_approved+" has assigned you to clear a purchase request. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+
+          
+          
+      send_notice(message1,record.supervisor_approved,requester)
+
+
+      send_notice(message2,record.supervisor_approved,record.finance_officer)
+
+
       notice = Notifications()
       notice.to = clerk
       notice.message = " "+ username +" updated a Purchse Request \n and assigned you as the Finance Clerk for you to approve."
@@ -407,6 +424,20 @@ def purchase_request_clerk_approve(request):
       notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice.trigger = username
       notice.save()
+
+
+
+      message1 = "Good day "+record.requester+",\n "+record.finance_officer+" has cleared your purchase request. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+
+          
+          
+      send_notice(message1,record.finance_officer,requester)
+
+
+      send_notice(message2,record.requester,"tjongwe")
+
+
       return JsonResponse( {'message':"success","tab":"1"})
     else:
       return render(request, 'pages/purchase_requests/list.html', {})
@@ -432,7 +463,17 @@ def purchase_request_reject(request):
       notice.to = record.requester
       record.save()
 
-  
+      message1 = "Good day "+record.requester+",\n "+record.rejector+" has rejected your purchase request. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+
+          
+          
+      send_notice(message1,record.finance_officer,requester)
+
+
+
+
+
       notice.message = " "+ username +" has rejected your Purchse Request."
       notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice.trigger = username
@@ -772,7 +813,12 @@ def comp_schedule_send_record(request):
           # d = datetime.datetime.now()
         #   record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
         #   record.approved_by_date= approved_by_date
+          message1 = "Good day "+record.tech_person_by+",\n "+record.rejector+" has rejected your purchase request. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
+          
+          
+          send_notice(message1,record.finance_officer,requester)
           record.save()
           notice.save()
 
@@ -937,7 +983,7 @@ def comp_schedule_approve_head(request):
       else:
         notice = Notifications()
         notice.to = chair
-        notice.message = " "+ username +" updated a Comparative schedule\n and assigned you as the PI for you to approve."
+        notice.message = " "+ username +" updated a Comparative schedule\n and assigned you as the chair for you to approve."
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = username
         notice.save()
@@ -951,6 +997,14 @@ def comp_schedule_approve_head(request):
       #   notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
       #   notice.trigger = username
       #   notice.save()
+
+
+      message = " "+ username +" updated a Comparative schedule\n and assigned you as the chair for you to approve."
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+
+          
+          
+      send_notice(message,username,chair)
 
       record.save()
 
@@ -995,7 +1049,12 @@ def comp_schedule_approve_lead(request):
         notice.save()
 
 
+      message = " "+ username +" updated a Comparative schedule\n and assigned you as the chair for you to approve."
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
+          
+          
+      send_notice(message,username,chair)
       record.save()
 
 
@@ -1037,7 +1096,12 @@ def comp_schedule_approve_pi(request):
       notice.trigger = request.user.username
       notice.save()
 
+      message = " "+ username +" rejected your Comparative schedule."
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
+          
+          
+      send_notice(message,username,record.requested_by)
 
       return JsonResponse( {'message':"success","tab":"1"})
 
@@ -1171,6 +1235,14 @@ def comp_schedule_reject(request):
       notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice.trigger = username
       notice.save()
+
+      message = " "+ username +" rejected your Comparative schedule."
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+
+          
+          
+      send_notice(message,username,record.requested_by)
+      
       return JsonResponse( {'message':"success","tab":"1"})
     else:
       return render(request, 'pages/purchase_requests/list.html', {})
@@ -1208,6 +1280,16 @@ def payment_request_reject(request):
       notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice.trigger = username
       notice.save()
+
+      message = " "+ username +" rejected your  payment request."
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+
+          
+          
+      send_notice(message,username,record.compiled_by)
+
+
+
       return JsonResponse( {'message':"success","tab":"1"})
     else:
       return render(request, 'pages/purchase_requests/list.html', {})
@@ -1807,6 +1889,14 @@ def payment_request_certify(request):
         notice.trigger = request.user.username
         notice.save()
 
+
+        message = " "+ request.user.username +" updated a Payement Request\n and assigned you as the Finance Officer for you to clear."
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+
+          
+          
+        send_notice(message,request.user.username,clear)
+
         return JsonResponse( {'message':"success","tab":"1"})
       else:
         return render(request, 'pages/payment_requests/list.html', {})
@@ -1841,7 +1931,12 @@ def payment_request_clear(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
+        message = " "+ request.user.username +" updated a Payement Request\n and assigned you as the Approver."
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
+          
+          
+        send_notice(message,request.user.username, record.compiled_by)
         return JsonResponse( {'message':"success","tab":"1"})
       else:
         return render(request, 'pages/payment_requests/list.html', {})
@@ -1882,6 +1977,10 @@ def payment_request_approve(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
+
+        message = " "+ request.user.username +" Approved your Payment Request."
+
+        send_notice(message,request.user.username, record.compiled_by)
 
         return JsonResponse( {'message':"success","tab":"1"})
       else:
@@ -2104,6 +2203,10 @@ def payment_request_send_record(request):
           record.save()
 
           _id = record.pk
+          message = request.user.username +" has created a Payment Request and assigned you to Certify"
+
+          send_notice(message,request.user.username, record.compiled_by)
+
           return JsonResponse( {'message':"success",'id':_id})
 
         except Exception as e  :
@@ -2551,6 +2654,11 @@ def suppliers_reject(request):
       notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice.trigger = username
       notice.save()
+      message = " "+ username +" has rejected your Supplier add ."
+
+      send_notice(message,request.user.username, record.added_by)
+
+
       return JsonResponse( {'message':"success","tab":"7"})
     else:
       return render(request, 'pages/suppliers/list.html', {})
@@ -2805,6 +2913,10 @@ def suppliers_send_record(request):
 
           record.save()
 
+          message = request.user.username +" has added a Supplier for you to approve"
+
+          send_notice(message,request.user.username, record.approved_by)
+
           _id = record.pk
           return JsonResponse( {'message':"success",'id':_id})
 
@@ -2893,7 +3005,9 @@ def suppliers_approve(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
+        message = request.user.username +" approved your Supplier Add"
 
+        send_notice(message,request.user.username, record.added_by)
         return JsonResponse( {'message':"success","tab":"7"})
 
     except Exception as e:
@@ -3296,6 +3410,11 @@ def goods_received_notes_reject(request):
       notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice.trigger = username
       notice.save()
+
+
+      message = " "+ username +" has rejected your GRN ."
+
+      send_notice(message,request.user.username, record.receiver)
       return JsonResponse( {'message':"success","tab":"6"})
     else:
       return render(request, 'pages/purchase_requests/list.html', {})
@@ -3514,7 +3633,7 @@ def goods_received_notes_send_record(request):
           record.supplier= supplier
 
           notice = Notifications()
-          notice.to= record.receiver
+          notice.to= record.approver
           notice.trigger = request.user.username
           notice.message = request.user.username +" has created a GRN for you to sign"
 
@@ -3524,7 +3643,9 @@ def goods_received_notes_send_record(request):
           notice.save()
           # record.approved_by_date= approved_by_date
 
+          message = request.user.username +" has created a GRN for you to sign"
 
+          send_notice(message,request.user.username, record.approver)
           record.save()
 
           _id = record.pk
@@ -3597,6 +3718,7 @@ def goods_received_notes_approve(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
+        send_notice(notice.message,request.user.username, record.receiver)
 
         return JsonResponse( {'message':"success","tab":"1"})
 
@@ -3645,6 +3767,9 @@ def purchase_order_reject(request):
       notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
       notice.trigger = username
       notice.save()
+
+      send_notice(notice.message,request.user.username, record.compiled_by)
+
       return JsonResponse( {'message':"success","tab":"1"})
     else:
       return render(request, 'pages/purchase_requests/list.html', {})
@@ -4005,6 +4130,7 @@ def purchase_order_certify(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
+        send_notice(notice.message,request.user.username, record.cleared_by_fin_man)
 
         return JsonResponse( {'message':"success","tab":"1"})
       else:
@@ -4039,6 +4165,7 @@ def purchase_order_clear(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
+        send_notice(notice.message,request.user.username, record.approver)
 
         return JsonResponse( {'message':"success","tab":"1"})
       else:
@@ -4078,6 +4205,7 @@ def purchase_order_required(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
+        send_notice(notice.message,request.user.username, record.compiled_by)
 
         return JsonResponse( {'message':"success","tab":"1"})
       else:
@@ -4117,6 +4245,7 @@ def purchase_order_ordered(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
+        send_notice(notice.message,request.user.username, record.compiled_by)
 
         return JsonResponse( {'message':"success","tab":"1"})
       else:
@@ -4156,6 +4285,7 @@ def purchase_order_approve(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
+        send_notice(notice.message,request.user.username, record.compiled_by)
 
         return JsonResponse( {'message':"success","tab":"1"})
       else:
@@ -4195,6 +4325,7 @@ def purchase_ordered_approve(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
+        send_notice(notice.message,request.user.username, record.compiled_by)
 
         return JsonResponse( {'message':"success","tab":"1"})
       else:
@@ -4377,6 +4508,7 @@ def purchase_order_send_record(request):
           notice.status = "New"
           notice.save()
           # record.approved_by_date= approved_by_date
+          send_notice(notice.message,request.user.username, record.required_by)
 
 
           record.save()
@@ -4828,3 +4960,46 @@ def transcript(request):
         return HttpResponse(pdf, content_type='application/pdf')
     
     # return render(request,'transcript.html')
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  #notifications
+
+
+# username = "timesheet@brti.co.zw"
+# password = "p@s3w0rd?1995"
+
+@login_required(login_url='login')
+@csrf_exempt
+def send_notice(message,trigger,receiver):
+                
+                # message = "Thank you for Generating your signature with us!\n Your code is: "+otp+" \nSincerely,\nBiomedical Research and Training Institute"
+                mimemsg = MIMEMultipart()
+                mimemsg['From']="authenticator@brti.co.zw"
+                mimemsg['To']=receiver
+                mimemsg['Cc']=trigger
+                #
+                mimemsg['Subject']="Berry Notifications"
+                mimemsg.attach(MIMEText(message, 'plain'))
+
+                # with open(mail_attachment, "rb") as attachment:
+                #     mimefile = MIMEBase('application', 'octet-stream')
+                #     #mimefile.set_payload((attachment).read())
+                # #     encoders.encode_base64(mimefile)
+                # #     mimefile.add_header('Content-Disposition', "attachment; filename= %s" % mail_attachment_name)
+                #     #mimemsg.attach(mimefile)
+                connection = smtplib.SMTP(host='smtp.office365.com', port=587)
+                connection.starttls()
+                connection.login('authenticator@brti.co.zw','p@s3w0rd?1995')
+                connection.send_message(mimemsg)
+                connection.quit()
