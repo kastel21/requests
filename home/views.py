@@ -5005,7 +5005,7 @@ def loop_check(request):
     if supplier.approved_by_date == "None":
       message = "Good day "+supplier.approved_by+", please note that there is a supplier pending your approval use this link to access our system https://lorkas.co.zw/procurement/suppliers_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
       send_notice(message, "etakawengwa",supplier.approved_by)
-      time.sleep(30)
+      # time.sleep(30)
 
 
 
@@ -5014,12 +5014,12 @@ def loop_check(request):
     if record.supervisor_approved_date == "None":
       message = "Good day "+record.supervisor_approved+", please note that there is a purchase request pending your approval use this link to access our system https://lorkas.co.zw/procurement/purchase_request_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
       send_notice(message, "etakawengwa",record.supervisor_approved)
-      time.sleep(30)
+      # time.sleep(30)
 
     if record.finance_officer_approved_date == "None":
       message = "Good day "+record.finance_officer+", please note that there is a purchase request pending your approval use this link to access our system https://lorkas.co.zw/procurement/purchase_request_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
       send_notice(message, "etakawengwa",record.finance_officer)
-      time.sleep(30)
+      # time.sleep(30)
 
 
 
@@ -5029,13 +5029,13 @@ def loop_check(request):
     if record.required_by_date == "None":
       message = "Good day "+record.required_by+", please note that there is a purchase order pending your approval use this link to access our system https://lorkas.co.zw/procurement/purchase_order_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
       send_notice(message, "etakawengwa",record.required_by)
-      time.sleep(30)
+      # time.sleep(30)
 
 
     if record.approved_by_date == "None":
       message = "Good day "+record.approved_by+", please note that there is a purchase order pending your approval use this link to access our system https://lorkas.co.zw/procurement/purchase_order_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
       # send_notice(message, "etakawengwa",record.approved_by)
-      time.sleep(30)
+      # time.sleep(30)
 
 
 
@@ -5044,31 +5044,31 @@ def loop_check(request):
     if record.tech_person_date == "None":
       message = "Good day "+record.tech_person_by+", please note that there is a Com schedule pending your approval use this link to access our system https://lorkas.co.zw/procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
       send_notice(message, "etakawengwa",record.tech_person_by)
-      time.sleep(30)
+      # time.sleep(30)
 
 
     if record.dpt_head_date == "None":
       message = "Good day "+record.dpt_head_by+", please note that there is a Com schedule pending your approval use this link to access our system https://lorkas.co.zw/procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
       send_notice(message, "etakawengwa",record.dpt_head_by)
-      time.sleep(30)
+      # time.sleep(30)
 
     if record.dpt_head_date == "None":
       message = "Good day "+record.dpt_head_by+", please note that there is a Com schedule pending your approval use this link to access our system https://lorkas.co.zw/procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
       send_notice(message, "etakawengwa",record.dpt_head_by)
-      time.sleep(30)
+      # time.sleep(30)
 
 
     if record.team_lead_date == "None":
       message = "Good day "+record.team_lead_by+", please note that there is a Com schedule pending your approval use this link to access our system https://lorkas.co.zw/procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
       send_notice(message, "etakawengwa",record.team_lead_by)
-      time.sleep(30)
+      # time.sleep(30)
 
 
 
     if record.approved_date == "None":
       message = "Good day "+record.approved_by+", please note that there is a Com schedule pending your approval use this link to access our system https://lorkas.co.zw/procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
       send_notice(message, "etakawengwa",record.approved_by)
-      time.sleep(30)
+      # time.sleep(30)
 
 
 @login_required(login_url='login')
