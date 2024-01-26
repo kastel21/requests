@@ -5034,7 +5034,7 @@ def loop_check(request):
 
     if record.approved_by_date == "None":
       message = "Good day "+record.approved_by+", please note that there is a purchase order pending your approval use this link to access our system https://lorkas.co.zw/procurement/purchase_order_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
-      send_notice(message, "etakawengwa",record.approved_by)
+      # send_notice(message, "etakawengwa",record.approved_by)
       time.sleep(30)
 
 
