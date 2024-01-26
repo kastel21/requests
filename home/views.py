@@ -2910,12 +2910,12 @@ def suppliers_send_record(request):
           notice.save()
           # record.approved_by_date= approved_by_date
 
-
+          username = request.user.username
           record.save()
 
-          message = request.user.username +" has added a Supplier for you to approve"
+          message = username +" has added a Supplier for you to approve"
 
-          send_notice(message,request.user.username, record.approved_by)
+          send_notice(message,username, record.approved_by)
 
           _id = record.pk
           return JsonResponse( {'message':"success",'id':_id})
