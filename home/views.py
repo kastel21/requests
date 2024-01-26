@@ -4992,11 +4992,11 @@ import time
 @login_required(login_url='login')
 def loop_check(request):
   purchase_requests = PuchaseRequest.objects.filter(Q(rejector="None"))
-  purchase_orders = PuchaseRequest.objects.filter(Q(rejector="None"))
-  payment_requests = PuchaseRequest.objects.filter(Q(rejector="None"))
-  comp_schedules = PuchaseRequest.objects.filter(Q(rejector="None"))
-  grn = PuchaseRequest.objects.filter(Q(rejector="None"))
-  suppliers = PuchaseRequest.objects.filter(Q(rejector="None"))
+  purchase_orders = PurchaseOrder.objects.filter(Q(rejector="None"))
+  payment_requests = PaymentRequest.objects.filter(Q(rejector="None"))
+  comp_schedules = ComparativeSchedule.objects.filter(Q(rejector="None"))
+  grn = GoodsReceivedNote.objects.filter(Q(rejector="None"))
+  suppliers = Supplier.objects.filter(Q(rejector="None"))
 
 
 #suppliers
