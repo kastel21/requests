@@ -5071,8 +5071,6 @@ def loop_check(request):
       # time.sleep(30)
 
 
-@login_required(login_url='login')
-@csrf_exempt
 def send_notice(message,trigger,receiver):
                 
             try:
