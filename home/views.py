@@ -101,21 +101,21 @@ def sample_page(request):
   return render(request, 'pages/sample-page.html')
 
 
-# # Authentication
-# def registration(request):
-#   if request.method == 'POST':
-#     form = RegistrationForm(request.POST)
-#     if form.is_valid():
-#       form.save()
-#       #print'Account created successfully!')
-#       return redirect('/procurement//accounts/login/')
-#     else:
-#       #print"Registration failed!")
-#   else:
-#     form = RegistrationForm()
+# Authentication
+def registration(request):
+  if request.method == 'POST':
+    form = RegistrationForm(request.POST)
+    if form.is_valid():
+      form.save()
+      #print'Account created successfully!')
+      return redirect('/procurement/accounts/login/')
+    else:
+      #print"Registration failed!")
+  else:
+    form = RegistrationForm()
   
-#   context = {'form': form}
-#   return render(request, 'accounts/register.html', context)
+  context = {'form': form}
+  return render(request, 'accounts/register.html', context)
 
 class UserLoginView(auth_views.LoginView):
   template_name = 'accounts/login.html'
