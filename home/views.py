@@ -49,7 +49,7 @@ def welcome(request):
     for one in user:
     
       try:
-        if one.last_login == "None":
+        if one.last_login is None:
           users.append(one)
 
       except:
