@@ -43,17 +43,8 @@ def show_pdf(request):
 
 @login_required(login_url='login')
 def welcome(request):
-    user = User.objects.all()
-    users = []
+    users = User.objects.filter(last_login=None)
 
-    for one in user:
-    
-      try:
-        if one.last_login is None:
-          users.append(one)
-
-      except:
-        pass
       
 
 
