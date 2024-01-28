@@ -15,6 +15,8 @@ from django.shortcuts import redirect
 from .utils import *
 from django.contrib.auth.decorators import login_required
 import qrcode
+from django.contrib.auth.models import User
+
 
 # Data to be encoded
 data = 'QR Code using make() function'
@@ -37,6 +39,12 @@ def show_pdf(request):
     #printrequest.path)
     filepath="C:\\fakepath\\2022 PRICE LIST (1).pdf"
     return FileResponse(open(filepath, 'rb'), content_type='application/pdf')
+
+
+@login_required(login_url='login')
+def welcome(request):
+    user = User.objects.get(username=request.user)
+
 
 
 # Create your views here.
@@ -110,7 +118,7 @@ def registration(request):
       #print'Account created successfully!')
       return redirect('/procurement/accounts/login/')
     else:
-      #print"Registration failed!")
+      pass
   else:
     form = RegistrationForm()
   
