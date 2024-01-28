@@ -18,6 +18,8 @@ urlpatterns = [
     path('color/', views.color, name='color'),
     path('icon-tabler/', views.icon_tabler, name='icon_tabler'),
     path('sample-page/', views.sample_page, name='sample_page'),
+    path('welcome', views.welcome, name='welcome'),
+
 
     # Authentication
     path('accounts/login/', views.UserLoginView.as_view(), name='login'),

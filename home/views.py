@@ -43,7 +43,10 @@ def show_pdf(request):
 
 @login_required(login_url='login')
 def welcome(request):
-    user = User.objects.get(username=request.user)
+    user = User.objects.get(username="anhidza")
+    last_log = user.last_login
+    return JsonResponse({'message':(str(last_log))})
+
 
 
 
