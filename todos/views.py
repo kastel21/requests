@@ -153,7 +153,7 @@ def sendEmail(request, receiver_email, notification_time):
     )
     return HttpResponse('Mail successfully sent')
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def check_time1( task):
   delay =1
   next_time = time.time() + delay
@@ -168,7 +168,7 @@ def check_time1( task):
 
 from datetime import datetime
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def is_expired1():
     # connection = sqlite3.connect('db.sqlite3')
     # cursor = connection.cursor()
