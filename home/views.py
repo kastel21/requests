@@ -45,6 +45,12 @@ def show_pdf(request):
 def welcome(request):
     users = User.objects.filter(last_login=None)
 
+    for user in users:
+          message = "Good day "+user.username+",\n We would like to welcome you to our procurement system (Berry) your temporary password is test123? to login use your username and this password. Use the following link to access the system.\n https://lorkas.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+          
+          
+          
+          send_notice(message,"system",user.email)
       
 
 
