@@ -5096,7 +5096,7 @@ def loop_check(request):
 def send_notice(message,trigger,receiver):
                 
             try:
-                ßprint(message)
+                print(message)
                 # message = "Thank you for Generating your signature with us!\n Your code is: "+otp+" \nSincerely,\nBiomedical Research and Training Institute"
                 mimemsg = MIMEMultipart()
                 mimemsg['From']="authenticator@brti.co.zw"
