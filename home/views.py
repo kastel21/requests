@@ -43,9 +43,23 @@ def show_pdf(request):
 
 @login_required(login_url='login')
 def welcome(request):
-    user = User.objects.filter(last_login="None")
+    user = User.objects.all()
+    users = []
+
+    for one in user:
+    
+      try:
+        if one.last_login == "None":
+          users.append(one)
+
+      except:
+        pass
+      
+
+
+  
     # last_log = user.last_login
-    return JsonResponse({'message':(str(user))})
+    return JsonResponse({'message':(str(users))})
 
 
 
