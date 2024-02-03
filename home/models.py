@@ -3,12 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 
-class User(AbstractUser):
-    department = models.ForeignKey(
-        Department,
-        on_delete=models.CASCADE,
-        default=None
-    )
+
 
 class PuchaseRequest(models.Model):
 
@@ -343,3 +338,12 @@ class Department(models.Model):
     head= models.CharField(max_length=255, blank=True)
     def __str__(self):
         return "Name : "+self.name +", Head : "+self.head
+
+
+
+class User(AbstractUser):
+    department = models.ForeignKey(
+        Department,
+        on_delete=models.CASCADE,
+        default=None
+    )
