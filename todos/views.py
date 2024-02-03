@@ -203,7 +203,7 @@ def is_expired1():
         today.save()
 
 
-threading.Thread(target=lambda: check_time1( is_expired1)).start()
+# threading.Thread(target=lambda: check_time1( is_expired1)).start()
 
 
 
