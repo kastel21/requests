@@ -347,3 +347,8 @@ class User(AbstractUser):
         on_delete=models.CASCADE,
         default=None
     )
+
+    supervisor = models.CharField(
+
+        max_length=255, blank=True
+    )
