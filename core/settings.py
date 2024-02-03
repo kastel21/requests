@@ -32,7 +32,7 @@ if not SECRET_KEY:
 # Render Deployment Code
 DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = ['lorkas.co.zw','www.lorkas.co.zw','localhost','127.0.0.1','0.0.0.0','41.174.97.68:80']
+ALLOWED_HOSTS = ['lorkas.co.zw','www.lorkas.co.zw','localhost','127.0.0.1','0.0.0.0','41.174.97.68:80','www.kaslor.co.zw','kaslor.co.zw']
 CSRF_TRUSTED_ORIGINS = ['http://kaslor.co.zw/procurement/*','  http://127.0.0.1/*']
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
