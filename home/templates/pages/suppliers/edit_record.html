@@ -164,7 +164,7 @@ if(message == ""){
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "  https://lorkas.co.zw/procurement/suppliers_reject"
+                                    const url = "  http://kaslor.co.zw/procurement/suppliers_reject"
                                     const data = {
                                       'id':case_id,
                                       "message":message,
@@ -204,7 +204,7 @@ if(message == ""){
                                     console.log(case_id);
                                     $("#request_id").val(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "  https://lorkas.co.zw/procurement/suppliers_get_record"
+                                    const url = "  http://kaslor.co.zw/procurement/suppliers_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -268,7 +268,7 @@ function print(){
                                             arr = current_url.split("/");
                                             case_id = arr.at(-1);
 
-                        window.location.href="  https://lorkas.co.zw/procurement/purchase_order_print/"+case_id;
+                        window.location.href="  http://kaslor.co.zw/procurement/purchase_order_print/"+case_id;
 
 
 
@@ -317,7 +317,7 @@ var approved_by= $("#approved_by").val();
                             case_id = arr.at(-1);
                         if (case_id == "add"){}else{
                 
-                        const url = "  https://lorkas.co.zw/procurement/suppliers_approve";
+                        const url = "  http://kaslor.co.zw/procurement/suppliers_approve";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -336,14 +336,14 @@ var approved_by= $("#approved_by").val();
                             alert(status);
 
 
-                            window.location.href="  https://lorkas.co.zw/procurement/suppliers_all";
+                            window.location.href="  http://kaslor.co.zw/procurement/suppliers_all";
 
                         }else{
                             alert(data['message']);
                             console.log("err");
                             $('#overlay').fadeOut();
 
-                            window.location.href="  https://lorkas.co.zw/procurement/suppliers_all";
+                            window.location.href="  http://kaslor.co.zw/procurement/suppliers_all";
                 
                         }
                 

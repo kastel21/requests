@@ -1,8 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
-# /Users/it/requests/uploads/comp_schedules/1
-# uploads/comp_schedules/1
+
+
+class User(AbstractUser):
+    department = models.ForeignKey(
+        Department,
+        on_delete=models.CASCADE,
+        default=None
+    )
 
 class PuchaseRequest(models.Model):
 

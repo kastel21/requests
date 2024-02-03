@@ -173,7 +173,7 @@
 
 
 
-const url5 = "  https://lorkas.co.zw/procurement/get_departments"
+const url5 = "  http://kaslor.co.zw/procurement/get_departments"
                     const data5 = {
                       'id':"case_id",
                     }
@@ -209,7 +209,7 @@ console.log(data5)
 
 // populate the users dropdown
 
-const url = "  https://lorkas.co.zw/procurement/get_users"
+const url = "  http://kaslor.co.zw/procurement/get_users"
                     const data = {
                       'id':"case_id",
                     }
@@ -237,7 +237,7 @@ const url = "  https://lorkas.co.zw/procurement/get_users"
 
 
 
-const url1 = "  https://lorkas.co.zw/procurement/get_budget_lines"
+const url1 = "  http://kaslor.co.zw/procurement/get_budget_lines"
                     const data1 = {
                       'id':"case_id",
                     }
@@ -290,7 +290,7 @@ function sendEdit(){
                                     case_id = arr.at(-1);
                                 if (case_id == "add"){
                         
-                                const url = "  https://lorkas.co.zw/procurement/purchase_request_send_record";
+                                const url = "  http://kaslor.co.zw/procurement/purchase_request_send_record";
                                 // current_url = window.location.href;
                                 // arr = current_url.split("/");
                                 // case_id = arr.at(-1);
@@ -321,15 +321,15 @@ function sendEdit(){
                                 if (data['message']=="success"){
                                     alert("success");
                                     $('#overlay').fadeOut();
-                                    window.location.href="  https://lorkas.co.zw/procurement/purchase_request_all";
+                                    window.location.href="  http://kaslor.co.zw/procurement/purchase_request_all";
 
-                                    //window.location.href="  https://lorkas.co.zw/procurement/purchase_request_quote_upload/"+data['id'];
+                                    //window.location.href="  http://kaslor.co.zw/procurement/purchase_request_quote_upload/"+data['id'];
                                 }else{
                                     alert(data['message']);
                                     console,log("err")
                                     $('#overlay').fadeOut();
                                     return;
-                                    // window.location.href="  https://lorkas.co.zw/procurement/purchase_requests_all";
+                                    // window.location.href="  http://kaslor.co.zw/procurement/purchase_requests_all";
                         
                                 }
                         

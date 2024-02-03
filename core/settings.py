@@ -33,7 +33,7 @@ if not SECRET_KEY:
 DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = ['lorkas.co.zw','www.lorkas.co.zw','localhost','127.0.0.1','0.0.0.0','41.174.97.68:80']
-CSRF_TRUSTED_ORIGINS = ['https://lorkas.co.zw/procurement/*','  http://127.0.0.1/*']
+CSRF_TRUSTED_ORIGINS = ['http://kaslor.co.zw/procurement/*','  http://127.0.0.1/*']
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:    
@@ -168,6 +168,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
+AUTH_USER_MODEL = 'home.User'
 
 LANGUAGE_CODE = "en-us"
 

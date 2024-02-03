@@ -162,7 +162,7 @@
 
 // populate the users dropdown
 
-const url = "  https://lorkas.co.zw/procurement/get_users"
+const url = "  http://kaslor.co.zw/procurement/get_users"
                     const data = {
                       'id':"case_id",
                     }
@@ -200,7 +200,7 @@ const url = "  https://lorkas.co.zw/procurement/get_users"
                         case_id = arr.at(-1);
                     console.log(case_id);
                     if (case_id == "add"){}else{
-                    const url = "  https://lorkas.co.zw/procurement/payment_request_get_record"
+                    const url = "  http://kaslor.co.zw/procurement/payment_request_get_record"
                     const data = {
                       'id':case_id,
                     }
@@ -256,7 +256,7 @@ function print(){
                         arr = current_url.split("/");
                         case_id = arr.at(-1);
 
-    window.location.href="  https://lorkas.co.zw/procurement/payment_request_print/"+case_id;
+    window.location.href="  http://kaslor.co.zw/procurement/payment_request_print/"+case_id;
 
 
 
@@ -267,7 +267,7 @@ function edit(){
     current_url = window.location.href;
                         arr = current_url.split("/");
                         case_id = arr.at(-1);
-window.location.href="  https://lorkas.co.zw/procurement/payment_request_view/"+case_id;
+window.location.href="  http://kaslor.co.zw/procurement/payment_request_view/"+case_id;
 
 
 
@@ -314,7 +314,7 @@ window.location.href="  https://lorkas.co.zw/procurement/payment_request_view/"+
         console.log(case_id);
         if (case_id == "add"){
 
-        const url = "  https://lorkas.co.zw/procurement/payment_request_send_record";
+        const url = "  http://kaslor.co.zw/procurement/payment_request_send_record";
         // current_url = window.location.href;
         // arr = current_url.split("/");
         // case_id = arr.at(-1);
@@ -350,10 +350,10 @@ window.location.href="  https://lorkas.co.zw/procurement/payment_request_view/"+
         $.post(url,data, function(data,status){
         if (data['message']=="success"){
             console.log("success")
-            window.location.href="  https://lorkas.co.zw/procurement/payment_request_all";
+            window.location.href="  http://kaslor.co.zw/procurement/payment_request_all";
         }else{
             console.log(data['message'])
-            window.location.href="  https://lorkas.co.zw/procurement/payment_request_all";
+            window.location.href="  http://kaslor.co.zw/procurement/payment_request_all";
 
         }
 
@@ -361,7 +361,7 @@ window.location.href="  https://lorkas.co.zw/procurement/payment_request_view/"+
         // alert("stop hee");
     }else{
 
-        const url = "  https://lorkas.co.zw/procurement/payment_request_edit_record/";
+        const url = "  http://kaslor.co.zw/procurement/payment_request_edit_record/";
         // current_url = window.location.href;
         // arr = current_url.split("/");
         // case_id = arr.at(-1);
@@ -402,15 +402,15 @@ window.location.href="  https://lorkas.co.zw/procurement/payment_request_view/"+
       
 
         $.post(url,data, function(data,status){
-          window.location.replace("  https://lorkas.co.zw/procurement/payment_request_view/"+case_id);
+          window.location.replace("  http://kaslor.co.zw/procurement/payment_request_view/"+case_id);
 
         console.log(data);
         if (data['message']=="success"){
             alert("success");
-            window.location.replace("  https://lorkas.co.zw/procurement/payment_request_view/"+case_id);
+            window.location.replace("  http://kaslor.co.zw/procurement/payment_request_view/"+case_id);
         }else{
             alert(data['message']);
-            window.location.replace("  https://lorkas.co.zw/procurement/payment_request_view/"+case_id);
+            window.location.replace("  http://kaslor.co.zw/procurement/payment_request_view/"+case_id);
 
             // window.location.href="/view_record/"+case_id;
 

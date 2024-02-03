@@ -305,7 +305,7 @@ if(message == ""){
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "  https://lorkas.co.zw/procurement/comp_schedule_reject"
+                                    const url = "  http://kaslor.co.zw/procurement/comp_schedule_reject"
                                     const data = {
                                       'id':case_id,
                                       "message":message,
@@ -351,7 +351,7 @@ if(message == ""){
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "  https://lorkas.co.zw/procurement/comp_schedule_get_record"
+                                    const url = "  http://kaslor.co.zw/procurement/comp_schedule_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -413,7 +413,7 @@ if(message == ""){
                     // $("#approved_date").val(data['approved_date']);  
                     // populate the users dropdown
 
-const url = "  https://lorkas.co.zw/procurement/get_users"
+const url = "  http://kaslor.co.zw/procurement/get_users"
                     const data1 = {
                       'id':"case_id",
                     }
@@ -459,7 +459,7 @@ const url = "  https://lorkas.co.zw/procurement/get_users"
             case_id = arr.at(-1);
             console.log(case_id);
 
-        const url = "  https://lorkas.co.zw/procurement/comp_schedule_approve";
+        const url = "  http://kaslor.co.zw/procurement/comp_schedule_approve";
         const data={
                 "head":$('#dpt_head_by').val(),
                 "id":case_id,
@@ -470,12 +470,12 @@ const url = "  https://lorkas.co.zw/procurement/get_users"
             alert("success");
             $('#overlay').fadeOut();
 
-            window.location.href="  https://lorkas.co.zw/procurement/comp_schedule_all";
+            window.location.href="  http://kaslor.co.zw/procurement/comp_schedule_all";
         }else{
             alert(data['message']);
             $('#overlay').fadeOut();
 
-            window.location.href="  https://lorkas.co.zw/procurement/comp_schedule_all";
+            window.location.href="  http://kaslor.co.zw/procurement/comp_schedule_all";
 
         }
 
