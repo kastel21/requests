@@ -122,9 +122,9 @@ WSGI_APPLICATION = "core.wsgi.application"
 DB_ENGINE   = os.getenv('DB_ENGINE'   , None)
 DB_USERNAME = os.getenv('DB_USERNAME' , None)
 DB_PASS     = os.getenv('DB_PASS'     , None)
-DB_HOST     = os.getenv('DB_HOST'     , None)
+# DB_HOST     = os.getenv('DB_HOST'     , None)
 # DB_HOST     = 'www.lorkas.co.zw'
-
+DB_HOST     = "192.168.1.4"
 DB_PORT     = os.getenv('DB_PORT'     , None)
 DB_NAME     = os.getenv('DB_NAME'     , None)
 
