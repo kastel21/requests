@@ -341,9 +341,9 @@ class Department(models.Model):
 
 
 
-# class User(AbstractUser):
-#     department = models.ForeignKey(
-#         Department,
-#         on_delete=models.CASCADE,
-#         default=None
-#     )
+class User(AbstractUser):
+    department = models.ForeignKey(
+        Department,
+        on_delete=models.CASCADE,
+        default=None
+    )
