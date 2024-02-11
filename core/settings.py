@@ -32,8 +32,8 @@ if not SECRET_KEY:
 # Render Deployment Code
 DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = ['lorkas.co.zw','www.lorkas.co.zw','localhost','127.0.0.1','0.0.0.0','41.174.97.68:80','www.kaslor.co.zw','kaslor.co.zw']
-CSRF_TRUSTED_ORIGINS = ['http://kaslor.co.zw/procurement/*','  http://127.0.0.1/*']
+ALLOWED_HOSTS = ['kaslor.co.zw','www.kaslor.co.zw','localhost','127.0.0.1','0.0.0.0','41.174.97.68:80','www.kaslor.co.zw','kaslor.co.zw']
+CSRF_TRUSTED_ORIGINS = ['https://kaslor.co.zw/procurement/*','  http://127.0.0.1/*']
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:    
@@ -105,7 +105,7 @@ WSGI_APPLICATION = "core.wsgi.application"
 #        'NAME': 'requests',
 #        'USER': 'admin',
 #        'PASSWORD': 'p@s3w0rd?1995',
-#        'HOST': 'www.lorkas.co.zw',
+#        'HOST': 'www.kaslor.co.zw',
 #        'PORT': '3306',
 #    },#
 
@@ -122,9 +122,9 @@ WSGI_APPLICATION = "core.wsgi.application"
 DB_ENGINE   = os.getenv('DB_ENGINE'   , None)
 DB_USERNAME = os.getenv('DB_USERNAME' , None)
 DB_PASS     = os.getenv('DB_PASS'     , None)
-# DB_HOST     = os.getenv('DB_HOST'     , None)
-# DB_HOST     = 'www.lorkas.co.zw'
-DB_HOST     = "192.168.1.4"
+DB_HOST     = os.getenv('DB_HOST'     , None)
+# DB_HOST     = 'www.kaslor.co.zw'
+# DB_HOST     = "192.168.1.4"
 DB_PORT     = os.getenv('DB_PORT'     , None)
 DB_NAME     = os.getenv('DB_NAME'     , None)
 
@@ -184,7 +184,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = "/var/www/lorkas.co.zw/static"
+STATIC_ROOT = "/var/www/kaslor.co.zw/static"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 

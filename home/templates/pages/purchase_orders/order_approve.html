@@ -213,7 +213,7 @@
                                     console.log(case_id);
                                     $("#request_id").val(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "http://kaslor.co.zw/procurement/purchase_order_get_record"
+                                    const url = "https://kaslor.co.zw/procurement/purchase_order_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -272,7 +272,7 @@
                                             arr = current_url.split("/");
                                             case_id = arr.at(-1);
 
-                        window.location.href="http://kaslor.co.zw/procurement/purchase_order_print/"+case_id;
+                        window.location.href="https://kaslor.co.zw/procurement/purchase_order_print/"+case_id;
 
 
 
@@ -283,7 +283,7 @@
                         current_url = window.location.href;
                                             arr = current_url.split("/");
                                             case_id = arr.at(-1);
-                        window.location.href="http://kaslor.co.zw/procurement/purchase_order_view/"+case_id;
+                        window.location.href="https://kaslor.co.zw/procurement/purchase_order_view/"+case_id;
 
 
 
@@ -320,7 +320,7 @@
                             case_id = arr.at(-1);
                         console.log(case_id);
                 
-                        const url = "  http://kaslor.co.zw/procurement/purchase_order_approve";
+                        const url = "  https://kaslor.co.zw/procurement/purchase_order_approve";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -339,12 +339,12 @@
                             alert("success");
                             $('#overlay').fadeOut();
 
-                            window.location.href="  http://kaslor.co.zw/procurement/purchase_order_all";
+                            window.location.href="  https://kaslor.co.zw/procurement/purchase_order_all";
                         }else{
                             alert(data['message']);
                             $('#overlay').fadeOut();
 
-                            window.location.href="  http://kaslor.co.zw/procurement/purchase_order_all";
+                            window.location.href="  https://kaslor.co.zw/procurement/purchase_order_all";
                 
                         }
                 

@@ -129,7 +129,7 @@
                                         <tr><td> approved_by_date</td>
                                         <td>{{record.approved_by_date }}</td></tr>
                                     
-                                    <form method="post" action='  http://kaslor.co.zw/procurement/payment_request_edit/_{{record.id}}'>
+                                    <form method="post" action='  https://kaslor.co.zw/procurement/payment_request_edit/_{{record.id}}'>
                                         {% csrf_token %}
                                         <input type="text" name="id" id="id" value="{{record.id}}" />
                                         <input type="submit" value="Edit" />

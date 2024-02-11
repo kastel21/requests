@@ -4,5 +4,7 @@ python-dotenv
 whitenoise
 reportlab==3.6.13
 psycopg2-binary
-mysqlclient
+pymysql
+flask
+python-dateutil
 xhtml2pdf==0.2.10
