@@ -527,7 +527,21 @@ def purchase_request_open_record(request):
       #print"IN POST")
       return render(request, 'pages/purchase_requests/view_record.html', context)
     else:
-       redirect("/procurement/purchase_request_all")
+      # _id = request.GET.get('id',default=None)
+
+      _id = request.get_full_path.split("/")[-1].replace("#","")
+
+      try:
+        int(_id)
+
+
+        record = PuchaseRequest.objects.get(id=_id)
+        context = {'record':record, "tab":"1"}
+        #print"IN POST")
+        return render(request, 'pages/purchase_requests/view_record.html', context)
+      except:
+          return redirect("/procurement/purchase_request_view")
+
 
 
 # make some error so this name is unique to purchase only
