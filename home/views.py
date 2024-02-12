@@ -398,7 +398,7 @@ def purchase_request_pi_approve(request):
 
           
           
-      send_notice(message1,record.supervisor_approved,requester)
+      send_notice(message1,record.supervisor_approved,username)
 
 
       send_notice(message2,record.supervisor_approved,record.finance_officer)
