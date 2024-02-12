@@ -4,6 +4,45 @@
 {% block title %} Dashboard {% endblock title %}
 {% block content %}
 
+
+
+
+<div class="container">
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+    
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Add New Task</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+    
+          <!-- Modal body -->
+          <div class="modal-body">
+            
+            <a href="#" data-toggle="modal" data-target="#myModal">
+                <i class="fa fa-plus"></i>
+                <span class="addTask">Add Task</span>
+              </a>
+    
+            <div id="overlay">
+                <img src="{% static 'assets/images/dribbble-progress-bar.gif' %}" alt="Loading" />
+                
+           </div>
+    
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    
+    
+    
+
+
 <!-- [ Main Content ] start -->
 <div class="pc-container">
     <div class="pc-content">
