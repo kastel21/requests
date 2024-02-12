@@ -45,7 +45,7 @@ def welcome(request):
     users = User.objects.filter(last_login=None)
 
     for user in users:
-          message = "Good day "+user.username+",\n We would like to welcome you to our procurement system (Berry) your temporary password is test123? to login use your username and this password. Use the following link to access the system.\n https://kaslor.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+          message = "Good day "+user.username+",\n We would like to welcome you to our procurement system (Berry) your temporary password is test123? to login use your username and this password. Use the following link to access the system.\n https://kaslor.co.zw/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
           send_notice(message,"etakawengwa",user.email)
           sleep(60)
 
@@ -307,7 +307,7 @@ def purchase_request_send_record(request):
           record.save()
        
           _id = record.pk
-          message = "Good day "+record.supervisor_approved+",\n "+record.requester+" has created a purchase request awaiting your approval. Use the following link to access the system.\n https://kaslor.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+          message = "Good day "+record.supervisor_approved+",\n "+record.requester+" has created a purchase request awaiting your approval. Use the following link to access the system.\n https://kaslor.co.zw/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
           
           
           
@@ -393,8 +393,8 @@ def purchase_request_pi_approve(request):
       record.budget_line_item = line
       record.save()
 
-      message1 = "Good day "+record.requester+",\n "+record.supervisor_approved+" has approved your purchase request awaiting finance approval. Use the following link to access the system.\n https://kaslor.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
-      message2 = "Good day "+record.finance_officer+",\n "+record.supervisor_approved+" has assigned you to clear a purchase request. Use the following link to access the system.\n https://kaslor.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message1 = "Good day "+record.requester+",\n "+record.supervisor_approved+" has approved your purchase request awaiting finance approval. Use the following link to access the system.\n https://kaslor.co.zw/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message2 = "Good day "+record.finance_officer+",\n "+record.supervisor_approved+" has assigned you to clear a purchase request. Use the following link to access the system.\n https://kaslor.co.zw/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
@@ -446,12 +446,12 @@ def purchase_request_clerk_approve(request):
 
 
 
-      message1 = "Good day "+record.requester+",\n "+record.finance_officer+" has cleared your purchase request. Use the following link to access the system.\n https://kaslor.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
-      message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://kaslor.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message1 = "Good day "+record.requester+",\n "+record.finance_officer+" has cleared your purchase request. Use the following link to access the system.\n https://kaslor.co.zw/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://kaslor.co.zw/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-      send_notice(message1,record.finance_officer,requester)
+      send_notice(message1,record.finance_officer,record.requester)
 
 
       send_notice(message2,record.requester,"tjongwe")
@@ -482,8 +482,8 @@ def purchase_request_reject(request):
       notice.to = record.requester
       record.save()
 
-      message1 = "Good day "+record.requester+",\n "+record.rejector+" has rejected your purchase request. Use the following link to access the system.\n https://kaslor.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
-      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://kaslor.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message1 = "Good day "+record.requester+",\n "+record.rejector+" has rejected your purchase request. Use the following link to access the system.\n https://kaslor.co.zw/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://kaslor.co.zw/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
