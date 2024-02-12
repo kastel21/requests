@@ -393,7 +393,7 @@ def purchase_request_pi_approve(request):
       record.budget_line_item = line
       record.save()
 
-      message1 = "Good day "+record.requester+",\n "+record.supervisor_approved+" has approved your purchase request awaiting finance approval. Use the following link to access the system.\n https://kaslor.co.zw/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message1 = "Good day "+record.requester+",\n "+record.supervisor_approved+" has approved your purchase request awaiting finance approval. Use the following link to view the record in the system.\n https://kaslor.co.zw/procurement/purchase_request_open_record/"+_id+"\nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
       message2 = "Good day "+record.finance_officer+",\n "+record.supervisor_approved+" has assigned you to clear a purchase request. Use the following link to access the system.\n https://kaslor.co.zw/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
@@ -446,8 +446,8 @@ def purchase_request_clerk_approve(request):
 
 
 
-      message1 = "Good day "+record.requester+",\n "+record.finance_officer+" has cleared your purchase request. Use the following link to access the system.\n https://kaslor.co.zw/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
-      message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://kaslor.co.zw/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message1 = "Good day "+record.requester+",\n "+record.finance_officer+" has cleared your purchase request. Use the following link to view .\n https://kaslor.co.zw/procurement/purchase_request_open_record/"+_id+" \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to view .\n https://kaslor.co.zw/procurement/purchase_request_open_record/"+_id+" \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
@@ -482,7 +482,7 @@ def purchase_request_reject(request):
       notice.to = record.requester
       record.save()
 
-      message1 = "Good day "+record.requester+",\n "+record.rejector+" has rejected your purchase request. Use the following link to access the system.\n https://kaslor.co.zw/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message1 = "Good day "+record.requester+",\n "+record.rejector+" has rejected your purchase request. Use the following link to view.\n https://kaslor.co.zw/procurement/purchase_request_open_record/"+_id+" \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
       # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://kaslor.co.zw/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
@@ -846,12 +846,12 @@ def comp_schedule_send_record(request):
           # d = datetime.datetime.now()
         #   record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
         #   record.approved_by_date= approved_by_date
-          message1 = "Good day "+record.tech_person_by+",\n "+record.rejector+" has rejected your purchase request. Use the following link to access the system.\n https://kaslor.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+          message1 = "Good day "+record.tech_person_by+",\n "+username+" has created a comparative schedule for you to approve. Use the following link to access the system.\n https://kaslor.co.zw/procurement/comp_schedule_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
       # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://kaslor.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-          send_notice(message1,record.finance_officer,requester)
+          send_notice(message1,record.tech_person_by,username)
           record.save()
           notice.save()
 
@@ -979,7 +979,12 @@ def comp_schedule_approve(request):
       notice.trigger = username
       notice.save()
 
+      message1 = "Good day "+record.dpt_head_by+",\n "+username+" has assigned you a comparative schedule for you to approve. Use the following link to access the system.\n https://kaslor.co.zw/procurement/comp_schedule_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://kaslor.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
+          
+          
+      send_notice(message1,record.dpt_head_by,username)
 
 
       return JsonResponse( {'message':"success","tab":"1"})
@@ -1032,12 +1037,12 @@ def comp_schedule_approve_head(request):
       #   notice.save()
 
 
-      message = " "+ username +" updated a Comparative schedule\n and assigned you as the chair for you to approve."
+      message = "Good day "+record.approved_by+",\n "+username+" has assigned you a comparative schedule for you to approve. Use the following link to access the system.\n https://kaslor.co.zw/procurement/comp_schedule_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
       # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://kaslor.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-      send_notice(message,username,chair)
+      send_notice(message,record.approved_by,username)
 
       record.save()
 
@@ -1082,12 +1087,12 @@ def comp_schedule_approve_lead(request):
         notice.save()
 
 
-      message = " "+ username +" updated a Comparative schedule\n and assigned you as the chair for you to approve."
+      message = "Good day "+record.approved_by+",\n "+username+" has assigned you a comparative schedule for you to approve. Use the following link to access the system.\n https://kaslor.co.zw/procurement/comp_schedule_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
       # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://kaslor.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-      send_notice(message,username,chair)
+      send_notice(message,pi,username)
       record.save()
 
 
@@ -1129,12 +1134,12 @@ def comp_schedule_approve_pi(request):
       notice.trigger = request.user.username
       notice.save()
 
-      message = " "+ username +" rejected your Comparative schedule."
+      message = "Good day "+record.requested_by+",\n "+username+" has approved your comparative schedule. Use the following link to view.\n https://kaslor.co.zw/procurement/comp_schedule_open_record/"+_id+" \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
       # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://kaslor.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-      send_notice(message,username,record.requested_by)
+      send_notice(message,record.requested_by,username)
 
       return JsonResponse( {'message':"success","tab":"1"})
 
@@ -1153,6 +1158,20 @@ def comp_schedule_open_record(request):
       # #print"IN POST")
       return render(request, 'pages/comparative_schedules/view_record.html', context)
     else:
+
+            # _id = request.GET.get('id',default=None)
+
+      _id = str(request.path).split("/")[-1].replace("#","")
+
+      try:
+        int(_id)
+
+
+        record = ComparativeSchedule.objects.get(id=_id)
+        context = {'record':record, "tab":"2"}
+        #print"IN POST")
+        return render(request, 'pages/comparative_schedules/view_record.html', context)
+      except:
        redirect("/procurement/comp_schedule_all")
 
 
@@ -1314,7 +1333,7 @@ def payment_request_reject(request):
       notice.trigger = username
       notice.save()
 
-      message = " "+ username +" rejected your  payment request."
+      message = " "+ username +" rejected your  payment request. Click to view https://kaslor.co.zw/procurement/payment_request_open_record/"+_id
       # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://kaslor.co.zw/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
@@ -1669,6 +1688,8 @@ def payment_request_open_record(request):
       #print"finance",finance)
       return render(request, 'pages/payment_requests/view_record.html', context)
     else:
+
+      
        redirect("/procurement/payment_request_all")
 
 
@@ -5112,11 +5133,11 @@ def send_notice(message,trigger,receiver):
                 # print(message)
                 # message = "Thank you for Generating your signature with us!\n Your code is: "+otp+" \nSincerely,\nBiomedical Research and Training Institute"
                 mimemsg = MIMEMultipart()
-                mimemsg['From']="authenticator@brti.co.zw"
+                mimemsg['From']="procurement@brti.co.zw"
                 mimemsg['To']=receiver.replace(" ","") + "@brti.co.zw"
                 mimemsg['Cc']=trigger.replace(" ","") + "@brti.co.zw"
                 #
-                mimemsg['Subject']="Berry Notifications"
+                mimemsg['Subject']="BRTI Procurement"
                 mimemsg.attach(MIMEText(message, 'plain'))
 
                 # with open(mail_attachment, "rb") as attachment:
@@ -5127,7 +5148,7 @@ def send_notice(message,trigger,receiver):
                 #     #mimemsg.attach(mimefile)
                 connection = smtplib.SMTP(host='smtp.office365.com', port=587)
                 connection.starttls()
-                connection.login('authenticator@brti.co.zw','p@s3w0rd?1995')
+                connection.login('procurement@brti.co.zw','p@s3w0rd?1995')
                 connection.send_message(mimemsg)
                 connection.quit()
             except Exception as e:
