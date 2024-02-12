@@ -529,7 +529,7 @@ def purchase_request_open_record(request):
     else:
       # _id = request.GET.get('id',default=None)
 
-      _id = request.get_full_path.split("/")[-1].replace("#","")
+      _id = str(request.get_full_path).split("/")[-1].replace("#","")
 
       try:
         int(_id)
