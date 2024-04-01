@@ -243,7 +243,7 @@ if(message == ""){
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "  https://kaslor.co.zw/procurement/purchase_order_reject"
+                                    const url = "  https://etakawengwa.pythonanywhere.com//procurement/purchase_order_reject"
                                     const data = {
                                       'id':case_id,
                                       "message":message,
@@ -253,7 +253,7 @@ if(message == ""){
                             
                             if (data['message']=="success"){
                                 alert(data['message']);
-                                // window.location.href="  https://kaslor.co.zw/procurement/purchase_order_all";
+                                // window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/purchase_order_all";
 
                                 window.location.href="/procurement/purchase_order_all";
 
@@ -282,7 +282,7 @@ if(message == ""){
 
 
 
-const url = "  https://kaslor.co.zw/procurement/get_users"
+const url = "  https://etakawengwa.pythonanywhere.com//procurement/get_users"
 const data = {
                       'id':"case_id",
                     }
@@ -304,7 +304,7 @@ const data = {
                                     console.log(case_id);
                                     $("#request_id").val(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "  https://kaslor.co.zw/procurement/purchase_order_get_record"
+                                    const url = "  https://etakawengwa.pythonanywhere.com//procurement/purchase_order_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -361,7 +361,7 @@ function print(){
                                             arr = current_url.split("/");
                                             case_id = arr.at(-1);
 
-                        window.location.href="  https://kaslor.co.zw/procurement/purchase_order_print/"+case_id;
+                        window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/purchase_order_print/"+case_id;
 
 
 
@@ -372,7 +372,7 @@ function edit(){
                         current_url = window.location.href;
                                             arr = current_url.split("/");
                                             case_id = arr.at(-1);
-                        window.location.href="  https://kaslor.co.zw/procurement/purchase_order_view/"+case_id;
+                        window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/purchase_order_view/"+case_id;
 
 
 
@@ -409,7 +409,7 @@ function sendEdit(){
                             case_id = arr.at(-1);
                         console.log(case_id);
                 
-                        const url = "  https://kaslor.co.zw/procurement/purchase_order_ordered";
+                        const url = "  https://etakawengwa.pythonanywhere.com//procurement/purchase_order_ordered";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -429,12 +429,12 @@ function sendEdit(){
                             alert("success");
                             $('#overlay').fadeOut();
 
-                            window.location.href="  https://kaslor.co.zw/procurement/purchase_order_all";
+                            window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/purchase_order_all";
                         }else{
                             alert(data['message']);
                             $('#overlay').fadeOut();
 
-                            window.location.href="  https://kaslor.co.zw/procurement/purchase_order_all";
+                            window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/purchase_order_all";
                 
                         }
                 

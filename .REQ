@@ -1,5 +1,5 @@
 export SECRET_KEY='f9c0d32d407958dd0d3f8b18a0c1007e874eb11f836b4b0cd368a41baef2a1be5dab4499c747cd9f'
-export DB_ENGINE='mysql'
+export DB_ENGINE='mssql'
 export DB_USERNAME='admin'
 export DB_PASS='p@s3w0rd?1995'
 export DB_HOST='192.168.1.4'

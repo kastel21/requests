@@ -411,7 +411,7 @@ $('#purchase_request').on('change', function (e) {
 
 
 
-    const url1 = "  https://kaslor.co.zw/procurement/purchase_request_get_record"
+    const url1 = "  https://etakawengwa.pythonanywhere.com//procurement/purchase_request_get_record"
                     const data1 = {
                       'id':valueSelected,
                     }
@@ -443,7 +443,7 @@ $('#purchase_request').on('change', function (e) {
 });
 
 
-const url_sups = "  https://kaslor.co.zw/procurement/get_suppliers"
+const url_sups = "  https://etakawengwa.pythonanywhere.com//procurement/get_suppliers"
                     const data_sups = {
                       'id':"case_id",
                     }
@@ -473,7 +473,7 @@ const url_sups = "  https://kaslor.co.zw/procurement/get_suppliers"
 
 // populate the service requests dropdown
 
-const url1 = "  https://kaslor.co.zw/procurement/get_purchase_requests"
+const url1 = "  https://etakawengwa.pythonanywhere.com//procurement/get_purchase_requests"
                     const data1 = {
                       'id':"case_id",
                     }
@@ -492,7 +492,7 @@ const url1 = "  https://kaslor.co.zw/procurement/get_purchase_requests"
 
 // populate the users dropdown
 
-const url = "  https://kaslor.co.zw/procurement/get_users"
+const url = "  https://etakawengwa.pythonanywhere.com//procurement/get_users"
                     const data = {
                       'id':"case_id",
                     }
@@ -547,7 +547,7 @@ var tech_person_by= $("#tech_person_by").val();
                         console.log(case_id);
                         if (case_id == "add"){
                 
-                        const url = "  https://kaslor.co.zw/procurement/comp_schedule_send_record";
+                        const url = "  https://etakawengwa.pythonanywhere.com//procurement/comp_schedule_send_record";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -606,7 +606,7 @@ var tech_person_by= $("#tech_person_by").val();
                         if (data['message']=="success"){
                             console.log("success")
                             alert(data['message']);
-                            window.location.href="  https://kaslor.co.zw/procurement/comp_schedule_quotes_upload/"+data['id'];
+                            window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/comp_schedule_quotes_upload/"+data['id'];
                         }else{
                             console.log(data['message'])
                             alert(data['message']);
@@ -617,7 +617,7 @@ var tech_person_by= $("#tech_person_by").val();
                         // alert("stop hee");
                     }else{
                 
-                        const url = "  https://kaslor.co.zw/procurement/purchase_request_edit_record/";
+                        const url = "  https://etakawengwa.pythonanywhere.com//procurement/purchase_request_edit_record/";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -683,15 +683,15 @@ var tech_person_by= $("#tech_person_by").val();
                       
                 
                         $.post(url,data, function(data,status){
-                          window.location.replace("  https://kaslor.co.zw/procurement/comp_schedule_view/"+case_id);
+                          window.location.replace("  https://etakawengwa.pythonanywhere.com//procurement/comp_schedule_view/"+case_id);
                 
                         console.log(data);
                         if (data['message']=="success"){
                             alert("success");
-                            window.location.replace("  https://kaslor.co.zw/procurement/comp_schedule_view/"+case_id);
+                            window.location.replace("  https://etakawengwa.pythonanywhere.com//procurement/comp_schedule_view/"+case_id);
                         }else{
                             alert(data['message']);
-                            window.location.replace("  https://kaslor.co.zw/procurement/comp_schedule_view/"+case_id);
+                            window.location.replace("  https://etakawengwa.pythonanywhere.com//procurement/comp_schedule_view/"+case_id);
                 
                             // window.location.href="/view_record/"+case_id;
                 

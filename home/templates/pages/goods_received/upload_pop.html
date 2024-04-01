@@ -155,7 +155,7 @@
                         case_id = arr.at(-1);
                     console.log(case_id);
                     if (case_id == "add"){}else{
-                    const url = "https://kaslor.co.zw/procurement/goods_received_notes_get_record"
+                    const url = "https://etakawengwa.pythonanywhere.com//procurement/goods_received_notes_get_record"
                     const data = {
                       'id':case_id,
                     }
@@ -236,7 +236,7 @@ current_url = window.location.href;
                     arr = current_url.split("/");
                     case_id = arr.at(-1);
 
-window.location.href="  https://kaslor.co.zw/procurement/payment_ticket_print/"+case_id;
+window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/payment_ticket_print/"+case_id;
 
 
 
@@ -247,7 +247,7 @@ function edit(){
 current_url = window.location.href;
                     arr = current_url.split("/");
                     case_id = arr.at(-1);
-window.location.href="  https://kaslor.co.zw/procurement/payment_ticket_view/"+case_id;
+window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/payment_ticket_view/"+case_id;
 
 
 
@@ -263,7 +263,7 @@ window.location.href="  https://kaslor.co.zw/procurement/payment_ticket_view/"+c
             case_id = arr.at(-1);
             console.log(case_id);
 
-        const url = "  https://kaslor.co.zw/procurement/payment_request_approve";
+        const url = "  https://etakawengwa.pythonanywhere.com//procurement/payment_request_approve";
         const data={
                 // "clear":document.getElementById('cleared_by').value,
                 "id":case_id,
@@ -272,10 +272,10 @@ window.location.href="  https://kaslor.co.zw/procurement/payment_ticket_view/"+c
         $.post(url,data, function(data,status){
         if (data['message']=="success"){
             console.log("success")
-            window.location.href="  https://kaslor.co.zw/procurement/payment_tickets_all";
+            window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/payment_tickets_all";
         }else{
             console.log(data['message'])
-            window.location.href="  https://kaslor.co.zw/procurement/payment_tickets_all";
+            window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/payment_tickets_all";
 
         }
 
