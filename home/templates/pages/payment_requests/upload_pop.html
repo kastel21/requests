@@ -204,7 +204,7 @@
                         case_id = arr.at(-1);
                     console.log(case_id);
                     if (case_id == "add"){}else{
-                    const url = "  https://etakawengwa.pythonanywhere.com//procurement/payment_request_get_record"
+                    const url = "  http://127.0.0.1:8000/procurement/payment_request_get_record"
                     const data = {
                       'id':case_id,
                     }
@@ -285,7 +285,7 @@ current_url = window.location.href;
                     arr = current_url.split("/");
                     case_id = arr.at(-1);
 
-window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/payment_request_print/"+case_id;
+window.location.href="  http://127.0.0.1:8000/procurement/payment_request_print/"+case_id;
 
 
 
@@ -296,7 +296,7 @@ function edit(){
 current_url = window.location.href;
                     arr = current_url.split("/");
                     case_id = arr.at(-1);
-window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/payment_request_view/"+case_id;
+window.location.href="  http://127.0.0.1:8000/procurement/payment_request_view/"+case_id;
 
 
 
@@ -312,7 +312,7 @@ window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/paym
             case_id = arr.at(-1);
             console.log(case_id);
 
-        const url = "  https://etakawengwa.pythonanywhere.com//procurement/payment_request_approve";
+        const url = "  http://127.0.0.1:8000/procurement/payment_request_approve";
         const data={
                 // "clear":document.getElementById('cleared_by').value,
                 "id":case_id,
@@ -321,10 +321,10 @@ window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/paym
         $.post(url,data, function(data,status){
         if (data['message']=="success"){
             console.log("success")
-            window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/payment_request_all";
+            window.location.href="  http://127.0.0.1:8000/procurement/payment_request_all";
         }else{
             console.log(data['message'])
-            window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/payment_request_all";
+            window.location.href="  http://127.0.0.1:8000/procurement/payment_request_all";
 
         }
 

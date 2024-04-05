@@ -339,16 +339,33 @@ class Department(models.Model):
     def __str__(self):
         return "Name : "+self.name +", Head : "+self.head
 
+class Service(models.Model):
+    reg_num= models.CharField(max_length=255, blank=True)
+    rider_name= models.CharField(max_length=255, blank=True)
+    witness= models.CharField(max_length=255, blank=True)
+    date_of_record= models.CharField(max_length=255, blank=True)
+    satisfied= models.CharField(max_length=255, default="No")
+    created_by= models.CharField(max_length=255, blank=True)
 
+    def __str__(self):
+        return "Rider Name : "+self.rider_name +", Bike Reg : "+self.reg_num
 
 class User(AbstractUser):
-    department = models.ForeignKey(
-        Department,
-        on_delete=models.CASCADE,
-        default=None
+    department= models.CharField(
+
+        max_length=255, blank=True
     )
 
     supervisor = models.CharField(
+
+        max_length=255, blank=True
+    )
+
+    first_name = models.CharField(
+
+        max_length=255, blank=True
+    )
+    last_name = models.CharField(
 
         max_length=255, blank=True
     )

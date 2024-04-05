@@ -156,7 +156,7 @@
 
 // populate the users dropdown
 
-// const url = "  https://etakawengwa.pythonanywhere.com//procurement/get_users"
+// const url = "  http://127.0.0.1:8000/procurement/get_users"
 //                     const data = {
 //                       'id':"case_id",
 //                     }
@@ -195,7 +195,7 @@ current_url = window.location.href;
                     arr = current_url.split("/");
                     case_id = arr.at(-1);
 
-window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/transcript/"+case_id;
+window.location.href="  http://127.0.0.1:8000/procurement/transcript/"+case_id;
                     }
                 
                             current_url = window.location.href;
@@ -203,7 +203,7 @@ window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/tran
                                         case_id = arr.at(-1);
                                     console.log(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "  https://etakawengwa.pythonanywhere.com//procurement/goods_received_notes_get_record"
+                                    const url = "  http://127.0.0.1:8000/procurement/goods_received_notes_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -316,7 +316,7 @@ window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/tran
                     //     console.log(case_id);
                     //     if (case_id == "add"){
                 
-                    //     const url = "  https://etakawengwa.pythonanywhere.com//procurement/purchase_request_clerk_approve";
+                    //     const url = "  http://127.0.0.1:8000/procurement/purchase_request_clerk_approve";
                     //     // current_url = window.location.href;
                     //     // arr = current_url.split("/");
                     //     // case_id = arr.at(-1);
@@ -335,12 +335,12 @@ window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/tran
                     //         alert("success");
                     //         $('#overlay').fadeOut();
 
-                    //         window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/purchase_request_all";
+                    //         window.location.href="  http://127.0.0.1:8000/procurement/purchase_request_all";
                     //     }else{
                     //         alert(data['message']);
                     //         $('#overlay').fadeOut();
 
-                    //         window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/purchase_requests_all";
+                    //         window.location.href="  http://127.0.0.1:8000/procurement/purchase_requests_all";
                 
                     //     }
                 

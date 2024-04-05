@@ -183,7 +183,7 @@
                                     console.log(case_id);
                                     $("#request_id").val(case_id);
                                     if (case_id == "add"){}else{
-                                    const url = "  https://etakawengwa.pythonanywhere.com//procurement/suppliers_get_record"
+                                    const url = "  http://127.0.0.1:8000/procurement/suppliers_get_record"
                                     const data = {
                                       'id':case_id,
                                     }
@@ -252,7 +252,7 @@ function print(){
                                             arr = current_url.split("/");
                                             case_id = arr.at(-1);
 
-                        window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/purchase_order_print/"+case_id;
+                        window.location.href="  http://127.0.0.1:8000/procurement/purchase_order_print/"+case_id;
 
 
 
@@ -291,7 +291,7 @@ var approved_by= $("#approved_by").val();
                             case_id = arr.at(-1);
                         if (case_id == "add"){
                 
-                        const url = "  https://etakawengwa.pythonanywhere.com//procurement/suppliers_approve";
+                        const url = "  http://127.0.0.1:8000/procurement/suppliers_approve";
                         // current_url = window.location.href;
                         // arr = current_url.split("/");
                         // case_id = arr.at(-1);
@@ -310,14 +310,14 @@ var approved_by= $("#approved_by").val();
                             alert(status);
 
 
-                            window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/suppliers_all";
+                            window.location.href="  http://127.0.0.1:8000/procurement/suppliers_all";
 
                         }else{
                             alert(data['message']);
                             console.log("err");
                             $('#overlay').fadeOut();
 
-                            window.location.href="  https://etakawengwa.pythonanywhere.com//procurement/suppliers_all";
+                            window.location.href="  http://127.0.0.1:8000/procurement/suppliers_all";
                 
                         }
                 

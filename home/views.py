@@ -45,8 +45,8 @@ def welcome(request):
     users = User.objects.filter(last_login=None)
 
     for user in users:
-          message = "Good day "+user.username+",\n We would like to welcome you to our procurement system (Berry) your temporary password is test123? to login use your username and this password. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
-          send_notice(message,"etakawengwa",user.email)
+          message = "Good day "+user.username+",\n We would like to welcome you to our procurement system (Berry) your temporary password is test123? to login use your username and this password. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+          ##send_notice(message,"etakawengwa",user.email)
           sleep(60)
 
 
@@ -264,7 +264,8 @@ def purchase_request_send_record(request):
 
     with app.app_context():
         try:
-        
+          print("_id")
+
           requester= request.user.username
           requesting_dpt= request.POST.get('requesting_dpt',default=None)
 
@@ -307,19 +308,19 @@ def purchase_request_send_record(request):
           record.save()
        
           _id = record.pk
-          message = "Good day "+record.supervisor_approved+",\n "+record.requester+" has created a purchase request awaiting your approval. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+          message = "Good day "+record.supervisor_approved+",\n "+record.requester+" has created a purchase request awaiting your approval. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
           
           
           
-          send_notice(message,requester,record.supervisor_approved)
-
+          # #send_notice(message,requester,record.supervisor_approved)
+          print(_id)
           return JsonResponse( {'message':"success",'id':_id})
 
         except Exception as e  :
             f= open("service1.txt","w")
             f.write(str(e))
             f.close()
-            #printstr(e))
+            print(str(e))
             return JsonResponse({'message':(str(e))})
 
 
@@ -393,15 +394,15 @@ def purchase_request_pi_approve(request):
       record.budget_line_item = line
       record.save()
 
-      message1 = "Good day "+record.requester+",\n "+record.supervisor_approved+" has approved your purchase request awaiting finance approval. Use the following link to view the record in the system.\n https://etakawengwa.pythonanywhere.com//procurement/purchase_request_open_record/"+_id+"\nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
-      message2 = "Good day "+record.finance_officer+",\n "+record.supervisor_approved+" has assigned you to clear a purchase request. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message1 = "Good day "+record.requester+",\n "+record.supervisor_approved+" has approved your purchase request awaiting finance approval. Use the following link to view the record in the system.\n http://127.0.0.1:8000/procurement/purchase_request_open_record/"+_id+"\nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message2 = "Good day "+record.finance_officer+",\n "+record.supervisor_approved+" has assigned you to clear a purchase request. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-      send_notice(message1,record.supervisor_approved,username)
+      #send_notice(message1,record.supervisor_approved,username)
 
 
-      send_notice(message2,record.supervisor_approved,record.finance_officer)
+      #send_notice(message2,record.supervisor_approved,record.finance_officer)
 
 
       notice = Notifications()
@@ -446,15 +447,15 @@ def purchase_request_clerk_approve(request):
 
 
 
-      message1 = "Good day "+record.requester+",\n "+record.finance_officer+" has cleared your purchase request. Use the following link to view .\n https://etakawengwa.pythonanywhere.com//procurement/purchase_request_open_record/"+_id+" \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
-      message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to view .\n https://etakawengwa.pythonanywhere.com//procurement/purchase_request_open_record/"+_id+" \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message1 = "Good day "+record.requester+",\n "+record.finance_officer+" has cleared your purchase request. Use the following link to view .\n http://127.0.0.1:8000/procurement/purchase_request_open_record/"+_id+" \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to view .\n http://127.0.0.1:8000/procurement/purchase_request_open_record/"+_id+" \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-      send_notice(message1,record.finance_officer,record.requester)
+      #send_notice(message1,record.finance_officer,record.requester)
 
 
-      send_notice(message2,record.requester,"tjongwe")
+      #send_notice(message2,record.requester,"tjongwe")
 
 
       return JsonResponse( {'message':"success","tab":"1"})
@@ -482,12 +483,12 @@ def purchase_request_reject(request):
       notice.to = record.requester
       record.save()
 
-      message1 = "Good day "+record.requester+",\n "+record.rejector+" has rejected your purchase request. Use the following link to view.\n https://etakawengwa.pythonanywhere.com//procurement/purchase_request_open_record/"+_id+" \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
-      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message1 = "Good day "+record.requester+",\n "+record.rejector+" has rejected your purchase request. Use the following link to view.\n http://127.0.0.1:8000/procurement/purchase_request_open_record/"+_id+" \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/purchase_request_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-      send_notice(message1,record.finance_officer,requester)
+      #send_notice(message1,record.finance_officer,requester)
 
 
 
@@ -846,12 +847,12 @@ def comp_schedule_send_record(request):
           # d = datetime.datetime.now()
         #   record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
         #   record.approved_by_date= approved_by_date
-          message1 = "Good day "+record.tech_person_by+",\n "+username+" has created a comparative schedule for you to approve. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/comp_schedule_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
-      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+          message1 = "Good day "+record.tech_person_by+",\n "+username+" has created a comparative schedule for you to approve. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/comp_schedule_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-          send_notice(message1,record.tech_person_by,username)
+          #send_notice(message1,record.tech_person_by,username)
           record.save()
           notice.save()
 
@@ -979,12 +980,12 @@ def comp_schedule_approve(request):
       notice.trigger = username
       notice.save()
 
-      message1 = "Good day "+record.dpt_head_by+",\n "+username+" has assigned you a comparative schedule for you to approve. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/comp_schedule_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
-      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message1 = "Good day "+record.dpt_head_by+",\n "+username+" has assigned you a comparative schedule for you to approve. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/comp_schedule_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-      send_notice(message1,record.dpt_head_by,username)
+      #send_notice(message1,record.dpt_head_by,username)
 
 
       return JsonResponse( {'message':"success","tab":"1"})
@@ -1037,12 +1038,12 @@ def comp_schedule_approve_head(request):
       #   notice.save()
 
 
-      message = "Good day "+record.approved_by+",\n "+username+" has assigned you a comparative schedule for you to approve. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/comp_schedule_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
-      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message = "Good day "+record.approved_by+",\n "+username+" has assigned you a comparative schedule for you to approve. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/comp_schedule_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-      send_notice(message,record.approved_by,username)
+      #send_notice(message,record.approved_by,username)
 
       record.save()
 
@@ -1087,12 +1088,12 @@ def comp_schedule_approve_lead(request):
         notice.save()
 
 
-      message = "Good day "+record.approved_by+",\n "+username+" has assigned you a comparative schedule for you to approve. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/comp_schedule_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
-      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message = "Good day "+record.approved_by+",\n "+username+" has assigned you a comparative schedule for you to approve. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/comp_schedule_pending \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-      send_notice(message,pi,username)
+      #send_notice(message,pi,username)
       record.save()
 
 
@@ -1134,12 +1135,12 @@ def comp_schedule_approve_pi(request):
       notice.trigger = request.user.username
       notice.save()
 
-      message = "Good day "+record.requested_by+",\n "+username+" has approved your comparative schedule. Use the following link to view.\n https://etakawengwa.pythonanywhere.com//procurement/comp_schedule_open_record/"+_id+" \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
-      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message = "Good day "+record.requested_by+",\n "+username+" has approved your comparative schedule. Use the following link to view.\n http://127.0.0.1:8000/procurement/comp_schedule_open_record/"+_id+" \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-      send_notice(message,record.requested_by,username)
+      #send_notice(message,record.requested_by,username)
 
       return JsonResponse( {'message':"success","tab":"1"})
 
@@ -1289,11 +1290,11 @@ def comp_schedule_reject(request):
       notice.save()
 
       message = " "+ username +" rejected your Comparative schedule."
-      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-      send_notice(message,username,record.requested_by)
+      #send_notice(message,username,record.requested_by)
       
       return JsonResponse( {'message':"success","tab":"1"})
     else:
@@ -1333,12 +1334,12 @@ def payment_request_reject(request):
       notice.trigger = username
       notice.save()
 
-      message = " "+ username +" rejected your  payment request. Click to view https://etakawengwa.pythonanywhere.com//procurement/payment_request_open_record/"+_id
-      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      message = " "+ username +" rejected your  payment request. Click to view http://127.0.0.1:8000/procurement/payment_request_open_record/"+_id
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-      send_notice(message,username,record.compiled_by)
+      #send_notice(message,username,record.compiled_by)
 
 
 
@@ -1945,11 +1946,11 @@ def payment_request_certify(request):
 
 
         message = " "+ request.user.username +" updated a Payement Request\n and assigned you as the Finance Officer for you to clear."
-      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-        send_notice(message,request.user.username,clear)
+        #send_notice(message,request.user.username,clear)
 
         return JsonResponse( {'message':"success","tab":"1"})
       else:
@@ -1986,11 +1987,11 @@ def payment_request_clear(request):
         notice.trigger = request.user.username
         notice.save()
         message = " "+ request.user.username +" updated a Payement Request\n and assigned you as the Approver."
-      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+      # message2 = "Good day "+"tjongwe"+",\n "+record.requester+" has created a purchase request for you. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
 
           
           
-        send_notice(message,request.user.username, record.compiled_by)
+        #send_notice(message,request.user.username, record.compiled_by)
         return JsonResponse( {'message':"success","tab":"1"})
       else:
         return render(request, 'pages/payment_requests/list.html', {})
@@ -2034,7 +2035,7 @@ def payment_request_approve(request):
 
         message = " "+ request.user.username +" Approved your Payment Request."
 
-        send_notice(message,request.user.username, record.compiled_by)
+        #send_notice(message,request.user.username, record.compiled_by)
 
         return JsonResponse( {'message':"success","tab":"1"})
       else:
@@ -2259,7 +2260,7 @@ def payment_request_send_record(request):
           _id = record.pk
           message = request.user.username +" has created a Payment Request and assigned you to Certify"
 
-          send_notice(message,request.user.username, record.compiled_by)
+          #send_notice(message,request.user.username, record.compiled_by)
 
           return JsonResponse( {'message':"success",'id':_id})
 
@@ -2710,7 +2711,7 @@ def suppliers_reject(request):
       notice.save()
       message = " "+ username +" has rejected your Supplier add ."
 
-      send_notice(message,request.user.username, record.added_by)
+      #send_notice(message,request.user.username, record.added_by)
 
 
       return JsonResponse( {'message':"success","tab":"7"})
@@ -2969,7 +2970,7 @@ def suppliers_send_record(request):
 
           message = username +" has added a Supplier for you to approve"
 
-          send_notice(message,username, record.approved_by)
+          #send_notice(message,username, record.approved_by)
 
           _id = record.pk
           return JsonResponse( {'message':"success",'id':_id})
@@ -3061,7 +3062,7 @@ def suppliers_approve(request):
         notice.save()
         message = request.user.username +" approved your Supplier Add"
 
-        send_notice(message,request.user.username, record.added_by)
+        #send_notice(message,request.user.username, record.added_by)
         return JsonResponse( {'message':"success","tab":"7"})
 
     except Exception as e:
@@ -3468,7 +3469,7 @@ def goods_received_notes_reject(request):
 
       message = " "+ username +" has rejected your GRN ."
 
-      send_notice(message,request.user.username, record.receiver)
+      #send_notice(message,request.user.username, record.receiver)
       return JsonResponse( {'message':"success","tab":"6"})
     else:
       return render(request, 'pages/purchase_requests/list.html', {})
@@ -3671,7 +3672,10 @@ def goods_received_notes_send_record(request):
 
 
           record.receiver_date=  "{:%B %d, %Y  %H:%M:%S}".format(d)
-          record.payment_request= payment_request_id
+          if payment_request_id is None:
+            pass
+          else:
+            record.payment_request= payment_request_id
 
           record.purchase_order= purchase_order
           record.item_name= item_name
@@ -3699,7 +3703,7 @@ def goods_received_notes_send_record(request):
 
           message = request.user.username +" has created a GRN for you to sign"
 
-          send_notice(message,request.user.username, record.approver)
+          #send_notice(message,request.user.username, record.approver)
           record.save()
 
           _id = record.pk
@@ -3772,7 +3776,7 @@ def goods_received_notes_approve(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
-        send_notice(notice.message,request.user.username, record.receiver)
+        #send_notice(notice.message,request.user.username, record.receiver)
 
         return JsonResponse( {'message':"success","tab":"1"})
 
@@ -3822,7 +3826,7 @@ def purchase_order_reject(request):
       notice.trigger = username
       notice.save()
 
-      send_notice(notice.message,request.user.username, record.compiled_by)
+      #send_notice(notice.message,request.user.username, record.compiled_by)
 
       return JsonResponse( {'message':"success","tab":"1"})
     else:
@@ -4184,7 +4188,7 @@ def purchase_order_certify(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
-        send_notice(notice.message,request.user.username, record.cleared_by_fin_man)
+        #send_notice(notice.message,request.user.username, record.cleared_by_fin_man)
 
         return JsonResponse( {'message':"success","tab":"1"})
       else:
@@ -4219,7 +4223,7 @@ def purchase_order_clear(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
-        send_notice(notice.message,request.user.username, record.approver)
+        #send_notice(notice.message,request.user.username, record.approver)
 
         return JsonResponse( {'message':"success","tab":"1"})
       else:
@@ -4259,7 +4263,7 @@ def purchase_order_required(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
-        send_notice(notice.message,request.user.username, record.compiled_by)
+        #send_notice(notice.message,request.user.username, record.compiled_by)
 
         return JsonResponse( {'message':"success","tab":"1"})
       else:
@@ -4299,7 +4303,7 @@ def purchase_order_ordered(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
-        send_notice(notice.message,request.user.username, record.compiled_by)
+        #send_notice(notice.message,request.user.username, record.compiled_by)
 
         return JsonResponse( {'message':"success","tab":"1"})
       else:
@@ -4339,7 +4343,7 @@ def purchase_order_approve(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
-        send_notice(notice.message,request.user.username, record.compiled_by)
+        #send_notice(notice.message,request.user.username, record.compiled_by)
 
         return JsonResponse( {'message':"success","tab":"1"})
       else:
@@ -4379,7 +4383,7 @@ def purchase_ordered_approve(request):
         notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
         notice.trigger = request.user.username
         notice.save()
-        send_notice(notice.message,request.user.username, record.compiled_by)
+        #send_notice(notice.message,request.user.username, record.compiled_by)
 
         return JsonResponse( {'message':"success","tab":"1"})
       else:
@@ -4562,7 +4566,7 @@ def purchase_order_send_record(request):
           notice.status = "New"
           notice.save()
           # record.approved_by_date= approved_by_date
-          send_notice(notice.message,request.user.username, record.required_by)
+          #send_notice(notice.message,request.user.username, record.required_by)
 
 
           record.save()
@@ -4716,6 +4720,315 @@ def get_purchase_orders(request):
 
 
 
+     
+# ***********************************************************************************************************************
+
+#Satisfactory SERVICE
+
+# ************************************************************************************************************************
+
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def service_reject(request):
+    if request.method == "POST":
+      
+      _id = request.POST.get('id',default=None)
+      rider_name = request.POST.get('rider_name',default=None)
+      reg_num = request.POST.get('reg_num',default=None)
+      satisfied = request.POST.get('satisfied',default=None)
+
+      witness = request.POST.get('witness',default=None)
+      # name = request.POST.get('name',default=None)
+
+      username = request.user.username
+        # objs = Record.objects.get(id=_id)
+      record = Service.objects.get(id=_id)
+      record.rider_name = rider_name
+      record.reg_num = reg_num
+      record.satisfied = satisfied
+      record.created_by = username
+
+      d = datetime.datetime.now()
+          # record.date_of_request = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      record.date_of_record= "{:%B %d, %Y  %H:%M:%S}".format(d)
+      notice = Notifications()
+      notice.to = record.created_by
+      record.save()
+
+  
+      notice.message = " "+ username +" has created a confirmation of satisfactory service for you to witness."
+      notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+      notice.trigger = username
+      notice.save()
+      return JsonResponse( {'message':"success","tab":"7"})
+    else:
+      return render(request, 'pages/suppliers/list.html', {})
+    
+
+
+
+
+@login_required(login_url='login')
+def services(request):
+    return render(request, 'pages/satisfactory_service/budgets.html')
+
+@login_required(login_url='login')
+def services_all(request):
+      username = request.user.username
+      records = Service.objects.all()
+      context = {"records":records,"tab":"7"}
+
+
+      return render(request, 'pages/satisfactory_service/list.html', context)
+
+# @login_required(login_url='login')
+# def suppliers_completed(request):
+#       username = request.user.username
+#       records = Supplier.objects.filter(  ~Q(approver_by_date="None") )
+#       context = {"records":records,"tab":"7"}
+
+
+#       return render(request, 'pages/goods_received/list_completed.html', context)
+
+
+@login_required(login_url='login')
+def service_add(request):
+      # username = request.user.username
+      # records = PaymentTicket.objects.filter(Q(creator = username) )
+      context = {"tab":"8"}
+
+
+      return render(request, 'pages/satisfactory_service/add.html', context)
+
+# @login_required(login_url='login')
+# def suppliers_view(request):
+#       username = request.user.username
+#       records = BudgetLines.objects.all()
+#       context = {'records':records, "tab":"8"}
+
+
+#       return render(request, 'pages/budget/list.html', context)
+
+
+
+# @login_required(login_url='login')
+# def suppliers_pending(request):
+#       username = request.user.username
+#       records = Supplier.objects.filter(Q(approved_by = username) & Q(approved_by_date="None"))
+#       context = {'records':records , "tab":"7"}
+
+
+#       return render(request, 'pages/suppliers/list_pending.html', context)
+
+@login_required(login_url="login")
+def service_open_record(request):
+    if request.method == "POST":
+      finance = False
+
+      # user = request.user
+    
+    # Get the groups the user belongs to
+      # groups = user.groups.all()
+
+
+      _id = request.POST.get('id',default=None)
+      # if request.user.groups.all()[0].name == "finance":
+      #     finance = True
+        # objs = Record.objects.get(id=_id)
+      record = Service.objects.get(id=_id)
+      context = {'record':record, "finance":finance , "tab":"8"}
+      # #print"finance",finance)
+      return render(request, 'pages/satisfactory_service/view_record.html', context)
+    else:
+       redirect("/procurement/budget_lines_all")
+
+
+# @login_required(login_url="login")
+# def suppliers_open_record_for_edit(request):
+#     if request.method == "POST":
+#       finance = False
+
+#       # user = request.user
+    
+#     # Get the groups the user belongs to
+#       # groups = user.groups.all()
+
+
+#       _id = request.POST.get('id',default=None)
+#       # if request.user.groups.all()[0].name == "finance":
+#       #     finance = True
+#         # objs = Record.objects.get(id=_id)
+#       record = Supplier.objects.get(id=_id)
+#       context = {'record':record, "finance":finance, "tab":"7"}
+#       # #print"finance",finance)
+
+#       return render(request, 'pages/suppliers/edit_record.html', context)
+
+#     else:
+#       redirect("/procurement/suppliers_all")
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def get_services(request):
+   try:
+      dic = {}
+      # User = get_user_model()
+      schedules = Service.objects.all()
+
+      for schedule in schedules: 
+          dic[schedule.id]= schedule.rider_name+", Reg Num : "+ schedule.reg_num +", Date : "+ schedule.date_of_record+", Satisfied ?  : "+schedule.satisfied
+      return JsonResponse(dic)
+   except Exception as e:
+          return JsonResponse(str(e)) 
+
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def services_get_record(request):
+    context={}
+    if request.method == "POST":
+        _id = request.POST.get('id',default=None)
+
+        record = Service.objects.get(id=_id)
+
+        # pdf = SupplierDocs.objects.get(id=1)
+
+        # try:
+        #   pdf = SupplierDocs.objects.get(request_id=_id)
+        # except:
+        #   pass
+        dic = {
+           
+
+          # "vat_path":"/procurement"+pdf.vat_path,
+          # "tax_clearance_path":"/procurement"+pdf.tax_clearance_path,
+          # "profile_path":"/procurement"+pdf.profile_path,
+          # "certificate_path":"/procurement"+pdf.certificate_path,
+          # "pop":"/procurement"+pdf.dnote_path,
+
+          "rider name": record.rider_name,
+
+          "reg_num": record.reg_num,
+          "date_of_record": record.date_of_record,
+          "witness": record.witness,
+
+          "satisfied": record.satisfied,
+          "created_by": record.created_by,
+
+          "message":"success",
+        }
+        context = {'addTabActive': True, "record":"","tab":"8"}
+        return JsonResponse(dic)
+    else:
+        return redirect('/procurement/budget_lines_all')
+
+@login_required(login_url='login')
+@csrf_exempt
+@app.route("/send_record")
+def services_send_record(request):
+
+    with app.app_context():
+        try:
+           
+
+          rider_name= request.POST.get('rider_name',default=None)
+          reg_num= request.POST.get('reg_num',default=None)
+          witness= request.POST.get('witness',default=None)
+          satisfied= request.POST.get('satisfied',default=None)
+
+
+
+          # SupplierDocs.objects.get_or_create(
+          #   supplier_id = "0",
+          #   vat_path = "#",
+          #   tax_clearance_path = "#",
+          #   profile_path = "#",
+          #   certificate_path = "#",
+
+          # )
+
+          d = datetime.datetime.now()
+
+
+          # contact_person= request.POST.get('contact_person',default=None)
+          # alt_contact_number= request.POST.get('alt_contact_number',default=None)
+
+          # contact_number= request.POST.get('contact_number',default=None)
+          # contact_email= request.POST.get('contact_email',default=None)
+          # vat_valid_expiry_date= request.POST.get('vat_valid_expiry_date',default=None)
+          # tax_clearance_expiry_date= request.POST.get('tax_clearance_expiry_date',default=None)
+          # tax_complient= request.POST.get('tax_complient',default=None)
+          # approved_by= request.POST.get('approved_by',default=None)
+
+
+
+          record = Service()
+
+          record.created_by = request.user.username
+          record.rider_name= rider_name
+          record.reg_num= reg_num
+          record.witness= witness
+
+
+          record.date_of_record=  "{:%B %d, %Y  %H:%M:%S}".format(d)
+
+
+
+          # record.bank_account= bank_account
+          # record.meta_data= meta_data
+
+          # record.contact_person= contact_person
+          # record.alt_contact_number= alt_contact_number
+          # record.contact_number= contact_number
+          # record.contact_email= contact_email
+          # record.vat_valid_expiry_date= vat_valid_expiry_date
+          # record.tax_clearance_expiry_date= tax_clearance_expiry_date
+
+          # record.tax_complient= tax_complient
+          # record.approved_by= approved_by
+
+
+
+          notice = Notifications()
+          notice.to= record.witness
+          notice.trigger = request.user.username
+          notice.message = request.user.username +" has added a Supplier for you to approve"
+
+          d = datetime.datetime.now()
+          notice.date_time = "{:%B %d, %Y  %H:%M:%S}".format(d)
+          notice.status = "New"
+          notice.save()
+          # record.approved_by_date= approved_by_date
+
+
+          record.save()
+
+          _id = record.pk
+          return JsonResponse( {'message':"success",'id':_id})
+
+        except Exception as e  :
+            f= open("supplier.txt","w")
+            f.write(str(e))
+            f.close()
+            return JsonResponse({'message':"failed","tab":"1"})
+
+# @login_required(login_url='login')
+# @csrf_exempt
+# def get_goods_received_notes(request):
+#    try:
+#       dic = {}
+#       # User = get_user_model()
+#       schedules = GoodsReceivedNote.objects.filter(~Q(approver_date="None"))
+
+#       for schedule in schedules: 
+#           dic[schedule.id]= schedule.item_name +", Quantity : "+ schedule.qnty+",  Description :  "+schedule.desc +", Supplier : "+schedule.supplier+", Date of receipt : "+schedule.receiver_date
+#       return JsonResponse(dic)
+#    except Exception as e:
+#           return JsonResponse(str(e)) 
 
 
 
@@ -4853,7 +5166,7 @@ from time import time
     
 #     record = ComparativeSchedule.objects.get(id=x)
     
-#     data = 'https://etakawengwa.pythonanywhere.com//procurement/comp_schedule_print/'+ x
+#     data = 'http://127.0.0.1:8000/procurement/comp_schedule_print/'+ x
 #     img = make(data)
 #     img_name = f'lolo.png'
 #     img.save(img_name)
@@ -4869,6 +5182,44 @@ def qr_code(id):
     img.save(img_name)
 
 
+
+
+
+@login_required(login_url="login")
+def transactions(request):
+
+      # if request.user.groups.all()[0].name == "finance":
+      #     finance = True
+        # objs = Record.objects.get(id=_id)
+      record = GoodsReceivedNote.objects.filter( ~Q(approver_date = "None") )
+      context = {'records': record, "tab":"6"}
+      print("finance",record)
+      return render(request, 'pages/transactions/list.html', context)
+
+
+@login_required(login_url="login")
+def transaction_open_record(request):
+    if request.method == "POST":
+      finance = False
+
+      # user = request.user
+    
+    # Get the groups the user belongs to
+      # groups = user.groups.all()
+
+
+      _id = request.POST.get('id',default=None)
+      # if request.user.groups.all()[0].name == "finance":
+      #     finance = True
+        # objs = Record.objects.get(id=_id)
+      record = GoodsReceivedNote.objects.get(id=_id)
+      context = {'record':record, "finance":finance , "tab":"6"}
+      # #print"finance",finance)
+      return render(request, 'pages/goods_received/view_record.html', context)
+    else:
+       redirect("/procurement/goods_received_all")
+
+
 def transcript(request):
     
     # if request.method == "POST":
@@ -4878,6 +5229,7 @@ def transcript(request):
 
         # _id = request.POST.get(x)
         # #print_id)
+
 
         record1 = PaymentTicket.objects.get(id=x)
         _id = record1.payment_request_id
@@ -5054,13 +5406,13 @@ def loop_check(request):
   users = User.objects.filter(last_login=None)
 
   for user in users:
-          message = "Good day "+user.username+",\n We would like to welcome you to our procurement system (Berry) your temporary password is test123? to login use your username and this password. Use the following link to access the system.\n https://etakawengwa.pythonanywhere.com//procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
-          send_notice(message,"etakawengwa",user.username)
+          message = "Good day "+user.username+",\n We would like to welcome you to our procurement system (Berry) your temporary password is test123? to login use your username and this password. Use the following link to access the system.\n http://127.0.0.1:8000/procurement/ \nShould you face any challenges kindly contact IT at etakawengwa@brti.co.zw.\n\n regards IT"
+          #send_notice(message,"etakawengwa",user.username)
 
   for supplier in suppliers:
     if supplier.approved_by_date == "None":
-      message = "Good day "+supplier.approved_by+", please note that there is a supplier pending your approval use this link to access our system https://etakawengwa.pythonanywhere.com//procurement/suppliers_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
-      send_notice(message, "etakawengwa",supplier.approved_by)
+      message = "Good day "+supplier.approved_by+", please note that there is a supplier pending your approval use this link to access our system http://127.0.0.1:8000/procurement/suppliers_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      #send_notice(message, "etakawengwa",supplier.approved_by)
       # time.sleep(30)
 
 
@@ -5068,13 +5420,13 @@ def loop_check(request):
 #purchase requests
   for record in purchase_requests:
     if record.supervisor_approved_date == "None":
-      message = "Good day "+record.supervisor_approved+", please note that there is a purchase request pending your approval use this link to access our system https://etakawengwa.pythonanywhere.com//procurement/purchase_request_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
-      send_notice(message, "etakawengwa",record.supervisor_approved)
+      message = "Good day "+record.supervisor_approved+", please note that there is a purchase request pending your approval use this link to access our system http://127.0.0.1:8000/procurement/purchase_request_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      #send_notice(message, "etakawengwa",record.supervisor_approved)
       # time.sleep(30)
 
     if record.finance_officer_approved_date == "None":
-      message = "Good day "+record.finance_officer+", please note that there is a purchase request pending your approval use this link to access our system https://etakawengwa.pythonanywhere.com//procurement/purchase_request_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
-      send_notice(message, "etakawengwa",record.finance_officer)
+      message = "Good day "+record.finance_officer+", please note that there is a purchase request pending your approval use this link to access our system http://127.0.0.1:8000/procurement/purchase_request_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      #send_notice(message, "etakawengwa",record.finance_officer)
       # time.sleep(30)
 
 
@@ -5083,14 +5435,14 @@ def loop_check(request):
 #purchase orders
   for record in purchase_orders:
     if record.required_by_date == "None":
-      message = "Good day "+record.required_by+", please note that there is a purchase order pending your approval use this link to access our system https://etakawengwa.pythonanywhere.com//procurement/purchase_order_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
-      send_notice(message, "etakawengwa",record.required_by)
+      message = "Good day "+record.required_by+", please note that there is a purchase order pending your approval use this link to access our system http://127.0.0.1:8000/procurement/purchase_order_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      #send_notice(message, "etakawengwa",record.required_by)
       # time.sleep(30)
 
 
     if record.approved_by_date == "None":
-      message = "Good day "+record.approved_by+", please note that there is a purchase order pending your approval use this link to access our system https://etakawengwa.pythonanywhere.com//procurement/purchase_order_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
-      send_notice(message, "etakawengwa",record.approved_by)
+      message = "Good day "+record.approved_by+", please note that there is a purchase order pending your approval use this link to access our system http://127.0.0.1:8000/procurement/purchase_order_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      #send_notice(message, "etakawengwa",record.approved_by)
       # time.sleep(30)
 
 
@@ -5098,36 +5450,36 @@ def loop_check(request):
 #comp schedule
   for record in comp_schedules:
     if record.tech_person_date == "None":
-      message = "Good day "+record.tech_person_by+", please note that there is a Com schedule pending your approval use this link to access our system https://etakawengwa.pythonanywhere.com//procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
-      send_notice(message, "etakawengwa",record.tech_person_by)
+      message = "Good day "+record.tech_person_by+", please note that there is a Com schedule pending your approval use this link to access our system http://127.0.0.1:8000/procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      #send_notice(message, "etakawengwa",record.tech_person_by)
       # time.sleep(30)
 
 
     if record.dpt_head_date == "None":
-      message = "Good day "+record.dpt_head_by+", please note that there is a Com schedule pending your approval use this link to access our system https://etakawengwa.pythonanywhere.com//procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
-      send_notice(message, "etakawengwa",record.dpt_head_by)
+      message = "Good day "+record.dpt_head_by+", please note that there is a Com schedule pending your approval use this link to access our system http://127.0.0.1:8000/procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      #send_notice(message, "etakawengwa",record.dpt_head_by)
       # time.sleep(30)
 
     if record.dpt_head_date == "None":
-      message = "Good day "+record.dpt_head_by+", please note that there is a Com schedule pending your approval use this link to access our system https://etakawengwa.pythonanywhere.com//procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
-      send_notice(message, "etakawengwa",record.dpt_head_by)
+      message = "Good day "+record.dpt_head_by+", please note that there is a Com schedule pending your approval use this link to access our system http://127.0.0.1:8000/procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      #send_notice(message, "etakawengwa",record.dpt_head_by)
       # time.sleep(30)
 
 
     if record.team_lead_date == "None":
-      message = "Good day "+record.team_lead_by+", please note that there is a Com schedule pending your approval use this link to access our system https://etakawengwa.pythonanywhere.com//procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
-      send_notice(message, "etakawengwa",record.team_lead_by)
+      message = "Good day "+record.team_lead_by+", please note that there is a Com schedule pending your approval use this link to access our system http://127.0.0.1:8000/procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      #send_notice(message, "etakawengwa",record.team_lead_by)
       # time.sleep(30)
 
 
 
     if record.approved_date == "None":
-      message = "Good day "+record.approved_by+", please note that there is a Com schedule pending your approval use this link to access our system https://etakawengwa.pythonanywhere.com//procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
-      send_notice(message, "etakawengwa",record.approved_by)
+      message = "Good day "+record.approved_by+", please note that there is a Com schedule pending your approval use this link to access our system http://127.0.0.1:8000/procurement/comp_schedule_pending\n should you face any challenges kindly contact IT on etakawengwa@brti.co.zw \n\n\n regards IT."
+      #send_notice(message, "etakawengwa",record.approved_by)
       # time.sleep(30)
 
 
-def send_notice(message,trigger,receiver):
+def send_notice1(message,trigger,receiver):
                 
             try:
                 # print(message)

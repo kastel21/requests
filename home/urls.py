@@ -276,6 +276,20 @@ urlpatterns = [
     path('save_sig', views.save_sig, name='save_sig'),
 
 
+    path('services', views.services, name='services'),
+    path('services_all', views.services_all, name='services_all'),
+    path('service_add', views.service_add, name='service_add'),
+    path('services_send_record', views.services_send_record, name='services_send_record'),
+    re_path('services_get_record', views.services_get_record, name='services_get_record'),
+    re_path('get_services', views.get_services, name='get_services'),
+
+
+
+    re_path('service_open_record/', views.service_open_record, name='service_open_record'),
+
+
+     path('transactions', views.transactions, name='transactions'),
+
 
 
     path('loop_check', views.loop_check, name='loop_check'),

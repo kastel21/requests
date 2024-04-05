@@ -33,7 +33,7 @@ if not SECRET_KEY:
 DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = ['kaslor.co.zw','www.kaslor.co.zw','localhost','127.0.0.1','0.0.0.0','41.174.97.68:80','www.kaslor.co.zw','kaslor.co.zw']
-CSRF_TRUSTED_ORIGINS = ['https://etakawengwa.pythonanywhere.com//procurement/*','  http://127.0.0.1/*']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000/procurement/*','  http://127.0.0.1:8000/*']
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:    
