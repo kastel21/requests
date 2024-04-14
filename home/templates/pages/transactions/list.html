@@ -66,13 +66,10 @@
   
                             <table style="margin: 2%;">
                                 <th>
-                                    <td>Receiver</td>
-                                    <td>Supplier</td>
-                                    <td>Item Name</td>
-                                    <td>Description</td>
-                                    <td>On Receipt</td>
-                                    <td>Rejected By</td>
-                                    <td>Date of Record </td>
+                                    <td>Creator</td>
+                                    <td>To Supplier</td>
+                                    <td>Amount</td>
+                                    <td>Status</td>
 
                                 </th>
 
@@ -88,16 +85,12 @@
 
                                             <input style="display: none;" type="text" name="id" id="id" value="{{record.id}}" />
                                             <td></td>
-                                            <td> <input type="submit" value="{{record.receiver}}" /> </td>
+                                            <td> <input type="submit" value="{{record.creator}}" /> </td>
 
                                         
-                                    <td>{{record.supplier}}</td>
-                                    <td>{{record.item_name}}</td>
-                                    <td>{{record.desc}}</td>
+                                    <td>{{record.to_name}}</td>
+                                    <td>{{record.amount}}</td>
                                     <td>{{record.status}}</td>
-                                    <td>{{record.rejector}}</td>
-
-                                    <td>{{record.receiver_date}}</td>
 
                                     
                                     <td></td>

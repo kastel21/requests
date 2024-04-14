@@ -1,17 +1,169 @@
-$("#btn1").val()
 
-var purchase_order= $("#purchase_order").val();
-var payment_request= $("#payment_request").val();
-var supplier= $("#supplier").val();
-var dpt= $("#dpt").val();
-var item_name= $("#item_name").val();
+pymenr request
 
-var desc= $("#desc").val();
-var qnty= $("#qnty").val();
-var serial= $("#serial").val();
+requester = models.CharField(max_length=100, default="None")
+date_of_request = models.CharField(max_length=200, default="2023")
+requesting_dpt = models.CharField(max_length=150, default="None")
+request_justification = models.CharField(max_length=2000, default="None")
+budget_line_item = models.CharField(max_length=200, default="None")
 
-var approver= $("#certified_by").val();
-var comments= $("#comments").val();
+qnty = models.CharField(max_length=150, default="None")
+
+item_name = models.CharField(max_length=450, default="None")
+description = models.CharField(max_length=150, default="None")
+
+supervisor_approved = models.CharField(max_length=150, default="None")
+supervisor_approved_date= models.CharField(max_length=150, default="None")
+finance_officer= models.CharField(max_length=150, default="None")
+finance_officer_approved_date= models.CharField(max_length=150, default="None")
+rejector= models.CharField(max_length=150, default="None")
+rejector_message= models.CharField(max_length=500, default="None")
+rejector_date= models.CharField(max_length=500, default="None")
+completed= models.CharField(max_length=50, default="0")
 
 
-var status= $("#status").val();
+
+comp comp_schedule
+
+
+purchase_request = models.CharField(max_length=100, default="None")
+
+   
+company_name_supplier1 = models.CharField(max_length=450, default="None")
+company_name_supplier2 = models.CharField(max_length=450, default="None")
+company_name_supplier3 = models.CharField(max_length=450, default="None")
+
+item_name_supplier1 = models.CharField(max_length=450, default="None")
+item_name_supplier2 = models.CharField(max_length=450, default="None")
+item_name_supplier3 = models.CharField(max_length=450, default="None")
+
+desc_supplier1 = models.CharField(max_length=450, default="None")
+desc_supplier2 = models.CharField(max_length=450, default="None")
+desc_supplier3 = models.CharField(max_length=450, default="None")
+
+
+qnty_supplier1 = models.CharField(max_length=450, default="None")
+qnty_supplier2 = models.CharField(max_length=450, default="None")
+qnty_supplier3 = models.CharField(max_length=450, default="None")
+
+
+unit_price_supplier1 = models.CharField(max_length=450, default="None")
+unit_price_supplier2 = models.CharField(max_length=450, default="None")
+unit_price_supplier3 = models.CharField(max_length=450, default="None")
+
+total_price_supplier1 = models.CharField(max_length=450, default="None")
+total_price_supplier2 = models.CharField(max_length=450, default="None")
+total_price_supplier3 = models.CharField(max_length=450, default="None")
+
+recommended_supplier = models.CharField(max_length=150, default="2023")
+recommended_supplier_reason = models.CharField(max_length=150, default="None")
+
+upload_name = models.CharField(max_length=550, default="None")
+
+
+requested_by = models.CharField(max_length=300, default="None")
+requested_by_sig = models.CharField(max_length=300, default="None")
+requested_by_date = models.CharField(max_length=300, default="None")
+
+
+
+tech_person_by = models.CharField(max_length=300, default="None")
+tech_person_by_sig = models.CharField(max_length=300, default="None")
+tech_person_date = models.CharField(max_length=300, default="None")
+
+dpt_head_by = models.CharField(max_length=300, default="None")
+dpt_head_by_sig = models.CharField(max_length=300, default="None")
+dpt_head_date = models.CharField(max_length=300, default="None")
+
+team_lead_by = models.CharField(max_length=300, default="None")
+team_lead_by_sig = models.CharField(max_length=300, default="None")
+team_lead_date = models.CharField(max_length=300, default="None")
+
+approved_by = models.CharField(max_length=300, default="None")
+approved_by_sig = models.CharField(max_length=300, default="None")
+approved_date = models.CharField(max_length=300, default="None")
+
+rejector= models.CharField(max_length=150, default="None")
+rejector_message= models.CharField(max_length=500, default="None")
+rejector_date= models.CharField(max_length=500, default="None")
+completed= models.CharField(max_length=50, default="0")
+
+
+
+purchase order
+
+comp_schedule_id = models.CharField(max_length=300, default="None")
+
+purchase_id = models.CharField(max_length=300, default="None")
+sup_name = models.CharField(max_length=200, default="None")
+contact_person = models.CharField(max_length=300, default="None")
+contact_number = models.CharField(max_length=250, default="2023")
+address = models.CharField(max_length=150, default="None")
+date = models.CharField(max_length=550, default="None")
+
+
+compiled_by = models.CharField(max_length=150, default="None")
+
+item_name = models.CharField(max_length=250, default="None")
+quantity = models.CharField(max_length=150, default="None")
+description = models.CharField(max_length=550, default="None")
+unit_cost = models.CharField(max_length=150, default="None")
+total_cost = models.CharField(max_length=150, default="None")
+
+ordered_by = models.CharField(max_length=150, default="None")
+ordered_by_date= models.CharField(max_length=150, default="None")
+
+required_by = models.CharField(max_length=150, default="None")
+required_by_date= models.CharField(max_length=150, default="None")
+
+approved_by= models.CharField(max_length=250, default="None",null=True)
+approved_by_date= models.CharField(max_length=150, default="None")
+rejector= models.CharField(max_length=150, default="None")
+rejector_message= models.CharField(max_length=500, default="None")
+rejector_date= models.CharField(max_length=500, default="None")
+completed= models.CharField(max_length=50, default="0")
+
+
+paymwenr request
+
+purchase_id= models.CharField(max_length=300, default="None")
+request_id = models.CharField(max_length=300, default="None")
+compiled_by = models.CharField(max_length=300, default="None")
+date_of_request = models.CharField(max_length=100, default="None")
+payee = models.CharField(max_length=150, default="None")
+payment_type = models.CharField(max_length=450, default="None")
+type_of_payment = models.CharField(max_length=550, default="None")
+
+details = models.CharField(max_length=150, default="None")
+amount = models.CharField(max_length=150, default="None")
+qnty = models.CharField(max_length=150, default="None")
+total = models.CharField(max_length=150, default="None")
+
+certified_by = models.CharField(max_length=150, default="None")
+certified_by_date = models.CharField(max_length=150, default="None")
+
+cleared_by_fin_man= models.CharField(max_length=150, default="None")
+cleared_by_fin_man_date= models.CharField(max_length=250, default="None")
+
+accepted_by = models.CharField(max_length=150, default="None")
+accepted_by_date = models.CharField(max_length=150, default="None")
+rejector= models.CharField(max_length=150, default="None")
+rejector_message= models.CharField(max_length=500, default="None")
+rejector_date= models.CharField(max_length=500, default="None")
+completed= models.CharField(max_length=50, default="0")
+grnote= models.CharField(max_length=50, default="0")
+
+
+
+ticket
+
+payment_request_id = models.CharField(max_length=150, default="None")
+creator = models.CharField(max_length=150, default="None")
+date_of_ticket = models.CharField(max_length=150, default="None")
+status = models.CharField(max_length=150, default="None")
+
+amount = models.CharField(max_length=150, default="None")
+to_name = models.CharField(max_length=150, default="None")
+to_bank_name = models.CharField(max_length=150, default="None")
+to_bank_account = models.CharField(max_length=150, default="None")
+narration = models.CharField(max_length=150, default=".")

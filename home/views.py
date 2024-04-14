@@ -2565,6 +2565,11 @@ def payment_ticket_send_record(request):
           payment_request_id= request.POST.get('request_id',default=None)
 
 
+          # _id= current_url.split("/")[-1]
+          # if ".png" in _id:
+          #   _id = _id.split(".")[0]
+
+
           PaymentTicketPOP.objects.get_or_create(
             payment_ticket_id = "0",
             pop_path = "#",
@@ -2615,6 +2620,10 @@ def payment_ticket_send_record(request):
           record.save()
 
           _id = record.pk
+          current_url = request.path
+          qr_code(_id)
+
+
           return JsonResponse( {'message':"success",'id':_id})
 
         except Exception as e  :
@@ -5173,13 +5182,14 @@ from time import time
 #     context = {'img_name': img_name}
 #     return render(request, 'pages/qr.html', context)
 
-def qr_code(id):
+def qr_code(_id):
 
-    text='hie'
-    img = qrcode.make(text)
-    type(img)  # qrcode.image.pil.PilImage
-    img_name = f'lolo.png'
-    img.save(img_name)
+    img = qrcode.make("http://127.0.0.1:8000/procurement/transaction_open_record/"+str(_id))
+    # import os
+    # if not os.path.exists("static/images/qr_codes"):
+    #   os.makedirs("static/images/qr_codes")
+
+    img.save("admin_berry/static/assets/images/qr_codes/"+str(_id)+".png")
 
 
 
@@ -5191,14 +5201,21 @@ def transactions(request):
       # if request.user.groups.all()[0].name == "finance":
       #     finance = True
         # objs = Record.objects.get(id=_id)
-      record = GoodsReceivedNote.objects.filter( ~Q(approver_date = "None") )
+      record = PaymentTicket.objects.all()
       context = {'records': record, "tab":"6"}
-      print("finance",record)
       return render(request, 'pages/transactions/list.html', context)
 
 
 @login_required(login_url="login")
 def transaction_open_record(request):
+
+    current_url = request.path
+    _id= current_url.split("/")[-1]
+    if ".png" in _id:
+        _id = _id.split(".")[0]
+
+    # qr_code(current_url,_id)
+
     if request.method == "POST":
       finance = False
 
@@ -5212,12 +5229,80 @@ def transaction_open_record(request):
       # if request.user.groups.all()[0].name == "finance":
       #     finance = True
         # objs = Record.objects.get(id=_id)
-      record = GoodsReceivedNote.objects.get(id=_id)
-      context = {'record':record, "finance":finance , "tab":"6"}
+      
+      record = PaymentTicket.objects.get(id=_id)
+
+       
+
+      record_payment_request = PaymentRequest.objects.get(id = record.payment_request_id)
+
+      record_purchase_order = PurchaseOrder.objects.get(id = record_payment_request.purchase_id)
+
+      if record_purchase_order.comp_schedule_id == "None":
+        record_comp_schedule = False
+      else:
+        record_comp_schedule = ComparativeSchedule.objects.get(id = record_purchase_order.comp_schedule_id)
+
+
+      record_purchase_request = PuchaseRequest.objects.get(id = record_purchase_order.purchase_id)
+
+
+
+
+
+
+      context = {'record':record,
+                  "record_payment_request":record_payment_request,
+                  "record_purchase_order":record_purchase_order,
+                  "record_comp_schedule":record_comp_schedule,
+                  "record_purchase_request":record_purchase_request,
+                    "code":_id+".png",
+                   "tab":"6"}
       # #print"finance",finance)
-      return render(request, 'pages/goods_received/view_record.html', context)
+      return render(request, 'pages/transactions/view_record.html', context)
     else:
-       redirect("/procurement/goods_received_all")
+        current_url = request.path
+        my_id= current_url.split("/")[-1]
+        print("url "+my_id,current_url)
+
+        if ".png" in my_id:
+          my_id = my_id.split(".")[0]
+
+        record = PaymentTicket.objects.get(id=my_id)
+
+        
+
+        record_payment_request = PaymentRequest.objects.get(id = record.payment_request_id)
+
+        record_purchase_order = PurchaseOrder.objects.get(id = record_payment_request.purchase_id)
+
+        if record_purchase_order.comp_schedule_id == "None":
+          record_comp_schedule = False
+        else:
+          record_comp_schedule = ComparativeSchedule.objects.get(id = record_purchase_order.comp_schedule_id)
+
+
+        record_purchase_request = PuchaseRequest.objects.get(id = record_purchase_order.purchase_id)
+
+
+
+
+
+
+        context = {'record':record,
+                    "record_payment_request":record_payment_request,
+                    "record_purchase_order":record_purchase_order,
+                    "record_comp_schedule":record_comp_schedule,
+                    "record_purchase_request":record_purchase_request,
+                    "code":_id+".png",
+                    "tab":"6"}
+        # #print"finance",finance)
+        return render(request, 'pages/transactions/view_record.html', context)
+
+
+
+
+
 
 
 def transcript(request):

@@ -290,6 +290,7 @@ urlpatterns = [
 
      path('transactions', views.transactions, name='transactions'),
 
+     re_path('transaction_open_record', views.transaction_open_record, name='transaction_open_record'),
 
 
     path('loop_check', views.loop_check, name='loop_check'),
