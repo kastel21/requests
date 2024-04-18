@@ -5208,16 +5208,20 @@ def transactions(request):
 
 @login_required(login_url="login")
 def transaction_open_record(request):
+  quote1 = "#"
+  quote2 = "#"
+  quote3 = "#"
+  quote = "#"
 
-    current_url = request.path
-    _id= current_url.split("/")[-1]
-    if ".png" in _id:
-        _id = _id.split(".")[0]
+  current_url = request.path
+  _id= current_url.split("/")[-1]
+  if ".png" in _id:
+    _id = _id.split(".")[0]
 
     # qr_code(current_url,_id)
 
-    if request.method == "POST":
-      finance = False
+  if request.method == "POST":
+    finance = False
 
       # user = request.user
     
@@ -5225,33 +5229,60 @@ def transaction_open_record(request):
       # groups = user.groups.all()
 
 
-      _id = request.POST.get('id',default=None)
+    _id = request.POST.get('id',default=None)
       # if request.user.groups.all()[0].name == "finance":
       #     finance = True
         # objs = Record.objects.get(id=_id)
       
-      record = PaymentTicket.objects.get(id=_id)
+    record = PaymentTicket.objects.get(id=_id)
+    try:
+      pop = "/procurement"+PaymentTicketPOP.objects.get(payment_ticket_id=_id).pop_path
+    except:
+      pop = "#"
 
        
 
-      record_payment_request = PaymentRequest.objects.get(id = record.payment_request_id)
+    record_payment_request = PaymentRequest.objects.get(id = record.payment_request_id)
 
-      record_purchase_order = PurchaseOrder.objects.get(id = record_payment_request.purchase_id)
+    try:
+      quote = "/procurement"+PaymentRequestPOP.objects.get(request_id=record_payment_request.id).quote_path1
+    except:
+      quote = "#"
 
-      if record_purchase_order.comp_schedule_id == "None":
-        record_comp_schedule = False
-      else:
-        record_comp_schedule = ComparativeSchedule.objects.get(id = record_purchase_order.comp_schedule_id)
+    record_purchase_order = PurchaseOrder.objects.get(id = record_payment_request.purchase_id)
+    try:
+      profoma = "/procurement"+PurchaseOrderQuotation.objects.get(request_id=record_purchase_order.id).quote_path
+    except:
+      profoma = "#"
+
+    if record_purchase_order.comp_schedule_id == "None":
+      record_comp_schedule = False
+    else:
+      record_comp_schedule = ComparativeSchedule.objects.get(id = record_purchase_order.comp_schedule_id)
+      try:
+          quote1 = "/procurement"+CompScheduleQuotation.objects.get(request_id=record_comp_schedule.id).quote1_path
+          quote2 = "/procurement"+CompScheduleQuotation.objects.get(request_id=record_comp_schedule.id).quote2_path
+          quote3 = "/procurement"+CompScheduleQuotation.objects.get(request_id=record_comp_schedule.id).quote3_path
+
+      except:
+          quote1 = "#"
+          quote2 = "#"
+          quote3 = "#"
+
+    record_purchase_request = PuchaseRequest.objects.get(id = record_purchase_order.purchase_id)
 
 
-      record_purchase_request = PuchaseRequest.objects.get(id = record_purchase_order.purchase_id)
 
 
 
+    context = {'record':record,
+                  'pop':pop,
+                  "profoma":profoma,
+                  "quote":quote,
+                  "quote1":quote1,
+                  "quote2":quote2,
+                  "quote3":quote3,
 
-
-
-      context = {'record':record,
                   "record_payment_request":record_payment_request,
                   "record_purchase_order":record_purchase_order,
                   "record_comp_schedule":record_comp_schedule,
@@ -5259,45 +5290,73 @@ def transaction_open_record(request):
                     "code":_id+".png",
                    "tab":"6"}
       # #print"finance",finance)
-      return render(request, 'pages/transactions/view_record.html', context)
-    else:
-        current_url = request.path
-        my_id= current_url.split("/")[-1]
-        print("url "+my_id,current_url)
+    return render(request, 'pages/transactions/view_record.html', context)
+  else:
+      current_url = request.path
+      my_id= current_url.split("/")[-1]
+      print("url "+my_id,current_url)
 
-        if ".png" in my_id:
-          my_id = my_id.split(".")[0]
+      if ".png" in my_id:
+        my_id = my_id.split(".")[0]
 
-        record = PaymentTicket.objects.get(id=my_id)
+      record = PaymentTicket.objects.get(id=my_id)
 
-        
-
-        record_payment_request = PaymentRequest.objects.get(id = record.payment_request_id)
-
-        record_purchase_order = PurchaseOrder.objects.get(id = record_payment_request.purchase_id)
-
-        if record_purchase_order.comp_schedule_id == "None":
-          record_comp_schedule = False
-        else:
-          record_comp_schedule = ComparativeSchedule.objects.get(id = record_purchase_order.comp_schedule_id)
-
-
-        record_purchase_request = PuchaseRequest.objects.get(id = record_purchase_order.purchase_id)
+      try:
+          pop = "/procurement"+PaymentTicketPOP.objects.get(payment_ticket_id=my_id).pop_path
+      except:
+          pop = "#"
 
 
 
+      record_payment_request = PaymentRequest.objects.get(id = record.payment_request_id)
+
+      try:
+          quote = "/procurement"+PaymentRequestPOP.objects.get(request_id=record_payment_request.id).quote_path1
+      except:
+          quote = "#"
+
+      record_purchase_order = PurchaseOrder.objects.get(id = record_payment_request.purchase_id)
+      try:
+          profoma = "/procurement"+PurchaseOrderQuotation.objects.get(request_id=record_purchase_order.id).quote_path
+      except:
+          profoma = "#"
+
+      if record_purchase_order.comp_schedule_id == "None":
+        record_comp_schedule = False
+      else:
+        record_comp_schedule = ComparativeSchedule.objects.get(id = record_purchase_order.comp_schedule_id)
+        try:
+          quote1 = "/procurement"+CompScheduleQuotation.objects.get(request_id=record_comp_schedule.id).quote1_path
+          quote2 = "/procurement"+CompScheduleQuotation.objects.get(request_id=record_comp_schedule.id).quote2_path
+          quote3 = "/procurement"+CompScheduleQuotation.objects.get(request_id=record_comp_schedule.id).quote3_path
+
+        except:
+          quote1 = "#"
+          quote2 = "#"
+          quote3 = "#"
+
+      record_purchase_request = PuchaseRequest.objects.get(id = record_purchase_order.purchase_id)
 
 
 
-        context = {'record':record,
-                    "record_payment_request":record_payment_request,
-                    "record_purchase_order":record_purchase_order,
-                    "record_comp_schedule":record_comp_schedule,
-                    "record_purchase_request":record_purchase_request,
+
+
+      context = {'record':record,
+                  'pop':pop,
+                  "profoma":profoma,
+                  "quote":quote,
+                                    "quote1":quote1,
+                  "quote2":quote2,
+                  "quote3":quote3,
+
+                  "record_payment_request":record_payment_request,
+                  "record_purchase_order":record_purchase_order,
+                  "record_comp_schedule":record_comp_schedule,
+                  "record_purchase_request":record_purchase_request,
                     "code":_id+".png",
-                    "tab":"6"}
+                   "tab":"6"}
         # #print"finance",finance)
-        return render(request, 'pages/transactions/view_record.html', context)
+      return render(request, 'pages/transactions/view_record.html', context)
 
 
 
