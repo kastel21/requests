@@ -1,0 +1,777 @@
+{% load static %}
+{% block content %}
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    <div class="pc-content">
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+       
+
+
+
+
+        <style type="text/css">
+            /*.tg  {border-collapse:collapse;border-spacing:0;}
+            .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+              overflow:hidden;padding:10px 5px;word-break:normal;}
+            .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+              font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+            .tg .tg-0lax{text-align:left;vertical-align:top}
+            */
+    
+            /* table {
+  border-spacing: 30px;
+} */
+            .footer {
+       position: fixed;
+       left: 0;
+       bottom: 0;
+       text-align: right;
+    }
+    
+    table, th {
+    
+                width: 100%;
+                margin: 95%;
+                border: 1px solid black;
+            }
+    
+    
+    
+    
+            .td1 {border: 0;}
+    
+            #section {
+    
+                border: 0px;
+    
+            }
+    
+            hr.new1 {
+    
+    
+    
+                border-top: 3px dotted;
+            }
+    
+            b {
+    
+                font-size:10px;
+            }
+    
+    
+    
+    
+    
+    .row {
+      display: flex;
+      margin-left:-5px;
+      margin-right:-5px;
+    }
+    
+    .column {
+      flex: 50%;
+      padding: 5px;
+    }
+    
+    
+    
+    
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+            </style>
+
+            <h3 style="text-align: center;">Sample print report</h3>
+<hr>
+<table style="padding:1px;">
+    <thead>
+      <tr>
+        <th style="text-align: center;"><img src="home/templates/pages/transactions/2.png" width="60" height="60" style="margin-bottom: 20px;"> <br> <b style="margin-left: -50px; margin-bottom:-15px;"> Biomedical Research and Training Institute</b> </th>
+        <th style="text-align: center;">FM/QMS/274     Version 7: May 2022 <br/> 10 Seagrave Rd <br/> Mt Pleasant<br/> Harare, Zimbabwe<br/> Tel 2923324 , 333089 <br/>Laboratory operating hours: 0800 to 1630hrs Monday to Friday
+    </th>
+      </tr>
+    </thead>
+</table>
+    <hr>
+
+
+<div class="col-md-12">
+    <h3 style="text-align: center;"  class="form-label">Payment Ticket</h3>
+</div>
+
+
+<table style="padding:5px;">
+
+<tr>
+    <td><b>Made from From Payment Request ID: </b></td>
+    <td>{{record.payment_request_id}}</td>
+
+</tr>
+
+
+<tr>
+    <td><b>Created By: </b></td>
+    <td>{{record.creator}}</td>
+
+</tr>
+
+</table>
+<table style="padding:5px;">
+
+<tr>
+    <td><b>Status of Ticket: </b></td>
+    <td>{{record.status}}</td>
+
+</tr>
+
+<tr>
+    <td><b>To Supplier: </b></td>
+    <td>{{record.to_name}}</td>
+
+</tr>
+
+</table>
+<table style="padding:5px;">
+    <tr>
+    <td><b>Bank Name: </b></td>
+    <td>{{record.to_bank_name}}</td>
+
+</tr>
+
+
+<tr>
+    <td><b>Account Name: </b></td>
+    <td>{{record.to_bank_account}}</td>
+
+</tr>
+
+</table>
+<table style="padding:5px;">
+    <tr>
+    <td><b>Amount: </b></td>
+    <td>{{record.amount}}</td>
+
+</tr>
+
+
+<tr>
+    <td><b>Narration: </b></td>
+    <td>{{record.narration}}</td>
+
+</tr>
+
+
+
+
+</table>
+
+<hr>
+
+<br>
+<br>
+<div class="col-md-12">
+    <h3 style="text-align: center;"  class="form-label">Payment Request</h3>
+</div>
+<br>
+
+
+
+
+<table style="padding: 5px;">
+    <tr>
+        <td><b>Payee: </b></td>
+        <td>{{record_payment_request.payee}}</td>
+
+    </tr>
+</table>
+<table>
+<tr>
+    <td><b>Date of Request: </b></td>
+    <td>{{record_payment_request.date_of_request}}</td>
+
+    <td><b>Type of Payment: </b></td>
+    <td>{{record_payment_request.payment_type}}</td>
+
+    <td><b>Amount: </b></td>
+    <td>{{record_payment_request.amount}}</td>
+</tr>
+</table>
+
+<table style="padding: 5px;">
+<tr>
+
+
+    <th>Amount in Words: </b></td>
+    <td>{{amount_in_words}}</td>
+</tr>
+
+
+
+<tr>
+
+
+    <th>Details of Expenditure </th>
+    <th>Amount</th>
+
+</tr>
+<tr>
+
+
+    <td>{{record_payment_request.details}} </td>
+    <td>{{record_payment_request.amount}}</td>
+    
+</tr>
+
+
+
+</table>
+
+
+
+
+
+
+<table style="padding: 5px;">
+
+
+<tr>
+    <td><b>Compiled by : </b></td>
+    <td>{{record_payment_request.compiled_by}}</td>
+    <td><b>Date</b></td>
+    <td>{{record_payment_request.date_of_request}}</td>
+</tr>
+
+
+
+<tr>
+    <td><b>Certified by : </b></td>
+    <td>{{record_payment_request.certified_by}}</td>
+    <td><b>Date</b></td>
+    <td>{{record_payment_request.certified_by_date}}</td>
+</tr>
+
+
+<tr>
+    <td><b>Approved by : </b></td>
+    <td>{{record_payment_request.cleared_by_fin_man}}</td>
+    <td><b>Date</b></td>
+    <td>{{record_payment_request.cleared_by_fin_man_date}}</td>
+</tr>
+
+</table>
+
+
+<!-- <div class="col-md-6">
+    <label  class="form-label">From Purchase Order:</label>
+    <input type="text" class="form-control" id="purchase_order" name="purchase_order" value="{{record_payment_request.purchase_id}}" readonly>
+</div> -->
+
+
+
+
+<!-- <div class="col-md-4">
+    <label  class="form-label">Date:</label>
+    <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="">
+</div> -->
+
+<!-- <div class="col-md-6">
+    <label  class="form-label"> Payment Type</label>
+    <input type="text" class="form-control" id="payment_type" name="payment_type" value="{{record_payment_request.payment_type}}">
+
+
+
+</div>
+<div class="col-md-6">
+    <label  class="form-label"> Type of Payment</label>
+    <input type="text" class="form-control" id="type_of_payment" name="type_of_payment" value="{{record_payment_request.type_of_payment}}">
+
+
+
+</div> -->
+
+
+
+
+<!-- <div class="col-md-12">
+    <label  class="form-label">Details of Expenditure:</label>
+    <input type="text" class="form-control" id="details" name="details" value="{{record_payment_request.details}}" style="height:90px;" readonly>
+</div>
+
+
+<div class="col-md-4">
+    <label  class="form-label">Quantity:</label>
+    <input type="text" class="form-control" id="qnty" name="qnty" value="{{record_payment_request.qnty}}" readonly>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Unit Amount:</label>
+    <input type="text" class="form-control" id="amount" name="amount" value="{{record_payment_request.amount}}" readonly>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Total:</label>
+    <input type="text" class="form-control" id="total" name="total" value="{{record_payment_request.total}}" readonly>
+</div> -->
+
+
+
+<!-- 
+
+
+<div class="col-md-12">
+    <h3 style="text-align: center;"  class="form-label">Purchase Order</h3>
+</div>
+
+<div class="col-md-12">
+    <label for="fname" class="form-label">From Purchase Request:</label>
+    <input type="text" class="form-control" id="purchase_id" name="purchase_id" value="{{record_purchase_order.purchase_id}}" readonly >
+</div>
+<p></p>
+
+<div class="col-md-6">
+    <label for="fname" class="form-label">Supplier Name:</label>
+    <input type="text" class="form-control" id="sup_name" name="sup_name" value="{{record_purchase_order.sup_name}}" readonly >
+</div>
+
+<div class="col-md-6">
+    <label for="lname" class="form-label">Contact Person:</label>
+    <input type="text" class="form-control" id="contact_person" name="contact_person" value="{{record_purchase_order.contact_person}}" readonly >
+</div>
+
+<div class="col-md-6">
+    <label for="fname" class="form-label">Contact Number:</label>
+    <input type="text" class="form-control" id="contact_number" name="contact_number" value="{{record_purchase_order.contact_number}}" readonly >
+</div>
+
+
+<div class="col-md-6">
+    <label for="fname" class="form-label">Address:</label>
+    <input type="text" class="form-control" id="address" name="address" value="{{record_purchase_order.address}}" readonly >
+</div>
+
+
+<div class="col-md-4">
+    <label for="fname" class="form-label">Item Name:</label>
+    <input type="text" class="form-control" id="item_name" name="item_name" value="{{record_purchase_order.item_name}}" readonly >
+</div>
+
+
+<div class="col-md-4">
+    <label for="fname" class="form-label">Quantity:</label>
+    <input type="text" class="form-control" id="quantity" name="quantity" value="{{record_purchase_order.quantity}}" readonly>
+</div>
+
+
+<div class="col-md-12">
+    <label for="supervisor_approved" class="form-label">description:</label>
+    <input type="text" class="form-control" id="description" name="description" value="{{record_purchase_order.description}}" readonly >
+</div>
+
+<div class="col-md-4">
+    <label for="lname" class="form-label">Unit Cost:</label>
+    <input type="text" class="form-control" id="unit_cost" name="unit_cost" value="{{record_purchase_order.unit_cost}}" readonly >
+</div>
+
+
+
+<div class="col-md-12">
+    <label for="certifier" class="form-label">Select Accounts Clerk</label>
+    <select class="form-control" name="accounts_clerk_approved" id="accounts_clerk_approved">
+    <option value="None">..</option>
+
+    </select>
+</div> 
+
+<div class="col-md-4">
+    <label for="fname" class="form-label">Total Cost</label>
+    <input type="text" class="form-control" id="total_cost" name="total_cost" value="{{record_purchase_order.total_cost}}" readonly >
+</div>
+
+
+<div class="col-md-4">
+    <label for="certifier" class="form-label">Quotation</label>
+    <a id="quotation" class="btn btn-primary" href="{{profoma}}" target="_blank">View</a>
+</div>
+
+
+<div class="col-md-6">
+    <label for="fname" class="form-label">Ordered By</label>
+    <input type="text" class="form-control" id="ordered_by" name="ordered_by" value="{{record_purchase_order.ordered_by}}" readonly >
+</div>
+
+<div class="col-md-6">
+    <label for="fname" class="form-label">Date</label>
+    <input type="text" class="form-control" id="ordered_by_date" name="ordered_by_date" value="{{record_purchase_order.ordered_by_date}}" readonly >
+</div>
+
+<div class="col-md-6">
+    <label for="fname" class="form-label">Required By:</label>
+    <input type="text" class="form-control" id="required_by" name="required_by" value="{{record_purchase_order.required_by}}" readonly >
+</div>
+
+<div class="col-md-6">
+    <label for="fname" class="form-label">Required By Date:</label>
+    <input type="text" class="form-control" id="required_by_date" name="required_by_date" value="{{record_purchase_order.required_by_date}}" readonly >
+</div>
+<div class="col-md-6">
+    <label for="fname" class="form-label">Approved By:</label>
+    <input type="text" class="form-control" id="approved_by" name="approved_by" value="{{record_purchase_order.approved_by}}" readonly >
+</div>
+
+<div class="col-md-6">
+    <label for="fname" class="form-label">Approved Date:</label>
+    <input type="text" class="form-control" id="approved_by_date" name="approved_by_date" value="{{record_purchase_order.approved_by_date}}" readonly >
+</div>
+
+<hr>
+
+{% if not record_comp_schedule %}
+<div class="col-md-12">
+    <h3 style="text-align: center;color: rgb(232, 91, 91);"  class="form-label">No Comparative schedule</h3>
+</div>
+{%else%}
+
+<hr>
+<div class="col-md-12">
+    <h3 style="text-align: center;"  class="form-label">Comparative schedule</h3>
+</div>
+
+
+<div class="col-md-6">
+    <label  class="form-label">From Purchase Request:</label>
+    <input type="text" class="form-control" id="purchase_request" name="purchase_request" value="{{record_comp_schedule.purchase_request}}" readonly>
+</div>
+
+
+
+
+<hr>
+
+<legend>Supplier 1</legend>
+
+<div class="col-md-6">
+    <label  class="form-label">Supplier 1 (Company Name):</label>
+    <input type="text" class="form-control" id="company_name_supplier1" name="company_name_supplier1" value="{{record_comp_schedule.company_name_supplier1}}" readonly>
+</div>
+
+<div class="col-md-6">
+    <label  class="form-label">Item Name. (Supplier 1):</label>
+    <input type="text" class="form-control" id="item_name_supplier1" name="item_name_supplier1" value="{{record_comp_schedule.item_name_supplier1}}" readonly>
+</div>
+
+<div class="col-md-12">
+    <label  class="form-label"> Description:</label>
+    <textarea type="text" class="form-control" id="desc_supplier1" name="desc_supplier1" value="{{record_comp_schedule.desc_supplier1}}" readonly></textarea>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Qty:</label>
+    <input type="text" class="form-control" id="qnty_supplier1" name="qnty_supplier1" value="{{record_comp_schedule.qnty_supplier1}}" readonly>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Unit Price:</label>
+    <input type="text" class="form-control" id="unit_price_supplier1" name="unit_price_supplier1" value="{{record_comp_schedule.unit_price_supplier1}}" readonly>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Total Price:</label>
+    <input type="text" class="form-control" id="total_price_supplier1" name="total_price_supplier1" value="{{record_comp_schedule.total_price_supplier1}}" readonly>
+</div>
+
+<!-- <div class="col-md-4">
+    <label  class="form-label">File for supplier1:</label>
+    <input type="file" class="form-control" id="upload" value="" name="upload" accept=".doc, .docx, .pdf, .txt">
+</div> -->
+
+<!-- <div class="col-md-4">                
+    <label  class="form-label">File2 for supplier1:</label>
+    {{record.upload_name}}
+
+</div> 
+
+<legend>Supplier 2</legend>
+<div class="col-md-6">
+    <label  class="form-label">Supplier 2 (Company Name):</label>
+    <input type="text" class="form-control" id="company_name_supplier2" name="company_name_supplier2" value="{{record_comp_schedule.company_name_supplier2}}" readonly>
+</div>
+
+<div class="col-md-6">
+    <label  class="form-label">Item Name. (supplier 2):</label>
+    <input type="text" class="form-control" id="item_name_supplier2" name="item_name_supplier2" value="{{record_comp_schedule.item_name_supplier2}}" readonly>
+</div>
+
+<div class="col-md-12">
+    <label  class="form-label">Description:</label>
+    <textarea type="text" class="form-control" id="desc_supplier2" name="desc_supplier2" value="{{record_comp_schedule.desc_supplier2}}" readonly></textarea>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Qty:</label>
+    <input type="text" class="form-control" id="qnty_supplier2" name="qnty_supplier2" value="{{record_comp_schedule.qnty_supplier2}}" readonly>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Unit price:</label>
+    <input type="text" class="form-control" id="unit_price_supplier2" name="unit_price_supplier2" value="{{record_comp_schedule.unit_price_supplier2}}" readonly>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Total Price:</label>
+    <input type="text" class="form-control" id="total_price_supplier2" name="total_price_supplier2" value="{{record_comp_schedule.total_price_supplier2}}" readonly>
+</div>
+
+<hr>
+
+<legend>Supplier 3</legend>
+<div class="col-md-6">
+    <label  class="form-label">Supplier 3 (Company Name):</label>
+    <input type="text" class="form-control" id="company_name_supplier3" name="company_name_supplier3" value="{{record_comp_schedule.company_name_supplier3}}" readonly>
+</div>
+
+<div class="col-md-6">
+    <label  class="form-label">Item Name:</label>
+    <input type="text" class="form-control" id="item_name_supplier3" name="item_name_supplier3" value="{{record_comp_schedule.item_name_supplier3}}" readonly>
+</div>
+
+<div class="col-md-12">
+    <label  class="form-label">Description:</label>
+    <textarea type="text" class="form-control" id="desc_supplier3" name="desc_supplier3" value="{{record_comp_schedule.desc_supplier3}}" readonly></textarea>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Qty:</label>
+    <input type="text" class="form-control" id="qnty_supplier3" name="qnty_supplier3" value="{{record_comp_schedule}.qnty_supplier3}" readonly>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Unit Price:</label>
+    <input type="text" class="form-control" id="unit_price_supplier3" name="unit_price_supplier3" value="{{record_comp_schedule.unit_price_supplier3}}" readonly>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Total Price:</label>
+    <input type="text" class="form-control" id="total_price_supplier3" name="total_price_supplier3" value="{{record_comp_schedule.total_price_supplier3}}" readonly>
+</div>
+
+<hr>
+
+<div class="col-md-4">
+    <label  class="form-label">Recommended Supplier:</label>
+    <input type="text" class="form-control" id="recommended_supplier" name="recommended_supplier" value="{{record_comp_schedule.recommended_supplier}}" readonly>
+</div>
+
+<div class="col-md-8">
+    <label  class="form-label">Reasons for recommendations:</label>
+    <textarea type="text" class="form-control" id="recommended_supplier_reason" name="recommended_supplier_reason" value="{{record_comp_schedule.recommended_supplier_reason}}" readonly></textarea>
+</div>
+
+
+
+<hr>
+
+<div class="col-md-4">
+    <label  class="form-label">Requested By:</label>
+    <input type="text" class="form-control" id="requested_by" name="requested_by" value="{{record_comp_schedule.requested_by}}" readonly>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Signature:</label>
+    <input type="text" class="form-control" id="requested_by_sig" name="requested_by_sig" value="{{record_comp_schedule.requested_by_sig}}" readonly>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Date:</label>
+    <input type="text" class="form-control" id="requested_by_date" name="requested_by_date" value="{{record_comp_schedule.requested_by_date}}" readonly>
+</div>
+
+<hr>
+
+<div class="col-md-4">
+    <label  class="form-label">Technical Person:</label>
+    <input type="text" class="form-control" id="tech_person_by" name="tech_person_by" value="{{record_comp_schedule.tech_person_by}}" readonly>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Signature:</label>
+    <input type="text" class="form-control" id="tech_person_by_sig" name="tech_person_by_sig" value="{{record_comp_schedule.tech_person_by_sig}}" readonly>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Date:</label>
+    <input type="text" class="form-control" id="tech_person_date" name="tech_person_date" value="{{record_comp_schedule.tech_person_date}}" readonly>
+</div>
+<hr>
+
+<div class="col-md-4">
+    <label  class="form-label">Dept Head:</label>
+    <input type="text" class="form-control" id="dpt_head_by" name="dpt_head_by" value="{{record_comp_schedule.dpt_head_by}}" readonly>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Signature:</label>
+    <input type="text" class="form-control" id="dpt_head_by_sig" name="dpt_head_by_sig" value="{{record_comp_schedule.dpt_head_by_sig}}" readonly>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Date:</label>
+    <input type="text" class="form-control" id="dpt_head_date" name="dpt_head_date" value="{{record_comp_schedule.dpt_head_date}}" readonly>
+</div>
+
+
+
+
+
+<!-- <hr>
+
+<div class="col-md-6">
+    <label  class="form-label">Select DG/PI</label>
+    <select class="form-control" name="approved_by" id="approved_by">
+        <option value="None">..</option>
+
+        </select>  
+</div> 
+<hr>
+
+
+
+
+
+<hr>
+
+<div class="col-md-4">
+    <label  class="form-label">Approved by Chairperson:</label>
+    <input type="text" class="form-control" id="approved_by" name="approved_by" value="{{record_comp_schedule.approved_by}}" readonly>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Signature:</label>
+    <input type="text" class="form-control" id="approved_by_sig" name="approved_by_sig" value="{{record_comp_schedule.approved_by_sig}}" readonly>
+</div>
+
+<div class="col-md-4">
+    <label  class="form-label">Date:</label>
+    <input type="text" class="form-control" id="approved_date" name="approved_date" value="{{record_comp_schedule.approved_date}}" readonly>
+</div>
+<hr>
+
+<div class="col-md-4">
+    <label for="certifier" class="form-label">Quotation1</label>
+    <a id="quotation1" class="btn btn-primary" href="{{quote1}}" target="_blank">View</a>
+</div>  
+<div class="col-md-4">
+    <label for="certifier" class="form-label">Quotation2</label>
+    <a id="quotation2" class="btn btn-primary" href="{{quote2}}" target="_blank">View</a>
+</div>     
+
+<div class="col-md-4">
+    <label for="certifier" class="form-label">Quotation3</label>
+    <a id="quotation3" class="btn btn-primary" href="{{quote3}}" target="_blank">View</a>
+</div>
+{%endif%}
+
+<br><br>
+<hr>
+
+<div class="col-md-12">
+    <h3 style="text-align: center;"  class="form-label">Purchase Request</h3>
+</div><br>
+
+<div class="col-md-6">
+    <label for="fname" class="form-label">Requesting Department:</label>
+    <input type="text" class="form-control" id="requesting_dpt" name="requesting_dpt" value="{{record_purchase_request.requesting_dpt}}" readonly >
+</div>
+
+<div class="col-md-6">
+    <label for="fname" class="form-label">Budget Line Item (Where applicable):</label>
+    <input type="text" class="form-control" id="budget_line_item" name="budget_line_item" value="{{record_purchase_request.budget_line_item}}" readonly >
+</div>
+
+<div class="col-md-6">
+    <label for="lname" class="form-label">Request Justification:</label>
+    <input type="text" class="form-control" id="request_justification" name="request_justification" value="{{record_purchase_request.request_justification}}" readonly >
+</div>
+
+
+
+
+<p></p>
+
+<div class="col-md-6">
+    <label for="fname" class="form-label">QTY:</label>
+    <input type="text" class="form-control" id="qnty" name="qnty" value="{{record_purchase_request.qnty}}" readonly >
+</div>
+
+<div class="col-md-6">
+    <label for="lname" class="form-label">Item Name</label>
+    <input type="text" class="form-control" id="item_name" name="item_name" value="{{record_purchase_request.item_name}}" readonly >
+</div>
+
+<div class="col-md-12">
+    <label for="fname" class="form-label">Description of item to be purchased:</label>
+    <textarea type="text" class="form-control" id="description" name="description" value="{{record_purchase_request.description}}" readonly ></textarea>
+</div>
+
+
+
+<p></p>
+
+<div class="col-md-6">
+    <label for="fname" class="form-label"> Requestor:</label>
+    <input type="text" class="form-control" id="requester" name="requester" value="{{record_purchase_request.requester}}" readonly>
+</div>
+
+<div class="col-md-6">
+    <label for="fname" class="form-label">Date:</label>
+    <input type="text" class="form-control" id="date_of_request" name="date_of_request" value="{{record_purchase_request.date_of_request}}" readonly >
+</div>
+
+
+
+
+<div class="col-md-6">
+    <label for="supervisor_approved" class="form-label"> Department Head/ Designee:</label>
+    <input type="text" class="form-control" id="supervisor_approved" name="supervisor_approved" value="{{record_purchase_request.supervisor_approved}}" readonly >
+</div>
+
+<div class="col-md-6">
+    <label for="lname" class="form-label">Date:</label>
+    <input type="text" class="form-control" id="supervisor_approved_date" name="supervisor_approved_date" value="{{record_purchase_request.supervisor_approved_date}}" readonly >
+</div>
+
+
+
+
+<div class="col-md-6">
+    <label for="fname" class="form-label"> Accounts Clerk</label>
+    <input type="text" class="form-control" id="finance_officer" name="finance_officer" value="{{record_purchase_request.finance_officer}}" readonly >
+</div>
+
+<div class="col-md-6">
+    <label for="fname" class="form-label">Date</label>
+    <input type="text" class="form-control" id="finance_officer_approved_date" name="finance_officer_approved_date" value="{{record_purchase_request.finance_officer_approved_date}}" readonly >
+</div>
+
+
+-->
+<div class="col-md-6">
+
+    <img src="home/templates/pages/transactions/2.png"  width="75" height="75"/>
+
+
+</div>
+
+<!-- 
+<div class="col-md-12">
+
+<a href="{ url 'makepdf' }?id={{id}} " class="btn btn-primary"  >Print</a>
+
+</div>         -->
+                 
+
+
+{% endblock content %}

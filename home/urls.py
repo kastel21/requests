@@ -275,6 +275,7 @@ urlpatterns = [
     path('verify_otp', views.verify_otp, name='verify_otp'),
     path('save_sig', views.save_sig, name='save_sig'),
 
+    re_path('makepdf', views.makepdf, name='makepdf'),
 
     path('services', views.services, name='services'),
     path('services_all', views.services_all, name='services_all'),

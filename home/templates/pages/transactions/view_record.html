@@ -207,7 +207,7 @@
 </div>  
 <div class="col-md-4">
     <label for="certifier" class="form-label">Delivery Note</label>
-    <a id="quotation2" class="btn btn-primary" href="8010125.pdf" target="_blank">View</a>
+    <a id="quotation2" class="btn btn-primary" href="{{quote}}" target="_blank">View</a>
 </div>   
 
 
@@ -655,7 +655,11 @@
 </div>
 
 
-                
+<div class="col-md-12">
+
+<a href="{ url 'makepdf' }?id={{id}} " class="btn btn-primary"  >Print</a>
+
+</div>        
                 
 
 

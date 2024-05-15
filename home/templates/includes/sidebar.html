@@ -108,6 +108,22 @@
         </li>
 
         
+<!-- 
+        <li {% if tab == "8"  %} class="pc-item active" {% else %} class="pc-item" {%endif%}>
+          {% if request.user.is_superuser %}
+          <a href="{% url 'home:services' %}" class="pc-link">
+          {% else %}
+          <a href="{% url 'home:services' %}" class="pc-link">
+          {% endif %}
+            <span class="pc-micon"><i class="ti ti-wallet"></i></span>
+
+            <span class="pc-mtext">Services</span></a>
+
+        </li> -->
+
+
+
+
         <li {% if tab == "7"  %} class="pc-item active" {% else %} class="pc-item" {%endif%}>
           {% if request.user.is_superuser %}
           <a href="{% url 'home:suppliers' %}" class="pc-link">

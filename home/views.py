@@ -5277,6 +5277,7 @@ def transaction_open_record(request):
 
     context = {'record':record,
                   'pop':pop,
+                  "id":_id,
                   "profoma":profoma,
                   "quote":quote,
                   "quote1":quote1,
@@ -5343,6 +5344,8 @@ def transaction_open_record(request):
 
       context = {'record':record,
                   'pop':pop,
+                  "id":my_id,
+
                   "profoma":profoma,
                   "quote":quote,
                                     "quote1":quote1,
@@ -5357,6 +5360,173 @@ def transaction_open_record(request):
                    "tab":"6"}
         # #print"finance",finance)
       return render(request, 'pages/transactions/view_record.html', context)
+
+
+
+
+import qrcode
+
+from django.http import HttpResponse
+from django.views.generic import View
+
+from core.utils import render_to_pdf #created in step 4
+
+import hashlib
+
+
+def gen_qr_code(_id,url,watermark):
+    print("in code gen")
+
+    try:
+        img = qrcode.make(url)
+
+        print("gened")
+        img = img.convert("RGB")
+        if True:
+            # Open the watermark image
+            watermark = Image.open(watermark)
+            # Get the size of the QR code image
+            qr_width, qr_height = img.size
+            # Resize the watermark to be smaller than the QR code image
+            max_size = min(qr_width, qr_height) // 5
+            watermark = watermark.resize((max_size, max_size))
+            # Get the size of the resized watermark image
+            watermark_width, watermark_height = watermark.size
+            # Calculate the position to place the watermark at the center of the QR code
+            position = ((qr_width - watermark_width) // 2, (qr_height - watermark_height) // 2)
+            # Paste the watermark on the QR code image
+            img.paste(watermark, position)
+        
+        filename = "qr_code_"+_id+".png"
+        print(filename)
+        img.save("signatures/qr_code/" + filename)
+        print("saved")
+        return "signatures/qr_code/" + filename
+    except Exception as e:
+        print(str(e))
+
+
+from num2words import num2words
+
+@login_required(login_url='auth_login')
+
+@csrf_exempt
+def makepdf(request):
+    if request.method == "GET":
+        _id = request.GET.get('id',default=None)
+        quote1 = "#"
+        quote2 = "#"
+        quote3 = "#"
+
+        # record = Record.objects.get(id=_id)
+        qrcode = "temp.png"
+        harshed_id = _id #hashlib.md5(_id.encode("utf")).hexdigest()
+
+        try:
+            qrcode=gen_qr_code(_id,"http://lorkas.co.zw:8000/verify_record/"+harshed_id,"TB\\templates\\logo.png")
+        except Exception as e:
+            print(str(e))
+
+
+
+
+
+    
+        record = PaymentTicket.objects.get(id=_id)
+        try:
+          pop = "/procurement"+PaymentTicketPOP.objects.get(payment_ticket_id=_id).pop_path
+        except:
+          pop = "#"
+
+        
+
+        record_payment_request = PaymentRequest.objects.get(id = record.payment_request_id)
+        amount_in_words = num2words(float(record_payment_request.amount))
+
+        try:
+          quote = "/procurement"+PaymentRequestPOP.objects.get(request_id=record_payment_request.id).quote_path1
+        except:
+          quote = "#"
+
+        record_purchase_order = PurchaseOrder.objects.get(id = record_payment_request.purchase_id)
+        try:
+          profoma = "/procurement"+PurchaseOrderQuotation.objects.get(request_id=record_purchase_order.id).quote_path
+        except:
+          profoma = "#"
+
+        if record_purchase_order.comp_schedule_id == "None":
+          record_comp_schedule = False
+        else:
+          record_comp_schedule = ComparativeSchedule.objects.get(id = record_purchase_order.comp_schedule_id)
+          try:
+            quote1 = "/procurement"+CompScheduleQuotation.objects.get(request_id=record_comp_schedule.id).quote1_path
+            quote2 = "/procurement"+CompScheduleQuotation.objects.get(request_id=record_comp_schedule.id).quote2_path
+            quote3 = "/procurement"+CompScheduleQuotation.objects.get(request_id=record_comp_schedule.id).quote3_path
+
+          except:
+            quote1 = "#"
+            quote2 = "#"
+            quote3 = "#"
+
+        record_purchase_request = PuchaseRequest.objects.get(id = record_purchase_order.purchase_id)
+
+
+
+
+
+        context = {'record':record,
+                    'pop':pop,
+                    "amount_in_words":amount_in_words+" Dollars only",
+                    "id":_id,
+                    "profoma":profoma,
+                    "quote":quote,
+                    "quote1":quote1,
+                    "quote2":quote2,
+                    "quote3":quote3,
+
+                    "record_payment_request":record_payment_request,
+                    "record_purchase_order":record_purchase_order,
+                    "record_comp_schedule":record_comp_schedule,
+                    "record_purchase_request":record_purchase_request,
+                      "code":_id+".png",
+                    "tab":"6",
+                    "message":"success"
+                    }
+
+
+
+
+
+
+
+        # data = {
+            
+        #     "qrcode":qrcode,
+        #     "dst_comments": record.dst_comments,
+
+        # "dst_approver": dst_approver,
+        # "ammended_report": record.ammended_report,
+        # "dst_testing_lab": record.dst_testing_lab,
+
+        # "dst_name_of_reviewer": dst_name_of_reviewer,
+        # "dst_name_of_reviewer_sig":  "signatures\\"+sig_dst_reviewer+".png",
+
+        # "dst_date_of_reviewed": record.dst_date_of_reviewed,
+        # "dst_name_of_reporter": dst_name_of_reporter,
+        # "dst_name_of_reporter_sig":  "signatures\\"+sig_dst_reporter+".png",
+
+
+        # }   
+
+
+        pdf = render_to_pdf('pages/transactions/print.html', context)
+        return HttpResponse(pdf, content_type='application/pdf')
+    else:
+      # _id = request.GET.get('id',default=None)
+
+      return JsonResponse({"message":"method not allowed"})
+
+
 
 
 

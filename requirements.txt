@@ -8,3 +8,5 @@ pymysql
 flask
 python-dateutil
 xhtml2pdf==0.2.10
+num2words
+qr_code
